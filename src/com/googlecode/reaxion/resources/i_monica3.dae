@@ -17,22 +17,22 @@
   </asset>
   <library_images>
     <image id="psdFileTex3-image" name="psdFileTex3">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monica-2UV.psd</init_from>
+      <init_from>textures/i_monica-2UV.psd</init_from>
     </image>
     <image id="psdFileTex2-image" name="psdFileTex2">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monica-2UVEye.psd</init_from>
+      <init_from>textures/i_monica-2UVEye.psd</init_from>
     </image>
     <image id="file7-image" name="file7">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monicaHairUV2.png</init_from>
+      <init_from>textures/i_monicaHairUV2.png</init_from>
     </image>
     <image id="file4-image" name="file4">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monicaHairUVBangs1.png</init_from>
+      <init_from>textures/i_monicaHairUVBangs1.png</init_from>
     </image>
     <image id="file5-image" name="file5">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monicaHairUVBangs2.png</init_from>
+      <init_from>textures/i_monicaHairUVBangs2.png</init_from>
     </image>
     <image id="file6-image" name="file6">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monicaHairUVBangs3.png</init_from>
+      <init_from>textures/i_monicaHairUVBangs3.png</init_from>
     </image>
   </library_images>
   <library_materials>

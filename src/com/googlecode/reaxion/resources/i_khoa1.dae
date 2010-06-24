@@ -17,16 +17,16 @@
   </asset>
   <library_images>
     <image id="file6-image" name="file6">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_monica-2UVEye.png</init_from>
+      <init_from>textures/i_monica-2UVEye.png</init_from>
     </image>
     <image id="file7-image" name="file7">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_khoa1UV-2.png</init_from>
+      <init_from>textures/i_khoa1UV-2.png</init_from>
     </image>
     <image id="file4-image" name="file4">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_khoa1HairUV-3.png</init_from>
+      <init_from>textures/i_khoa1HairUV-3.png</init_from>
     </image>
     <image id="file5-image" name="file5">
-      <init_from>file://C:/Users/Khoa Ha/Models/i_khoa1GlassesUV-2.png</init_from>
+      <init_from>textures/i_khoa1GlassesUV-2.png</init_from>
     </image>
   </library_images>
   <library_materials>
