@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import com.jme.animation.Bone;
 import com.jme.animation.SkinNode;
 import com.jme.math.Vector3f;
+import com.jme.scene.shape.Box;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
@@ -95,23 +96,22 @@ public class Reaxion {
 	private class LoadingTask implements Callable<Void> {
 		@Override
 		public Void call() throws Exception {
-			InputStream model = Reaxion.class.getClassLoader()
-			.getResourceAsStream("com/googlecode/reaxion/resources/model1.dae");
+			InputStream model = Reaxion.class.getClassLoader().getResourceAsStream("com/googlecode/reaxion/resources/sphere.dae");
 			if(model == null) {
 				System.err.println("Unable to find model!");
 				System.exit(0);
 			}
 			loadState.setProgress(0.0f, "Loading resources/models");
-			ColladaImporter.load(model, "model1");
-			SkinNode skinNode = ColladaImporter.getSkinNode(ColladaImporter.getSkinNodeNames().get(0));
-			Bone skeleton = ColladaImporter.getSkeleton(ColladaImporter.getSkeletonNames().get(0));
-			skeleton.getChild("femChild13_fem2Base4_femBase5_l_leg1").setLocalTranslation(new Vector3f(1.0f, 1.0f, 1.0f));
+			ColladaImporter.load(model, "sphere");
+			//SkinNode skinNode = ColladaImporter.getSkinNode(ColladaImporter.getSkinNodeNames().get(0));
+			//Bone skeleton = ColladaImporter.getSkeleton(ColladaImporter.getSkeletonNames().get(0));
+			//skeleton.getChild("femChild13_fem2Base4_femBase5_l_leg1").setLocalTranslation(new Vector3f(1.0f, 1.0f, 1.0f));
 			ColladaImporter.cleanUp();
 			loadState.setProgress(0.8f, "Loading scene...");
 			DisplaySystem.getDisplaySystem().getRenderer().getCamera().setAxes(new Vector3f(-1.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector3f(0.0f, 1.0f, 0.0f));
 			DisplaySystem.getDisplaySystem().getRenderer().getCamera().setLocation(new Vector3f(0.0f, -100.0f, 20.0f));
-			debugState.getRootNode().attachChild(skinNode);
-			debugState.getRootNode().attachChild(skeleton);
+			//debugState.getRootNode().attachChild(skinNode);
+			//debugState.getRootNode().attachChild(skeleton);
 			debugState.getRootNode().updateRenderState();
 			debugState.getRootNode().updateGeometricState(0, true);
 			loadState.setProgress(1.0f, "Finished loading!");
