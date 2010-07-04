@@ -1,84 +1,123 @@
+/*
+ * Copyright (c) 2008, OgreLoader
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     - Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     - Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     - Neither the name of the Gibbon Entertainment nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY 'Gibbon Entertainment' "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL 'Gibbon Entertainment' BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.googlecode.reaxion.test;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
+import com.radakan.jme.mxml.*;
+import com.jme.app.SimpleGame;
+import com.jme.input.FirstPersonHandler;
+import com.jme.math.FastMath;
+import com.jme.renderer.ColorRGBA;
+import com.jme.scene.Node;
+import com.jme.system.DisplaySystem;
+import com.jme.util.resource.ResourceLocatorTool;
+import com.jme.util.resource.SimpleResourceLocator;
+import com.radakan.jme.mxml.anim.*;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jmetest.TutorialGuide.HelloModelLoading;
-import jmetest.renderer.loader.TestColladaLoading;
-
-import com.jme.animation.Bone;
-import com.jme.animation.SkinNode;
-import com.jme.app.SimpleGame;
-import com.jme.app.AbstractGame.ConfigShowMode;
-import com.jme.bounding.BoundingSphere;
-import com.jme.math.Vector3f;
-import com.jme.scene.Node;
-import com.jme.scene.shape.Box;
-import com.jme.system.DisplaySystem;
-import com.jme.util.GameTaskQueueManager;
-import com.jme.util.export.binary.BinaryImporter;
-import com.jmex.editors.swing.settings.GameSettingsPanel;
-import com.jmex.game.StandardGame;
-import com.jmex.game.state.DebugGameState;
-import com.jmex.game.state.GameStateManager;
-import com.jmex.game.state.load.LoadingGameState;
-import com.jmex.model.collada.ColladaImporter;
-import com.jmex.model.collada.ColladaToJme;
-import com.jmex.model.converters.FormatConverter;
-import com.jmex.model.converters.ObjToJme;
-
-
 public class ModelTest extends SimpleGame {
-	
-	private static final Logger logger = Logger
-    .getLogger(ModelTest.class.getName());
 
-	private static final float GAME_VERSION = 0.1f;
-	
-	/**
-	 * Filepath to test model
-	 */
-	private static final String path = "C:/Users/Khoa Ha/Programming/Java/Workspace/reaxion/src/com/googlecode/reaxion/resources/cow.dae";
+    private static final Logger logger = Logger.getLogger(ModelTest.class.getName());
+    
+    private Node model;
+    
+    public static void main(String[] args){
+        ModelTest app = new ModelTest();
+        app.setConfigShowMode(ConfigShowMode.AlwaysShow);
+        app.start();
+    }
+    
+    protected void loadMeshModel(){
+        OgreLoader loader = new OgreLoader();
+        MaterialLoader matLoader = new MaterialLoader();
+        
+        // Attempt to load material references and model geometry
+        try {
+            URL matURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa3-2.material");
+            URL meshURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa3-2.mesh.xml");
+            
+            if (matURL != null){
+                matLoader.load(matURL.openStream());
+                if (matLoader.getMaterials().size() > 0)
+                    loader.setMaterials(matLoader.getMaterials());
+            }
+            
+            model = (Node) loader.loadModel(meshURL);
+        } catch (IOException ex) {
+            Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    protected void simpleInitGame() {
+        try {
+            SimpleResourceLocator locator = new SimpleResourceLocator(ModelTest.class
+                                                    .getClassLoader()
+                                                    .getResource("com/googlecode/reaxion/resources/"));
+            ResourceLocatorTool.addResourceLocator(
+                    ResourceLocatorTool.TYPE_TEXTURE, locator);
+            ResourceLocatorTool.addResourceLocator(
+                    ResourceLocatorTool.TYPE_MODEL, locator);
+        } catch (URISyntaxException e1) {
+            logger.log(Level.WARNING, "unable to setup texture directory.", e1);
+        }
+        
+        Logger.getLogger("com.jme.scene.state.lwjgl").setLevel(Level.SEVERE);
+        
+        DisplaySystem.getDisplaySystem().setTitle("Test Mesh Instancing");
+        display.getRenderer().setBackgroundColor(ColorRGBA.darkGray);
+        ((FirstPersonHandler)input).getKeyboardLookHandler().setMoveSpeed(100);
+        cam.setFrustumFar(20000f);
+        loadMeshModel();
+        
+        // Not quite sure what this does (bone traversal is my guess), but the animation referenced is a preset in the skeleton file
+        for (int x = 0; x < 1; x++){
+            for (int y = 0; y < 1; y++){
+                Node clone = MeshCloner.cloneMesh(model);
+                clone.setLocalTranslation(75 * x,  0,  75 * y);
+                rootNode.attachChild(clone);
+                
+                if (clone.getControllerCount() > 0){
+                    MeshAnimationController animControl = (MeshAnimationController) clone.getController(0);
+                    animControl.setAnimation("run");
+                    animControl.setTime(animControl.getAnimationLength("run") * FastMath.nextRandomFloat());
+                }
+            }
+        }
+        
+        rootNode.updateGeometricState(0, true);
+        rootNode.updateRenderState();
+    }
 
-	/**
-	 * Initialize the system
-	 */
-
-	public static void main(String[] args) {
-		ModelTest main = new ModelTest();
-		main.setConfigShowMode(ConfigShowMode.AlwaysShow);
-		main.start();
-	}
-	
-	/**
-	 * Start up the system
-	 * @throws IOException when StandardGame's settings are unavailable (?)	
-	 * @throws InterruptedException 
-	 */
-	protected void simpleInitGame() {
-		Vector3f center = new Vector3f(-1, -1, -1);
-		rootNode.attachChild(new Box("box", center, .5f, .5f, .5f));
-		rootNode.attachChild(getModel());
-	}
-	
-	private Node getModel() {
-		InputStream source;
-
-		try {
-			source = new FileInputStream(path);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-
-		ColladaImporter.load(source, path);
-		Node n = ColladaImporter.getModel();
-		return(n);
-	}
+    
+    
 }
