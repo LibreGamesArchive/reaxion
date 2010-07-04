@@ -31,6 +31,7 @@ package com.googlecode.reaxion.test;
 import com.radakan.jme.mxml.*;
 import com.jme.app.SimpleGame;
 import com.jme.input.FirstPersonHandler;
+import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -41,6 +42,7 @@ import com.radakan.jme.mxml.anim.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,6 +51,10 @@ public class ModelTest extends SimpleGame {
     private static final Logger logger = Logger.getLogger(ModelTest.class.getName());
     
     private Node model;
+    
+    // holds all animation names
+    private ArrayList<String> animation = new ArrayList<String>();
+    int index = 0;
     
     public static void main(String[] args){
         ModelTest app = new ModelTest();
@@ -62,8 +68,8 @@ public class ModelTest extends SimpleGame {
         
         // Attempt to load material references and model geometry
         try {
-            URL matURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa3-2.material");
-            URL meshURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa3-2.mesh.xml");
+            URL matURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa4.material");
+            URL meshURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa4.mesh.xml");
             
             if (matURL != null){
                 matLoader.load(matURL.openStream());
@@ -99,23 +105,42 @@ public class ModelTest extends SimpleGame {
         cam.setFrustumFar(20000f);
         loadMeshModel();
         
+        // Populate list with animation states
+        for (String i : ((MeshAnimationController)(model.getController(0))).getAnimationNames())
+        	animation.add(i);
+        System.out.println("Animations: "+animation);
+        
+        updateAnimation();
+    }
+    
+    private void updateAnimation() {
         // Not quite sure what this does (bone traversal is my guess), but the animation referenced is a preset in the skeleton file
         for (int x = 0; x < 1; x++){
             for (int y = 0; y < 1; y++){
-                Node clone = MeshCloner.cloneMesh(model);
-                clone.setLocalTranslation(75 * x,  0,  75 * y);
-                rootNode.attachChild(clone);
+                rootNode.attachChild(model);
                 
-                if (clone.getControllerCount() > 0){
-                    MeshAnimationController animControl = (MeshAnimationController) clone.getController(0);
-                    animControl.setAnimation("run");
-                    animControl.setTime(animControl.getAnimationLength("run") * FastMath.nextRandomFloat());
+                if (model.getControllerCount() > 0){
+                    MeshAnimationController animControl = (MeshAnimationController) model.getController(0);
+                    animControl.setAnimation(animation.get(index));
+                    animControl.setTime(animControl.getAnimationLength(animation.get(index)) * FastMath.nextRandomFloat());
                 }
             }
         }
         
         rootNode.updateGeometricState(0, true);
         rootNode.updateRenderState();
+    }
+    
+    // Update each frame to check for input
+    protected void simpleUpdate(){
+        // press 1 and 2 to cycle through states
+        if (KeyInput.get().isKeyDown(KeyInput.KEY_1)){
+        	index = (animation.size() + index - 1) % animation.size();
+        	updateAnimation();
+        }else if (KeyInput.get().isKeyDown(KeyInput.KEY_2)){
+        	index = (animation.size() + index + 1) % animation.size();
+        	updateAnimation();
+        }
     }
 
     
