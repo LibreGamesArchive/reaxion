@@ -110,22 +110,24 @@ public class ModelTest extends SimpleGame {
         	animation.add(i);
         System.out.println("Animations: "+animation);
         
+        // add the model to the scene
+        rootNode.attachChild(model);
+        
         updateAnimation();
     }
     
     private void updateAnimation() {
         // Not quite sure what this does (bone traversal is my guess), but the animation referenced is a preset in the skeleton file
-        for (int x = 0; x < 1; x++){
-            for (int y = 0; y < 1; y++){
-                rootNode.attachChild(model);
+        //for (int x = 0; x < 1; x++){
+            //for (int y = 0; y < 1; y++){
                 
                 if (model.getControllerCount() > 0){
                     MeshAnimationController animControl = (MeshAnimationController) model.getController(0);
                     animControl.setAnimation(animation.get(index));
-                    animControl.setTime(animControl.getAnimationLength(animation.get(index)) * FastMath.nextRandomFloat());
+                    //animControl.setTime(animControl.getAnimationLength(animation.get(index)) * FastMath.nextRandomFloat());
                 }
-            }
-        }
+            //}
+        //}
         
         rootNode.updateGeometricState(0, true);
         rootNode.updateRenderState();
