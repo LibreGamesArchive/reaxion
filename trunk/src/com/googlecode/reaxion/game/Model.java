@@ -39,6 +39,16 @@ public class Model {
     protected Boolean allowPitch = true;
     
     /**
+	 * Whether this model can be locked onto by the camera
+	 */
+    public Boolean trackable = false;
+    
+    /**
+	 * Marks model for damage collision-checking with player
+	 */
+    public Boolean dangerous = false;
+    
+    /**
 	 * Contains the names of all loaded animations
 	 */
     protected ArrayList<String> animation = new ArrayList<String>();
