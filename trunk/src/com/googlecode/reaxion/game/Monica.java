@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game;
 
 public class Monica extends MajorCharacter {
 	
-	private static final String filename = "i_monica6";
+	private static final String filename = "i_monica6-4";
 	
     public Monica() {
     	// Load model
