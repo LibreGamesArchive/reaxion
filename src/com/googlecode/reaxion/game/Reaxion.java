@@ -76,12 +76,14 @@ public class Reaxion {
 		locateTextures();
 		
 		// Let's test stuff
-        Character khoa = new Khoa(false);  // Player can't lock onto self
-        battleState.getRootNode().attachChild(khoa.model);        
-        battleState.assignPlayer(khoa);
+        Character mp = new Monica();  // Player can't lock onto self
+        battleState.getRootNode().attachChild(mp.model);        
+        battleState.assignPlayer(mp);
         
         // reupdate due to added changes
         battleState.getRootNode().updateRenderState();
+        
+        mp.play("stand");
         
 	}
 
