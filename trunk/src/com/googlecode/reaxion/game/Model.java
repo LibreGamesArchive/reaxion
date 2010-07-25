@@ -24,6 +24,11 @@ public class Model {
     protected Vector3f vector;
     
     /**
+	 * Vector representing offset for locking point
+	 */
+    public Vector3f trackOffset = new Vector3f(0, 0, 0);
+    
+    /**
 	 * Allow rotation along the x-axis
 	 */
     protected Boolean allowYaw = true;
@@ -66,10 +71,12 @@ public class Model {
 	 */
     public void initialize() {
         // Populate list with animation states
-        for (String i : ((MeshAnimationController)(model.getController(0))).getAnimationNames())
-        	animation.add(i);
-        System.out.println("Animations: "+animation);
-        
+    	if (model.getControllerCount() > 0) {
+    		for (String i : ((MeshAnimationController)(model.getController(0))).getAnimationNames())
+    			animation.add(i);
+    		System.out.println("Animations: "+animation);
+    	}
+    	
         // Create vector
         vector = new Vector3f();
     }
@@ -89,6 +96,10 @@ public class Model {
     
     public void setVector(Vector3f v) {
     	vector = v;
+    }
+    
+    public Vector3f getTrackPoint() {
+    	return model.getWorldTranslation().add(trackOffset);
     }
     
     /**

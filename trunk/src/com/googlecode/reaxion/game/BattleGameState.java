@@ -1,9 +1,15 @@
 package com.googlecode.reaxion.game;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.logging.Logger;
+
+import jmetest.input.TestHardwareMouse;
 
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
+import com.jme.input.AbsoluteMouse;
 import com.jme.input.FirstPersonHandler;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
@@ -13,18 +19,21 @@ import com.jme.light.PointLight;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
+import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
+import com.jme.scene.state.TextureState;
 import com.jme.scene.state.WireframeState;
 import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
+import com.jme.util.TextureManager;
 import com.jme.util.geom.Debugger;
 import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.StatisticsGameState;
 
 /**
- * {@code BattleGameState} currently mirrors much of the functionality of {@code DebugGameState},
- * but will eventually become specialized to handle in-game battles.
+ * {@code BattleGameState} is a heavily modified version {@code DebugGameState}, with
+ * added functionality built around {@code Models}, movement, and the camera system.
  * @author Khoa
  */
 public class BattleGameState extends CameraGameState {
@@ -41,8 +50,23 @@ public class BattleGameState extends CameraGameState {
     protected boolean statisticsCreated = false;
     protected AbstractGame game = null;
     
+    /**
+     * Contains all scene model elements
+     */
+    private ArrayList<Model> models;
+    
+	private AbsoluteMouse mouse;
+	public String cameraMode = "free"; //options are "lock" and "free"
+	public static int cameraDistance = 15;
+	private Model currentTarget;
+	private float camRotXZ;
+	private final static float camRotXZSpd = (float)Math.PI/12;
+	private float camRotY;
+	private final static float camRotYSpd = (float)Math.PI/24;
+	private final static float[] camRotYLimit = {-0.7854f, 1.5394f}; //-pi/4 and 49pi/100 (close to pi/2)
+	
     protected PlayerInput playerInput;
-    private Character player;
+    private MajorCharacter player;
     
     public BattleGameState() {
     	super("battleGameState");
@@ -51,6 +75,7 @@ public class BattleGameState extends CameraGameState {
     
     private void init() {
         rootNode = new Node("RootNode");
+        models = new ArrayList<Model>();
 
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
@@ -80,27 +105,6 @@ public class BattleGameState extends CameraGameState {
         lightState.attach( light );
         rootNode.setRenderState( lightState );
         
-        // Set rootNode for transparency
-        /*
-        BlendState tpState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
-		tpState.setEnabled(true);
-		tpState.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
-		tpState.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
-		tpState.setBlendEnabled(true);
-		tpState.setTestEnabled(true);
-		tpState.setTestFunction(BlendState.TestFunction.GreaterThan);
-		tpState.setReference(0.1f);
-		rootNode.setRenderState(tpState);
-		rootNode.setRenderQueueMode(Renderer.QUEUE_TRANSPARENT);
-		rootNode.setLightCombineMode(Spatial.LightCombineMode.Replace);
-		DisplaySystem.getDisplaySystem().getRenderer().getQueue().setTwoPassTransparency(true);
-		ZBufferState zstate = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState(); 
-		zstate.setWritable(false);
-		zstate.setEnabled(false);
-		*/ 
-        
-        //TODO: change camera system so that it follows x distance behind the player and is in line
-        //		with the player and the target (another model or point)
         // Fix up the camera, will not be needed for final camera controls
         Vector3f loc = new Vector3f( 0.0f, 2.5f, 10.0f );
         Vector3f left = new Vector3f( -1.0f, 0.0f, 0.0f );
@@ -110,8 +114,26 @@ public class BattleGameState extends CameraGameState {
         cam.update();
 
         // Initial InputHandler
-	    input = new FirstPersonHandler(cam, 15.0f, 0.5f);
+	    //input = new FirstPersonHandler(cam, 15.0f, 0.5f);
+        input = new InputHandler();
 	    initKeyBindings();
+	    
+	    //Setup software mouse
+		mouse = new AbsoluteMouse("Mouse Input", DisplaySystem.getDisplaySystem().getWidth(), DisplaySystem.getDisplaySystem().getHeight());
+		mouse.registerWithInputHandler(input);
+		TextureState cursor = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
+		cursor.setTexture(TextureManager.loadTexture(
+				TestHardwareMouse.class.getClassLoader().getResource("com/googlecode/reaxion/resources/cursors/cursor.png"),
+				Texture.MinificationFilter.NearestNeighborNoMipMaps, Texture.MagnificationFilter.NearestNeighbor));
+		mouse.setRenderState(cursor);
+		BlendState as1 = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
+		as1.setBlendEnabled(true);
+		as1.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
+		as1.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
+		as1.setTestEnabled(true);
+		as1.setTestFunction(BlendState.TestFunction.GreaterThan);
+		mouse.setRenderState(as1);
+		rootNode.attachChild(mouse);
 
         // Finish up
         rootNode.updateRenderState();
@@ -125,10 +147,10 @@ public class BattleGameState extends CameraGameState {
      * @author Khoa
      *
      */
-    public void assignPlayer(Character p) {
+    public void assignPlayer(MajorCharacter p) {
     	player = p;
     	// Create input system
-    	playerInput = new PlayerInput(player);
+    	playerInput = new PlayerInput(player, cam);
     }
     
     @ Override
@@ -143,9 +165,29 @@ public class BattleGameState extends CameraGameState {
     // duplicate the functionality of DebugGameState
     // Most of this can be commented out during finalization
     private void initKeyBindings() {
+    	/** Assign key TAB to action "camera_mode". */
+        KeyBindingManager.getKeyBindingManager().set("camera_mode",
+                KeyInput.KEY_TAB);
+    	/** Assign key 1 to action "target_near". */
+        KeyBindingManager.getKeyBindingManager().set("target_near",
+                KeyInput.KEY_1);
+        /** Assign key 2 to action "target_far". */
+        KeyBindingManager.getKeyBindingManager().set("target_far",
+                KeyInput.KEY_2);
+        /** Assign WASD keys to free camera controls. */
+        KeyBindingManager.getKeyBindingManager().set("cam_left",
+                KeyInput.KEY_A);
+        KeyBindingManager.getKeyBindingManager().set("cam_right",
+                KeyInput.KEY_D);
+        KeyBindingManager.getKeyBindingManager().set("cam_up",
+                KeyInput.KEY_W);
+        KeyBindingManager.getKeyBindingManager().set("cam_down",
+                KeyInput.KEY_S);
         /** Assign key P to action "toggle_pause". */
         KeyBindingManager.getKeyBindingManager().set("toggle_pause",
                 KeyInput.KEY_P);
+        
+        // These actions are holdovers from DebugGameState and are not fully "supported"
         /** Assign key T to action "toggle_wire". */
         KeyBindingManager.getKeyBindingManager().set("toggle_wire",
                 KeyInput.KEY_T);
@@ -181,10 +223,11 @@ public class BattleGameState extends CameraGameState {
     	if (input != null) {
     		input.update(tpf);
     	
-	        /** If toggle_pause is a valid command (via key p), change pause. */
+    		/** If toggle_pause is a valid command (via key P), change pause. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "toggle_pause", false)) {
 	            pause = !pause;
+	            System.out.println("Paused: "+pause);
 	        }
 	    	
 	        if (pause)
@@ -195,16 +238,71 @@ public class BattleGameState extends CameraGameState {
     	if (playerInput != null) {
     		playerInput.checkKeys();
     	}
-    	// TODO: Traverse node tree and call act() where valid, not just for player
-    	// Update the Player
-    	if (player != null) {
-    		player.act();
+    	// Traverse list of models and call act() method
+    	for (Model m : models)
+    		m.act();
+    	
+    	// Update the camera
+    	if (cameraMode == "lock" && player != null && models.size() > 0 && models.indexOf(currentTarget) != -1) {
+    		Vector3f p = player.getTrackPoint();
+    		//System.out.println(models+" "+currentTarget);
+    		Vector3f t = currentTarget.getTrackPoint();
+    		if (!p.equals(t)) {
+    			Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.x-p.z);
+    			camOffset = camOffset.normalize().mult(cameraDistance);
+    			//System.out.println((p.x-camOffset.x)+", "+(p.y-camOffset.y)+", "+(p.z-camOffset.z));
+    			cam.setLocation(new Vector3f(p.x-camOffset.x, p.y-camOffset.y, p.z-camOffset.z));
+    			cam.lookAt(p, new Vector3f(0, 1, 0));
+    		}
+    	} else if (cameraMode == "free" && player != null) {
+    		Vector3f p = player.getTrackPoint();
+    		float x, y, z, minor;
+    		y = cameraDistance*(float)Math.sin(camRotY);
+    		minor = cameraDistance*(float)Math.cos(camRotY);
+    		x = minor*(float)Math.sin(camRotXZ);
+    		z = minor*(float)Math.cos(camRotXZ);
+    		cam.setLocation(new Vector3f(p.x+x, p.y+y, p.z+z));
+    		cam.lookAt(p, new Vector3f(0, 1, 0));
     	}
 
         // Update the geometric state of the rootNode
         rootNode.updateGeometricState(tpf, true);
 
         if (input != null) {
+        	/** If camera_mode is a valid command (via key TAB), switch camera modes. */
+	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "camera_mode", false)) {
+	            swapCameraMode();
+	        }
+        	/** If camera controls are valid commands (via WASD keys), change camera angle. */
+        	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "cam_left", true) && cameraMode == "free") {
+	            camRotXZ -= camRotXZSpd;
+	        }
+        	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "cam_right", true) && cameraMode == "free") {
+	            camRotXZ += camRotXZSpd;
+	        }
+        	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "cam_up", true) && cameraMode == "free") {
+	            camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[1]);
+	        }
+        	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "cam_down", true) && cameraMode == "free") {
+        		camRotY = Math.max(camRotY - camRotYSpd, camRotYLimit[0]);
+	        }
+        	/** If target_near is a valid command (via key 1), switch to next closest target. */
+	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "target_near", false) && cameraMode == "lock") {
+	            nextTarget(-1);
+	            rootNode.updateRenderState();
+	        }
+	        /** If target_far is a valid command (via key 2), switch to next furthest target. */
+	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "target_far", false) && cameraMode == "lock") {
+	            nextTarget(1);
+	            rootNode.updateRenderState();
+	        }
 	        /** If toggle_wire is a valid command (via key T), change wirestates. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "toggle_wire", false)) {
@@ -282,6 +380,105 @@ public class BattleGameState extends CameraGameState {
 	        	}
 	        }
         }
+    }
+    
+    /**
+     * Toggles camera mode, maintaining viewpoint when switching to free, and auto-locking
+     * closest target when switching to lock
+     */
+    private void swapCameraMode() {
+    	if (cameraMode == "lock") {
+    		cameraMode = "free";
+    		Vector3f p = cam.getLocation();
+    		camRotY = (float)Math.asin((double)(p.y/cameraDistance));
+    		camRotXZ = (float)Math.atan2((double)p.x, (double)p.z);
+    	} else if (cameraMode == "free") {
+    		cameraMode = "lock";
+    		nextTarget(0);
+    	}
+    	System.out.println("Camera switch to "+cameraMode);
+    }
+    
+    /**
+     * Sets the target to the specified model and returns whether it was in the model list
+     */
+    public Boolean setTarget(Model m) {
+    	int i = models.indexOf(m);
+    	if (i != -1)
+    		currentTarget = m;
+    	cam.update();
+    	return (i != -1);
+    }
+    
+    /**
+     * Sets the currentTarget to another model, according to the value of {@code k}
+     * @param k -1 for next closest from current target, 1 for next further,
+     * and 0 for closest to player
+     */
+    private void nextTarget(int k) {
+    	// do nothing if there are no models
+    	if (models.size() == 0)
+    		return;
+    	
+    	ArrayList<Object[]> o = new ArrayList<Object[]>();
+    	
+    	// Add models and distances to 2D ArrayList
+    	for (int i=0; i<models.size(); i++) {
+    		Model m = models.get(i);
+    		if (m != player && m.trackable) {
+    			Object[] a = new Object[2];
+    			a[0] = new Float(player.model.getWorldTranslation().distance(m.model.getWorldTranslation()));
+    			a[1] = m;
+    			o.add(a);
+    		}
+    	}
+    	
+    	// Make it an array
+    	Object[] t = o.toArray();
+    	
+    	// Sort 2D array by distances
+    	Arrays.sort(t, new Comparator<Object>() {
+        	public int compare(Object one, Object two){
+        		Object[] first = (Object[]) one;
+        		Object[] secnd = (Object[]) two;
+        		//System.out.println((Float)(first[0])+" - "+(Float)(secnd[0]));
+        		return (int)((Float)(first[0]) - (Float)(secnd[0]));
+        	}
+        });
+    	/*
+    	System.out.print("[ ");
+    	for (Object f : t) {System.out.print(Arrays.toString((Object[])f));}
+    	System.out.println(" ]");
+    	*/
+    	
+        // Locate the currentTarget's index
+        int ind = -1;
+        for (int i=0; i<t.length; i++) {
+    		if (((Object[])t[i])[1] == currentTarget) {
+    			ind = i;
+    			break;
+    		}
+    	}
+        
+    	// Set the new target
+        switch (k) {
+        	case 0: currentTarget = (Model)(((Object[])t[0])[1]); break;
+        	case -1: currentTarget = (Model)(((Object[])t[(t.length+ind-1)%t.length])[1]); break;
+        	case 1: currentTarget = (Model)(((Object[])t[(ind+1)%t.length])[1]);
+        }
+        
+        // Update camera
+        cam.update();
+    }
+    
+    public void addModel(Model m) {
+    	models.add(m);
+    	rootNode.attachChild(m.model);
+    }
+    
+    public boolean removeModel(Model m) {
+    	rootNode.detachChild(m.model);
+    	return models.remove(m);
     }
 
     public void stateRender(float tpf) {

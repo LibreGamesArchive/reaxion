@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game;
 
+import com.jme.math.Vector3f;
+
 public class MajorCharacter extends Character {
 	
 	/**
@@ -23,6 +25,8 @@ public class MajorCharacter extends Character {
     	
     	type();
     	
+    	trackOffset = new Vector3f(0, 2, 0);
+    	
     	trackable = true;
     	
     	renew();
@@ -33,6 +37,8 @@ public class MajorCharacter extends Character {
     	super(filename);
     	
     	type();
+    	
+    	trackOffset = new Vector3f(0, 2, 0);
     	
     	trackable = _trackable;
     	
