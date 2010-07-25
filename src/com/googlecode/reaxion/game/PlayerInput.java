@@ -3,7 +3,9 @@ package com.googlecode.reaxion.game;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
+import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jme.renderer.Camera;
 
 /**
  * Input Handler for the allows player to move it forward, backward, left, and right.
@@ -13,18 +15,20 @@ import com.jme.math.Vector3f;
  */
 public class PlayerInput extends InputHandler {
 
-	private Character player;
+	private MajorCharacter player;
+	private Camera camera;
 	
 	private Boolean forthOn = false;
 	private Boolean leftOn = false;
 	
     /**
      * Supply the node to control and the api that will handle input creation.
-     * @param node the node we wish to move
-     * @param api the library that will handle creation of the input.
+     * @param p the player character
+     * @param c the camera for the current state
      */
-    public PlayerInput(Character p) {
+    public PlayerInput(MajorCharacter p, Camera c) {
     	player = p;
+    	camera = c;
         setKeyBindings();
     }
 
@@ -45,7 +49,7 @@ public class PlayerInput extends InputHandler {
     /**
      * Must be called during {@code update()} by the {@code GameState}. Checks the current state of
      * input commands, preserving priority by the order in which they are pressed. Sets player's unit
-     * vector accordingly.
+     * vector accordingly. (Since theta = 0 is along the Z axis,)
      * @author Khoa
      */
     public void checkKeys() {
@@ -65,25 +69,25 @@ public class PlayerInput extends InputHandler {
     	float unitZ = 0f;
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", true)) {
     		if (forthOn)
-    			unitZ = -1f;
+    			unitX = -1f;
     	} else {
     		forthOn = false;
     	}
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", true)) {
     		if (!forthOn)
-    			unitZ = 1f;
+    			unitX = 1f;
     	} else {
     		forthOn = true;
     	}
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", true)) {
     		if (!leftOn)
-    			unitX = 1f;
+    			unitZ = 1f;
     	} else {
     		leftOn = true;
     	}
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", true)) {
     		if (leftOn)
-    			unitX = -1f;
+    			unitZ = -1f;
     	} else {
     		leftOn = false;
     	}
@@ -96,7 +100,17 @@ public class PlayerInput extends InputHandler {
     		unitZ /= hyp;
     	}
     	
+    	// calculate new angle in XZ plane
+    	Vector3f cp = camera.getLocation();
+    	Vector3f pp = player.getTrackPoint();
+    	float angle = FastMath.atan2(cp.x-pp.x, cp.z-pp.z);
+    	
+    	
+    	// rotate XZ components
+    	float nUnitX = unitX*FastMath.sin(angle) + unitZ*FastMath.cos(angle);
+    	float nUnitZ = unitX*FastMath.cos(angle) - unitZ*FastMath.sin(angle);
+    	
     	// assign vector to player
-    	player.setVector(new Vector3f(unitX, unitY, unitZ));
+    	player.setVector(new Vector3f(nUnitX, unitY, nUnitZ));
     }
 }

@@ -2,12 +2,23 @@ package com.googlecode.reaxion.game;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import jmetest.input.TestHardwareMouse;
+
 import com.googlecode.reaxion.test.ModelTest;
+import com.jme.image.Texture;
+import com.jme.input.AbsoluteMouse;
+import com.jme.input.InputHandler;
+import com.jme.scene.state.BlendState;
+import com.jme.scene.state.TextureState;
+import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
+import com.jme.util.TextureManager;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
@@ -21,7 +32,7 @@ import com.jmex.game.state.load.LoadingGameState;
  */
 public class Reaxion {
 
-	private static final float GAME_VERSION = 0.15f;
+	private static final float GAME_VERSION = 0.2f;
 
 	/**
 	 * Multithreaded game system that shows the state of GameStates
@@ -76,9 +87,24 @@ public class Reaxion {
 		locateTextures();
 		
 		// Let's test stuff
-        Character mp = new Monica();  // Player can't lock onto self
-        battleState.getRootNode().attachChild(mp.model);        
+        MajorCharacter mp = new Monica(false);  // Player can't lock onto self
+        battleState.addModel(mp);    
         battleState.assignPlayer(mp);
+        
+        // Add targets
+        MajorCharacter t = new Khoa();
+        battleState.addModel(t);
+        MajorCharacter c = new Cy();
+        battleState.addModel(c);
+        c.model.setLocalTranslation(2, 0, -1);
+        MajorCharacter n = new Nilay();
+        battleState.addModel(n);
+        n.model.setLocalTranslation(-5, 0, -3);
+        battleState.setTarget(t);
+        
+        // Add checker plane
+        Model cb = new Model("checkerPlane");
+        battleState.getRootNode().attachChild(cb.model);
         
         // reupdate due to added changes
         battleState.getRootNode().updateRenderState();
@@ -104,6 +130,7 @@ public class Reaxion {
 			battleState = new BattleGameState();
 			GameStateManager.getInstance().attachChild(battleState);
 			battleState.setActive(true);
+			
 			return null;
 		}	
 	}

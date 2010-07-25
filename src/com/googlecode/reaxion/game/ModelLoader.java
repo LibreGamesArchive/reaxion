@@ -53,6 +53,7 @@ public class ModelLoader {
             
             chr.model = (Node) loader.loadModel(meshURL);
             chr.initialize();
+            System.out.println(filename+" loaded.");
         } catch (IOException ex) {
             Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);
         }
