@@ -8,7 +8,6 @@ import com.jme.image.Texture;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
-import com.jme.math.Ring;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.state.BlendState;
@@ -20,7 +19,6 @@ import com.jmex.effects.particles.ParticleFactory;
 import com.jmex.effects.particles.ParticleInfluence;
 import com.jmex.effects.particles.ParticleMesh;
 import com.jmex.effects.particles.SimpleParticleInfluenceFactory;
-import com.jmex.effects.particles.ParticleSystem.EmitType;
 
 public class TestParticleEffects extends SimpleGame {
 
@@ -110,23 +108,21 @@ public class TestParticleEffects extends SimpleGame {
 						Texture.MinificationFilter.Trilinear,
 						Texture.MagnificationFilter.Bilinear));
 		ts.setEnabled(true);
-		pMesh = ParticleFactory.buildParticles("particles", 50);
+		pMesh = ParticleFactory.buildParticles("particles", 75);
 		pMesh.setInitialVelocity(0);
-		pMesh.setEmissionDirection(new Vector3f(0,1,0));
-		pMesh.setReleaseRate(50);
-        pMesh.setReleaseVariance(0.0f);
-		pMesh.getParticleController().setRepeatType(ParticleController.RT_CYCLE);
+		pMesh.setReleaseRate(0);
+		pMesh.setReleaseVariance(0.0f);
 		pMesh.setStartSize(2f);
 		pMesh.setEndSize(.5f);
 		pMesh.setMinimumLifeTime(8000f);
 		pMesh.setMaximumLifeTime(10000f);
-		pMesh.setStartColor(new ColorRGBA((float) 204/255, 1, 1, 1));
+		pMesh.setStartColor(new ColorRGBA((float) 175/255, 1, 1, 1));
 		pMesh.setEndColor(new ColorRGBA(0, 0, 0, 0));
 		pMesh.setMaximumAngle(360f * FastMath.DEG_TO_RAD);
 		pMesh.getParticleController().setControlFlow(false);
 		pMesh.setParticlesInWorldCoords(true);
-		//pMesh.forceRespawn();
-		pMesh.warmUp(200);
+		pMesh.warmUp(1);
+		pMesh.setRepeatType(ParticleController.RT_CLAMP);
 		if(wind != null) {
 			wind.setEnabled(false);
 			pMesh.removeInfluence(wind);
@@ -142,14 +138,12 @@ public class TestParticleEffects extends SimpleGame {
 		rootNode.attachChild(pMesh);
 		rootNode.updateRenderState();
 	}
-	
+
 	protected void simpleInitGame() {
 		display.setTitle("Particle Effects Test");
-
 		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		manager.set("fireball", KeyInput.KEY_1);
 		manager.set("lightball", KeyInput.KEY_2);
-
 	}
 
 }
