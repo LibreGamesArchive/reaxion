@@ -17,8 +17,10 @@ import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.light.PointLight;
 import com.jme.math.Vector3f;
+import com.jme.math.Quaternion;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
+import com.jme.scene.shape.Cylinder;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
 import com.jme.scene.state.TextureState;
@@ -64,6 +66,11 @@ public class BattleGameState extends CameraGameState {
 	private float camRotY;
 	private final static float camRotYSpd = (float)Math.PI/24;
 	private final static float[] camRotYLimit = {-0.7854f, 1.5394f}; //-pi/4 and 49pi/100 (close to pi/2)
+	
+	/*
+	// test axes converge at point
+	private Cylinder[] cyl = new Cylinder[3];
+	*/
 	
     protected PlayerInput playerInput;
     private MajorCharacter player;
@@ -134,6 +141,15 @@ public class BattleGameState extends CameraGameState {
 		as1.setTestFunction(BlendState.TestFunction.GreaterThan);
 		mouse.setRenderState(as1);
 		rootNode.attachChild(mouse);
+		
+		/*
+        // make test cylinders
+        for (int i=0; i<cyl.length; i++) {
+        	cyl[i] = new Cylinder("cyl"+i, 3, 3, .025f, 100f);
+        	rootNode.attachChild(cyl[i]);
+        	cyl[i].setLocalRotation(new Quaternion().fromAngleAxis((float)Math.PI/2, new Vector3f((i==0)?1:0,(i==1)?1:0,(i==2)?1:0)));
+        }
+        */
 
         // Finish up
         rootNode.updateRenderState();
@@ -248,7 +264,7 @@ public class BattleGameState extends CameraGameState {
     		//System.out.println(models+" "+currentTarget);
     		Vector3f t = currentTarget.getTrackPoint();
     		if (!p.equals(t)) {
-    			Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.x-p.z);
+    			Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.z-p.z);
     			camOffset = camOffset.normalize().mult(cameraDistance);
     			//System.out.println((p.x-camOffset.x)+", "+(p.y-camOffset.y)+", "+(p.z-camOffset.z));
     			cam.setLocation(new Vector3f(p.x-camOffset.x, p.y-camOffset.y, p.z-camOffset.z));
@@ -389,9 +405,10 @@ public class BattleGameState extends CameraGameState {
     private void swapCameraMode() {
     	if (cameraMode == "lock") {
     		cameraMode = "free";
-    		Vector3f p = cam.getLocation();
-    		camRotY = (float)Math.asin((double)(p.y/cameraDistance));
-    		camRotXZ = (float)Math.atan2((double)p.x, (double)p.z);
+    		Vector3f c = cam.getLocation();
+    		Vector3f p = player.getTrackPoint();
+    		camRotY = (float)Math.asin((double)((c.y-p.y)/cameraDistance));
+    		camRotXZ = (float)Math.atan2((double)(c.x-p.x), (double)(c.z-p.z));
     	} else if (cameraMode == "free") {
     		cameraMode = "lock";
     		nextTarget(0);
@@ -466,6 +483,14 @@ public class BattleGameState extends CameraGameState {
         	case -1: currentTarget = (Model)(((Object[])t[(t.length+ind-1)%t.length])[1]); break;
         	case 1: currentTarget = (Model)(((Object[])t[(ind+1)%t.length])[1]);
         }
+        
+        /*
+        // move test cylinders to lock point
+        Vector3f tp = currentTarget.getTrackPoint();
+        for (int i=0; i<cyl.length; i++) {
+        	cyl[i].setLocalTranslation(tp.x, tp.y, tp.z);
+        }
+        */
         
         // Update camera
         cam.update();
