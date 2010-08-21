@@ -3,8 +3,11 @@ package com.googlecode.reaxion.game;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
+import com.jme.scene.Spatial;
 import com.radakan.jme.mxml.anim.*;
 import java.util.ArrayList;
+
+import javax.swing.event.EventListenerList;
 
 /**
  * Wrapper class that contains the actual model, handles animation, etc. Imported
@@ -22,6 +25,11 @@ public class Model {
 	 * Vector representing speed
 	 */
     protected Vector3f vector;
+    
+    /**
+	 * Filename used to reference load files
+	 */
+    public String filename;
     
     /**
 	 * Vector representing offset for locking point
@@ -49,6 +57,11 @@ public class Model {
     public Boolean trackable = false;
     
     /**
+	 * Marks model for collision-checking with other solids
+	 */
+    public Boolean solid = false;
+    
+    /**
 	 * Marks model for damage collision-checking with player
 	 */
     public Boolean dangerous = false;
@@ -62,8 +75,23 @@ public class Model {
     public Model() {
     }
     
-    public Model(String filename) {
-    	ModelLoader.load(this, filename);
+    public Model(String fn) {
+    	filename = fn;
+    }
+     
+    /**
+     * Checks for collision with all nodes in current {@code BattleGameState}, returning
+     * other spatials if collisions occur.
+     */
+    public Spatial[] getCollisions(BattleGameState b) {
+    	ArrayList<Spatial> a = new ArrayList<Spatial>();
+    	for (int i=0; i < b.getRootNode().getQuantity(); i++) {
+    		Spatial n = b.getRootNode().getChild(i);
+    		if (model.hasCollision(n, true)) {
+    			a.add(n);
+    		}
+    	}
+    	return (a.toArray(new Spatial[0]));
     }
     
     /**
@@ -124,6 +152,6 @@ public class Model {
     /**
 	 * Needs to be called during updates, override to add functionality
 	 */
-    public void act() {
+    public void act(BattleGameState b) {
     }
 }

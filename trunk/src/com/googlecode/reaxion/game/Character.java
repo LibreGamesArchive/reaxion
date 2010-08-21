@@ -1,6 +1,10 @@
 package com.googlecode.reaxion.game;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.jme.math.Vector3f;
+import com.jme.scene.Spatial;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**
@@ -37,11 +41,13 @@ public class Character extends Model {
 	
     public Character() {
     	super();
+    	solid = true;
     	restrict();
     }
     
     public Character(String filename) {
     	super(filename);
+    	solid = true;
     	restrict();
     }
     
@@ -52,14 +58,18 @@ public class Character extends Model {
     }
     
     @ Override
-    public void act() {
-    	super.act();
+    public void act(BattleGameState b) {
+    	super.act(b);
     	
     	// move
     	vector = vector.mult(speed);
         Vector3f loc = model.getLocalTranslation();
         loc.addLocal(vector);
         model.setLocalTranslation(loc);
+        
+        if (getCollisions(b).length > 0) {
+        	System.out.println("collision with: "+Arrays.toString(getCollisions(b)));
+        }
         
         // rotate to match direction
         if (vector.x != 0 || vector.z != 0 || vector.y != 0)

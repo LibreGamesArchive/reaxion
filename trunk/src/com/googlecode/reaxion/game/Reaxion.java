@@ -83,33 +83,6 @@ public class Reaxion {
 		if(GameSettingsPanel.prompt(game.getSettings()))
 			game.start();
 		GameTaskQueueManager.getManager().update(new GameInit());
-		
-		locateTextures();
-		
-		// Let's test stuff
-        MajorCharacter mp = new Monica(false);  // Player can't lock onto self
-        battleState.addModel(mp);    
-        battleState.assignPlayer(mp);
-        
-        // Add targets
-        MajorCharacter t = new Khoa();
-        battleState.addModel(t);
-        MajorCharacter c = new Cy();
-        battleState.addModel(c);
-        c.model.setLocalTranslation(2, 0, -1);
-        MajorCharacter n = new Nilay();
-        battleState.addModel(n);
-        n.model.setLocalTranslation(-5, 0, -3);
-        battleState.setTarget(t);
-        
-        // Add checker plane
-        Model cb = new Model("checkerPlane");
-        battleState.getRootNode().attachChild(cb.model);
-        
-        // reupdate due to added changes
-        battleState.getRootNode().updateRenderState();
-        
-        mp.play("stand");
         
 	}
 
@@ -130,6 +103,33 @@ public class Reaxion {
 			battleState = new BattleGameState();
 			GameStateManager.getInstance().attachChild(battleState);
 			battleState.setActive(true);
+			
+			locateTextures();
+			
+			// Add some characters
+	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica(false));
+	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
+	        MajorCharacter c = (MajorCharacter)LoadingQueue.push(new Cy());     
+	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay());
+	        
+	        // Add checker plane
+	        Model cb = LoadingQueue.push(new Model("checkerPlane"));
+	        
+	        
+	        // Load everything!
+	        LoadingQueue.execute(battleState);
+	        
+	        // Set stuff in the battleState
+	        battleState.assignPlayer(mp);
+	        c.model.setLocalTranslation(2, 0, -1);
+	        n.model.setLocalTranslation(-5, 0, -3);
+	        battleState.setTarget(t);
+	        //battleState.getRootNode().attachChild(cb.model);
+	        
+	        // reupdate due to added changes
+	        battleState.getRootNode().updateRenderState();
+	        
+	        mp.play("stand");
 			
 			return null;
 		}	
