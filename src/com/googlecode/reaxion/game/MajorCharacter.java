@@ -65,8 +65,8 @@ public class MajorCharacter extends Character {
     
     // Standard animated states, only override if specific states differ
     @ Override
-    public void act() {
-    	super.act();
+    public void act(BattleGameState b) {
+    	super.act(b);
     	
     	animate("stand", "run");
     }

@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.event.EventListenerList;
+
 /**
  * Facilitates the importing and loading of files into a {@code Model}
  * @author Khoa
@@ -53,7 +55,7 @@ public class ModelLoader {
             
             chr.model = (Node) loader.loadModel(meshURL);
             chr.initialize();
-            System.out.println(filename+" loaded.");
+            LoadingQueue.pop(chr);
         } catch (IOException ex) {
             Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);
         }

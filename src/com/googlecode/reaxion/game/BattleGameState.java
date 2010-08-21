@@ -20,6 +20,7 @@ import com.jme.math.Vector3f;
 import com.jme.math.Quaternion;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
+import com.jme.scene.Spatial;
 import com.jme.scene.shape.Cylinder;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
@@ -256,7 +257,7 @@ public class BattleGameState extends CameraGameState {
     	}
     	// Traverse list of models and call act() method
     	for (Model m : models)
-    		m.act();
+    		m.act(this);
     	
     	// Update the camera
     	if (cameraMode == "lock" && player != null && models.size() > 0 && models.indexOf(currentTarget) != -1) {
