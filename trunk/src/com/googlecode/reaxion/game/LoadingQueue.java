@@ -38,7 +38,8 @@ public class LoadingQueue {
 	}
 	
 	/**
-	 *  Removes loaded model from queue, only to be called by ModelLoader
+	 *  Removes loaded model from queue and adds it to {@code state},
+	 *  only to be called by ModelLoader
 	 * @param m Model
 	 */
 	public static void pop(Model m) {

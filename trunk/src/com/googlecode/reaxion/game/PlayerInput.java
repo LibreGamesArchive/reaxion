@@ -20,6 +20,7 @@ public class PlayerInput extends InputHandler {
 	
 	private Boolean forthOn = false;
 	private Boolean leftOn = false;
+	private Boolean upOn = false;
 	
     /**
      * Supply the node to control and the api that will handle input creation.
@@ -44,6 +45,8 @@ public class PlayerInput extends InputHandler {
         keyboard.set("back", KeyInput.KEY_NUMPAD2);
         keyboard.set("right", KeyInput.KEY_NUMPAD6);
         keyboard.set("left", KeyInput.KEY_NUMPAD4);
+        keyboard.set("up", KeyInput.KEY_NUMPAD7);
+        keyboard.set("down", KeyInput.KEY_NUMPAD1);
     }
     
     /**
@@ -62,6 +65,10 @@ public class PlayerInput extends InputHandler {
     		leftOn = false;
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", false))
     		leftOn = true;
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("up", false))
+    		upOn = false;
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("down", false))
+    		upOn = true;
     	
     	// create unit vector and check for priority releases
     	float unitX = 0f;
@@ -90,6 +97,18 @@ public class PlayerInput extends InputHandler {
     			unitZ = -1f;
     	} else {
     		leftOn = false;
+    	}
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("down", true)) {
+    		if (!upOn)
+    			unitY = -1f;
+    	} else {
+    		upOn = true;
+    	}
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("up", true)) {
+    		if (upOn)
+    			unitY = 1f;
+    	} else {
+    		upOn = false;
     	}
     	
     	// normalize vector

@@ -4,6 +4,7 @@ import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
+import com.jme.scene.shape.Sphere;
 import com.radakan.jme.mxml.anim.*;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Model {
     public Node model;
     
     /**
-	 * Vector representing speed
+	 * Vector representing velocity
 	 */
     protected Vector3f vector;
     
@@ -57,7 +58,7 @@ public class Model {
     public Boolean trackable = false;
     
     /**
-	 * Marks model for collision-checking with other solids
+	 * Marks model for movement collision-checking with other solids 
 	 */
     public Boolean solid = false;
     
