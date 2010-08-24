@@ -170,6 +170,22 @@ public class BattleGameState extends CameraGameState {
     	playerInput = new PlayerInput(player, cam);
     }
     
+    /**
+     * Returns pointer to main character.
+     * @author Khoa
+     *
+     */
+    public MajorCharacter getPlayer() {
+    	return player;
+    }
+    
+    /**
+     * Returns an {@code ArrayList} of models.
+     */
+    public ArrayList<Model> getModels() {
+    	return models;
+    }
+    
     @ Override
     protected void onActivate() {
     	super.onActivate();
@@ -239,12 +255,22 @@ public class BattleGameState extends CameraGameState {
         // Update the InputHandler
     	if (input != null) {
     		input.update(tpf);
+    		
+    		/** If exit is a valid command (via key Esc), exit game */
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
+	                false)) {
+	        	if (game != null) {
+	        		game.finish();
+	        	} else {
+	        		System.exit(0);
+	        	}
+	        }
     	
     		/** If toggle_pause is a valid command (via key P), change pause. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "toggle_pause", false)) {
-	            pause = !pause;
-	            System.out.println("Paused: "+pause);
+	        	pause = !pause;
+	        	System.out.println("Paused: "+pause);
 	        }
 	    	
 	        if (pause)
@@ -387,15 +413,6 @@ public class BattleGameState extends CameraGameState {
 	                    MouseInput.get().setCursorVisible(!MouseInput.get().isCursorVisible());
 	                    logger.info("Cursor Visibility set to " + MouseInput.get().isCursorVisible());
 	                }
-	
-	        if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
-	                false)) {
-	        	if (game != null) {
-	        		game.finish();
-	        	} else {
-	        		System.exit(0);
-	        	}
-	        }
         }
     }
     

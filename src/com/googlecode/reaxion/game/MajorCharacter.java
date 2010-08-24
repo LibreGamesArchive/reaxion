@@ -25,7 +25,7 @@ public class MajorCharacter extends Character {
     	
     	type();
     	
-    	trackOffset = new Vector3f(0, 2, 0);
+    	trackOffset = new Vector3f(0, 3, 0);
     	
     	trackable = true;
     	
@@ -38,7 +38,7 @@ public class MajorCharacter extends Character {
     	
     	type();
     	
-    	trackOffset = new Vector3f(0, 2, 0);
+    	trackOffset = new Vector3f(0, 3, 0);
     	
     	trackable = _trackable;
     	

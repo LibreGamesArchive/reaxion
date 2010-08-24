@@ -38,27 +38,13 @@ public class ModelLoader {
 	 * @author Khoa
 	 */
     public static Model load(Model chr, String filename) {
-    	
-        OgreLoader loader = new OgreLoader();
-        MaterialLoader matLoader = new MaterialLoader();
-        
-        // Attempt to load material references and model geometry
-        try {
-            URL matURL = ModelTest.class.getClassLoader().getResource(baseURL+filename+".material");
-            URL meshURL = ModelTest.class.getClassLoader().getResource(baseURL+filename+".mesh.xml");
-            
-            if (matURL != null){
-                matLoader.load(matURL.openStream());
-                if (matLoader.getMaterials().size() > 0)
-                    loader.setMaterials(matLoader.getMaterials());
-            }
-            
-            chr.model = (Node) loader.loadModel(meshURL);
-            chr.initialize();
-            LoadingQueue.pop(chr);
-        } catch (IOException ex) {
-            Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    	try {
+			chr.model = ResourceLibrary.get(filename);
+			chr.initialize();
+	    	LoadingQueue.pop(chr);
+		} catch (Exception e) {
+			System.out.println("Error loading model.");
+		}
         
         return chr;
     }

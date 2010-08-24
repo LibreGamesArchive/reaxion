@@ -111,6 +111,7 @@ public class Reaxion {
 	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
 	        MajorCharacter c = (MajorCharacter)LoadingQueue.push(new Cy());     
 	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay());
+	        MajorCharacter c2 = (MajorCharacter)LoadingQueue.push(new Cy());
 	        
 	        // Add checker plane
 	        Model cb = LoadingQueue.push(new Model("checkerPlane"));
@@ -122,6 +123,7 @@ public class Reaxion {
 	        // Set stuff in the battleState
 	        battleState.assignPlayer(mp);
 	        c.model.setLocalTranslation(2, 0, -1);
+	        c2.model.setLocalTranslation(6, 5, 3);
 	        n.model.setLocalTranslation(-5, 0, -3);
 	        battleState.setTarget(t);
 	        //battleState.getRootNode().attachChild(cb.model);
