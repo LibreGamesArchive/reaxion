@@ -49,11 +49,6 @@ public class Reaxion {
 	 * and placement of objects, lights, etc.
 	 */
 	private BattleGameState battleState;
-	
-	/**
-	 * Log response messages from jME
-	 */
-	private static final Logger logger = Logger.getLogger(ModelTest.class.getName());
 
 	/**
 	 * Initialize the system
@@ -104,8 +99,6 @@ public class Reaxion {
 			GameStateManager.getInstance().attachChild(battleState);
 			battleState.setActive(true);
 			
-			locateTextures();
-			
 			// Add some characters
 	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica(false));
 	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
@@ -122,8 +115,9 @@ public class Reaxion {
 	        
 	        // Set stuff in the battleState
 	        battleState.assignPlayer(mp);
-	        c.model.setLocalTranslation(2, 0, -1);
+	        c.model.setLocalTranslation(2, 5, -1);
 	        c2.model.setLocalTranslation(6, 5, 3);
+	        c2.gravity = 0;
 	        n.model.setLocalTranslation(-5, 0, -3);
 	        battleState.setTarget(t);
 	        //battleState.getRootNode().attachChild(cb.model);
@@ -135,23 +129,5 @@ public class Reaxion {
 			
 			return null;
 		}	
-	}
-	
-	/**
-	 * Points to the location of texture files to be loaded on the system
-	 * @author Khoa
-	 */
-	public void locateTextures() {
-		try {
-            SimpleResourceLocator locator = new SimpleResourceLocator(ModelTest.class
-                                                    .getClassLoader()
-                                                    .getResource("com/googlecode/reaxion/resources/"));
-            ResourceLocatorTool.addResourceLocator(
-                    ResourceLocatorTool.TYPE_TEXTURE, locator);
-            ResourceLocatorTool.addResourceLocator(
-                    ResourceLocatorTool.TYPE_MODEL, locator);
-        } catch (URISyntaxException e1) {
-            logger.log(Level.WARNING, "unable to setup texture directory.", e1);
-        }
 	}
 }

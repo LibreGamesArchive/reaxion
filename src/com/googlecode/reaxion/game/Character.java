@@ -27,19 +27,29 @@ public class Character extends Model {
 	public int maxHp = 0;
 	
 	/**
-	 * Current ability points of character
+	 * Current gauge points of character
 	 */
-	public int ap = 0;
+	public int gauge = 0;
 	
 	/**
-	 * Maximum ability points of character
+	 * Maximum gauge points of character
 	 */
-	public int maxAp = 0;
+	public int maxGauge = 0;
 	
 	/**
 	 * Allowed scalar speed
 	 */
 	public float speed = 0;
+	
+	/**
+	 * Initial jump velocity
+	 */
+	public float jump = 1;
+	
+	/**
+	 * Y-velocity while airborne
+	 */
+	public float gravVel = 0;
 	
 	/**
 	 * Bounding capsule (cylinder with spherical ends),
@@ -50,13 +60,13 @@ public class Character extends Model {
 	
     public Character() {
     	super();
-    	solid = true;
+    	gravity = -.06f;
     	restrict();
     }
     
     public Character(String filename) {
     	super(filename);
-    	solid = true;
+    	gravity = -.06f;
     	restrict();
     }
     
@@ -71,16 +81,23 @@ public class Character extends Model {
     	super.act(b);
     	
         // rotate to match direction
-        if (vector.x != 0 || vector.z != 0 || vector.y != 0)
-        	rotate(vector);
+        if (velocity.x != 0 || velocity.z != 0 /*|| vector.y != 0*/)
+        	rotate(velocity);
     	
     	// move
-    	vector = vector.mult(speed);
+        velocity = velocity.mult(speed);
+        // apply gravity
+        velocity.y += gravVel;
+        gravVel += gravity;
+        // check the ground
+    	contactGround();
     	// let other Characters push player around
     	if (b.getPlayer() == this)
     		moveCollide(b);
+    	// check the ground once more
+    	contactGround();
         Vector3f loc = model.getLocalTranslation();
-        loc.addLocal(vector);
+        loc.addLocal(velocity);
         model.setLocalTranslation(loc);
         
 //        if (getCollisions(b).length > 0) {
@@ -88,6 +105,17 @@ public class Character extends Model {
 //        }
         
     }
+    
+    /**
+     * Make the character jump if grounded (assuming ground is y=0), returns whether on ground
+     */
+    /*
+    public void jump() {
+    	if (model.getWorldTranslation().y<=0)
+    		gravVel = jump;
+    	return 
+    }
+    */
     
     /**
      * Checks for other characters with bounding capsules and adjusts movement vector
@@ -101,9 +129,9 @@ public class Character extends Model {
     				if (c.boundRadius != 0 && c.boundHeight != 0) {
     					// since both capsules are topologically circles, this suffices as an intersection check
     					// current velocity is factored in to predict where the Character will be
-    					float x = c.model.getWorldTranslation().x - model.getWorldTranslation().x - vector.x;
-    					float y = c.model.getWorldTranslation().y - model.getWorldTranslation().y - vector.y;
-    					float z = c.model.getWorldTranslation().z - model.getWorldTranslation().z - vector.z;
+    					float x = c.model.getWorldTranslation().x + c.velocity.x - model.getWorldTranslation().x - velocity.x;
+    					float y = c.model.getWorldTranslation().y + c.velocity.y - model.getWorldTranslation().y - velocity.y;
+    					float z = c.model.getWorldTranslation().z + c.velocity.z - model.getWorldTranslation().z - velocity.z;
     					float h = boundRadius + c.boundRadius - FastMath.sqrt(FastMath.pow(x, 2) + FastMath.pow(z, 2));
     					// if they overlap, investigate within the plane of intersection along Y
     					if (h > 0) {
@@ -123,15 +151,14 @@ public class Character extends Model {
     	float angleXZ = FastMath.atan2(z, x);
     	// distance between radii along normal axis
     	float dd = FastMath.sqrt(FastMath.pow(x, 2) + FastMath.pow(z, 2));
-    	
     	// if collision within the other Character's cylinder, only displace in the XZ plane
     	if ((y + c.boundRadius >= boundRadius && y <= boundHeight - boundRadius) || /* bottom of other cylinder is inside this one */
     			(boundRadius - y >= c.boundRadius && boundRadius - y <= c.boundHeight - c.boundRadius)) { /* bottom of this cylinder is inside other */
     		//magnitude of displacement in the XZ plane
     		float shift = boundRadius + c.boundRadius - dd;
     		// fix the velocity vector so that the collision doesn't occur
-    		vector.x -= shift*FastMath.cos(angleXZ);
-    		vector.z -= shift*FastMath.sin(angleXZ);
+    		velocity.x -= shift*FastMath.cos(angleXZ);
+    		velocity.z -= shift*FastMath.sin(angleXZ);
     	
     	// if collision is between bounding caps, displace in the plane of collision
     	} else {
@@ -160,7 +187,7 @@ public class Character extends Model {
     			// vector pointing from contact point to innermost overlap point
     			Vector3f impact = new Vector3f(shiftD * FastMath.cos(angleXZ), shiftY, shiftD * FastMath.sin(angleXZ));
     			// fix the velocity vector so that the collision doesn't occur
-    			vector = vector.subtract(impact);
+    			velocity = velocity.subtract(impact);
     		}
     	}
     }
@@ -169,11 +196,14 @@ public class Character extends Model {
 	 * Handles the checking of animations, provided the names of the animations in
 	 * the parameters. Must be called manually, usually by overriding the act method.
 	 */
-    public void animate(String stand, String run) {
+    public void animate(String stand, String run, String jump) {
     	// Switch animations when moving
     	MeshAnimationController animControl = (MeshAnimationController) model.getController(0);
     	//System.out.println("{"+animControl.getActiveAnimation()+"}");
-    	if (vector.x != 0 || vector.z != 0 || vector.y != 0) {
+    	if (velocity.y != 0) {
+    		if (!animControl.getActiveAnimation().equals(jump))
+    			play(jump);
+    	} else if (velocity.x != 0 || velocity.z != 0) {
     		if (!animControl.getActiveAnimation().equals(run))
     			play(run);
     	} else {

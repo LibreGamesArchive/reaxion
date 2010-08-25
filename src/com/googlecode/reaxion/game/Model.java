@@ -25,7 +25,7 @@ public class Model {
     /**
 	 * Vector representing velocity
 	 */
-    protected Vector3f vector;
+    protected Vector3f velocity;
     
     /**
 	 * Filename used to reference load files
@@ -53,14 +53,19 @@ public class Model {
     protected Boolean allowPitch = true;
     
     /**
+     * Personal gravity for this model
+     */
+    public float gravity = 0;
+    
+    /**
 	 * Whether this model can be locked onto by the camera
 	 */
     public Boolean trackable = false;
     
     /**
-	 * Marks model for movement collision-checking with other solids 
+	 * Refers to creator of model, if needed
 	 */
-    public Boolean solid = false;
+    public Model user;
     
     /**
 	 * Marks model for damage collision-checking with player
@@ -96,6 +101,15 @@ public class Model {
     }
     
     /**
+     * Checks for collision with ground, assuming all ground is y=0, and correct in vector
+     * velocity so that Model never goes under the ground.
+     */
+    protected void contactGround() {
+    	if (model.getWorldTranslation().y + velocity.y < 0)
+    		velocity.y = -model.getWorldTranslation().y;
+    }
+    
+    /**
 	 * Called once the model is loaded and the {@code Model} is ready to be deployed
 	 */
     public void initialize() {
@@ -107,7 +121,7 @@ public class Model {
     	}
     	
         // Create vector
-        vector = new Vector3f();
+        velocity = new Vector3f();
     }
     
     // TODO: Add tweening between states
@@ -119,12 +133,12 @@ public class Model {
     	}
     }
     
-    public Vector3f getVector() {
-    	return vector;
+    public Vector3f getVelocity() {
+    	return velocity;
     }
     
-    public void setVector(Vector3f v) {
-    	vector = v;
+    public void setVelocity(Vector3f v) {
+    	velocity = v;
     }
     
     public Vector3f getTrackPoint() {

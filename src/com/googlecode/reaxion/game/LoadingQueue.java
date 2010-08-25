@@ -1,11 +1,17 @@
 package com.googlecode.reaxion.game;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+
+import com.googlecode.reaxion.test.ModelTest;
+import com.jme.util.resource.ResourceLocatorTool;
+import com.jme.util.resource.SimpleResourceLocator;
 
 public class LoadingQueue {
 
 	private static ArrayList<Model> queue = new ArrayList<Model>();
 	private static BattleGameState state;
+	private static SimpleResourceLocator locator;
 	
 	/**
 	 *  Clears the queue
@@ -31,6 +37,8 @@ public class LoadingQueue {
 	public static void execute(BattleGameState b) {
 		state = b;
 		System.out.println("Loading queue executed.");
+		if (locator == null)
+			locateTextures();
 		while (!queue.isEmpty()) {
 			Model m = queue.get(0);
 			ModelLoader.load(m, m.filename);
@@ -49,6 +57,23 @@ public class LoadingQueue {
 			state.addModel(m);
 			System.out.println("Loaded: "+m);
 		}
+	}
+	
+	/**
+	 * Points to the location of texture files to be loaded on the system
+	 */
+	private static void locateTextures() {
+		try {
+			locator = new SimpleResourceLocator(ModelTest.class
+					.getClassLoader()
+					.getResource("com/googlecode/reaxion/resources/"));
+            ResourceLocatorTool.addResourceLocator(
+                    ResourceLocatorTool.TYPE_TEXTURE, locator);
+            ResourceLocatorTool.addResourceLocator(
+                    ResourceLocatorTool.TYPE_MODEL, locator);
+        } catch (URISyntaxException e1) {
+            System.out.println("Unable to setup texture directory.");
+        }
 	}
 	
 }
