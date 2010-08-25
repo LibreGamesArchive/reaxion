@@ -19,6 +19,8 @@ import com.jme.light.PointLight;
 import com.jme.math.Vector3f;
 import com.jme.math.Quaternion;
 import com.jme.renderer.ColorRGBA;
+import com.jme.renderer.pass.BasicPassManager;
+import com.jme.renderer.pass.ShadowedRenderPass;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.shape.Cylinder;
@@ -46,6 +48,10 @@ public class BattleGameState extends CameraGameState {
     protected InputHandler input;
     protected WireframeState wireState;
     protected LightState lightState;
+    /*
+    protected BasicPassManager pManager = new BasicPassManager();
+    protected static ShadowedRenderPass shadowPass = new ShadowedRenderPass();
+    */
     protected boolean pause;
     protected boolean showBounds = false;
     protected boolean showDepth = false;
@@ -106,6 +112,17 @@ public class BattleGameState extends CameraGameState {
         light.setAmbient( new ColorRGBA( 0.5f, 0.5f, 0.5f, 1.0f ) );
         light.setLocation( new Vector3f( 100, 100, 100 ) );
         light.setEnabled( true );
+        light.setShadowCaster( true );
+        
+        // Shadows
+        /** Set up shadow pass. */
+        /*
+        shadowPass.add(rootNode);
+        shadowPass.addOccluder(rootNode);
+        shadowPass.setRenderShadows(true);
+        shadowPass.setLightingMethod(ShadowedRenderPass.LightingMethod.Additive);
+        pManager.add(shadowPass);
+        */
 
         /** Attach the light to a lightState and the lightState to rootNode. */
         lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
@@ -284,6 +301,12 @@ public class BattleGameState extends CameraGameState {
     	// Traverse list of models and call act() method
     	for (Model m : models)
     		m.act(this);
+    	
+    	// Update the shadows
+    	/*
+    	pManager.updatePasses(tpf);
+    	pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
+    	*/
     	
     	// Update the camera
     	if (cameraMode == "lock" && player != null && models.size() > 0 && models.indexOf(currentTarget) != -1) {

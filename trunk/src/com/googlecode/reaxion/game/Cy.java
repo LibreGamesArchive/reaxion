@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game;
 
 public class Cy extends MajorCharacter {
 	
-	private static final String filename = "i_cy1";
+	private static final String filename = "i_cy2";
 	
     public Cy() {
     	// Load model
@@ -17,7 +17,7 @@ public class Cy extends MajorCharacter {
     @ Override
     public void type() {
     	maxHp = 100;
-    	maxAp = 100;
+    	maxGauge = 100;
     	speed = .5f;
     }
     

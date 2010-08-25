@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game;
 
 public class Monica extends MajorCharacter {
 	
-	private static final String filename = "i_monica6-4";
+	private static final String filename = "i_monica7";
 	
     public Monica() {
     	// Load model
@@ -17,7 +17,7 @@ public class Monica extends MajorCharacter {
     @ Override
     public void type() {
     	maxHp = 100;
-    	maxAp = 100;
+    	maxGauge = 100;
     	speed = .5f;
     }
     

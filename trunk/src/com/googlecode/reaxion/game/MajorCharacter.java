@@ -50,7 +50,7 @@ public class MajorCharacter extends Character {
 	 */
     public void type() {
     	maxHp = 100;
-    	maxAp = 100;
+    	maxGauge = 100;
     	speed = .5f;
     }
     
@@ -59,7 +59,7 @@ public class MajorCharacter extends Character {
 	 */
     public void renew() {
     	hp = maxHp;
-    	ap = maxAp;
+    	gauge = maxGauge;
     	combo = 0;
     }
     
@@ -68,7 +68,7 @@ public class MajorCharacter extends Character {
     public void act(BattleGameState b) {
     	super.act(b);
     	
-    	animate("stand", "run");
+    	animate("stand", "run", "jump");
     }
     
 }

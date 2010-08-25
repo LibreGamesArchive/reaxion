@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game;
 
 public class Nilay extends MajorCharacter {
 	
-	private static final String filename = "i_nilay3";
+	private static final String filename = "i_nilay4";
 	
     public Nilay() {
     	// Load model
@@ -17,7 +17,7 @@ public class Nilay extends MajorCharacter {
     @ Override
     public void type() {
     	maxHp = 100;
-    	maxAp = 100;
+    	maxGauge = 100;
     	speed = .5f;
     }
     
