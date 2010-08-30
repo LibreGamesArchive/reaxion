@@ -4,44 +4,25 @@ import com.jme.math.Vector3f;
 
 public class MajorCharacter extends Character {
 	
-	/**
-	 * Current combo count of character
-	 */
-	public int combo = 0;
-	
-	/**
-	 * Maximum combo count of character
-	 */
-	public int maxCombo = 0;
-	
-	/**
-	 * Time before character's combo counter resets
-	 */
-	public static int comboTime = 60;
-	
     public MajorCharacter(String filename) {
     	// Load model
     	super(filename);
-    	
-    	type();
-    	
-    	trackOffset = new Vector3f(0, 3, 0);
-    	
     	trackable = true;
-    	
-    	renew();
+    	init();
     }
     
     public MajorCharacter(String filename, Boolean _trackable) {
     	// Load model
     	super(filename);
-    	
-    	type();
-    	
-    	trackOffset = new Vector3f(0, 3, 0);
-    	
     	trackable = _trackable;
-    	
+    	init();
+    }
+    
+    @Override
+    protected void init() {
+    	super.init();
+    	type();  	
+    	trackOffset = new Vector3f(0, 3, 0);
     	renew();
     }
     
@@ -50,7 +31,9 @@ public class MajorCharacter extends Character {
 	 */
     public void type() {
     	maxHp = 100;
-    	maxGauge = 100;
+    	gaugeRate = .03;
+    	minGauge = 6;
+    	maxGauge = 18;
     	speed = .5f;
     }
     
@@ -59,8 +42,7 @@ public class MajorCharacter extends Character {
 	 */
     public void renew() {
     	hp = maxHp;
-    	gauge = maxGauge;
-    	combo = 0;
+    	gauge = minGauge;
     }
     
     // Standard animated states, only override if specific states differ
@@ -68,7 +50,7 @@ public class MajorCharacter extends Character {
     public void act(BattleGameState b) {
     	super.act(b);
     	
-    	animate("stand", "run", "jump");
+    	animate(b.tpf, "stand", "run", "jump", "cast", "raiseUp", "raiseDown", "shootUp", "shootDown", "guard", "flinch", "dying", "dead");
     }
     
 }

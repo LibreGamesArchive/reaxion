@@ -21,6 +21,18 @@ public class LoadingQueue {
 	}
 	
 	/**
+	 * Convinience method to quickly push model m and execute the stack,
+	 * model should still be loaded before this method is called
+	 * @param m Model
+	 * @param b BattleGameState
+	 */
+	public static Model quickLoad(Model m, BattleGameState b) {
+		push(m);
+		execute(b);
+		return m;
+	}
+	
+	/**
 	 *  Add a new model to the queue
 	 * @param m Model
 	 * @return
@@ -32,6 +44,7 @@ public class LoadingQueue {
 	
 	/**
 	 *  Loads everything in the queue into current {@code BattleGameState}
+	 *  and then clears the queue
 	 * @param b BattleGameState
 	 */
 	public static void execute(BattleGameState b) {
@@ -43,6 +56,7 @@ public class LoadingQueue {
 			Model m = queue.get(0);
 			ModelLoader.load(m, m.filename);
 		}
+		resetQueue();
 	}
 	
 	/**
@@ -54,8 +68,11 @@ public class LoadingQueue {
 		int i = queue.indexOf(m);
 		if (i != -1) {
 			queue.remove(i);
-			state.addModel(m);
-			System.out.println("Loaded: "+m);
+			if (m instanceof Stage)
+				state.setStage((Stage)m);
+			else
+				state.addModel(m);
+			System.out.println("Processed: "+m);
 		}
 	}
 	

@@ -1,11 +1,10 @@
 package com.googlecode.reaxion.game;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
-
-import jmetest.input.TestHardwareMouse;
 
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
@@ -16,14 +15,19 @@ import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.light.PointLight;
+import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.math.Quaternion;
 import com.jme.renderer.ColorRGBA;
+import com.jme.renderer.Renderer;
 import com.jme.renderer.pass.BasicPassManager;
 import com.jme.renderer.pass.ShadowedRenderPass;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
+import com.jme.scene.Spatial.LightCombineMode;
+import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Cylinder;
+import com.jme.scene.shape.Quad;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
 import com.jme.scene.state.TextureState;
@@ -31,6 +35,7 @@ import com.jme.scene.state.WireframeState;
 import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
+import com.jme.util.geom.BufferUtils;
 import com.jme.util.geom.Debugger;
 import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
@@ -44,6 +49,10 @@ import com.jmex.game.state.StatisticsGameState;
 public class BattleGameState extends CameraGameState {
     private static final Logger logger = Logger.getLogger(BattleGameState.class
             .getName());
+    
+    public float tpf;
+    
+    private HudOverlay hudNode;
     
     protected InputHandler input;
     protected WireframeState wireState;
@@ -64,6 +73,11 @@ public class BattleGameState extends CameraGameState {
      */
     private ArrayList<Model> models;
     
+    /**
+     * Contains the stage used for the battle
+     */
+    private Stage stage;
+    
 	private AbsoluteMouse mouse;
 	public String cameraMode = "free"; //options are "lock" and "free"
 	public static int cameraDistance = 15;
@@ -72,7 +86,8 @@ public class BattleGameState extends CameraGameState {
 	private final static float camRotXZSpd = (float)Math.PI/12;
 	private float camRotY;
 	private final static float camRotYSpd = (float)Math.PI/24;
-	private final static float[] camRotYLimit = {-0.7854f, 1.5394f}; //-pi/4 and 49pi/100 (close to pi/2)
+	private final static float[] camRotXZLimit = {-0.5236f, 0.5236f}; //-pi/6 and pi/6
+	private final static float[] camRotYLimit = {-0.1325f, 1.5394f, 0.5236f}; //arctan(2/15), 49pi/100 (close to pi/2) and pi/6
 	
 	/*
 	// test axes converge at point
@@ -90,7 +105,12 @@ public class BattleGameState extends CameraGameState {
     private void init() {
         rootNode = new Node("RootNode");
         models = new ArrayList<Model>();
-
+        
+        // Prepare HUD node
+        hudNode = new HudOverlay();
+        rootNode.attachChild(hudNode);
+        
+        
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
         wireState = DisplaySystem.getDisplaySystem().getRenderer()
@@ -112,7 +132,7 @@ public class BattleGameState extends CameraGameState {
         light.setAmbient( new ColorRGBA( 0.5f, 0.5f, 0.5f, 1.0f ) );
         light.setLocation( new Vector3f( 100, 100, 100 ) );
         light.setEnabled( true );
-        light.setShadowCaster( true );
+        //light.setShadowCaster( true );
         
         // Shadows
         /** Set up shadow pass. */
@@ -148,7 +168,7 @@ public class BattleGameState extends CameraGameState {
 		mouse.registerWithInputHandler(input);
 		TextureState cursor = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		cursor.setTexture(TextureManager.loadTexture(
-				TestHardwareMouse.class.getClassLoader().getResource("com/googlecode/reaxion/resources/cursors/cursor.png"),
+				Reaxion.class.getClassLoader().getResource("com/googlecode/reaxion/resources/cursors/cursor.png"),
 				Texture.MinificationFilter.NearestNeighborNoMipMaps, Texture.MagnificationFilter.NearestNeighbor));
 		mouse.setRenderState(cursor);
 		BlendState as1 = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
@@ -176,15 +196,38 @@ public class BattleGameState extends CameraGameState {
     }
     
     /**
-     * Specifies the player character for this game state.
-     * @param p Character to be designated as the player
+     * Specifies the stage for this game state.
+     * @param s Stage to be designated
      * @author Khoa
      *
      */
-    public void assignPlayer(MajorCharacter p) {
+    public void setStage(Stage s) {
+    	stage = s;
+    	rootNode.attachChild(s.model);
+    }
+    
+    /**
+     * Returns pointer to the stage.
+     * @author Khoa
+     *
+     */
+    public Stage getStage() {
+    	return stage;
+    }
+    
+    /**
+     * Specifies the player character for this game state.
+     * @param p Character to be designated as the player
+     * @param q Array of the attack classes for the character
+     * @author Khoa
+     *
+     */
+    public void assignPlayer(MajorCharacter p, Class[] q) {
     	player = p;
     	// Create input system
-    	playerInput = new PlayerInput(player, cam);
+    	playerInput = new PlayerInput(this, q);
+    	// Pass attack reference to HUD
+    	hudNode.setAttacks(q);
     }
     
     /**
@@ -194,6 +237,17 @@ public class BattleGameState extends CameraGameState {
      */
     public MajorCharacter getPlayer() {
     	return player;
+    }
+    
+    /**
+     * Returns pointer to current target.
+     * @author Khoa
+     *
+     */
+    public Model getTarget() {
+    	if (currentTarget == null)
+    		nextTarget(0);
+    	return currentTarget;
     }
     
     /**
@@ -252,7 +306,7 @@ public class BattleGameState extends CameraGameState {
                 KeyInput.KEY_N);
         /** Assign key C to action "camera_out". */
         KeyBindingManager.getKeyBindingManager().set("camera_out",
-                KeyInput.KEY_C);
+                KeyInput.KEY_O);
         KeyBindingManager.getKeyBindingManager().set("screen_shot",
                 KeyInput.KEY_F1);
         KeyBindingManager.getKeyBindingManager().set("exit",
@@ -268,7 +322,9 @@ public class BattleGameState extends CameraGameState {
     }
 
     @ Override
-    public void stateUpdate(float tpf) {
+    public void stateUpdate(float _tpf) {
+    	tpf = _tpf;
+    	
         // Update the InputHandler
     	if (input != null) {
     		input.update(tpf);
@@ -299,8 +355,8 @@ public class BattleGameState extends CameraGameState {
     		playerInput.checkKeys();
     	}
     	// Traverse list of models and call act() method
-    	for (Model m : models)
-    		m.act(this);
+    	for (int i=0; i<models.size(); i++)
+    		models.get(i).act(this);
     	
     	// Update the shadows
     	/*
@@ -314,11 +370,14 @@ public class BattleGameState extends CameraGameState {
     		//System.out.println(models+" "+currentTarget);
     		Vector3f t = currentTarget.getTrackPoint();
     		if (!p.equals(t)) {
-    			Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.z-p.z);
-    			camOffset = camOffset.normalize().mult(cameraDistance);
+    			//Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.z-p.z);
+    			float angle = FastMath.atan2(p.z-t.z, p.x-t.x);
+    			//camOffset = camOffset.normalize().mult(cameraDistance);
     			//System.out.println((p.x-camOffset.x)+", "+(p.y-camOffset.y)+", "+(p.z-camOffset.z));
-    			cam.setLocation(new Vector3f(p.x-camOffset.x, p.y-camOffset.y, p.z-camOffset.z));
-    			cam.lookAt(p, new Vector3f(0, 1, 0));
+    			cam.setLocation(new Vector3f(p.x+cameraDistance*FastMath.cos(angle-camRotXZ), 
+    					p.y+cameraDistance*FastMath.sin(camRotY), 
+    					p.z+cameraDistance*FastMath.sin(angle-camRotXZ)));
+    			cam.lookAt(t, new Vector3f(0, 1, 0));
     		}
     	} else if (cameraMode == "free" && player != null) {
     		Vector3f p = player.getTrackPoint();
@@ -330,6 +389,9 @@ public class BattleGameState extends CameraGameState {
     		cam.setLocation(new Vector3f(p.x+x, p.y+y, p.z+z));
     		cam.lookAt(p, new Vector3f(0, 1, 0));
     	}
+    	
+    	// Update the HUD
+    	hudNode.update(this);
 
         // Update the geometric state of the rootNode
         rootNode.updateGeometricState(tpf, true);
@@ -342,19 +404,26 @@ public class BattleGameState extends CameraGameState {
 	        }
         	/** If camera controls are valid commands (via WASD keys), change camera angle. */
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_left", true) && cameraMode == "free") {
-	            camRotXZ -= camRotXZSpd;
+	                "cam_left", true)) {
+        		camRotXZ -= camRotXZSpd;
+        		if (cameraMode != "free")
+        			camRotXZ = Math.max(camRotXZ, camRotXZLimit[0]);
 	        }
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_right", true) && cameraMode == "free") {
+	                "cam_right", true)) {
 	            camRotXZ += camRotXZSpd;
+	            if (cameraMode != "free")
+        			camRotXZ = Math.min(camRotXZ, camRotXZLimit[1]);
 	        }
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_up", true) && cameraMode == "free") {
-	            camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[1]);
+	                "cam_up", true)) {
+        		if (cameraMode == "free")
+        			camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[1]);
+        		else
+        			camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[2]);
 	        }
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_down", true) && cameraMode == "free") {
+	                "cam_down", true)) {
         		camRotY = Math.max(camRotY - camRotYSpd, camRotYLimit[0]);
 	        }
         	/** If target_near is a valid command (via key 1), switch to next closest target. */
@@ -408,7 +477,7 @@ public class BattleGameState extends CameraGameState {
 	                "toggle_normals", false)) {
 	            showNormals = !showNormals;
 	        }
-	        /** If camera_out is a valid command (via key C), show camera location. */
+	        /** If camera_out is a valid command (via key O), show camera location. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "camera_out", false)) {
                 logger.info("Camera at: "
@@ -448,11 +517,22 @@ public class BattleGameState extends CameraGameState {
     		cameraMode = "free";
     		Vector3f c = cam.getLocation();
     		Vector3f p = player.getTrackPoint();
-    		camRotY = (float)Math.asin((double)((c.y-p.y)/cameraDistance));
+    		//camRotY = (float)Math.asin((double)((c.y-p.y)/cameraDistance));
     		camRotXZ = (float)Math.atan2((double)(c.x-p.x), (double)(c.z-p.z));
     	} else if (cameraMode == "free") {
-    		cameraMode = "lock";
-    		nextTarget(0);
+    		// make sure there are trackable objects
+    		boolean noTargets = true;
+    		for (int i=0; i<models.size(); i++) {
+        		if (models.get(i) != player && models.get(i).trackable) {
+        			noTargets = false;
+        			break;
+        		}
+        	}
+    		if (!noTargets) {
+    			cameraMode = "lock";
+    			camRotXZ = 0;
+    			nextTarget(0);
+    		}
     	}
     	System.out.println("Camera switch to "+cameraMode);
     }
@@ -473,7 +553,7 @@ public class BattleGameState extends CameraGameState {
      * @param k -1 for next closest from current target, 1 for next further,
      * and 0 for closest to player
      */
-    private void nextTarget(int k) {
+    public void nextTarget(int k) {
     	// do nothing if there are no models
     	if (models.size() == 0)
     		return;

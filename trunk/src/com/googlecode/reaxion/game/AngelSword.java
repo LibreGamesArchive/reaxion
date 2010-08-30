@@ -1,0 +1,47 @@
+package com.googlecode.reaxion.game;
+
+import com.jme.math.Vector3f;
+
+public class AngelSword extends AttackObject {
+	
+	protected static final String filename = "angel-sword";
+	protected static final float dpf = 18;
+	protected static final float speed = .15f;
+	protected static final int growFrames = 12;
+	
+	public AngelSword(Model m) {
+    	super(filename, dpf, m);
+    	flinch = true;
+    	allowYaw = false;
+    	allowPitch = false;
+    }
+	
+	public AngelSword(Model[] m) {
+    	super(filename, dpf, m);
+    	flinch = true;
+    	allowYaw = false;
+    	allowPitch = false;
+    }
+	
+	@Override
+	public void hit(BattleGameState b, Character other) {
+		b.removeModel(this);
+    }
+	
+	@ Override
+    public void act(BattleGameState b) {
+        // billboarding
+		billboard(b.getCamera());
+    	
+    	if (lifeCount <= growFrames) {
+    		model.setLocalScale(new Vector3f(1, (float)lifeCount/(float)growFrames, 1));
+    	} else if (lifeCount >= growFrames) {
+    		velocity = new Vector3f(0, -speed, 0);
+    		if (model.getWorldTranslation().y <= -2.5)
+    			b.removeModel(this);
+    	}
+        
+    	super.act(b);
+    }
+	
+}

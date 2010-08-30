@@ -37,8 +37,8 @@ public class ResourceLibrary {
         
         // Attempt to load material references and model geometry
         try {
-            URL matURL = ModelTest.class.getClassLoader().getResource(baseURL+filename+".material");
-            URL meshURL = ModelTest.class.getClassLoader().getResource(baseURL+filename+".mesh.xml");
+            URL matURL = ResourceLibrary.class.getClassLoader().getResource(baseURL+filename+".material");
+            URL meshURL = ResourceLibrary.class.getClassLoader().getResource(baseURL+filename+".mesh.xml");
             
             if (matURL != null){
                 matLoader.load(matURL.openStream());

@@ -16,8 +16,9 @@ public class Cy extends MajorCharacter {
     
     @ Override
     public void type() {
+    	super.type();
+    	name = "Cy";
     	maxHp = 100;
-    	maxGauge = 100;
     	speed = .5f;
     }
     

@@ -18,9 +18,14 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class Character extends Model {
 	
 	/**
+	 * AI-input for this character
+	 */
+	private AIInput ai;
+	
+	/**
 	 * Current hit points of character
 	 */
-	public int hp = 0;
+	public double hp = 0;
 	/**
 	 * Maximum hit points of character
 	 */
@@ -29,12 +34,47 @@ public class Character extends Model {
 	/**
 	 * Current gauge points of character
 	 */
-	public int gauge = 0;
+	public double gauge = 0;
 	
 	/**
-	 * Maximum gauge points of character
+	 * Rate as which gauge increases
+	 */
+	public double gaugeRate = 0;
+	
+	/**
+	 * Lower gauge limit of character
+	 */
+	public int minGauge = 0;
+	
+	/**
+	 * Upper gauge limit of character
 	 */
 	public int maxGauge = 0;
+	
+	/**
+	 * Abilities for this character
+	 */
+	private Ability[] abilities;
+	
+	/**
+	 * Whether movement is being locked
+	 */
+	public boolean moveLock = false;
+	
+	/**
+	 * Whether jumping is being locked
+	 */
+	public boolean jumpLock = false;
+	
+	/**
+	 * Whether flinching or not
+	 */
+	public boolean flinching;
+	
+	/**
+	 * Current attack of character
+	 */
+	public Attack currentAttack;
 	
 	/**
 	 * Allowed scalar speed
@@ -46,10 +86,7 @@ public class Character extends Model {
 	 */
 	public float jump = 1;
 	
-	/**
-	 * Y-velocity while airborne
-	 */
-	public float gravVel = 0;
+	private boolean frozen = false;
 	
 	/**
 	 * Bounding capsule (cylinder with spherical ends),
@@ -60,17 +97,23 @@ public class Character extends Model {
 	
     public Character() {
     	super();
-    	gravity = -.06f;
-    	restrict();
+    	init();
     }
     
     public Character(String filename) {
     	super(filename);
-    	gravity = -.06f;
-    	restrict();
+    	init();
     }
     
-    private void restrict() {
+    public void assignAI(AIInput a) {
+    	ai = a;
+    }
+    
+    @Override
+    protected void init() {
+    	super.init();
+    	gravitate = true;
+    	gravity = -.06f;
     	// Limit rotation to XZ plane
     	allowYaw = false;
     	allowPitch = false;
@@ -78,32 +121,62 @@ public class Character extends Model {
     
     @ Override
     public void act(BattleGameState b) {
-    	super.act(b);
-    	
-        // rotate to match direction
-        if (velocity.x != 0 || velocity.z != 0 /*|| vector.y != 0*/)
-        	rotate(velocity);
-    	
-    	// move
-        velocity = velocity.mult(speed);
-        // apply gravity
-        velocity.y += gravVel;
-        gravVel += gravity;
-        // check the ground
-    	contactGround();
-    	// let other Characters push player around
-    	if (b.getPlayer() == this)
-    		moveCollide(b);
-    	// check the ground once more
-    	contactGround();
-        Vector3f loc = model.getLocalTranslation();
-        loc.addLocal(velocity);
-        model.setLocalTranslation(loc);
-        
-//        if (getCollisions(b).length > 0) {
-//        	System.out.println("collision with: "+Arrays.toString(getCollisions(b)));
-//        }
-        
+    	// check if alive
+    	if (hp > 0) {
+    		
+    		// call AI
+    		if (ai != null)
+    			ai.makeCommands(b);
+
+    		super.act(b);
+
+    		// call abilities
+    		if (abilities != null) {
+    			boolean flag = false;
+    			for (int i=0; i<abilities.length; i++)
+    				flag = flag || abilities[i].act(this, b);
+    			if (flag)
+    				return;
+    		}
+
+    		// execute attack
+    		if (currentAttack != null)
+    			currentAttack.enterFrame(b);
+
+    		// rotate to match direction
+    		if (velocity.x != 0 || velocity.z != 0 /*|| vector.y != 0*/)
+    			rotate(velocity);
+
+    		// apply gravity
+    		if (gravitate) {
+    			velocity.y += gravVel;
+    			gravVel += gravity;
+    		}
+    		// check the ground
+    		contactGround();
+    		// let other Characters push player around
+    		if (b.getPlayer() == this)
+    			moveCollide(b);
+    		// remain inside the stage
+    		b.getStage().contain(this);
+    		// check the ground once more
+    		contactGround();
+    		Vector3f loc = model.getLocalTranslation();
+    		loc.addLocal(velocity);
+    		model.setLocalTranslation(loc);
+
+    		// increase gauge
+    		gauge = Math.min(gauge + gaugeRate, maxGauge);
+
+    		/*
+        if (b.getPlayer() == this)
+        	System.out.println(gauge +" + "+gaugeRate +" : ("+ minGauge +", "+ maxGauge +")");
+    		 */
+    		/*
+        if (getCollisions(b).length > 0)
+        	System.out.println("collision with: "+Arrays.toString(getCollisions(b)));
+    		 */
+    	}
     }
     
     /**
@@ -193,22 +266,116 @@ public class Character extends Model {
     }
     
     /**
+     * Sets the abilities for this Character and invokes {@code set()} for each
+     * of these abilities.
+     */
+    public void setAbilities (Ability[] a) {
+    	abilities = a;
+    	for (Ability t : abilities)
+    		t.set(this);
+    }
+    
+    /**
+     * Called by {@code AttackObjects} to register a hit and respond accordingly
+     * 
+     * @param b - current BattleGameState
+     * @param other - Other object involved
+     * @return Whether attack reaction was handled directly or whether the action
+     * was intercepted
+     */
+    public boolean hit(BattleGameState b, Model other) {
+    	// call abilities
+    	if (abilities != null) {
+    		boolean flag = false;
+    		for (int i=0; i<abilities.length; i++)
+    			flag = flag || abilities[i].hit(this, b, other);
+    		if (flag)
+    			return false;
+    	}
+    	
+    	if (currentAttack != null) {
+    		currentAttack.interrupt(b, other);
+    		return false;
+    	} else {
+    		return reactHit(b, other);
+    	}
+    }
+    
+    /**
+     * After hit is confirmed, react by taking damage and flinching accordingly
+     * 
+     * @param b - current BattleGameState
+     * @param other - Other object involved
+     * @return Whether damage was taken or not
+     */   
+    public boolean reactHit(BattleGameState b, Model other) {
+    	// call abilities
+    	if (abilities != null) {
+    		boolean flag = false;
+    		for (int i=0; i<abilities.length; i++)
+    			flag = flag || abilities[i].reactHit(this, b, other);
+    		if (flag)
+    			return false;
+    	}
+    	
+    	if (other.flinch)
+    		toggleFlinch(true);
+    	hp -= other.damagePerFrame;
+    	
+    	System.out.println(model+" hit by "+other+": "+(hp+other.damagePerFrame)+" -> "+hp);
+    	return true;
+    }
+    
+    /**
+     * Actions to take when entering/exiting flinch
+     */   
+    public void toggleFlinch(boolean value) {
+    	// if flinching, stop and cancel any attacks
+    	if (value) {
+    		velocity = new Vector3f();
+    		if (currentAttack != null)
+    			currentAttack.finish();
+    	}
+    	flinching = value;
+    	jumpLock = value;
+    	moveLock = value;
+    	animationLock = value;
+    }
+    
+    /**
 	 * Handles the checking of animations, provided the names of the animations in
 	 * the parameters. Must be called manually, usually by overriding the act method.
 	 */
-    public void animate(String stand, String run, String jump) {
-    	// Switch animations when moving
-    	MeshAnimationController animControl = (MeshAnimationController) model.getController(0);
-    	//System.out.println("{"+animControl.getActiveAnimation()+"}");
-    	if (velocity.y != 0) {
-    		if (!animControl.getActiveAnimation().equals(jump))
-    			play(jump);
-    	} else if (velocity.x != 0 || velocity.z != 0) {
-    		if (!animControl.getActiveAnimation().equals(run))
-    			play(run);
+    public void animate(float tpf, String stand, String run, String jump, String cast, String raiseUp,
+    		String raiseDown, String shootUp, String shootDown, String guard, String flinch, String dying, String dead) {
+    	if (hp <= 0) {
+    		// Play dying animation
+    		if (!frozen) {
+    			if (play(dying, tpf)) {
+    				play(dead);
+    				frozen = true;
+    			}
+    		}
     	} else {
-    		if (!animControl.getActiveAnimation().equals(stand))
-    			play(stand);
+    		if (flinching) {
+    			if (play(flinch, tpf))
+    				toggleFlinch(false);
+    		} else if (!animationLock) {
+    			// Switch animations when moving
+    			MeshAnimationController animControl = (MeshAnimationController) model.getController(0);
+    			/*System.out.println("{"+animControl.getActiveAnimation()+": "+
+    			animControl.getCurTime()+"/"+animControl.getAnimationLength(animControl.getActiveAnimation())+"}");*/
+    			if (velocity.y != 0) {
+    				if (!animControl.getActiveAnimation().equals(jump))
+    					play(jump);
+    			} else if (velocity.x != 0 || velocity.z != 0) {
+    				if (!animControl.getActiveAnimation().equals(run))
+    					play(run);
+    			} else {
+    				if (!animControl.getActiveAnimation().equals(stand))
+    					play(stand);
+    			}
+    		}
     	}
     }
     

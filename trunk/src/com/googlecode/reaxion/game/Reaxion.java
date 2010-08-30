@@ -8,12 +8,11 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jmetest.input.TestHardwareMouse;
-
-import com.googlecode.reaxion.test.ModelTest;
 import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
+import com.jme.scene.Spatial.LightCombineMode;
+import com.jme.scene.Spatial.TextureCombineMode;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
@@ -32,7 +31,9 @@ import com.jmex.game.state.load.LoadingGameState;
  */
 public class Reaxion {
 
-	private static final float GAME_VERSION = 0.2f;
+	private static final String GAME_VERSION = "0.5a";
+	
+	private static final String attackBaseLocation = "com.googlecode.reaxion.game.";
 
 	/**
 	 * Multithreaded game system that shows the state of GameStates
@@ -99,6 +100,9 @@ public class Reaxion {
 			GameStateManager.getInstance().attachChild(battleState);
 			battleState.setActive(true);
 			
+			// Set the stage
+			Stage cb = (Stage)LoadingQueue.push(new Checkerboard());
+			
 			// Add some characters
 	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica(false));
 	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
@@ -106,21 +110,28 @@ public class Reaxion {
 	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay());
 	        MajorCharacter c2 = (MajorCharacter)LoadingQueue.push(new Cy());
 	        
-	        // Add checker plane
-	        Model cb = LoadingQueue.push(new Model("checkerPlane"));
-	        
-	        
 	        // Load everything!
 	        LoadingQueue.execute(battleState);
 	        
+	        // Set up some abilities!
+	        mp.setAbilities(new Ability[]{new EvasiveStart()});
+	        t.setAbilities(new Ability[]{new AfterImage()});
+	        
+	        // Set up test attacks!
+	        Class[] attacks = new Class[6];
+	        attacks[0] = Class.forName(attackBaseLocation+"ShootBullet");
+	        attacks[1] = Class.forName(attackBaseLocation+"ShieldBarrier");
+	        
+	        // Set up some AI!
+	        t.assignAI(new TestAI(t));
+	        
 	        // Set stuff in the battleState
-	        battleState.assignPlayer(mp);
+	        battleState.assignPlayer(mp, attacks);
 	        c.model.setLocalTranslation(2, 5, -1);
 	        c2.model.setLocalTranslation(6, 5, 3);
 	        c2.gravity = 0;
 	        n.model.setLocalTranslation(-5, 0, -3);
-	        battleState.setTarget(t);
-	        //battleState.getRootNode().attachChild(cb.model);
+	        battleState.nextTarget(0);
 	        
 	        // reupdate due to added changes
 	        battleState.getRootNode().updateRenderState();
