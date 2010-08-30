@@ -16,8 +16,9 @@ public class Nilay extends MajorCharacter {
     
     @ Override
     public void type() {
+    	super.type();
+    	name = "Nilay";
     	maxHp = 100;
-    	maxGauge = 100;
     	speed = .5f;
     }
     

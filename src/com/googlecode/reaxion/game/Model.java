@@ -2,11 +2,13 @@ package com.googlecode.reaxion.game;
 
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
+import com.jme.renderer.Camera;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.shape.Sphere;
 import com.radakan.jme.mxml.anim.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.event.EventListenerList;
 
@@ -16,6 +18,8 @@ import javax.swing.event.EventListenerList;
  * @author Khoa
  */
 public class Model {
+	
+	public String name;
     
 	/**
 	 * Node pointing to the actual model
@@ -25,7 +29,7 @@ public class Model {
     /**
 	 * Vector representing velocity
 	 */
-    protected Vector3f velocity;
+    protected Vector3f velocity = new Vector3f(0, 0, 0);
     
     /**
 	 * Filename used to reference load files
@@ -36,6 +40,11 @@ public class Model {
 	 * Vector representing offset for locking point
 	 */
     public Vector3f trackOffset = new Vector3f(0, 0, 0);
+    
+    /**
+	 * Vector pointing in the facing direction
+	 */
+    public Vector3f rotationVector = new Vector3f(0, 0, 1);
     
     /**
 	 * Allow rotation along the x-axis
@@ -53,24 +62,44 @@ public class Model {
     protected Boolean allowPitch = true;
     
     /**
+	 * Whether animation is being locked
+	 */
+	public Boolean animationLock = false;
+    
+    /**
+	 * Damage this object inflicts per frame
+	 */
+	public float damagePerFrame = 0;
+	
+	/**
+	 * Whether this object causes contacting objects to flinch
+	 */
+	public boolean flinch = false;
+    
+	/**
+     * Whether or not this object gravitates
+     */
+    public boolean gravitate = false;
+	
+    /**
      * Personal gravity for this model
      */
     public float gravity = 0;
     
+	/**
+	 * Y-velocity while airborne
+	 */
+	public float gravVel = 0;
+    
     /**
 	 * Whether this model can be locked onto by the camera
 	 */
-    public Boolean trackable = false;
+    public boolean trackable = false;
     
     /**
-	 * Refers to creator of model, if needed
+	 * Refers to creators of model, if needed
 	 */
-    public Model user;
-    
-    /**
-	 * Marks model for damage collision-checking with player
-	 */
-    public Boolean dangerous = false;
+    public ArrayList<Model> users;
     
     /**
 	 * Contains the names of all loaded animations
@@ -79,10 +108,56 @@ public class Model {
     int index = 0;
     
     public Model() {
+    	init();
     }
     
     public Model(String fn) {
     	filename = fn;
+    	init();
+    }
+    
+    /**
+     * Method called by all constructors. Override to add functionality.
+     */
+    protected void init() {
+    }
+    
+    /**
+     * Checks for collision with all models in current {@code BattleGameState} at each
+     * epsilon along the vector path, assuming that movement with vector is linear, and
+     * returning other models at the first instance of collision if collisions occur.
+     */
+    public Model[] getLinearModelCollisions(BattleGameState b, Vector3f v, float epsilon) {
+    	Model[] hit = new Model[0];
+    	Vector3f step = v.normalize().mult(epsilon);
+    	Vector3f start = new Vector3f(model.getLocalTranslation().x, model.getLocalTranslation().y, model.getLocalTranslation().z);
+    	
+    	for (int i=0; i<v.length()/epsilon+1; i++) {
+    		hit = getModelCollisions(b);
+    		if (hit.length > 0) {
+    			model.setLocalTranslation(start);
+    			return hit;
+    		}
+    		model.setLocalTranslation(model.getLocalTranslation().addLocal(step));
+    	}
+    	
+    	model.setLocalTranslation(start);
+    	return hit;
+    }
+    
+    /**
+     * Checks for collision with all models in current {@code BattleGameState}, returning
+     * other models if collisions occur.
+     */
+    public Model[] getModelCollisions(BattleGameState b) {
+    	ArrayList<Model> hit = new ArrayList<Model>();
+    	ArrayList<Model> models = b.getModels();
+    	for (int i=0; i < models.size(); i++) {
+    		if (model.hasCollision(models.get(i).model, true)) {
+    			hit.add(models.get(i));
+    		}
+    	}
+    	return (hit.toArray(new Model[0]));
     }
      
     /**
@@ -124,12 +199,26 @@ public class Model {
         velocity = new Vector3f();
     }
     
-    // TODO: Add tweening between states
-    public void play(String state) {
-        // Shift the animation to the new one
-    	if (model.getControllerCount() > 0){
+    public boolean play(String state) {
+    	return play(state, 0);
+    }
+    
+    /**
+	 * Play animation {@code state}. Returns false if playing and true if animation is
+	 * done or is incompatible with character.
+	 */
+    public boolean play(String state, float tpf) {
+    	try {
     		MeshAnimationController animControl = (MeshAnimationController) model.getController(0);
-    		animControl.setAnimation(state);
+
+    		// If not playing, shift the animation to the new one
+    		if (!animControl.getActiveAnimation().equals(state))
+    			animControl.setAnimation(state);
+    		else if (animControl.getCurTime() + tpf >= animControl.getAnimationLength(state))
+    			return true;
+    		return false;
+    	} catch (Exception e) {
+    		return true;
     	}
     }
     
@@ -150,6 +239,8 @@ public class Model {
 	 * @param vector Specifies the point which the model will point to
 	 */
     public void rotate(Vector3f point) {
+    	rotationVector = point.normalize();
+    	
     	float pitch = 0f;
     	float roll = 0f;
     	float yaw = 0f;
@@ -162,6 +253,15 @@ public class Model {
     	//System.out.println(point.x+" "+point.y+" "+point.z+": "+yaw+" "+roll+" "+pitch);
     	Quaternion q = new Quaternion();
     	model.setLocalRotation(q.fromAngles(yaw, roll, pitch));
+    }
+    
+    /**
+     * Convenience method to make model rotate about Y to face the camera
+     */
+    public void billboard(Camera c) {
+    	Vector3f face = c.getDirection().negate();
+    	face.y = 0;
+    	rotate(face);
     }
     
     /**

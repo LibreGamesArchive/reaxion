@@ -16,8 +16,9 @@ public class Monica extends MajorCharacter {
     
     @ Override
     public void type() {
+    	super.type();
+    	name = "Monica";
     	maxHp = 100;
-    	maxGauge = 100;
     	speed = .5f;
     }
     

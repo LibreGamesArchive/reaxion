@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game;
 
+import java.lang.reflect.InvocationTargetException;
+
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -22,6 +24,7 @@ public class PlayerInput extends InputHandler {
 	private final int[] jumpLevels = {2, 4};
 	private int jumpCount = 0;
 
+	private BattleGameState state;
 	private MajorCharacter player;
 	private Camera camera;
 	
@@ -29,14 +32,18 @@ public class PlayerInput extends InputHandler {
 	private Boolean leftOn = false;
 	private Boolean jumpOn = false;
 	
+	protected Class[] attacks;
+	
     /**
      * Supply the node to control and the api that will handle input creation.
-     * @param p the player character
-     * @param c the camera for the current state
+     * @param b the current BattleGameState
+     * @param q the array of classes of attacks
      */
-    public PlayerInput(MajorCharacter p, Camera c) {
-    	player = p;
-    	camera = c;
+    public PlayerInput(BattleGameState b, Class[] q) {
+    	state = b;
+    	attacks = q;
+    	player = state.getPlayer();
+    	camera = state.getCamera();
         setKeyBindings();
     }
 
@@ -53,6 +60,10 @@ public class PlayerInput extends InputHandler {
         keyboard.set("right", KeyInput.KEY_NUMPAD6);
         keyboard.set("left", KeyInput.KEY_NUMPAD4);
         keyboard.set("jump", KeyInput.KEY_NUMPAD0);
+        keyboard.set("attackHold", KeyInput.KEY_Z);
+        keyboard.set("attack1", KeyInput.KEY_X);
+        keyboard.set("attack2", KeyInput.KEY_C);
+        keyboard.set("attack3", KeyInput.KEY_V);
     }
     
     /**
@@ -101,7 +112,7 @@ public class PlayerInput extends InputHandler {
     		leftOn = false;
     	}
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("jump", true)) {
-    		if (player.model.getWorldTranslation().y <= 0) {
+    		if (!player.jumpLock && !player.flinching && player.model.getWorldTranslation().y <= 0) {
     			if (!jumpOn) {
     				jumpOn = true;
     				jumpCount = jumpLevels[1] - jumpLevels[0];
@@ -115,6 +126,27 @@ public class PlayerInput extends InputHandler {
     		jumpOn = false;
     	}
     	
+    	// check attacks
+    	
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack1", false)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    			executeAttack(3);
+    		else
+    			executeAttack(0);
+    	}
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack2", false)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    			executeAttack(4);
+    		else
+    			executeAttack(1);
+    	}
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack3", false)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    			executeAttack(5);
+    		else
+    			executeAttack(2);
+    	}
+    	
     	// normalize vector
     	if (Math.abs(unitX) + Math.abs(unitY) + Math.abs(unitZ) > 1) {
     		float hyp = (float) Math.sqrt(Math.pow(unitX, 2) + Math.pow(unitY, 2) + Math.pow(unitZ, 2));
@@ -124,9 +156,16 @@ public class PlayerInput extends InputHandler {
     	}
     	
     	// calculate new angle in XZ plane
-    	Vector3f cp = camera.getLocation();
-    	Vector3f pp = player.getTrackPoint();
-    	float angle = FastMath.atan2(cp.x-pp.x, cp.z-pp.z);
+    	Vector3f p1;
+    	Vector3f p2;
+    	if (state.cameraMode == "free") {
+    		p1 = camera.getLocation();
+    		p2 = player.getTrackPoint();
+    	} else {
+    		p1 = player.getTrackPoint();
+    		p2 = state.getTarget().getTrackPoint();
+    	}
+    	float angle = FastMath.atan2(p1.x-p2.x, p1.z-p2.z);
     	
     	
     	// rotate XZ components
@@ -134,6 +173,22 @@ public class PlayerInput extends InputHandler {
     	float nUnitZ = unitX*FastMath.cos(angle) - unitZ*FastMath.sin(angle);
     	
     	// assign vector to player
-    	player.setVelocity(new Vector3f(nUnitX, unitY, nUnitZ));
+    	if (!player.moveLock && !player.flinching)
+    		player.setVelocity(new Vector3f(nUnitX, unitY, nUnitZ).mult(player.speed));
+    }
+    
+    /**
+     * Execute attack index in parameter
+     */
+    private void executeAttack(int ind) {
+    	if (!player.flinching && player.currentAttack == null) {
+			try {
+				if (attacks[ind] != null)
+					attacks[ind].getConstructors()[1].newInstance(new AttackData(player, state.getTarget()));
+			} catch (Exception e) {
+				System.out.println("Fatal error: Attack array parameter was not an Attack.");
+				e.printStackTrace();
+			}
+		}
     }
 }
