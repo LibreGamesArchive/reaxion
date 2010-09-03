@@ -105,6 +105,7 @@ public class Reaxion {
 			
 			// Add some characters
 	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica(false));
+	        MajorCharacter t2 = (MajorCharacter)LoadingQueue.push(new Khoa(false)); 
 	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
 	        MajorCharacter c = (MajorCharacter)LoadingQueue.push(new Cy());     
 	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay());
@@ -115,18 +116,22 @@ public class Reaxion {
 	        
 	        // Set up some abilities!
 	        mp.setAbilities(new Ability[]{new EvasiveStart()});
+	        t2.setAbilities(new Ability[]{new AfterImage()});
 	        t.setAbilities(new Ability[]{new AfterImage()});
 	        
 	        // Set up test attacks!
-	        Class[] attacks = new Class[6];
-	        attacks[0] = Class.forName(attackBaseLocation+"ShootBullet");
-	        attacks[1] = Class.forName(attackBaseLocation+"ShieldBarrier");
+	        Class[] attacks1 = new Class[6];
+	        attacks1[0] = Class.forName(attackBaseLocation+"ShootBullet");
+	        attacks1[1] = Class.forName(attackBaseLocation+"ShieldBarrier");
+	        Class[] attacks2 = new Class[6];
+	        attacks2[0] = Class.forName(attackBaseLocation+"SpinLance");
+	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
 	        
 	        // Set up some AI!
 	        t.assignAI(new TestAI(t));
 	        
 	        // Set stuff in the battleState
-	        battleState.assignPlayer(mp, attacks);
+	        battleState.assignTeam(mp, attacks1, t2, attacks2);
 	        c.model.setLocalTranslation(2, 5, -1);
 	        c2.model.setLocalTranslation(6, 5, 3);
 	        c2.gravity = 0;

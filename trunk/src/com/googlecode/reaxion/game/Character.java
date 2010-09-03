@@ -121,6 +121,7 @@ public class Character extends Model {
     
     @ Override
     public void act(BattleGameState b) {
+    		
     	// check if alive
     	if (hp > 0) {
     		

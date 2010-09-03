@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game;
 
-import com.radakan.jme.mxml.anim.MeshAnimationController;
-
 /**
  * Temporarily acts upon the attacking {@code Character} for the duration
  * of the attack, controlling animations and creating {@code AttackObjects}.

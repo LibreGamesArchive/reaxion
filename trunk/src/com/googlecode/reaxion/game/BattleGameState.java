@@ -96,6 +96,9 @@ public class BattleGameState extends CameraGameState {
 	
     protected PlayerInput playerInput;
     private MajorCharacter player;
+    private Class[] playerAttacks;
+    private MajorCharacter partner;
+    private Class[] partnerAttacks;
     
     public BattleGameState() {
     	super("battleGameState");
@@ -216,6 +219,28 @@ public class BattleGameState extends CameraGameState {
     }
     
     /**
+     * Specifies the tag team for this game state.
+     * @param p1 Character to be designated as the player
+     * @param q1 Array of the attack classes for the player
+     * @param p2 Character to be designated as the partner
+     * @param q2 Array of the attack classes for the partner
+     * @author Khoa
+     *
+     */
+    public void assignTeam(MajorCharacter p1, Class[] q1, MajorCharacter p2, Class[] q2) {
+    	player = p1;
+    	playerAttacks = q1;
+    	partner = p2;
+    	partnerAttacks = q2;
+    	// Create input system
+    	playerInput = new PlayerInput(this);
+    	// Pass attack reference to HUD
+    	hudNode.setAttacks(playerAttacks);
+    	// Remove the inactive character
+    	removeModel(partner);
+    }
+    
+    /**
      * Specifies the player character for this game state.
      * @param p Character to be designated as the player
      * @param q Array of the attack classes for the character
@@ -224,10 +249,36 @@ public class BattleGameState extends CameraGameState {
      */
     public void assignPlayer(MajorCharacter p, Class[] q) {
     	player = p;
+    	playerAttacks = q;
     	// Create input system
-    	playerInput = new PlayerInput(this, q);
+    	playerInput = new PlayerInput(this);
     	// Pass attack reference to HUD
-    	hudNode.setAttacks(q);
+    	hudNode.setAttacks(playerAttacks);
+    }
+    
+    /**
+     * Switches player with partner
+     * @author Khoa
+     *
+     */
+    public void tagSwitch() {
+    	MajorCharacter p = player;
+    	player = partner;
+    	partner = p;
+    	Class[] a = playerAttacks;
+    	playerAttacks = partnerAttacks;
+    	partnerAttacks = a;
+    	// Pass attack reference to HUD
+    	hudNode.setAttacks(playerAttacks);
+    	// Attach the active character
+    	addModel(player);
+    	// Synchronize position
+    	player.model.setLocalTranslation(partner.model.getLocalTranslation().clone());
+    	player.model.setLocalRotation(partner.model.getLocalRotation().clone());
+    	// Remove the inactive character
+    	removeModel(partner);
+    	
+    	rootNode.updateRenderState();
     }
     
     /**
@@ -248,6 +299,15 @@ public class BattleGameState extends CameraGameState {
     	if (currentTarget == null)
     		nextTarget(0);
     	return currentTarget;
+    }
+    
+    /**
+     * Returns player's attacks
+     * @author Khoa
+     *
+     */
+    public Class[] getPlayerAttacks() {
+    	return playerAttacks;
     }
     
     /**

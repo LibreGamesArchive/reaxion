@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game;
 
-import java.lang.reflect.InvocationTargetException;
-
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -39,9 +37,9 @@ public class PlayerInput extends InputHandler {
      * @param b the current BattleGameState
      * @param q the array of classes of attacks
      */
-    public PlayerInput(BattleGameState b, Class[] q) {
+    public PlayerInput(BattleGameState b) {
     	state = b;
-    	attacks = q;
+    	attacks = state.getPlayerAttacks();
     	player = state.getPlayer();
     	camera = state.getCamera();
         setKeyBindings();
@@ -64,6 +62,7 @@ public class PlayerInput extends InputHandler {
         keyboard.set("attack1", KeyInput.KEY_X);
         keyboard.set("attack2", KeyInput.KEY_C);
         keyboard.set("attack3", KeyInput.KEY_V);
+        keyboard.set("switch", KeyInput.KEY_SPACE);
     }
     
     /**
@@ -73,6 +72,14 @@ public class PlayerInput extends InputHandler {
      * @author Khoa
      */
     public void checkKeys() {
+    	// switch players
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false)) {
+    		state.tagSwitch();
+    		// reassign player
+        	player = state.getPlayer();
+        	attacks = state.getPlayerAttacks();
+    	}
+    	
     	// check priority key order
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", false))
     		forthOn = true;
