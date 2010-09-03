@@ -68,8 +68,8 @@ public class ModelTest extends SimpleGame {
         
         // Attempt to load material references and model geometry
         try {
-            URL matURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa4.material");
-            URL meshURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa4.mesh.xml");
+            URL matURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa6.material");
+            URL meshURL = ModelTest.class.getClassLoader().getResource("com/googlecode/reaxion/resources/i_khoa6.mesh.xml");
             
             if (matURL != null){
                 matLoader.load(matURL.openStream());
