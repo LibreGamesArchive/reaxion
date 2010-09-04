@@ -139,6 +139,7 @@ public class Model {
     			return hit;
     		}
     		model.setLocalTranslation(model.getLocalTranslation().addLocal(step));
+    		model.updateGeometricState(0, true);
     	}
     	
     	model.setLocalTranslation(start);

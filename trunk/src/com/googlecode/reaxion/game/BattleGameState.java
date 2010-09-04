@@ -291,6 +291,15 @@ public class BattleGameState extends CameraGameState {
     }
     
     /**
+     * Returns pointer to partner character.
+     * @author Khoa
+     *
+     */
+    public MajorCharacter getPartner() {
+    	return partner;
+    }
+    
+    /**
      * Returns pointer to current target.
      * @author Khoa
      *

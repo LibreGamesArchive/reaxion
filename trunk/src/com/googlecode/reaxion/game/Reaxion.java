@@ -128,7 +128,7 @@ public class Reaxion {
 	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
 	        
 	        // Set up some AI!
-	        t.assignAI(new TestAI(t));
+	        //t.assignAI(new TestAI(t));
 	        
 	        // Set stuff in the battleState
 	        battleState.assignTeam(mp, attacks1, t2, attacks2);

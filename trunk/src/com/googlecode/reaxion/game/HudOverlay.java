@@ -42,6 +42,10 @@ public class HudOverlay extends Overlay {
 	private Quad health;
 	private BitmapText healthText;
 	private BitmapText name;
+	private Quad ptHealthFill;
+	private Quad ptHealth;
+	private BitmapText ptHealthText;
+	private BitmapText ptName;
 	private Quad gaugeLowFill;
 	private Quad gaugeHighFill;
 	private Quad gauge;
@@ -104,6 +108,27 @@ public class HudOverlay extends Overlay {
         opHealthText.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         opHealthText.setLocalTranslation(new Vector3f(580, 572, 0));
         container.attachChild(opHealthText);
+        
+        ptHealthFill = drawRect(180, 8, new ColorRGBA(0, 1, 0, 1));
+		ptHealthFill.setLocalTranslation(new Vector3f(208 + 9 + 90, 50 + 5, 0));
+		container.attachChild(ptHealthFill);
+        
+        ptHealth = getImage(baseURL+"partner.png");
+		ptHealth.setLocalTranslation(new Vector3f(208 + 98, 50 + 5, 0));
+		container.attachChild(ptHealth);
+		
+		ptHealthText = new BitmapText(font, false);
+        ptHealthText.setSize(16);
+        ptHealthText.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        ptHealthText.setLocalTranslation(new Vector3f(222, 76, 0));
+        container.attachChild(ptHealthText);
+        
+        ptName = new BitmapText(font, false);
+        ptName.setSize(16);
+        ptName.setAlignment(BitmapFont.Align.Right);
+        ptName.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        ptName.setLocalTranslation(new Vector3f(390, 76, 0));
+        container.attachChild(ptName);
 		
 		healthFill = drawRect(342, 8, new ColorRGBA(0, 1, 0, 1));
 		healthFill.setLocalTranslation(new Vector3f(431 + 9 + 171, 50 + 5, 0));
@@ -186,6 +211,20 @@ public class HudOverlay extends Overlay {
 		else
 			opHealthText.setText("-- / --");
 		opHealthText.update();
+		
+		// update ptHealth
+		float percentPtHp = (float) Math.max((b.getPartner().hp/b.getPartner().maxHp), 0);
+		ptHealthFill.setLocalScale(new Vector3f(percentPtHp, 1, 1));
+		ptHealthFill.setLocalTranslation(new Vector3f(208 + 9 + 90 + (1-percentPtHp)*90, 50 + 5, 0));
+		ptHealthFill.setSolidColor(new ColorRGBA((percentPtHp<.5)?1:0, (percentPtHp>=.25)?1:0, 0, 1));
+		
+		// update ptHealthText
+		ptHealthText.setText((int)Math.max(b.getPartner().hp, 0) +"/"+ (int)(b.getPartner().maxHp));
+		ptHealthText.update();
+		
+		// update ptName
+		ptName.setText(b.getPartner().name);
+		ptName.update();
 		
 		// update health
 		float percentHp = (float) Math.max((b.getPlayer().hp/b.getPlayer().maxHp), 0);
