@@ -214,7 +214,7 @@ public class BattleGameState extends CameraGameState {
     	// Create input system
     	playerInput = new PlayerInput(this);
     	// Pass attack reference to HUD
-    	hudNode.setAttacks(playerAttacks);
+    	hudNode.setMoveset(playerAttacks);
     	// Remove the inactive character
     	removeModel(partner);
     }
@@ -232,7 +232,7 @@ public class BattleGameState extends CameraGameState {
     	// Create input system
     	playerInput = new PlayerInput(this);
     	// Pass attack reference to HUD
-    	hudNode.setAttacks(playerAttacks);
+    	hudNode.setMoveset(playerAttacks);
     }
     
     /**
@@ -248,7 +248,7 @@ public class BattleGameState extends CameraGameState {
     	playerAttacks = partnerAttacks;
     	partnerAttacks = a;
     	// Pass attack reference to HUD
-    	hudNode.setAttacks(playerAttacks);
+    	hudNode.setMoveset(playerAttacks);
     	// Attach the active character
     	addModel(player);
     	// Synchronize position

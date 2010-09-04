@@ -16,7 +16,7 @@ public class Attack {
 	
 	public static String name;
 	
-	public int gaugeCost;
+	public static int gaugeCost;
 	
 	// Some useful variables
 	protected int frameCount = 0;
