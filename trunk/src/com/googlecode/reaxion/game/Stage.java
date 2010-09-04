@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jme.scene.Node;
+import com.jme.scene.state.LightState;
 
 /**
  * Stages used during the {@code BattleGameState} should extend this class.
@@ -94,5 +96,13 @@ public class Stage extends Model {
      */
     public Point2D.Float[] bound(Point2D.Float center, float radius) {
     	return (new Point2D.Float[0]);
+    }
+    
+    /**
+     * Creates lighting for the stage and returns the new {@code LightState}.
+     * Override to add functionality.
+     */
+    public LightState createLights() {
+    	return null;
     }
 }

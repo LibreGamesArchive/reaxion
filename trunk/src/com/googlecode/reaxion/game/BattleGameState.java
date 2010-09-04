@@ -128,15 +128,6 @@ public class BattleGameState extends CameraGameState {
         zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
         rootNode.setRenderState(zbs);
         
-        // Lighting
-        /** Set up a basic, default light. */
-        PointLight light = new PointLight();
-        light.setDiffuse( new ColorRGBA( 0.75f, 0.75f, 0.75f, 0.75f ) );
-        light.setAmbient( new ColorRGBA( 0.5f, 0.5f, 0.5f, 1.0f ) );
-        light.setLocation( new Vector3f( 100, 100, 100 ) );
-        light.setEnabled( true );
-        //light.setShadowCaster( true );
-        
         // Shadows
         /** Set up shadow pass. */
         /*
@@ -146,12 +137,6 @@ public class BattleGameState extends CameraGameState {
         shadowPass.setLightingMethod(ShadowedRenderPass.LightingMethod.Additive);
         pManager.add(shadowPass);
         */
-
-        /** Attach the light to a lightState and the lightState to rootNode. */
-        lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
-        lightState.setEnabled( true );
-        lightState.attach( light );
-        rootNode.setRenderState( lightState );
         
         // Fix up the camera, will not be needed for final camera controls
         Vector3f loc = new Vector3f( 0.0f, 2.5f, 10.0f );
@@ -207,6 +192,8 @@ public class BattleGameState extends CameraGameState {
     public void setStage(Stage s) {
     	stage = s;
     	rootNode.attachChild(s.model);
+    	// attach stage's lighting to rootNode
+    	rootNode.setRenderState(stage.createLights());
     }
     
     /**

@@ -3,7 +3,13 @@ package com.googlecode.reaxion.game;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.jme.light.PointLight;
 import com.jme.math.FastMath;
+import com.jme.math.Vector3f;
+import com.jme.renderer.ColorRGBA;
+import com.jme.scene.Node;
+import com.jme.scene.state.LightState;
+import com.jme.system.DisplaySystem;
 
 /**
  * Test stage.
@@ -61,5 +67,23 @@ public class Checkerboard extends Stage {
     	}
     	
     	return (p.toArray(new Point2D.Float[0]));
+    }
+    
+    @Override
+    public LightState createLights() {
+    	// Set up a basic, default light.
+    	LightState lightState;
+    	
+        PointLight light = new PointLight();
+        light.setDiffuse( new ColorRGBA( 0.75f, 0.75f, 0.75f, 0.75f ) );
+        light.setAmbient( new ColorRGBA( 0.5f, 0.5f, 0.5f, 1.0f ) );
+        light.setLocation( new Vector3f( 100, 100, 100 ) );
+        light.setEnabled( true );
+        
+        lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
+        lightState.setEnabled( true );
+        lightState.attach( light );
+        
+        return lightState;
     }
 }
