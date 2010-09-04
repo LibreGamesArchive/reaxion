@@ -18,6 +18,7 @@ public class SpinLance extends Attack {
 	
 	public SpinLance() {
 		name = "Lance Blitz";
+		gaugeCost = 5;
 	}
 	
 	public SpinLance(AttackData ad) {

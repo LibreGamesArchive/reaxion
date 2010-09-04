@@ -17,6 +17,7 @@ public class ShootBullet extends Attack {
 	
 	public ShootBullet() {
 		name = "Shoot";
+		gaugeCost = 2;
 	}
 	
 	public ShootBullet(AttackData ad) {
