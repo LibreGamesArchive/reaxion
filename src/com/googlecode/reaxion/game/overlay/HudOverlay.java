@@ -56,6 +56,11 @@ public class HudOverlay extends Overlay {
 	private Quad gauge;
 	private BitmapText gaugeCount;
 	
+	private ColorRGBA textColor;
+	private ColorRGBA[] gaugeColors = {new ColorRGBA(0, .67f, .67f, 1), new ColorRGBA(1, .5f, 0, 1)};
+	private ColorRGBA[] attackUsed = {new ColorRGBA(0, 1, 1, 1), new ColorRGBA(1, .7f, 0, 1)};
+	private ColorRGBA attackUnavailable;
+	
 	public HudOverlay() {
 		super();
 		
@@ -70,9 +75,14 @@ public class HudOverlay extends Overlay {
         // create a container Node for scaling
         container = new Node("container");
 		
+        // White
+        textColor = new ColorRGBA(1, 1, 1, 1);
+        // Dark Gray
+        attackUnavailable = new ColorRGBA(.25f, .25f, .25f, 1);
+        
 		attackFill = new Quad[6];
 		for (int i=0; i<attackFill.length; i++) {
-			attackFill[i] = drawRect(162, 18, new ColorRGBA(.25f, .25f, .25f, 1));
+			attackFill[i] = drawRect(162, 18, attackUnavailable);
 			attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
 			container.attachChild(attackFill[i]);
 		}
@@ -88,7 +98,7 @@ public class HudOverlay extends Overlay {
 		for (int i=0; i<attackText.length; i++) {
 			attackText[i] = new BitmapText(font, false);
 			attackText[i].setSize(16);
-			attackText[i].setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+			attackText[i].setDefaultColor(textColor);
 			attackText[i].setLocalTranslation(new Vector3f(4, 100 - 20*i + 18, 0));
 			container.attachChild(attackText[i]);
 		}
@@ -97,7 +107,7 @@ public class HudOverlay extends Overlay {
 		for (int i = 0; i < gaugeCostText.length; i++) {
 			gaugeCostText[i] = new BitmapText(font, false);
 			gaugeCostText[i].setSize(16);
-			gaugeCostText[i].setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+			gaugeCostText[i].setDefaultColor(textColor);
 			gaugeCostText[i].setLocalTranslation(new Vector3f(attackFill[i].getWidth() - 25, 100 - 20 * i + 18, 0));
 			container.attachChild(gaugeCostText[i]);
 		}
@@ -114,14 +124,14 @@ public class HudOverlay extends Overlay {
 		
 		opName = new BitmapText(font, false);
         opName.setSize(16);
-        opName.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        opName.setDefaultColor(textColor);
         opName.setLocalTranslation(new Vector3f(18, 572, 0));
         container.attachChild(opName);
         
         opHealthText = new BitmapText(font, false);
         opHealthText.setSize(16);
         opHealthText.setAlignment(BitmapFont.Align.Right);
-        opHealthText.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        opHealthText.setDefaultColor(textColor);
         opHealthText.setLocalTranslation(new Vector3f(580, 572, 0));
         container.attachChild(opHealthText);
         
@@ -135,14 +145,14 @@ public class HudOverlay extends Overlay {
 		
 		ptHealthText = new BitmapText(font, false);
         ptHealthText.setSize(16);
-        ptHealthText.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        ptHealthText.setDefaultColor(textColor);
         ptHealthText.setLocalTranslation(new Vector3f(222, 76, 0));
         container.attachChild(ptHealthText);
         
         ptName = new BitmapText(font, false);
         ptName.setSize(16);
         ptName.setAlignment(BitmapFont.Align.Right);
-        ptName.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        ptName.setDefaultColor(textColor);
         ptName.setLocalTranslation(new Vector3f(390, 76, 0));
         container.attachChild(ptName);
 		
@@ -156,21 +166,21 @@ public class HudOverlay extends Overlay {
 		
 		healthText = new BitmapText(font, false);
         healthText.setSize(16);
-        healthText.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        healthText.setDefaultColor(textColor);
         healthText.setLocalTranslation(new Vector3f(442, 76, 0));
         container.attachChild(healthText);
         
         name = new BitmapText(font, false);
         name.setSize(16);
         name.setAlignment(BitmapFont.Align.Right);
-        name.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+        name.setDefaultColor(textColor);
         name.setLocalTranslation(new Vector3f(778, 76, 0));
         container.attachChild(name);
 		
-		gaugeHighFill = drawRect(576, 8, new ColorRGBA(1, .5f, 0, 1));
+		gaugeHighFill = drawRect(576, 8, gaugeColors[1]);
 		gaugeHighFill.setLocalTranslation(new Vector3f(208 + 9 + 283, 34 + 5, 0));
 		container.attachChild(gaugeHighFill);
-		gaugeLowFill = drawRect(576, 8, new ColorRGBA(0, 1, 1, 1));
+		gaugeLowFill = drawRect(576, 8, gaugeColors[0]);
 		gaugeLowFill.setLocalTranslation(new Vector3f(208 + 9 + 283, 34 + 5, 0));
 		container.attachChild(gaugeLowFill);
 		
@@ -181,7 +191,7 @@ public class HudOverlay extends Overlay {
 		gaugeCount = new BitmapText(font, false);
 		gaugeCount.setSize(16);
 		gaugeCount.setAlignment(BitmapFont.Align.Center);
-		gaugeCount.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
+		gaugeCount.setDefaultColor(textColor);
         gaugeCount.setLocalTranslation(new Vector3f(214, 34, 0));
         container.attachChild(gaugeCount);
         
@@ -198,16 +208,16 @@ public class HudOverlay extends Overlay {
 		for (int i=0; i<attacks.length; i++) {
 			if (attacks[i] != null && b.getPlayer().currentAttack != null && attacks[i].isInstance(b.getPlayer().currentAttack)) {
 				attackFill[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
-				attackFill[i].setSolidColor(new ColorRGBA(0, .67f, .67f, 1));
+				attackFill[i].setSolidColor(gaugeCosts[i] >= 6 ? attackUsed[1] : attackUsed[0]);
 				attackBar[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
 				attackText[i].setLocalTranslation(new Vector3f(22 + 4, 100 - 20*i + 18, 0));
 				gaugeCostText[i].setLocalTranslation(new Vector3f(22 + attackFill[i].getWidth() - 25, 100 - 20 * i + 18, 0));
 			} else {
 				attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
 				if(gaugeCosts[i] != -1 && b.getPlayer().gauge >= gaugeCosts[i])
-					attackFill[i].setSolidColor(new ColorRGBA(0, 1, 0, 1));
+					attackFill[i].setSolidColor(gaugeCosts[i] >= 6 ? gaugeColors[1] : gaugeColors[0]);
 				else
-					attackFill[i].setSolidColor(new ColorRGBA(.25f, .25f, .25f, 1));
+					attackFill[i].setSolidColor(attackUnavailable);
 				attackBar[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
 				attackText[i].setLocalTranslation(new Vector3f(4, 100 - 20*i + 18, 0));
 				gaugeCostText[i].setLocalTranslation(new Vector3f(attackFill[i].getWidth() - 25, 100 - 20 * i + 18, 0));
