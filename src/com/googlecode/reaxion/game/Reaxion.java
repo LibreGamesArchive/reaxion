@@ -1,25 +1,21 @@
 package com.googlecode.reaxion.game;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.jme.image.Texture;
-import com.jme.input.AbsoluteMouse;
-import com.jme.input.InputHandler;
-import com.jme.scene.Spatial.LightCombineMode;
-import com.jme.scene.Spatial.TextureCombineMode;
-import com.jme.scene.state.BlendState;
-import com.jme.scene.state.TextureState;
-import com.jme.system.DisplaySystem;
+import com.googlecode.reaxion.game.ability.Ability;
+import com.googlecode.reaxion.game.ability.AfterImage;
+import com.googlecode.reaxion.game.ability.EvasiveStart;
+import com.googlecode.reaxion.game.model.character.Cy;
+import com.googlecode.reaxion.game.model.character.Khoa;
+import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.model.character.Monica;
+import com.googlecode.reaxion.game.model.character.Nilay;
+import com.googlecode.reaxion.game.model.stage.Checkerboard;
+import com.googlecode.reaxion.game.model.stage.Stage;
+import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.util.GameTaskQueueManager;
-import com.jme.util.TextureManager;
-import com.jme.util.resource.ResourceLocatorTool;
-import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
@@ -33,7 +29,7 @@ public class Reaxion {
 
 	private static final String GAME_VERSION = "0.5a";
 	
-	private static final String attackBaseLocation = "com.googlecode.reaxion.game.";
+	private static final String attackBaseLocation = "com.googlecode.reaxion.game.attack.";
 
 	/**
 	 * Multithreaded game system that shows the state of GameStates
@@ -89,7 +85,7 @@ public class Reaxion {
 	 */
 	private class GameInit implements Callable<Void> {
 
-		@Override
+		//@Override
 		public Void call() throws Exception {
 			/*
 			loadState = new LoadingGameState();
