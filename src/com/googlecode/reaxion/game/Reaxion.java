@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.ability.AfterImage;
 import com.googlecode.reaxion.game.ability.EvasiveStart;
+import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.Cy;
 import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -126,7 +127,7 @@ public class Reaxion {
 	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
 	        
 	        // Set up some AI!
-	        //t.assignAI(new TestAI(t));
+	        t.assignAI(new TestAI(t));
 	        
 	        // Set the opponent!
 	        Character[] opponents = new Character[1];

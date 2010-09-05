@@ -51,6 +51,10 @@ public class MajorCharacter extends Character {
     public void act(BattleGameState b) {
     	super.act(b);
     	
+    	// switch if dead
+    	if (hp <= 0)
+    		b.tagSwitch();
+    	
     	animate(b.tpf, "stand", "run", "jump", "cast", "raiseUp", "raiseDown", "shootUp", "shootDown", "guard", "flinch", "dying", "dead");
     }
     

@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.stage;
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -61,7 +62,7 @@ public class Stage extends Model {
     		//Point2D.Float midpoint = new Point2D.Float((hit[1].x+hit[0].x)/2, (hit[1].y+hit[0].y)/2);
     		
     		// find magnitude of displacement
-    		float magnitude = c.boundRadius - FastMath.sqrt(FastMath.pow(midpoint.x-p.x, 2) + FastMath.pow(midpoint.y-p.y, 2));
+    		float magnitude = Math.max(c.boundRadius - FastMath.sqrt(FastMath.pow(midpoint.x-p.x, 2) + FastMath.pow(midpoint.y-p.y, 2)), 0);
     		
     		// find angle to midpoint from center
     		float angle = FastMath.atan2(midpoint.y - p.y, midpoint.x - p.x);
@@ -70,6 +71,7 @@ public class Stage extends Model {
     		Vector3f vector = new Vector3f(magnitude*FastMath.cos(angle), 0, magnitude*FastMath.sin(angle));
     		
     		//System.out.println(Arrays.toString(hit) +" -> "+ midpoint +": "+ v +" + "+ vector);
+    		//System.out.println(magnitude +" "+ angle);
     		
     		// fix the velocity vector so that the collision doesn't occur
 			c.setVelocity(c.getVelocity().subtract(vector));

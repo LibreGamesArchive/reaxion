@@ -16,7 +16,7 @@ import com.jme.scene.state.LightState;
 import com.jme.system.DisplaySystem;
 
 /**
- * Test stage.
+ * Staged in a field of flowers nearby a mountaintop lake.
  */
 public class FlowerField extends Stage {
     
@@ -110,7 +110,7 @@ public class FlowerField extends Stage {
     
     @Override
     public LightState createLights() {
-    	// Set up a basic, default light.
+    	// Set up lighting all around
     	LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();;
     	lightState.setEnabled( true );
         lightState.setGlobalAmbient(new ColorRGBA(1f, 1f, 1f, 1f));
