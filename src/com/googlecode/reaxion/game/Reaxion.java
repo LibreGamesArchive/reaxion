@@ -8,10 +8,12 @@ import com.googlecode.reaxion.game.ability.AfterImage;
 import com.googlecode.reaxion.game.ability.EvasiveStart;
 import com.googlecode.reaxion.game.model.character.Cy;
 import com.googlecode.reaxion.game.model.character.Khoa;
+import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.character.Monica;
 import com.googlecode.reaxion.game.model.character.Nilay;
 import com.googlecode.reaxion.game.model.stage.Checkerboard;
+import com.googlecode.reaxion.game.model.stage.FlowerField;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -97,7 +99,7 @@ public class Reaxion {
 			battleState.setActive(true);
 			
 			// Set the stage
-			Stage cb = (Stage)LoadingQueue.push(new Checkerboard());
+			Stage cb = (Stage)LoadingQueue.push(new FlowerField());
 			
 			// Add some characters
 	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica(false));
@@ -125,6 +127,11 @@ public class Reaxion {
 	        
 	        // Set up some AI!
 	        //t.assignAI(new TestAI(t));
+	        
+	        // Set the opponent!
+	        Character[] opponents = new Character[1];
+	        opponents[0] = t;
+	        battleState.assignOpponents(opponents);
 	        
 	        // Set stuff in the battleState
 	        battleState.assignTeam(mp, attacks1, t2, attacks2);

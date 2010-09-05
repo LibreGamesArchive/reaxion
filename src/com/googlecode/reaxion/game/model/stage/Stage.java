@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
+import com.googlecode.reaxion.game.state.BattleGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.scene.state.LightState;
@@ -21,6 +22,12 @@ public class Stage extends Model {
     public Stage(String fn) {
     	filename = fn;
     	init();
+    }
+    
+    /**
+     * Called when stage is set by the {@code BattleGameState}
+     */
+    public void loadComponents(BattleGameState b) {
     }
 
     /**

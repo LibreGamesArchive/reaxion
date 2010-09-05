@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.test;
 
-//import jmetest.effects.TestParticleSystem;
-
 import com.jme.app.SimpleGame;
 import com.jme.bounding.BoundingSphere;
 import com.jme.image.Texture;
@@ -53,14 +51,13 @@ public class TestParticleEffects extends SimpleGame {
                 as1.setEnabled(true);
                 as1.setEnabled(true);
                 TextureState ts = display.getRenderer().createTextureState();
-                /*ts.setTexture(
+                ts.setTexture(
                                 TextureManager.loadTexture(
-                                                TestParticleSystem.class.getClassLoader().getResource(
+                                                TestParticleEffects.class.getClassLoader().getResource(
                                                 "jmetest/data/texture/flaresmall.jpg"),
                                                 Texture.MinificationFilter.Trilinear,
                                                 Texture.MagnificationFilter.Bilinear));
                 ts.setEnabled(true);
-                */
                 pMesh = ParticleFactory.buildParticles("particles", 75);
                 pMesh.setEmissionDirection(new Vector3f(0,1,0));
                 pMesh.setInitialVelocity(.008f);
@@ -102,14 +99,13 @@ public class TestParticleEffects extends SimpleGame {
                 as1.setEnabled(true);
                 as1.setEnabled(true);
                 TextureState ts = display.getRenderer().createTextureState();
-                /*ts.setTexture(
+                ts.setTexture(
                                 TextureManager.loadTexture(
-                                                TestParticleSystem.class.getClassLoader().getResource(
+                                                TestParticleEffects.class.getClassLoader().getResource(
                                                 "jmetest/data/texture/flaresmall.jpg"),
                                                 Texture.MinificationFilter.Trilinear,
                                                 Texture.MagnificationFilter.Bilinear));
                 ts.setEnabled(true);
-                */
                 pMesh = ParticleFactory.buildParticles("particles", 75);
                 pMesh.setInitialVelocity(0);
                 pMesh.setReleaseRate(0);
