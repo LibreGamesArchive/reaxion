@@ -52,7 +52,7 @@ public class MajorCharacter extends Character {
     	super.act(b);
     	
     	// switch if dead
-    	if (hp <= 0)
+    	if (b.getPlayer() == this && hp <= 0)
     		b.tagSwitch();
     	
     	animate(b.tpf, "stand", "run", "jump", "cast", "raiseUp", "raiseDown", "shootUp", "shootDown", "guard", "flinch", "dying", "dead");
