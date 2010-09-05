@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
@@ -91,6 +92,8 @@ public class BattleGameState extends CameraGameState {
     private Class[] playerAttacks;
     private MajorCharacter partner;
     private Class[] partnerAttacks;
+    
+    private Character[] opponents;
     
     public BattleGameState() {
     	super("battleGameState");
@@ -183,9 +186,11 @@ public class BattleGameState extends CameraGameState {
      */
     public void setStage(Stage s) {
     	stage = s;
+    	stage.loadComponents(this);
     	rootNode.attachChild(s.model);
     	// attach stage's lighting to rootNode
-    	rootNode.setRenderState(stage.createLights());
+    	lightState = stage.createLights();
+    	rootNode.setRenderState(lightState);
     }
     
     /**
@@ -236,28 +241,40 @@ public class BattleGameState extends CameraGameState {
     }
     
     /**
+     * Specifies the characters that must be defeated to win.
+     * @param o Array of characters to be marked as opponents
+     * @author Khoa
+     *
+     */
+    public void assignOpponents(Character[] o) {
+    	opponents = o;
+    }
+    
+    /**
      * Switches player with partner
      * @author Khoa
      *
      */
     public void tagSwitch() {
-    	MajorCharacter p = player;
-    	player = partner;
-    	partner = p;
-    	Class[] a = playerAttacks;
-    	playerAttacks = partnerAttacks;
-    	partnerAttacks = a;
-    	// Pass attack reference to HUD
-    	hudNode.setMoveset(playerAttacks);
-    	// Attach the active character
-    	addModel(player);
-    	// Synchronize position
-    	player.model.setLocalTranslation(partner.model.getLocalTranslation().clone());
-    	player.model.setLocalRotation(partner.model.getLocalRotation().clone());
-    	// Remove the inactive character
-    	removeModel(partner);
-    	
-    	rootNode.updateRenderState();
+    	if (partner != null) {
+    		MajorCharacter p = player;
+    		player = partner;
+    		partner = p;
+    		Class[] a = playerAttacks;
+    		playerAttacks = partnerAttacks;
+    		partnerAttacks = a;
+    		// Pass attack reference to HUD
+    		hudNode.setMoveset(playerAttacks);
+    		// Attach the active character
+    		addModel(player);
+    		// Synchronize position
+    		player.model.setLocalTranslation(partner.model.getLocalTranslation().clone());
+    		player.model.setLocalRotation(partner.model.getLocalRotation().clone());
+    		// Remove the inactive character
+    		removeModel(partner);
+
+    		rootNode.updateRenderState();
+    	}
     }
     
     /**
@@ -402,6 +419,21 @@ public class BattleGameState extends CameraGameState {
     	if (playerInput != null) {
     		playerInput.checkKeys();
     	}
+    	
+    	// Check winning/losing conditions
+    	if (player.hp <= 0 && (partner == null || partner.hp <=0)) {
+    		System.out.println("You lose!");
+    	} else if (opponents != null) {
+    		int sumHp = 0;
+    		for (int i=0; i<opponents.length; i++)
+    			sumHp += Math.max(opponents[i].hp, 0);
+    		if (sumHp <= 0)
+    			System.out.println("You win!");
+    	}
+    	
+    	// Make the stage act
+    	stage.act(this);
+    	
     	// Traverse list of models and call act() method
     	for (int i=0; i<models.size(); i++)
     		models.get(i).act(this);

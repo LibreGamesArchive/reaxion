@@ -26,8 +26,8 @@ material hairTex
 		pass
 		{
 			ambient 0 0 0 1
-			scene_blend alpha_blend
 			depth_write off
+			scene_blend alpha_blend
 
 			texture_unit
 			{
@@ -48,8 +48,8 @@ material glassesTex
 		pass
 		{
 			ambient 0 0 0 1
-			scene_blend alpha_blend
 			depth_write off
+			scene_blend alpha_blend
 
 			texture_unit
 			{

@@ -11,7 +11,7 @@ material lambert2
 
 			texture_unit
 			{
-				texture textures/angel-sword.png
+				texture textures/flower-field_petal.png
 			}
 		}
 

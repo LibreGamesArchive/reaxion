@@ -1,17 +1,17 @@
 
-material lambert2
+material lambert3
 {
 	technique
 	{
 		pass
 		{
 			ambient 0 0 0 1
-			scene_blend alpha_blend
+			depth_write off
 			lighting off
 
 			texture_unit
 			{
-				texture textures/angel-sword.png
+				texture stages/flower_field_UV2-3.png
 			}
 		}
 
