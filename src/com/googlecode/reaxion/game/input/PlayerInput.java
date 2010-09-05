@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.input;
 
 import com.googlecode.reaxion.game.attack.AttackData;
+import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.jme.input.InputHandler;
@@ -27,6 +28,7 @@ public class PlayerInput extends InputHandler {
 
 	private BattleGameState state;
 	private MajorCharacter player;
+	private MajorCharacter partner;
 	private Camera camera;
 	
 	private Boolean forthOn = false;
@@ -44,6 +46,7 @@ public class PlayerInput extends InputHandler {
     	state = b;
     	attacks = state.getPlayerAttacks();
     	player = state.getPlayer();
+    	partner = state.getPartner();
     	camera = state.getCamera();
         setKeyBindings();
     }
@@ -81,6 +84,7 @@ public class PlayerInput extends InputHandler {
     	
     	// reassign player
     	player = state.getPlayer();
+    	partner = state.getPartner();
     	attacks = state.getPlayerAttacks();
     	
     	// check priority key order
@@ -193,8 +197,11 @@ public class PlayerInput extends InputHandler {
     private void executeAttack(int ind) {
     	if (!player.flinching && player.currentAttack == null) {
 			try {
-				if (attacks[ind] != null)
-					attacks[ind].getConstructors()[1].newInstance(new AttackData(player, state.getTarget()));
+				if (attacks[ind] != null) {
+					Character[] friends = new Character[1];
+					friends[0] = partner;
+					attacks[ind].getConstructors()[1].newInstance(new AttackData(player, friends, state.getTarget()));
+				}
 			} catch (Exception e) {
 				System.out.println("Fatal error: Attack array parameter was not an Attack.");
 				e.printStackTrace();

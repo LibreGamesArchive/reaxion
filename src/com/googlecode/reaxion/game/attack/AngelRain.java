@@ -70,7 +70,7 @@ public class AngelRain extends Attack {
 			float a = FastMath.nextRandomFloat()*FastMath.PI*2;
 			Vector3f translation = new Vector3f(r*FastMath.sin(a), 4, r*FastMath.cos(a));
 			
-			as = (AngelSword)LoadingQueue.quickLoad(new AngelSword(character), b);
+			as = (AngelSword)LoadingQueue.quickLoad(new AngelSword(getUsers()), b);
 
 			as.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			

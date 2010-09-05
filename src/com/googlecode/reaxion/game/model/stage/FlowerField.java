@@ -46,7 +46,7 @@ public class FlowerField extends Stage {
     	sky.model.setLocalTranslation(playerPos);
     	
     	// make petals
-    	if (count == 4) {
+    	if (count == 3) {
     		Petal petal = (Petal) LoadingQueue.quickLoad(new Petal(), b);
     		float theta = 2*FastMath.PI*FastMath.nextRandomFloat();
     		petal.model.setLocalTranslation(24*FastMath.cos(theta)+playerPos.x, 0, 24*FastMath.sin(theta)+playerPos.z);
@@ -111,7 +111,7 @@ public class FlowerField extends Stage {
     @Override
     public LightState createLights() {
     	// Set up lighting all around
-    	LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();;
+    	LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
     	lightState.setEnabled( true );
         lightState.setGlobalAmbient(new ColorRGBA(1f, 1f, 1f, 1f));
         

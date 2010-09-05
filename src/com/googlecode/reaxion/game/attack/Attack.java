@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
+import java.util.Arrays;
+
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.BattleGameState;
@@ -27,6 +29,11 @@ public class Attack {
 	 */
 	protected Character character;
 	
+	/**
+	 * Friendly characters that are immune
+	 */
+	protected Character[] friends;
+	
 	// creating an Attack with these constructors is useless, as they only
 	// exist to facilitate backend stuff
 	public Attack() {}
@@ -34,6 +41,7 @@ public class Attack {
 	
 	public Attack(AttackData ad, int gc) {
 		character = ad.character;
+		friends = ad.friends;
 		character.currentAttack = this;
 		gaugeCost = gc;
 		checkGauge();
@@ -103,6 +111,16 @@ public class Attack {
 			finish();
 			return false;
 		}
+	}
+	
+	/**
+	 * Convenience function that returns a list of users, consisting of the casting
+	 * character and any friends.
+	 */
+	protected Character[] getUsers() {
+		Character[] users = Arrays.copyOf(friends, friends.length+1);
+		users[users.length-1] = character;
+		return users;
 	}
 	
 }

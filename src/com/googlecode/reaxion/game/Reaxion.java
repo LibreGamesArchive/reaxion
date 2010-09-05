@@ -127,7 +127,7 @@ public class Reaxion {
 	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
 	        
 	        // Set up some AI!
-	        t.assignAI(new TestAI(t));
+	        //t.assignAI(new TestAI(t));
 	        
 	        // Set the opponent!
 	        Character[] opponents = new Character[1];
