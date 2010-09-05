@@ -46,7 +46,7 @@ public class ShieldBarrier extends Attack {
 		float angle = FastMath.atan2(rotation.x, rotation.z);
 		Vector3f translation = new Vector3f(1.5f*FastMath.sin(angle), 0, 1.5f*FastMath.cos(angle));
 		
-		barrier = (Barrier)LoadingQueue.quickLoad(new Barrier(character), b);
+		barrier = (Barrier)LoadingQueue.quickLoad(new Barrier(getUsers()), b);
 		
 		barrier.rotate(rotation);
 		barrier.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));

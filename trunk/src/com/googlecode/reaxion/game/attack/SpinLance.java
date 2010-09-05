@@ -51,7 +51,7 @@ public class SpinLance extends Attack {
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			Vector3f translation = new Vector3f(6*FastMath.sin(angle), 3.2f, 6*FastMath.cos(angle));
 			
-			lance = (SpinningLance)LoadingQueue.quickLoad(new SpinningLance(character), b);
+			lance = (SpinningLance)LoadingQueue.quickLoad(new SpinningLance(getUsers()), b);
 			lance.target = target;
 			
 			lance.rotate(rotation);

@@ -46,7 +46,7 @@ public class ShootBullet extends Attack {
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			Vector3f translation = new Vector3f(-1*FastMath.sin(angle), 3.7f, -1*FastMath.cos(angle));
 			
-			bullet = (Bullet)LoadingQueue.quickLoad(new Bullet(character), b);
+			bullet = (Bullet)LoadingQueue.quickLoad(new Bullet(getUsers()), b);
 			
 			bullet.rotate(rotation);
 			bullet.setVelocity(rotation.mult(bulletSpeed));
