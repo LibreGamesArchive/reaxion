@@ -76,12 +76,12 @@ public class PlayerInput extends InputHandler {
      */
     public void checkKeys() {
     	// switch players
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false)) {
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false))
     		state.tagSwitch();
-    		// reassign player
-        	player = state.getPlayer();
-        	attacks = state.getPlayerAttacks();
-    	}
+    	
+    	// reassign player
+    	player = state.getPlayer();
+    	attacks = state.getPlayerAttacks();
     	
     	// check priority key order
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", false))
