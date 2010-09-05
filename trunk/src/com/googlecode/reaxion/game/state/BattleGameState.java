@@ -12,6 +12,7 @@ import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
+import com.googlecode.reaxion.game.overlay.PauseOverlay;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
@@ -23,6 +24,7 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.state.BlendState;
+import com.jme.scene.state.ClipState;
 import com.jme.scene.state.LightState;
 import com.jme.scene.state.TextureState;
 import com.jme.scene.state.WireframeState;
@@ -46,6 +48,7 @@ public class BattleGameState extends CameraGameState {
     public float tpf;
     
     private HudOverlay hudNode;
+    private PauseOverlay pauseNode;
     
     protected InputHandler input;
     protected WireframeState wireState;
@@ -108,6 +111,9 @@ public class BattleGameState extends CameraGameState {
         hudNode = new HudOverlay();
         rootNode.attachChild(hudNode);
         
+        // Prepare pause node
+        pauseNode = new PauseOverlay();
+        rootNode.attachChild(pauseNode);
         
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
@@ -139,6 +145,7 @@ public class BattleGameState extends CameraGameState {
         Vector3f up = new Vector3f( 0.0f, 1.0f, 0.0f );
         Vector3f dir = new Vector3f( 0.0f, 0f, -1.0f );
         cam.setFrame( loc, left, up, dir );
+        cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem().getWidth()/DisplaySystem.getDisplaySystem().getHeight(), .01f, 1000);
         cam.update();
 
         // Initial InputHandler
@@ -256,7 +263,7 @@ public class BattleGameState extends CameraGameState {
      *
      */
     public void tagSwitch() {
-    	if (partner != null) {
+    	if (partner != null && partner.hp > 0) {
     		MajorCharacter p = player;
     		player = partner;
     		partner = p;
@@ -408,6 +415,11 @@ public class BattleGameState extends CameraGameState {
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "toggle_pause", false)) {
 	        	pause = !pause;
+	        	// toggle the overlay
+	        	if (pause)
+	        		pauseNode.pause();
+	        	else
+	        		pauseNode.unpause();
 	        	System.out.println("Paused: "+pause);
 	        }
 	    	

@@ -116,11 +116,11 @@ public class Overlay extends Node {
         return hudQuad;
     }
     
-    private float getUForPixel(int xPixel, int textureWidth) {
+    protected float getUForPixel(int xPixel, int textureWidth) {
         return (float) xPixel / textureWidth;
     }
 
-    private float getVForPixel(int yPixel, int textureHeight) {
+    protected float getVForPixel(int yPixel, int textureHeight) {
         return 1f - (float) yPixel / textureHeight;
     }
 	
