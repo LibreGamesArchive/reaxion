@@ -152,7 +152,7 @@ public class Reaxion {
 	        battleState.nextTarget(0);
 	        
 	        // Set some game conditions...
-	        battleState.targetTime = 120;
+	        battleState.targetTime = 80;
 	        battleState.expYield = 1000;
 	        
 	        // reupdate due to added changes
