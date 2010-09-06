@@ -17,6 +17,7 @@ import com.googlecode.reaxion.game.model.stage.Checkerboard;
 import com.googlecode.reaxion.game.model.stage.FlowerField;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.ResultsGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
@@ -95,6 +96,13 @@ public class Reaxion {
 			GameStateManager.getInstance().attachChild(loadState);
 			loadState.setActive(true);
 			*/
+			
+			/*
+			ResultsGameState battleState = new ResultsGameState();
+			GameStateManager.getInstance().attachChild(battleState);
+			battleState.setActive(true);
+			*/
+			
 			battleState = new BattleGameState();
 			GameStateManager.getInstance().attachChild(battleState);
 			battleState.setActive(true);
@@ -127,7 +135,8 @@ public class Reaxion {
 	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
 	        
 	        // Set up some AI!
-	        //t.assignAI(new TestAI(t));
+	        t.assignAI(new TestAI(t));
+	        //t.hp = 5;
 	        
 	        // Set the opponent!
 	        Character[] opponents = new Character[1];
@@ -141,6 +150,10 @@ public class Reaxion {
 	        c2.gravity = 0;
 	        n.model.setLocalTranslation(-5, 0, -3);
 	        battleState.nextTarget(0);
+	        
+	        // Set some game conditions...
+	        battleState.targetTime = 120;
+	        battleState.expYield = 1000;
 	        
 	        // reupdate due to added changes
 	        battleState.getRootNode().updateRenderState();
