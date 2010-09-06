@@ -26,7 +26,7 @@ import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 
 /**
- * Facilitates the creation and maintains of the in-battle HUD.
+ * Facilitates the creation of and maintains in-battle pausing.
  * @author Khoa Ha
  *
  */
@@ -73,7 +73,7 @@ public class PauseOverlay extends Overlay {
 		this.updateRenderState();
 	}
 	
-	private Quad getScreenshot() {
+	public Quad getScreenshot() {
 		// Create a pointer to the image info and create a buffered image to
         // hold it.
         final ByteBuffer buff = BufferUtils.createByteBuffer(width * height * 3);

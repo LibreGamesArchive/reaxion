@@ -46,6 +46,14 @@ public class BattleGameState extends CameraGameState {
             .getName());
     
     public float tpf;
+    private double totalTime = 0;
+    
+    public double targetTime = Double.NaN;
+    public int expYield = 0;
+    
+    // time between final kill and results display
+    public int victoryTime = 72;
+    private int victoryCount = 0;
     
     private HudOverlay hudNode;
     private PauseOverlay pauseNode;
@@ -186,6 +194,23 @@ public class BattleGameState extends CameraGameState {
     }
     
     /**
+     * Hides the mouse and HUD.
+     */
+    private void hideOverlays() {
+    	rootNode.detachChild(hudNode);
+    	rootNode.detachChild(mouse);
+    }
+    
+    /**
+     * Returns total time in {@code BattleGameState}.
+     * @author Khoa
+     *
+     */
+    public double getTotalTime() {
+    	return totalTime;
+    }
+    
+    /**
      * Specifies the stage for this game state.
      * @param s Stage to be designated
      * @author Khoa
@@ -303,6 +328,15 @@ public class BattleGameState extends CameraGameState {
     }
     
     /**
+     * Returns pointer to opponents.
+     * @author Khoa
+     *
+     */
+    public Character[] getOpponents() {
+    	return opponents;
+    }
+    
+    /**
      * Returns pointer to current target.
      * @author Khoa
      *
@@ -396,6 +430,8 @@ public class BattleGameState extends CameraGameState {
     @ Override
     public void stateUpdate(float _tpf) {
     	tpf = _tpf;
+    	if (victoryCount == 0)
+    		totalTime += tpf;
     	
         // Update the InputHandler
     	if (input != null) {
@@ -413,7 +449,7 @@ public class BattleGameState extends CameraGameState {
     	
     		/** If toggle_pause is a valid command (via key P), change pause. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "toggle_pause", false)) {
+	                "toggle_pause", false) && victoryCount == 0) {
 	        	pause = !pause;
 	        	// toggle the overlay
 	        	if (pause)
@@ -439,8 +475,15 @@ public class BattleGameState extends CameraGameState {
     		int sumHp = 0;
     		for (int i=0; i<opponents.length; i++)
     			sumHp += Math.max(opponents[i].hp, 0);
-    		if (sumHp <= 0)
+    		if (sumHp <= 0) {
     			System.out.println("You win!");
+    			if (victoryCount >= victoryTime)
+    				gotoResults();
+    			else {
+    				hideOverlays();
+    				victoryCount++;
+    			}
+    		}
     	}
     	
     	// Make the stage act
@@ -718,7 +761,20 @@ public class BattleGameState extends CameraGameState {
     	rootNode.detachChild(m.model);
     	return models.remove(m);
     }
-
+    
+    /**
+     * Ends this GameState and calls the {@code ResultsGameState}.
+     */
+    public void gotoResults() {
+    	ResultsGameState resultsState = new ResultsGameState(this);
+    	
+		resultsState.setBackground(pauseNode.getScreenshot());
+		
+		GameStateManager.getInstance().attachChild(resultsState);
+		resultsState.setActive(true);
+    	setActive(false);
+    }
+    
     public void stateRender(float tpf) {
     	
         // Render the rootNode
