@@ -48,8 +48,6 @@ public class PauseOverlay extends Overlay {
         
         // create pauseText
         pauseText = getImage(baseURL+"pause.png");
-        
-        container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
     }
 	
 	/**
@@ -60,6 +58,7 @@ public class PauseOverlay extends Overlay {
 		screenshot.setLocalTranslation(new Vector3f(width/2, height/2, 0));
 		container.attachChild(screenshot);
 		pauseText.setLocalTranslation(new Vector3f(width/2, height/2, 0));
+		pauseText.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
 		container.attachChild(pauseText);
 		this.updateRenderState();
 	}

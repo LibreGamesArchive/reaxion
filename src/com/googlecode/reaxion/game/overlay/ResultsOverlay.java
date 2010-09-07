@@ -67,7 +67,6 @@ public class ResultsOverlay extends Overlay {
         
         // create a container Node for scaling
         container = new Node("container");
-        attachChild(container);
         
         // create combatants text
         combatants = new BitmapText(font, false);
@@ -107,7 +106,8 @@ public class ResultsOverlay extends Overlay {
         botFade.setLocalTranslation(new Vector3f(400, 0 - 67, 0));
         
         // attach children
-        container.attachChild(bg);
+        attachChild(bg);
+        attachChild(container);
         container.attachChild(topFade);
         container.attachChild(topBar);
         container.attachChild(starBar);
@@ -286,8 +286,8 @@ public class ResultsOverlay extends Overlay {
 		// time score ranges from clearTime <= targetTime (1) to clearTime >= 3*targetTime (0)
 		double timeMultiplier = Math.max(Math.min(1 - (clearTime - targetTime)/(2*targetTime), 0), 1);
 		
-		// hp score ranges from remainingHp = totalHp (1) to remainingHp = 0 (0)
-		double hpMultiplier = remainingHp / totalHp;
+		// hp score ranges from remainingHp = totalHp (1) to remainingHp = 0 (.5)
+		double hpMultiplier = (1+ remainingHp / totalHp) / 2;
 		
 		expYield = timeMultiplier * hpMultiplier * exp;
 		numStars = (int) Math.ceil(5 * expYield/exp);
