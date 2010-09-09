@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
@@ -759,7 +760,9 @@ public class BattleGameState extends CameraGameState {
 		
 		GameStateManager.getInstance().attachChild(resultsState);
 		resultsState.setActive(true);
-    	setActive(false);
+    	GameStateManager.getInstance().detachChild(this);
+    	
+    	BgmPlayer.stopAndReset();
     }
     
     public void stateRender(float tpf) {

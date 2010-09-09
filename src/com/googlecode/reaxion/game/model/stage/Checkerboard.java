@@ -19,6 +19,7 @@ public class Checkerboard extends Stage {
 	
     public Checkerboard() {
     	super(filename);
+    	bgm = new String[] {"olive.ogg"};
     }
 
     @Override

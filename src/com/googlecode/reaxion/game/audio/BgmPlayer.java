@@ -59,6 +59,11 @@ public class BgmPlayer {
 		queue.play();
 	}
 	
+	public static void stopAndReset() {
+		queue.stop();
+		queue.clearTracks();
+	}
+	
 	private static class SongChangeListener implements ChangeListener {
 	    public void stateChanged(ChangeEvent e) {
 	    	AudioSystem.getSystem().getMusicQueue().removeTrack(intro); 
