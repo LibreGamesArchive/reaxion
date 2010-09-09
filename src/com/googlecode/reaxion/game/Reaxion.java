@@ -13,15 +13,14 @@ import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.Cy;
 import com.googlecode.reaxion.game.model.character.Khoa;
-import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Monica;
 import com.googlecode.reaxion.game.model.character.Nilay;
-import com.googlecode.reaxion.game.model.stage.Checkerboard;
 import com.googlecode.reaxion.game.model.stage.FlowerField;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
-import com.googlecode.reaxion.game.state.ResultsGameState;
+import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
@@ -43,6 +42,8 @@ public class Reaxion {
 	 * Multithreaded game system that shows the state of GameStates
 	 */
 	private StandardGame game;
+	
+	private StageSelectionState stageState;
 	
 	/**
 	 * GameState that shows progress of resource loading
@@ -101,70 +102,10 @@ public class Reaxion {
 			loadState.setActive(true);
 			*/
 			
-			battleState = new BattleGameState();
-			GameStateManager.getInstance().attachChild(battleState);
-			battleState.setActive(true);
-			
-			// Set the stage
-			Stage cb = (Stage)LoadingQueue.push(new FlowerField());
-			
-			// Add some characters
-	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica(false));
-	        MajorCharacter t2 = (MajorCharacter)LoadingQueue.push(new Khoa(false)); 
-	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
-	        MajorCharacter c = (MajorCharacter)LoadingQueue.push(new Cy());     
-	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay());
-	        MajorCharacter c2 = (MajorCharacter)LoadingQueue.push(new Cy());
-	        
-	        // Load everything!
-	        LoadingQueue.execute(battleState);
-	        
-	        // Set up some abilities!
-	        mp.setAbilities(new Ability[]{new EvasiveStart()});
-	        t2.setAbilities(new Ability[]{new AfterImage()});
-	        t.setAbilities(new Ability[]{new AfterImage()});
-	        
-	        // Set up test attacks!
-	        Class[] attacks1 = new Class[6];
-	        attacks1[0] = Class.forName(attackBaseLocation+"ShootBullet");
-	        attacks1[1] = Class.forName(attackBaseLocation+"ShieldBarrier");
-	        Class[] attacks2 = new Class[6];
-	        attacks2[0] = Class.forName(attackBaseLocation+"SpinLance");
-	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
-	        
-	        // Set up some AI!
-	        t.assignAI(new TestAI(t));
-	        //t.hp = 5;
-	        
-	        // Set the opponent!
-	        Character[] opponents = new Character[1];
-	        opponents[0] = t;
-	        battleState.assignOpponents(opponents);
-	        
-	        // Set stuff in the battleState
-	        battleState.assignTeam(mp, attacks1, t2, attacks2);
-	        c.model.setLocalTranslation(2, 5, -1);
-	        c2.model.setLocalTranslation(6, 5, 3);
-	        c2.gravity = 0;
-	        n.model.setLocalTranslation(-5, 0, -3);
-	        battleState.nextTarget(0);
-	        
-	        // Set up BGM
-	        BgmPlayer.prepare();
-	        BgmPlayer.play(battleState.getStage().bgm[0]);
-	        
-	        // test sounds, uncomment to test
-	        //SfxPlayer.addSfx("test3.ogg", t, 50, true);
-	        
-	        // Set some game conditions...
-	        battleState.targetTime = 60;
-	        battleState.expYield = 1000;
-	        
-	        // reupdate due to added changes
-	        battleState.getRootNode().updateRenderState();
-	        
-	        //mp.play("stand");
-	        
+			stageState = new StageSelectionState();
+			GameStateManager.getInstance().attachChild(stageState);
+			stageState.setActive(true);
+
 			return null;
 		}	
 	}
