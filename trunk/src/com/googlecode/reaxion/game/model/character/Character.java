@@ -167,7 +167,7 @@ public class Character extends Model {
     		model.setLocalTranslation(loc);
 
     		// increase gauge
-    		gauge = Math.min(gauge + gaugeRate, maxGauge);
+    		gauge = Math.min(gauge + gaugeRate*maxGauge, maxGauge);
 
     		/*
         if (b.getPlayer() == this)

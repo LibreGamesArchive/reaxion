@@ -15,6 +15,8 @@ import com.jme.scene.state.LightState;
  * @author Khoa
  */
 public class Stage extends Model {
+	
+	public static String[] bgm;
     
     public Stage() {
     	init();

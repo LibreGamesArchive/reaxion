@@ -6,6 +6,10 @@ import java.util.concurrent.Callable;
 import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.ability.AfterImage;
 import com.googlecode.reaxion.game.ability.EvasiveStart;
+import com.googlecode.reaxion.game.ability.RandomInstantGauge;
+import com.googlecode.reaxion.game.ability.RapidGauge;
+import com.googlecode.reaxion.game.audio.BgmPlayer;
+import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.Cy;
 import com.googlecode.reaxion.game.model.character.Khoa;
@@ -97,12 +101,6 @@ public class Reaxion {
 			loadState.setActive(true);
 			*/
 			
-			/*
-			ResultsGameState battleState = new ResultsGameState();
-			GameStateManager.getInstance().attachChild(battleState);
-			battleState.setActive(true);
-			*/
-			
 			battleState = new BattleGameState();
 			GameStateManager.getInstance().attachChild(battleState);
 			battleState.setActive(true);
@@ -151,15 +149,22 @@ public class Reaxion {
 	        n.model.setLocalTranslation(-5, 0, -3);
 	        battleState.nextTarget(0);
 	        
+	        // Set up BGM
+	        BgmPlayer.prepare();
+	        BgmPlayer.play(battleState.getStage().bgm[0]);
+	        
+	        // test sounds, uncomment to test
+	        //SfxPlayer.addSfx("test3.ogg", t, 50, true);
+	        
 	        // Set some game conditions...
-	        battleState.targetTime = 80;
+	        battleState.targetTime = 60;
 	        battleState.expYield = 1000;
 	        
 	        // reupdate due to added changes
 	        battleState.getRootNode().updateRenderState();
 	        
-	        mp.play("stand");
-			
+	        //mp.play("stand");
+	        
 			return null;
 		}	
 	}

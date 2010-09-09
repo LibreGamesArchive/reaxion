@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -32,6 +33,7 @@ import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jme.util.geom.Debugger;
+import com.jmex.audio.AudioSystem;
 import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.StatisticsGameState;
@@ -61,10 +63,7 @@ public class BattleGameState extends CameraGameState {
     protected InputHandler input;
     protected WireframeState wireState;
     protected LightState lightState;
-    /*
-    protected BasicPassManager pManager = new BasicPassManager();
-    protected static ShadowedRenderPass shadowPass = new ShadowedRenderPass();
-    */
+    
     protected boolean pause;
     protected boolean showBounds = false;
     protected boolean showDepth = false;
@@ -136,16 +135,6 @@ public class BattleGameState extends CameraGameState {
         zbs.setEnabled(true);
         zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
         rootNode.setRenderState(zbs);
-        
-        // Shadows
-        /** Set up shadow pass. */
-        /*
-        shadowPass.add(rootNode);
-        shadowPass.addOccluder(rootNode);
-        shadowPass.setRenderShadows(true);
-        shadowPass.setLightingMethod(ShadowedRenderPass.LightingMethod.Additive);
-        pManager.add(shadowPass);
-        */
         
         // Fix up the camera, will not be needed for final camera controls
         Vector3f loc = new Vector3f( 0.0f, 2.5f, 10.0f );
@@ -493,12 +482,6 @@ public class BattleGameState extends CameraGameState {
     	for (int i=0; i<models.size(); i++)
     		models.get(i).act(this);
     	
-    	// Update the shadows
-    	/*
-    	pManager.updatePasses(tpf);
-    	pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
-    	*/
-    	
     	// Update the camera
     	if (cameraMode == "lock" && player != null && models.size() > 0 && models.indexOf(currentTarget) != -1) {
     		Vector3f p = player.getTrackPoint();
@@ -524,6 +507,10 @@ public class BattleGameState extends CameraGameState {
     		cam.setLocation(new Vector3f(p.x+x, p.y+y, p.z+z));
     		cam.lookAt(p, new Vector3f(0, 1, 0));
     	}
+    	
+    	// Update the audio system
+        AudioSystem.getSystem().update();
+        SfxPlayer.update(this);
     	
     	// Update the HUD
     	hudNode.update(this);
