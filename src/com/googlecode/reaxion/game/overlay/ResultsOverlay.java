@@ -284,7 +284,7 @@ public class ResultsOverlay extends Overlay {
 	
 	private void calculateExp(double targetTime, double clearTime, double totalHp, double remainingHp, int exp) {
 		// time score ranges from clearTime <= targetTime (1) to clearTime >= 3*targetTime (0)
-		double timeMultiplier = Math.max(Math.min(1 - (clearTime - targetTime)/(2*targetTime), 0), 1);
+		double timeMultiplier = Math.min(Math.max(1 - (clearTime - targetTime)/(2*targetTime), 0), 1);
 		
 		// hp score ranges from remainingHp = totalHp (1) to remainingHp = 0 (.5)
 		double hpMultiplier = (1+ remainingHp / totalHp) / 2;

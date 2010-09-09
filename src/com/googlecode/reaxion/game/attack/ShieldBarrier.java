@@ -79,7 +79,8 @@ public class ShieldBarrier extends Attack {
 	@Override
 	public void finish() {
 		super.finish();
-		barrier.cancel();
+		if (barrier != null)
+			barrier.cancel();
 		character.moveLock = false;
 		character.jumpLock = false;
 		character.animationLock = false;

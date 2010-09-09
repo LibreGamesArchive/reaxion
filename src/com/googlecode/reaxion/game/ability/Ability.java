@@ -1,8 +1,11 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.attackobject.AngelSword;
 import com.googlecode.reaxion.game.model.character.Character;
+import com.googlecode.reaxion.game.model.prop.GlowRing;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.util.LoadingQueue;
 
 /**
  * Passive ability that adds extra functionality to {@code Character} functions.
@@ -50,6 +53,13 @@ public class Ability {
 	 */
 	public boolean reactHit(Character c, BattleGameState b, Model other) {
 		return false;
+	}
+	
+	/**
+	 * When an ability is set off, create a ring around the character to show it.
+	 */
+	public void activate(Character c, BattleGameState b) {
+		LoadingQueue.quickLoad(new GlowRing(c), b);
 	}
 	
 	public String toString() {

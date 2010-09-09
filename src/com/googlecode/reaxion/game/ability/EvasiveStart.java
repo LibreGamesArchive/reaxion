@@ -21,6 +21,7 @@ public class EvasiveStart extends Ability {
 		if (b.getTarget() == c && b.cameraMode == "lock" && FastMath.nextRandomFloat() <= chance) {
 			System.out.println(c.model+" escaped tracking!");
 			b.cameraMode = "free";
+			activate(c, b);
 		}
 		return false;
 	}

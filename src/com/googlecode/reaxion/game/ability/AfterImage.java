@@ -49,6 +49,7 @@ public class AfterImage extends Ability {
 			// teleport away
 			 c.model.setLocalTranslation(jumpSpot);
 			 b.getStage().contain(c);
+			 activate(c, b);
 			return true;
 		} else {
 			// do nothing
