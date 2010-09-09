@@ -19,6 +19,7 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jmex.game.state.CameraGameState;
+import com.jmex.game.state.GameStateManager;
 
 /**
  * {@code ResultsGameState} is a simple GameState that has a camera and an
@@ -104,6 +105,8 @@ public class ResultsGameState extends CameraGameState {
                 KeyInput.KEY_R);
         KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
                         KeyInput.KEY_M);
+        KeyBindingManager.getKeyBindingManager().set("return",
+                KeyInput.KEY_RETURN);
     }
 
     @ Override
@@ -132,6 +135,10 @@ public class ResultsGameState extends CameraGameState {
         rootNode.updateGeometricState(tpf, true);
 
         if (input != null) {
+        	if(KeyBindingManager.getKeyBindingManager().isValidCommand("return", false)) {
+        		GameStateManager.getInstance().getChild(StageSelectionState.NAME).setActive(true);
+        		GameStateManager.getInstance().detachChild(this);
+        	}
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "screen_shot", false)) {
 	            DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
