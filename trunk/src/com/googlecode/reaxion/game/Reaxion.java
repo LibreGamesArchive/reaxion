@@ -3,25 +3,8 @@ package com.googlecode.reaxion.game;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-import com.googlecode.reaxion.game.ability.Ability;
-import com.googlecode.reaxion.game.ability.AfterImage;
-import com.googlecode.reaxion.game.ability.EvasiveStart;
-import com.googlecode.reaxion.game.ability.RandomInstantGauge;
-import com.googlecode.reaxion.game.ability.RapidGauge;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
-import com.googlecode.reaxion.game.audio.SfxPlayer;
-import com.googlecode.reaxion.game.input.ai.TestAI;
-import com.googlecode.reaxion.game.model.character.Cy;
-import com.googlecode.reaxion.game.model.character.Khoa;
-import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.model.character.Monica;
-import com.googlecode.reaxion.game.model.character.Nilay;
-import com.googlecode.reaxion.game.model.stage.FlowerField;
-import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
-import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
@@ -35,8 +18,6 @@ import com.jmex.game.state.load.LoadingGameState;
 public class Reaxion {
 
 	private static final String GAME_VERSION = "0.5a";
-	
-	private static final String attackBaseLocation = "com.googlecode.reaxion.game.attack.";
 
 	/**
 	 * Multithreaded game system that shows the state of GameStates
