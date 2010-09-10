@@ -26,7 +26,6 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.state.BlendState;
-import com.jme.scene.state.ClipState;
 import com.jme.scene.state.LightState;
 import com.jme.scene.state.TextureState;
 import com.jme.scene.state.WireframeState;
@@ -760,9 +759,9 @@ public class BattleGameState extends CameraGameState {
 		
 		GameStateManager.getInstance().attachChild(resultsState);
 		resultsState.setActive(true);
+		
     	GameStateManager.getInstance().detachChild(this);
-    	
-    	BgmPlayer.stopAndReset();
+    	setActive(false);
     }
     
     public void stateRender(float tpf) {

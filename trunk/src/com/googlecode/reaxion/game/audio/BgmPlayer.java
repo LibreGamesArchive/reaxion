@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.audio;
 
+import java.util.ArrayList;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -40,7 +42,7 @@ public class BgmPlayer {
 	 * @param f Filename of track and track-intro file
 	 */
 	public static void play(String f) {
-		queue.clearTracks();
+		stopAndReset();
 		
 		filename = f.substring(0, f.length()-4);
 		ext = f.substring(f.length()-4);
@@ -59,8 +61,16 @@ public class BgmPlayer {
 		queue.play();
 	}
 	
+	/**
+	 * Clears all tracks from the queue and frees them from memory.
+	 */
 	public static void stopAndReset() {
 		queue.stop();
+		ArrayList<AudioTrack> tracks = queue.getTrackList();
+		for (int i=0; i<tracks.size(); i++) {
+			queue.getTrack(i).stop();
+			queue.getTrack(i).release();
+		}
 		queue.clearTracks();
 	}
 	

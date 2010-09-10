@@ -17,7 +17,11 @@ public class SfxPlayer {
 	
 	private static String baseURL = "com/googlecode/reaxion/resources/audio/sfx/";
 	
+	private static final int clearTime = 100;
+	private static int clearCount = 0;
+	
 	private static ArrayList<Object[]> tracker = new ArrayList<Object[]>();
+	private static ArrayList<AudioTrack> global = new ArrayList<AudioTrack>();
 	
 	/**
 	 * Adds and plays a sound effect.
@@ -31,6 +35,8 @@ public class SfxPlayer {
 		sfx.setRelative(false);
 		sfx.setLooping(loop);
 		sfx.play();
+		
+		global.add(sfx);
 		
         return sfx;
 	}
@@ -60,11 +66,12 @@ public class SfxPlayer {
 	}
 	
 	/**
-	 * Stops and removes a tracked {@code AudioTrack} from the tracking list.
+	 * Stops and removes a loaded {@code AudioTrack} from the player.
 	 * @param sfx {@code AudioTrack} to remove
 	 * @return Whether the {@code AudioTrack} was removed or not
 	 */
 	public static boolean removeSfx(AudioTrack sfx) {
+		// check positional sounds
 		for (int x = tracker.size(); --x >= 0; ) {
 			if (((AudioTrack) tracker.get(x)[0]) == sfx) {
 				((AudioTrack) tracker.get(x)[0]).stop();
@@ -73,6 +80,16 @@ public class SfxPlayer {
 				return true;
 			}
 		}
+		// check global sounds
+		for (int x = global.size(); --x >= 0; ) {
+			if (global.get(x) == sfx) {
+				global.get(x).stop();
+				global.get(x).release();
+				global.remove(x);
+				return true;
+			}
+		}
+		// not here
 		return false;
 	}
 	
@@ -92,6 +109,19 @@ public class SfxPlayer {
         				((Model) tracker.get(x)[1]).model.getWorldTranslation());
         		((AudioTrack) tracker.get(x)[0]).setVolume(1 - Math.min(dist/(Integer.parseInt(tracker.get(x)[2].toString())), 1));
         	}
+        }
+        
+        // release unused resources on occasion
+        if (clearCount >= clearTime) {
+        	for (int x = global.size(); --x >= 0; ) {
+            	if (!global.get(x).isActive()) {
+            		global.get(x).release();
+            		global.remove(x);
+            	}
+        	}
+        	clearCount = 0;
+        } else {
+        	clearCount++;
         }
     }
 	

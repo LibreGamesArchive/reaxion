@@ -185,7 +185,7 @@ public class StageSelectionState extends BasicGameState {
 
 		// Set up some AI!
 		t.assignAI(new TestAI(t));
-		// t.hp = 5;
+		//t.hp = 5;
 
 		// Set the opponent!
 		Character[] opponents = new Character[1];
@@ -212,7 +212,7 @@ public class StageSelectionState extends BasicGameState {
 		// SfxPlayer.addSfx("test3.ogg", t, 50, true);
 
 		// Set some game conditions...
-		battleState.targetTime = 80;
+		battleState.targetTime = 60;
 		battleState.expYield = 1000;
 
 		// reupdate due to added changes

@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.state;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
@@ -137,6 +138,7 @@ public class ResultsGameState extends CameraGameState {
         if (input != null) {
         	if(KeyBindingManager.getKeyBindingManager().isValidCommand("return", false)) {
         		GameStateManager.getInstance().getChild(StageSelectionState.NAME).setActive(true);
+        		BgmPlayer.stopAndReset();
         		GameStateManager.getInstance().detachChild(this);
         	}
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
