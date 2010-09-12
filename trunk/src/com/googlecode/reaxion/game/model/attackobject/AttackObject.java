@@ -65,10 +65,8 @@ public class AttackObject extends Model {
         // check if a Character is hit with linear approximation
     	Model[] collisions = getLinearModelCollisions(b, velocity, .5f);
         for (Model c : collisions) {
-        	if (c instanceof Character && !users.contains(c)) {
+        	if (c instanceof Character && !users.contains(c))
         		((Character)c).hit(b, this);
-        		hit(b, ((Character)c));
-        	}
         }
         
         // actually move

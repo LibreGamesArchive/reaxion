@@ -14,15 +14,11 @@ public class Barrier extends AttackObject {
 	public Barrier(Model m) {
     	super(filename, dpf, m);
     	lifespan = span;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	public Barrier(Model[] m) {
     	super(filename, dpf, m);
     	lifespan = span;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	@Override

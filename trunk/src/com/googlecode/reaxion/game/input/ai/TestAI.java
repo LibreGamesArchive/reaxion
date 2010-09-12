@@ -34,8 +34,10 @@ public class TestAI extends AIInput {
     	
     	if (character.hp/character.maxHp > .67) {
     		// change direction at random
-    		if (timer % 80 == 0)
+    		if (timer % 80 == 0) {
     			vel = randomVector();
+    			vel.y = 0;
+    		}
     		
     		// attack whenever possible
     		if (character.gauge >= 5 && !character.flinching && character.currentAttack == null)
@@ -50,8 +52,10 @@ public class TestAI extends AIInput {
     			avoidWall(t, p);
     		
     		// change direction at random
-    		if (timer % 40 == 0)
+    		if (timer % 40 == 0) {
     			vel = randomVector();
+    			vel.y = 0;
+    		}
     		
     		// attack whenever possible
     		if (nextLance) {

@@ -14,16 +14,12 @@ public class Bullet extends AttackObject {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	public Bullet(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	@Override

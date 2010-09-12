@@ -4,6 +4,7 @@ import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.input.AIInput;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -114,9 +115,6 @@ public class Character extends Model {
     	super.init();
     	gravitate = true;
     	gravity = -.06f;
-    	// Limit rotation to XZ plane
-    	allowYaw = false;
-    	allowPitch = false;
     }
     
     @ Override
@@ -277,6 +275,25 @@ public class Character extends Model {
     }
     
     /**
+     * Recovers HP by {@code d} amount.
+     * @param b - current {@code BattleGameState}.
+     * @param d - Amount of HP to recover.
+     * @return Whether healing was executed normally or not.
+     */
+    public boolean heal(BattleGameState b, double d) {
+    	// call abilities
+    	if (abilities != null) {
+    		boolean flag = false;
+    		for (int i=0; i<abilities.length; i++)
+    			flag = flag || abilities[i].heal(this, b, d);
+    		if (flag)
+    			return false;
+    	}
+    	hp = Math.min(hp+d, maxHp);
+    	return true;
+    }
+    
+    /**
      * Called by {@code AttackObjects} to register a hit and respond accordingly
      * 
      * @param b - current BattleGameState
@@ -293,7 +310,6 @@ public class Character extends Model {
     		if (flag)
     			return false;
     	}
-    	
     	if (currentAttack != null) {
     		currentAttack.interrupt(b, other);
     		return false;
@@ -310,6 +326,10 @@ public class Character extends Model {
      * @return Whether damage was taken or not
      */   
     public boolean reactHit(BattleGameState b, Model other) {
+    	// reciprocate the hit
+    	if (other instanceof AttackObject)
+    		((AttackObject)other).hit(b, this);
+    	
     	// call abilities
     	if (abilities != null) {
     		boolean flag = false;

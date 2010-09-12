@@ -1,10 +1,15 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.ability.Ability;
+import com.googlecode.reaxion.game.ability.ActiveShielder;
 import com.googlecode.reaxion.game.ability.AfterImage;
 import com.googlecode.reaxion.game.ability.EvasiveStart;
+import com.googlecode.reaxion.game.ability.HealingFactor;
+import com.googlecode.reaxion.game.ability.PassiveHealer;
+import com.googlecode.reaxion.game.ability.RandomInstantGauge;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.input.ai.TestAI;
+import com.googlecode.reaxion.game.model.character.Austin;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Cy;
 import com.googlecode.reaxion.game.model.character.Khoa;
@@ -156,29 +161,33 @@ public class StageSelectionState extends BasicGameState {
 		// Add some characters
 		MajorCharacter mp = (MajorCharacter) LoadingQueue
 				.push(new Monica(false));
-		MajorCharacter t2 = (MajorCharacter) LoadingQueue.push(new Khoa(false));
+		MajorCharacter t2 = (MajorCharacter) LoadingQueue.push(new Nilay(false));
 		MajorCharacter t = (MajorCharacter) LoadingQueue.push(new Khoa());
 		MajorCharacter c = (MajorCharacter) LoadingQueue.push(new Cy());
 		MajorCharacter n = (MajorCharacter) LoadingQueue.push(new Nilay());
-		MajorCharacter c2 = (MajorCharacter) LoadingQueue.push(new Cy());
+		MajorCharacter c2 = (MajorCharacter) LoadingQueue.push(new Austin());
 
 		// Load everything!
 		LoadingQueue.execute(battleState);
 
 		// Set up some abilities!
-		mp.setAbilities(new Ability[] { new EvasiveStart() });
-		t2.setAbilities(new Ability[] { new AfterImage() });
+		mp.setAbilities(new Ability[] { new ActiveShielder() });
+		t2.setAbilities(new Ability[] { new RandomInstantGauge() });
 		t.setAbilities(new Ability[] { new AfterImage() });
-
+		
 		// Set up test attacks!
 		Class[] attacks1 = new Class[6];
 		Class[] attacks2 = new Class[6];
 		try {
 			attacks1[0] = Class.forName(attackBaseLocation + "ShootBullet");
 			attacks1[1] = Class.forName(attackBaseLocation + "ShieldBarrier");
+			attacks1[2] = Class.forName(attackBaseLocation + "ShieldMediguard");
+			attacks1[3] = Class.forName(attackBaseLocation + "ShieldReflega");
 
 			attacks2[0] = Class.forName(attackBaseLocation + "SpinLance");
-			attacks2[1] = Class.forName(attackBaseLocation + "AngelRain");
+			attacks2[1] = Class.forName(attackBaseLocation + "LanceWheel");
+			attacks2[2] = Class.forName(attackBaseLocation + "LanceArc");
+			attacks2[3] = Class.forName(attackBaseLocation + "TriLance");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
