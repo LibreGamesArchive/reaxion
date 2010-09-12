@@ -100,104 +100,10 @@ public class Reaxion {
 
 		//@Override
 		public Void call() throws Exception {
-			/*
-			loadState = new LoadingGameState();
-			GameStateManager.getInstance().attachChild(loadState);
-			loadState.setActive(true);
-			*/
 
-			
-			
-			//battleState = new BattleGameState();
-			//GameStateManager.getInstance().attachChild(battleState);
-			//battleState.setActive(true);
-			//stageState = new StageSelectionState();
-			//GameStateManager.getInstance().attachChild(stageState);
-			//stageState.setActive(true);
 			charState = new CharSelectState(battleState);
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
-			
-			// Set the stage
-			Stage cb = (Stage)LoadingQueue.push(new FlowerField());
-			
-			// Add some characters
-	        MajorCharacter mp = (MajorCharacter)LoadingQueue.push(new Monica());
-	        MajorCharacter t2 = (MajorCharacter)LoadingQueue.push(new Khoa(false)); 
-	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa());        
-	        MajorCharacter c = (MajorCharacter)LoadingQueue.push(new Cy());     
-	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay());
-	        MajorCharacter c2 = (MajorCharacter)LoadingQueue.push(new Cy());
-	        //MajorCharacter a = (MajorCharacter)LoadingQueue.push(new Austin());
-	        
-	        //Creates a list of characters for use with character selection
-	        ArrayList <MajorCharacter> charList = new ArrayList<MajorCharacter>();
-	        charList.add(t);
-	        charList.add(c);
-	        charList.add(n);
-	        charList.add(mp);
-	        //charList.add(a);
-	        
-	        
-	        //boolean x = true;
-	        //Character Select
-	        //CharSelectForm CS = new CharSelectForm();
-	        //waits till start button is pressed
-	        //while(CS.beginGame())
-	       // {
-	        //}
-	       // int[]chars = CS.getChoices();
-	        
-	        
-	        
-	        // Load everything!
-	        LoadingQueue.execute(battleState);
-	        
-	        
-	        // Set up some abilities!
-
-	        //charList.get(chars[0]).setAbilities(new Ability[]{new EvasiveStart()});
-	        //charList.get(chars[1]).setAbilities(new Ability[]{new AfterImage()});
-
-	        
-	        // Set up test attacks!
-	        Class[] attacks1 = new Class[6];
-	        attacks1[0] = Class.forName(attackBaseLocation+"ShootBullet");
-	        attacks1[1] = Class.forName(attackBaseLocation+"ShieldBarrier");
-	        Class[] attacks2 = new Class[6];
-	        attacks2[0] = Class.forName(attackBaseLocation+"SpinLance");
-	        attacks2[1] = Class.forName(attackBaseLocation+"AngelRain");
-	        
-	        // Set up some AI!
-	        //t.assignAI(new TestAI(t));
-	        //c2.assignAI(new TestAI(c2));
-	        //charList.get(chars[1]).assignAI(new TestAI(charList.get(chars[1])));
-	        
-	        // Set the opponent!
-	        com.googlecode.reaxion.game.model.character.Character[] opponents = new com.googlecode.reaxion.game.model.character.Character[1];
-	        opponents[0] = t;
-	        battleState.assignOpponents(opponents);
-	        
-	        // Set stuff in the battleState
-
-	        //battleState.assignPlayer(charList.get(chars[0]), attacks);
-
-	        battleState.assignTeam(mp, attacks1, t2, attacks2);
-
-	        c.model.setLocalTranslation(2, 5, -1);
-	        c2.model.setLocalTranslation(6, 5, 3);
-	        c2.gravity = 0;
-	        n.model.setLocalTranslation(-5, 0, -3);
-	        battleState.nextTarget(0);
-	        
-	        // reupdate due to added changes
-	        battleState.getRootNode().updateRenderState();
-	        
-	        //mp.play("stand");
-	        //charList.get(chars[0]).play("stand");
-			
-
-
 
 			return null;
 		}	
