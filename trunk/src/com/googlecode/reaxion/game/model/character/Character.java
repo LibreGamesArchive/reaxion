@@ -137,7 +137,7 @@ public class Character extends Model {
     			if (flag)
     				return;
     		}
-
+    		
     		// execute attack
     		if (currentAttack != null)
     			currentAttack.enterFrame(b);
@@ -149,8 +149,10 @@ public class Character extends Model {
     		// apply gravity
     		if (gravitate) {
     			velocity.y += gravVel;
-    			gravVel += gravity;
+    			if (model.getLocalTranslation().y > 0)
+    				gravVel += gravity;
     		}
+    		
     		// check the ground
     		contactGround();
     		// let other Characters push player around
@@ -163,7 +165,7 @@ public class Character extends Model {
     		Vector3f loc = model.getLocalTranslation();
     		loc.addLocal(velocity);
     		model.setLocalTranslation(loc);
-
+    		
     		// increase gauge
     		gauge = Math.min(gauge + gaugeRate*maxGauge, maxGauge);
 
@@ -177,17 +179,6 @@ public class Character extends Model {
     		 */
     	}
     }
-    
-    /**
-     * Make the character jump if grounded (assuming ground is y=0), returns whether on ground
-     */
-    /*
-    public void jump() {
-    	if (model.getWorldTranslation().y<=0)
-    		gravVel = jump;
-    	return 
-    }
-    */
     
     /**
      * Checks for other characters with bounding capsules and adjusts movement vector

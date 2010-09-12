@@ -101,29 +101,31 @@ public class PlayerInput extends InputHandler {
     	float unitX = 0f;
     	float unitY = 0f;
     	float unitZ = 0f;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", true)) {
-    		if (forthOn)
-    			unitX = -1f;
-    	} else {
-    		forthOn = false;
-    	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", true)) {
-    		if (!forthOn)
-    			unitX = 1f;
-    	} else {
-    		forthOn = true;
-    	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", true)) {
-    		if (!leftOn)
-    			unitZ = 1f;
-    	} else {
-    		leftOn = true;
-    	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", true)) {
-    		if (leftOn)
-    			unitZ = -1f;
-    	} else {
-    		leftOn = false;
+    	if (!player.moveLock && !player.flinching) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", true)) {
+    			if (forthOn)
+    				unitX = -1f;
+    		} else {
+    			forthOn = false;
+    		}
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", true)) {
+    			if (!forthOn)
+    				unitX = 1f;
+    		} else {
+    			forthOn = true;
+    		}
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", true)) {
+    			if (!leftOn)
+    				unitZ = 1f;
+    		} else {
+    			leftOn = true;
+    		}
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", true)) {
+    			if (leftOn)
+    				unitZ = -1f;
+    		} else {
+    			leftOn = false;
+    		}
     	}
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("jump", true)) {
     		if (!player.jumpLock && !player.flinching && player.model.getWorldTranslation().y <= 0) {
@@ -187,8 +189,8 @@ public class PlayerInput extends InputHandler {
     	float nUnitZ = unitX*FastMath.cos(angle) - unitZ*FastMath.sin(angle);
     	
     	// assign vector to player
-    	if (!player.moveLock && !player.flinching)
-    		player.setVelocity(new Vector3f(nUnitX, unitY, nUnitZ).mult(player.speed));
+    	player.setVelocity(new Vector3f(nUnitX, unitY, nUnitZ).mult(player.speed));
+    	
     }
     
     /**
@@ -197,6 +199,7 @@ public class PlayerInput extends InputHandler {
     private void executeAttack(int ind) {
     	if (!player.flinching && player.currentAttack == null) {
 			try {
+				System.out.println("!!!");
 				if (attacks[ind] != null) {
 					Character[] friends = new Character[1];
 					friends[0] = partner;
