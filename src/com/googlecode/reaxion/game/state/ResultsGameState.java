@@ -138,6 +138,7 @@ public class ResultsGameState extends CameraGameState {
         if (input != null) {
         	if(KeyBindingManager.getKeyBindingManager().isValidCommand("return", false)) {
         		GameStateManager.getInstance().getChild(StageSelectionState.NAME).setActive(true);
+        		setActive(false);
         		BgmPlayer.stopAndReset();
         		GameStateManager.getInstance().detachChild(this);
         	}

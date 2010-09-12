@@ -33,7 +33,7 @@ public class MajorCharacter extends Character {
     public void type() {
     	maxHp = 100;
     	gaugeRate = .0015;
-    	minGauge = 6;
+    	minGauge = 10;
     	maxGauge = 18;
     	speed = .5f;
     }
