@@ -7,6 +7,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharSelectState;
+import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.test.ModelTest;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
@@ -16,6 +17,7 @@ public class LoadingQueue {
 	private static ArrayList<Model> queue = new ArrayList<Model>();
 	private static BattleGameState state;
 	private static CharSelectState Cstate;
+	private static StageSelectionState Sstate;
 	private static SimpleResourceLocator locator;
 	
 	/**
@@ -54,18 +56,6 @@ public class LoadingQueue {
 	 */
 	public static void execute(BattleGameState b) {
 		state = b;
-		System.out.println("Loading queue executed.");
-		if (locator == null)
-			locateTextures();
-		while (!queue.isEmpty()) {
-			Model m = queue.get(0);
-			ModelLoader.load(m, m.filename);
-		}
-		resetQueue();
-	}
-	
-	public static void execute(CharSelectState c) {
-		Cstate = c;
 		System.out.println("Loading queue executed.");
 		if (locator == null)
 			locateTextures();

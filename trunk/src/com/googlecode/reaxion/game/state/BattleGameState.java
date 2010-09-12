@@ -396,11 +396,6 @@ public class BattleGameState extends CameraGameState {
         /** Assign key P to action "toggle_pause". */
         KeyBindingManager.getKeyBindingManager().set("toggle_pause",
                 KeyInput.KEY_P);
-        /**Assign key O to action "charselect". */
-        KeyBindingManager.getKeyBindingManager().set("charselect",
-                KeyInput.KEY_O);
-        
-        
         // These actions are holdovers from DebugGameState and are not fully "supported"
         /** Assign key T to action "toggle_wire". */
         KeyBindingManager.getKeyBindingManager().set("toggle_wire",
@@ -468,31 +463,6 @@ public class BattleGameState extends CameraGameState {
 	    	
 	        if (pause)
 	            return;
-	        
-	        /** If charselect is a valid command (via key o), bring up selection screen. */
-	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "charselect", false) && victoryCount == 0) {
-	        	/*charsel = !charsel;
-	        	// toggle the overlay
-	        	if (charsel)
-	        		charNode.pause();
-	        	else
-	        		charNode.unpause();
-	        	System.out.println("CharacterSelect: "+charsel);
-	        	
-	        	*/
-	        	
-	        	CharSelectState charState = new CharSelectState(this);
-	        	
-	        	charState.setBackground(pauseNode.getScreenshot());
-	    		
-	    		GameStateManager.getInstance().attachChild(charState);
-	    		charState.setActive(true);
-	        	setActive(false);
-	        }
-	    	
-	       // if (charsel)
-	         //   return;
 	        
     	}
     	

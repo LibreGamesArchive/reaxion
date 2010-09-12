@@ -13,6 +13,7 @@ import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.character.Austin;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Cy;
 import com.googlecode.reaxion.game.model.character.Khoa;
@@ -75,11 +76,6 @@ public class CharSelectState extends CameraGameState {
     private BattleGameState battle;
     
     
-    MajorCharacter[] selectedChars = new MajorCharacter[3];
-    ArrayList <MajorCharacter> p1List = new ArrayList<MajorCharacter>();
-    ArrayList <MajorCharacter> p2List = new ArrayList<MajorCharacter>();
-    ArrayList <MajorCharacter> opList = new ArrayList<MajorCharacter>();
-    
 	public CharSelectState(BattleGameState b) {
 		super("charSelectState");
 		battle = b;
@@ -131,37 +127,7 @@ public class CharSelectState extends CameraGameState {
             rootNode.updateGeometricState(0.0f, true);
             charSelectNode.pause();
             
-            
-            MajorCharacter m = (MajorCharacter)LoadingQueue.push(new Monica(false));
-	        MajorCharacter t = (MajorCharacter)LoadingQueue.push(new Khoa(false));        
-	        MajorCharacter c = (MajorCharacter)LoadingQueue.push(new Cy(false));     
-	        MajorCharacter n = (MajorCharacter)LoadingQueue.push(new Nilay(false));
-	        
-	        MajorCharacter m2 = (MajorCharacter)LoadingQueue.push(new Monica(false));
-	        MajorCharacter t2 = (MajorCharacter)LoadingQueue.push(new Khoa(false));        
-	        MajorCharacter c2 = (MajorCharacter)LoadingQueue.push(new Cy(false));     
-	        MajorCharacter n2 = (MajorCharacter)LoadingQueue.push(new Nilay(false));
-	        
-	        MajorCharacter mo = (MajorCharacter)LoadingQueue.push(new Monica());
-	        MajorCharacter to = (MajorCharacter)LoadingQueue.push(new Khoa());        
-	        MajorCharacter co = (MajorCharacter)LoadingQueue.push(new Cy());     
-	        MajorCharacter no = (MajorCharacter)LoadingQueue.push(new Nilay());
-	        
-
-	        
-	        p1List.add(t);
-	        p1List.add(c);
-	        p1List.add(n);
-	        p1List.add(m);
-	        p2List.add(t2);
-	        p2List.add(c2);
-	        p2List.add(n2);
-	        p2List.add(m2);
-	        opList.add(to);
-	        opList.add(co);
-	        opList.add(no);
-	        opList.add(mo);
-	        
+         
         }
 
         // duplicate the functionality of DebugGameState
@@ -231,33 +197,6 @@ public class CharSelectState extends CameraGameState {
 	        	setActive(false);
         	}
         	
-        	/*{
-        		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "p11", false)) {
-        			selectedChars[0] = p1List.get(0);
-        		}
-        		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "p12", false)) {
-        			selectedChars[0] = p1List.get(1);
-        		}
-        		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "p13", false)) {
-        			selectedChars[0] = p1List.get(2);
-        		}
-        		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "p141", false)) {
-        			selectedChars[0] = p1List.get(3);
-        		}
-        		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "p15", false)) {
-        			selectedChars[0] = p1List.get(4);
-        		}
-        		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "p16", false)) {
-        			selectedChars[0] = p1List.get(5);
-        		}
-        	}*/
-        	
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                "arrow_up", false)) {
         		System.out.println("up");
@@ -324,114 +263,7 @@ public class CharSelectState extends CameraGameState {
     		GameStateManager.getInstance().attachChild(s);
 			s.setActive(true);
 			setActive(false);
-    		//String className = s.getstageOverlay().getSelectedStageClass();
 
-    		
-    		
-			/*{
-    		
-    		BattleGameState battleState = new BattleGameState();
-
-    		// Set the stage
-    		try {
-    			Class cl;
-    			cl = Class.forName(stageClassURL + className);
-    			Stage temp = (Stage) cl.getConstructors()[0].newInstance();
-    			Stage cb = (Stage) LoadingQueue.push(temp);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-
-    		// Add some characters
-    		ArrayList<MajorCharacter> p1 = new ArrayList<MajorCharacter>();
-    		ArrayList<MajorCharacter> p2 = new ArrayList<MajorCharacter>();
-    		ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>();
-    		
-    		p1.add(new Khoa(false));
-    		p1.add(new Cy(false));
-    		p1.add(new Nilay(false));
-    		p1.add(new Monica(false));
-    		
-    		p2.add(new Khoa(false));
-    		p2.add(new Cy(false));
-    		p2.add(new Nilay(false));
-    		p2.add(new Monica(false));
-    		
-    		op.add(new Khoa());
-    		op.add(new Cy());
-    		op.add(new Nilay());
-    		op.add(new Monica());
-    		
-    		MajorCharacter PL1 = (MajorCharacter) LoadingQueue.push(p1.get(selected[0]));
-    		MajorCharacter PL2 = (MajorCharacter) LoadingQueue.push(p2.get(selected[1]));
-    		MajorCharacter PLO = (MajorCharacter) LoadingQueue.push(op.get(selected[2]));
-    		
-    		
-
-    		// Load everything!
-    		LoadingQueue.execute(battleState);
-
-    		// Set up some abilities!
-    		PL1.setAbilities(new Ability[] { new EvasiveStart() });
-    		PL2.setAbilities(new Ability[] { new AfterImage() });
-    		PLO.setAbilities(new Ability[] { new AfterImage() });
-
-    		// Set up test attacks!
-    		Class[] attacks1 = new Class[6];
-    		Class[] attacks2 = new Class[6];
-    		try {
-    			attacks1[0] = Class.forName(attackBaseLocation + "ShootBullet");
-    			attacks1[1] = Class.forName(attackBaseLocation + "ShieldBarrier");
-
-    			attacks2[0] = Class.forName(attackBaseLocation + "SpinLance");
-    			attacks2[1] = Class.forName(attackBaseLocation + "AngelRain");
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-
-    		// Set up some AI!
-    		PLO.assignAI(new TestAI(PLO));
-    		//t.hp = 5;
-
-    		// Set the opponent!
-    		Character[] opponents = new Character[1];
-    		opponents[0] = PLO;
-    		battleState.assignOpponents(opponents);
-
-    		// Set stuff in the battleState
-    		battleState.assignTeam(PL1, attacks1, PL2, attacks2);
-    		//c.model.setLocalTranslation(2, 5, -1);
-    		//c2.model.setLocalTranslation(6, 5, 3);
-    		//c2.gravity = 0;
-    		//n.model.setLocalTranslation(-5, 0, -3);
-    		battleState.nextTarget(0);
-
-    		// Set up BGM
-    		try {
-    			BgmPlayer.prepare();
-    			BgmPlayer.play(battleState.getStage().bgm[0]);
-    		} catch (NullPointerException e) {
-    			System.out.println("No BGM for " + className);
-    		}
-
-    		// test sounds, uncomment to test
-    		// SfxPlayer.addSfx("test3.ogg", t, 50, true);
-
-    		// Set some game conditions...
-    		battleState.targetTime = 60;
-    		battleState.expYield = 1000;
-
-    		// reupdate due to added changes
-    		battleState.getRootNode().updateRenderState();
-
-    		PL1.play("stand");
-
-    		GameStateManager.getInstance().attachChild(battleState);
-    		battleState.setActive(true);
-    		setActive(false);
-    		
-    		
-			}*/
     	}
     
     public boolean charSelected()
