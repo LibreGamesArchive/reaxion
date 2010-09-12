@@ -12,12 +12,12 @@ import com.jme.math.Vector3f;
  */
 public class AngelRain extends Attack {
 	
-	private static final int height = 48;
-	private static final int riseSpeed = 1;
+	private static final int height = 30;
+	private static final int riseSpeed = 3;
 	private static final int minRadius = 1;
-	private static final int maxRadius = 30;
-	private static final int delay = 8;
-	private static final int maxSwords = 32;
+	private static final int maxRadius = 50;
+	private static final int delay = 3;
+	private static final int maxSwords = 100;
 	
 	private AngelSword as;
 	private boolean oldGravity;

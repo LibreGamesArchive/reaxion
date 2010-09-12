@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
+import java.util.ArrayList;
+
 import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.ability.ActiveShielder;
 import com.googlecode.reaxion.game.ability.AfterImage;
@@ -54,9 +56,12 @@ public class StageSelectionState extends BasicGameState {
 	private KeyBindingManager manager;
 
 	protected AbstractGame game = null;
+	
+	private int[] selectedChars;
 
-	public StageSelectionState() {
+	public StageSelectionState(int[]SC) {
 		super(NAME);
+		selectedChars = SC;
 		init();
 	}
 
@@ -101,6 +106,12 @@ public class StageSelectionState extends BasicGameState {
 
 		checkKeyInput();
 	}
+	
+	public StageSelectionOverlay getstageOverlay()
+	{
+		return stageSelectionNode;
+	}
+	
 
 	private void checkKeyInput() {
 		if (input != null) {
@@ -159,21 +170,40 @@ public class StageSelectionState extends BasicGameState {
 		}
 
 		// Add some characters
-		MajorCharacter mp = (MajorCharacter) LoadingQueue
-				.push(new Monica(false));
-		MajorCharacter t2 = (MajorCharacter) LoadingQueue.push(new Nilay(false));
-		MajorCharacter t = (MajorCharacter) LoadingQueue.push(new Khoa());
-		MajorCharacter c = (MajorCharacter) LoadingQueue.push(new Cy());
-		MajorCharacter n = (MajorCharacter) LoadingQueue.push(new Nilay());
-		MajorCharacter c2 = (MajorCharacter) LoadingQueue.push(new Austin());
+		// Add some characters
+		ArrayList<MajorCharacter> p1 = new ArrayList<MajorCharacter>();
+		ArrayList<MajorCharacter> p2 = new ArrayList<MajorCharacter>();
+		ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>();
+		
+		p1.add(new Khoa(false));
+		p1.add(new Cy(false));
+		p1.add(new Nilay(false));
+		p1.add(new Monica(false));
+		p1.add(new Austin(false));
+		
+		p2.add(new Khoa(false));
+		p2.add(new Cy(false));
+		p2.add(new Nilay(false));
+		p2.add(new Monica(false));
+		p2.add(new Austin(false));
+		
+		op.add(new Khoa());
+		op.add(new Cy());
+		op.add(new Nilay());
+		op.add(new Monica());
+		op.add(new Austin());
+		
+		MajorCharacter PL1 = (MajorCharacter) LoadingQueue.push(p1.get(selectedChars[0]));
+		MajorCharacter PL2 = (MajorCharacter) LoadingQueue.push(p2.get(selectedChars[1]));
+		MajorCharacter PLO = (MajorCharacter) LoadingQueue.push(op.get(selectedChars[2]));
 
 		// Load everything!
 		LoadingQueue.execute(battleState);
 
 		// Set up some abilities!
-		mp.setAbilities(new Ability[] { new ActiveShielder() });
-		t2.setAbilities(new Ability[] { new RandomInstantGauge() });
-		t.setAbilities(new Ability[] { new AfterImage() });
+		PL1.setAbilities(new Ability[] { new ActiveShielder() });
+		PL2.setAbilities(new Ability[] { new RandomInstantGauge() });
+		PLO.setAbilities(new Ability[] { new AfterImage() });
 		
 		// Set up test attacks!
 		Class[] attacks1 = new Class[6];
@@ -193,20 +223,20 @@ public class StageSelectionState extends BasicGameState {
 		}
 
 		// Set up some AI!
-		t.assignAI(new TestAI(t));
+		PLO.assignAI(new TestAI(PLO));
 		//t.hp = 5;
 
 		// Set the opponent!
 		Character[] opponents = new Character[1];
-		opponents[0] = t;
+		opponents[0] = PLO;
 		battleState.assignOpponents(opponents);
 
 		// Set stuff in the battleState
-		battleState.assignTeam(mp, attacks1, t2, attacks2);
-		c.model.setLocalTranslation(2, 5, -1);
-		c2.model.setLocalTranslation(6, 5, 3);
-		c2.gravity = 0;
-		n.model.setLocalTranslation(-5, 0, -3);
+		battleState.assignTeam(PL1, attacks1, PL2, attacks2);
+		//c.model.setLocalTranslation(2, 5, -1);
+		//c2.model.setLocalTranslation(6, 5, 3);
+		//c2.gravity = 0;
+		//n.model.setLocalTranslation(-5, 0, -3);
 		battleState.nextTarget(0);
 
 		// Set up BGM
@@ -227,7 +257,7 @@ public class StageSelectionState extends BasicGameState {
 		// reupdate due to added changes
 		battleState.getRootNode().updateRenderState();
 
-		mp.play("stand");
+		//PL1.play("stand");
 
 		GameStateManager.getInstance().attachChild(battleState);
 		battleState.setActive(true);
