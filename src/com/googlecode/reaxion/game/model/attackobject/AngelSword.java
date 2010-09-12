@@ -15,15 +15,11 @@ public class AngelSword extends AttackObject {
 	public AngelSword(Model m) {
     	super(filename, dpf, m);
     	flinch = true;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	public AngelSword(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	@Override

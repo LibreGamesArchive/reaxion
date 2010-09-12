@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.jme.math.FastMath;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
@@ -45,24 +46,24 @@ public class Model {
     public Vector3f rotationVector = new Vector3f(0, 0, 1);
     
     /**
-	 * Allow rotation along the x-axis
+	 * Rotation along the x-axis
 	 */
-    protected Boolean allowYaw = true;
+    public float yaw = 0;
     
     /**
-	 * Allow rotation along the y-axis
+	 * Rotation along the y-axis
 	 */
-    protected Boolean allowRoll = true;
+    public float roll = 0;
     
     /**
-	 * Allow rotation along the z-axis
+	 * Rotation along the z-axis
 	 */
-    protected Boolean allowPitch = true;
+    public float pitch = 0;
     
     /**
 	 * Whether animation is being locked
 	 */
-	public Boolean animationLock = false;
+	public boolean animationLock = false;
     
     /**
 	 * Damage this object inflicts per frame
@@ -234,24 +235,27 @@ public class Model {
     }
     
     /**
-	 * Rotate the model to point to {@code vector}
+	 * Rotate the model according to {@code yaw}, {@code roll}, and {@code pitch}.
+	 */
+    public void rotate() {
+    	Quaternion q = new Quaternion();
+    	model.setLocalRotation(q.fromAngles(yaw, roll, pitch));
+    }
+    
+    /**
+	 * Rotate the model to point to {@code vector} before applying {@code yaw},
+	 * {@code roll}, and {@code pitch}.
 	 * @param vector Specifies the point which the model will point to
 	 */
     public void rotate(Vector3f point) {
     	rotationVector = point.normalize();
+
+    	float pointRoll = (float) Math.atan2(point.x, point.z);
+    	float pointYaw = (float) Math.atan2(point.y, FastMath.sqrt(FastMath.pow(point.x, 2) + FastMath.pow(point.z, 2)));
     	
-    	float pitch = 0f;
-    	float roll = 0f;
-    	float yaw = 0f;
-    	if (allowYaw)
-    		yaw = (float) Math.atan2(point.y, point.z);
-    	if (allowRoll)
-    		roll = (float) Math.atan2(point.x, point.z);
-    	if (allowPitch)
-    		pitch = (float) Math.atan2(point.y, point.x);
     	//System.out.println(point.x+" "+point.y+" "+point.z+": "+yaw+" "+roll+" "+pitch);
     	Quaternion q = new Quaternion();
-    	model.setLocalRotation(q.fromAngles(yaw, roll, pitch));
+    	model.setLocalRotation(q.fromAngles(yaw + pointYaw, roll + pointRoll, pitch));
     }
     
     /**

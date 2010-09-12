@@ -32,7 +32,7 @@ public class StageSelectionOverlay extends Overlay {
 
 	private Node container;
 
-	private String[] stageNames = { "Flower Field", "Checkerboard" };
+	private String[] stageNames = { "Flower Field", "World's Edge", "Checkerboard" };
 	private Node[] stageBoxes;
 	private BitmapText[] stageList;
 	private int currentIndex;
@@ -80,7 +80,8 @@ public class StageSelectionOverlay extends Overlay {
 	}
 
 	private String getImageURL(String s) {
-		return s.toLowerCase().replace(" ", "-") + ".png";
+		String str = s.replace("'", "");
+		return str.toLowerCase().replace(" ", "-") + ".png";
 	}
 
 	private void createStageBoxes() {
@@ -170,7 +171,8 @@ public class StageSelectionOverlay extends Overlay {
 	}
 
 	public String getSelectedStageClass() {
-		return stageNames[currentIndex].replace(" ", "");
+		String str = stageNames[currentIndex].replace("'", "");
+		return str.replace(" ", "");
 	}
 	
 	public String getSelectedStageName() {

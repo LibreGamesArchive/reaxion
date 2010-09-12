@@ -22,16 +22,12 @@ public class SpinningLance extends AttackObject {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	public SpinningLance(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
-    	allowYaw = false;
-    	allowPitch = false;
     }
 	
 	@Override

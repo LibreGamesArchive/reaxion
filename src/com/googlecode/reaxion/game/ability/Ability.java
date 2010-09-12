@@ -56,10 +56,19 @@ public class Ability {
 	}
 	
 	/**
+	 * Called by Character at the start of the {@code heal()} function,
+	 * returns true if the function is to be interrupted, false if otherwise.
+	 */
+	public boolean heal(Character c, BattleGameState b, double hpf) {
+		return false;
+	}
+	
+	/**
 	 * When an ability is set off, create a ring around the character to show it.
 	 */
 	public void activate(Character c, BattleGameState b) {
 		LoadingQueue.quickLoad(new GlowRing(c), b);
+		b.getRootNode().updateRenderState();
 	}
 	
 	public String toString() {
