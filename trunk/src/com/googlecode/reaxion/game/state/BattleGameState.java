@@ -251,7 +251,7 @@ public class BattleGameState extends CameraGameState {
     	// Create input system
     	playerInput = new PlayerInput(this);
     	// Pass attack reference to HUD
-    	hudNode.setMoveset(playerAttacks);
+    	hudNode.passCharacterInfo(playerAttacks, player.minGauge);
     	// Remove the inactive character
     	removeModel(partner);
     }
@@ -269,7 +269,7 @@ public class BattleGameState extends CameraGameState {
     	// Create input system
     	playerInput = new PlayerInput(this);
     	// Pass attack reference to HUD
-    	hudNode.setMoveset(playerAttacks);
+    	hudNode.passCharacterInfo(playerAttacks, player.minGauge);
     }
     
     /**
@@ -296,7 +296,7 @@ public class BattleGameState extends CameraGameState {
     		playerAttacks = partnerAttacks;
     		partnerAttacks = a;
     		// Pass attack reference to HUD
-    		hudNode.setMoveset(playerAttacks);
+    		hudNode.passCharacterInfo(playerAttacks, player.minGauge);
     		// Attach the active character
     		addModel(player);
     		// Synchronize position
@@ -454,10 +454,14 @@ public class BattleGameState extends CameraGameState {
 	                "toggle_pause", false) && victoryCount == 0) {
 	        	pause = !pause;
 	        	// toggle the overlay
-	        	if (pause)
+	        	if (pause) {
 	        		pauseNode.pause();
-	        	else
+	        		BgmPlayer.gamePaused();
+	        	}
+	        	else {
 	        		pauseNode.unpause();
+	        		BgmPlayer.gameUnpaused();
+	        	}
 	        	System.out.println("Paused: "+pause);
 	        }
 	    	
@@ -773,7 +777,6 @@ public class BattleGameState extends CameraGameState {
 		
 		GameStateManager.getInstance().attachChild(resultsState);
 		resultsState.setActive(true);
-		
     	GameStateManager.getInstance().detachChild(this);
     	setActive(false);
     }

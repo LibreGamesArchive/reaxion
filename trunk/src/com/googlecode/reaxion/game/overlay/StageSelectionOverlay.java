@@ -54,7 +54,7 @@ public class StageSelectionOverlay extends Overlay {
 		container = new Node("container");
 		currentIndex = 0;
 		selectedText = new ColorRGBA(0, 1, 0, 1);
-		unselectedText = new ColorRGBA(1, 1, 1, 1);
+		unselectedText = ColorRGBA.white;
 		fontSize = 24;
 
 		try {
@@ -99,7 +99,7 @@ public class StageSelectionOverlay extends Overlay {
 
 		Quad border = new Quad("border_" + name, image.getWidth() + 20, image
 				.getHeight() + 16);
-		border.setSolidColor(new ColorRGBA(1, 1, 1, 1));
+		border.setSolidColor(ColorRGBA.white);
 
 		stageBox.attachChild(border);
 		stageBox.attachChild(image);

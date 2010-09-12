@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.util.ColorUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -31,6 +32,7 @@ public class HudOverlay extends Overlay {
 	private BitmapFont font = null;
     
 	private Class[] attacks;
+	private int gaugeCap;
 	
 	private Node container;
 	
@@ -58,7 +60,7 @@ public class HudOverlay extends Overlay {
 	
 	private ColorRGBA textColor;
 	private ColorRGBA[] gaugeColors = {new ColorRGBA(0, .67f, .67f, 1), new ColorRGBA(1, .5f, 0, 1)};
-	private ColorRGBA[] attackUsed = {new ColorRGBA(0, 1, 1, 1), new ColorRGBA(1, .7f, 0, 1)};
+	private ColorRGBA[] attackUsed;
 	private ColorRGBA attackUnavailable;
 	
 	public HudOverlay() {
@@ -79,6 +81,10 @@ public class HudOverlay extends Overlay {
         textColor = new ColorRGBA(1, 1, 1, 1);
         // Dark Gray
         attackUnavailable = new ColorRGBA(.25f, .25f, .25f, 1);
+        
+        attackUsed = new ColorRGBA[gaugeColors.length];
+        for(int i = 0; i < gaugeColors.length; i++)
+        	attackUsed[i] = ColorUtils.lighter(gaugeColors[i], .3);
         
 		attackFill = new Quad[6];
 		for (int i=0; i<attackFill.length; i++) {
@@ -208,14 +214,14 @@ public class HudOverlay extends Overlay {
 		for (int i=0; i<attacks.length; i++) {
 			if (attacks[i] != null && b.getPlayer().currentAttack != null && attacks[i].isInstance(b.getPlayer().currentAttack)) {
 				attackFill[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
-				attackFill[i].setSolidColor(gaugeCosts[i] >= 6 ? attackUsed[1] : attackUsed[0]);
+				attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? attackUsed[1] : attackUsed[0]);
 				attackBar[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
 				attackText[i].setLocalTranslation(new Vector3f(22 + 4, 100 - 20*i + 18, 0));
 				gaugeCostText[i].setLocalTranslation(new Vector3f(22 + attackFill[i].getWidth() - 25, 100 - 20 * i + 18, 0));
 			} else {
 				attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
 				if(gaugeCosts[i] != -1 && b.getPlayer().gauge >= gaugeCosts[i])
-					attackFill[i].setSolidColor(gaugeCosts[i] >= 6 ? gaugeColors[1] : gaugeColors[0]);
+					attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? gaugeColors[1] : gaugeColors[0]);
 				else
 					attackFill[i].setSolidColor(attackUnavailable);
 				attackBar[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
@@ -285,8 +291,9 @@ public class HudOverlay extends Overlay {
 		gaugeCount.setLocalTranslation(new Vector3f(214 + 576*percentGauge, 34, 0));
 	}
 	
-	public void setMoveset(Class[] c) {
+	public void passCharacterInfo(Class[] c, int cap) {
 		attacks = c;
+		gaugeCap = cap;
 		
 		// read in attacks
 		for (int i=0; i<attackText.length; i++) {
