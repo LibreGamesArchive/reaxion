@@ -13,6 +13,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
+import com.googlecode.reaxion.game.overlay.CharSelectOverlay;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
 import com.googlecode.reaxion.game.overlay.PauseOverlay;
 import com.jme.app.AbstractGame;
@@ -59,12 +60,14 @@ public class BattleGameState extends CameraGameState {
     
     private HudOverlay hudNode;
     private PauseOverlay pauseNode;
+    private CharSelectOverlay charNode;
     
     protected InputHandler input;
     protected WireframeState wireState;
     protected LightState lightState;
     
     protected boolean pause;
+    protected boolean charsel = false;
     protected boolean showBounds = false;
     protected boolean showDepth = false;
     protected boolean showNormals = false;
@@ -121,6 +124,11 @@ public class BattleGameState extends CameraGameState {
         // Prepare pause node
         pauseNode = new PauseOverlay();
         rootNode.attachChild(pauseNode);
+        
+        // Prepare Charselect node
+        charNode = new CharSelectOverlay();
+        rootNode.attachChild(charNode);
+        
         
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
@@ -180,6 +188,9 @@ public class BattleGameState extends CameraGameState {
         rootNode.updateRenderState();
         rootNode.updateWorldBound();
         rootNode.updateGeometricState(0.0f, true);
+        
+        
+        
     }
     
     /**
@@ -385,6 +396,10 @@ public class BattleGameState extends CameraGameState {
         /** Assign key P to action "toggle_pause". */
         KeyBindingManager.getKeyBindingManager().set("toggle_pause",
                 KeyInput.KEY_P);
+        /**Assign key O to action "charselect". */
+        KeyBindingManager.getKeyBindingManager().set("charselect",
+                KeyInput.KEY_O);
+        
         
         // These actions are holdovers from DebugGameState and are not fully "supported"
         /** Assign key T to action "toggle_wire". */
@@ -418,6 +433,9 @@ public class BattleGameState extends CameraGameState {
 
     @ Override
     public void stateUpdate(float _tpf) {
+    	
+    	
+    	
     	tpf = _tpf;
     	if (victoryCount == 0)
     		totalTime += tpf;
@@ -450,6 +468,32 @@ public class BattleGameState extends CameraGameState {
 	    	
 	        if (pause)
 	            return;
+	        
+	        /** If charselect is a valid command (via key o), bring up selection screen. */
+	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+	                "charselect", false) && victoryCount == 0) {
+	        	/*charsel = !charsel;
+	        	// toggle the overlay
+	        	if (charsel)
+	        		charNode.pause();
+	        	else
+	        		charNode.unpause();
+	        	System.out.println("CharacterSelect: "+charsel);
+	        	
+	        	*/
+	        	
+	        	CharSelectState charState = new CharSelectState(this);
+	        	
+	        	charState.setBackground(pauseNode.getScreenshot());
+	    		
+	    		GameStateManager.getInstance().attachChild(charState);
+	    		charState.setActive(true);
+	        	setActive(false);
+	        }
+	    	
+	       // if (charsel)
+	         //   return;
+	        
     	}
     	
     	// Update the PlayerInput
