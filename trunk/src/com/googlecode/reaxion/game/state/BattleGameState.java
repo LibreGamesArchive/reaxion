@@ -60,14 +60,12 @@ public class BattleGameState extends CameraGameState {
     
     private HudOverlay hudNode;
     private PauseOverlay pauseNode;
-    private CharSelectOverlay charNode;
     
     protected InputHandler input;
     protected WireframeState wireState;
     protected LightState lightState;
     
     protected boolean pause;
-    protected boolean charsel = false;
     protected boolean showBounds = false;
     protected boolean showDepth = false;
     protected boolean showNormals = false;
@@ -124,10 +122,6 @@ public class BattleGameState extends CameraGameState {
         // Prepare pause node
         pauseNode = new PauseOverlay();
         rootNode.attachChild(pauseNode);
-        
-        // Prepare Charselect node
-        charNode = new CharSelectOverlay();
-        rootNode.attachChild(charNode);
         
         
         // Create a wirestate to toggle on and off. Starts disabled with default
@@ -409,7 +403,7 @@ public class BattleGameState extends CameraGameState {
         /** Assign key N to action "toggle_normals". */
         KeyBindingManager.getKeyBindingManager().set("toggle_normals",
                 KeyInput.KEY_N);
-        /** Assign key C to action "camera_out". */
+        /** Assign key O to action "camera_out". */
         KeyBindingManager.getKeyBindingManager().set("camera_out",
                 KeyInput.KEY_O);
         KeyBindingManager.getKeyBindingManager().set("screen_shot",

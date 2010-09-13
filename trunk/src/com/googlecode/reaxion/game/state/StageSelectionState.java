@@ -159,7 +159,6 @@ public class StageSelectionState extends BasicGameState {
 
 		BattleGameState battleState = new BattleGameState();
 
-		
 		// Set the stage
 		try {
 			Class cl;
@@ -170,6 +169,7 @@ public class StageSelectionState extends BasicGameState {
 			e.printStackTrace();
 		}
 
+		// Add some characters
 		// Add some characters
 		ArrayList<MajorCharacter> p1 = new ArrayList<MajorCharacter>();
 		ArrayList<MajorCharacter> p2 = new ArrayList<MajorCharacter>();
@@ -224,6 +224,7 @@ public class StageSelectionState extends BasicGameState {
 
 		// Set up some AI!
 		PLO.assignAI(new TestAI(PLO));
+		//t.hp = 5;
 
 		// Set the opponent!
 		Character[] opponents = new Character[1];
@@ -232,6 +233,10 @@ public class StageSelectionState extends BasicGameState {
 
 		// Set stuff in the battleState
 		battleState.assignTeam(PL1, attacks1, PL2, attacks2);
+		//c.model.setLocalTranslation(2, 5, -1);
+		//c2.model.setLocalTranslation(6, 5, 3);
+		//c2.gravity = 0;
+		//n.model.setLocalTranslation(-5, 0, -3);
 		battleState.nextTarget(0);
 
 		// Set up BGM
@@ -252,8 +257,8 @@ public class StageSelectionState extends BasicGameState {
 		// reupdate due to added changes
 		battleState.getRootNode().updateRenderState();
 
+		//PL1.play("stand");
 
-		
 		GameStateManager.getInstance().attachChild(battleState);
 		battleState.setActive(true);
 		setActive(false);
