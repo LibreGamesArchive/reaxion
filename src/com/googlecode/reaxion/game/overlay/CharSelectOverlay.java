@@ -1,26 +1,14 @@
 package com.googlecode.reaxion.game.overlay;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.googlecode.reaxion.game.attack.Attack;
-import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
-import com.jme.image.Image;
-import com.jme.image.Texture;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
-import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Quad;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
-import com.jme.util.geom.BufferUtils;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
@@ -33,14 +21,11 @@ public class CharSelectOverlay extends Overlay {
 	private static final File fontFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol.fnt");
     private static final File glyphFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol_0.png");
     
+    private final int numchars = 6;
 
 	private BitmapFont font = null;
-    
-	private Class[] attacks;
 	
 	private Node container;
-	private Node bg;
-	private Quad screenshot;
 	
 	private String[]charNames;
 	private Quad[]p1Fill;
@@ -82,21 +67,10 @@ public class CharSelectOverlay extends Overlay {
         selTextColor = new ColorRGBA(0, 1, 0, 1);
         selBoxColor = new ColorRGBA(0, .67f, .67f, 1);
         
-     // create a bg container
-        bg = new Node("bg");
-        bg.setLocalTranslation(new Vector3f(width/2, height/2, 0));
-        
 		p1Fill = new Quad[6];
 		p2Fill = new Quad[6];
-		opFill = new Quad[6];
-		/*for (int i=0; i<p1Fill.length; i++) {
-			p1Fill[i] = drawRect(162, 18, boxColor);
-			p1Fill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
-			container.attachChild(p1Fill[i]);
-		}*/
+		opFill = new Quad[6];        
         
-        
-        int numchars = 6;
         charNames = new String[numchars];
         charNames[0] = "Khoa";
         charNames[1] = "Cy";
@@ -122,29 +96,10 @@ public class CharSelectOverlay extends Overlay {
         for(int i = 0; i < 3; i++)
         	selectedChars[i] = 0;
         
-        //for (int i = 0; i < p1Display.length; i++)
-        /*{
-        	BitmapText txt = p1Display[i];
-        	txt.setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
-			container.attachChild(txt);
-		
-        }*/
+        initGUI();
         
-        container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
-        
+        container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600); 
 	}
-        
-    public void update(BattleGameState b) {
-       	
-       	for (int i=0; i<charNames.length; i++) {
-       		p1Display[i].setLocalTranslation(new Vector3f(22 + 4, 100 - 20*i + 18, 0));
-       		p1Display[i].update();
-       	}
-       	
-       	
-       	
-       	
-    }
     
     public void updateDisplay(int dir){
     	int []lastIndex = new int[2];
@@ -179,8 +134,10 @@ public class CharSelectOverlay extends Overlay {
 						CurrentIndex[0]--;
 				}
 		}
+		/*
 		System.out.println(lastIndex[0] + " " + lastIndex[1]);
 		System.out.println(CurrentIndex[0] + " " + CurrentIndex[1]);
+		*/
 		
 		p1Display[selectedChars[0]].setDefaultColor(selBoxColor);
 		p2Display[selectedChars[1]].setDefaultColor(selBoxColor);
@@ -257,15 +214,9 @@ public class CharSelectOverlay extends Overlay {
     	
     	
     }
-    
-    
         
-	public void pause() {
-		screenshot = getScreenshot();
-		screenshot.setLocalTranslation(new Vector3f(width/2, height/2, 0));
-		container.attachChild(screenshot);
+	public void initGUI() {
 		
-
 		for (int i=0; i<p1Fill.length; i++) {
 		p1Fill[i] = drawRect(162, 18, boxColor);
 		p1Fill[i].setLocalTranslation(new Vector3f(-22 + 205, 250 - 20*i + 10, 0));
@@ -335,89 +286,14 @@ public class CharSelectOverlay extends Overlay {
         }
 		this.updateRenderState();
 	}  
-	
-	public void unpause() {
-        for (int i = 0; i < p1Display.length; i++)
-        {
-			
-			container.detachChild(p1Fill[i]);
-			container.detachChild(p2Fill[i]);
-			container.detachChild(opFill[i]);
-			container.detachChild(p1Display[i]);
-			container.detachChild(p2Display[i]);
-			container.detachChild(opDisplay[i]);
-        }
-		container.detachChild(screenshot);
-		this.updateRenderState();
-	}
-	
-	
-	public Quad getScreenshot() {
-		// Create a pointer to the image info and create a buffered image to
-        // hold it.
-        final ByteBuffer buff = BufferUtils.createByteBuffer(width * height * 3);
-        DisplaySystem.getDisplaySystem().getRenderer().grabScreenContents(buff, Image.Format.RGB8, 0, 0, width, height);
-        final int w = width;
-        final int h = height;
-        BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 
-        // Grab each pixel information and set it to the BufferedImage info.
-        for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
-                
-                int index = 3 * ((h- y - 1) * w + x);
-                //if (index < 0) { System.out.println(); }
-                int argb = (((int) (buff.get(index+0)) & 0xFF) << 16) //r
-                         | (((int) (buff.get(index+1)) & 0xFF) << 8)  //g
-                         | (((int) (buff.get(index+2)) & 0xFF));      //b
-
-                img.setRGB(x, y, argb);
-            }
-        }
-        
-        // create the texture state to handle the texture
-        final TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
-        // load the image bs a texture (the image should be placed in the same directory bs this class)
-        final Texture texture = TextureManager.loadTexture(
-                img,
-                Texture.MinificationFilter.Trilinear, // of no use for the quad
-                Texture.MagnificationFilter.Bilinear, // of no use for the quad
-                1.0f,
-                true);
-        // set the texture for this texture state
-        ts.setTexture(texture);
-        // activate the texture state
-        ts.setEnabled(true);
-
-        Quad hudQuad = new Quad("hud", w, h);
-        
-        // correct texture application:
-        final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
-        // coordinate lower-left
-        texCoords.put(getUForPixel(0, w)).put(getVForPixel(0, h));
-        // coordinate upper-left
-        texCoords.put(getUForPixel(0, w)).put(getVForPixel(h, h));
-        // coordinate upper-right
-        texCoords.put(getUForPixel(w, w)).put(getVForPixel(h, h));
-        // coordinate lower-right
-        texCoords.put(getUForPixel(w, w)).put(getVForPixel(0, h));
-        // assign texture coordinates to the quad
-        hudQuad.setTextureCoords(new TexCoords(texCoords));
-        // apply the texture state to the quad
-        hudQuad.setRenderState(ts);
-        
-        return hudQuad;
-	}
-	
-	public void setBackground(Quad q) {
-		bg.attachChild(q);
-		bg.updateRenderState();
-	}
 	
 	public int[] getSelectedChars()
 	{
+		/*
 		for(int i = 0; i < 3; i++)
 			System.out.println(selectedChars[i]+" ");
+		*/
 		return selectedChars;
 	}
 	
