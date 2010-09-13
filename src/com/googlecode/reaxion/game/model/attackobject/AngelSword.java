@@ -8,8 +8,8 @@ import com.jme.math.Vector3f;
 public class AngelSword extends AttackObject {
 	
 	public static final String filename = "angel-sword";
-	protected static final float dpf = 18;
-	protected static final float speed = .85f;
+	protected static final float dpf = 25;
+	protected static final float speed = .14f;
 	protected static final int growFrames = 8;
 	
 	public AngelSword(Model m) {
