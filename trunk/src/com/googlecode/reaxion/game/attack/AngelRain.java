@@ -15,7 +15,7 @@ public class AngelRain extends Attack {
 	private static final int height = 50;
 	private static final int riseSpeed = 1;
 	private static final int minRadius = 10;
-	private static final int maxRadius = 200;
+	private static final int maxRadius = 75;
 	private static final int delay = 1;
 	private static final int maxSwords = 250;
 	

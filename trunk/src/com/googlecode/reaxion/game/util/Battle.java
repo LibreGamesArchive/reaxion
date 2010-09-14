@@ -29,7 +29,7 @@ public class Battle {
 	}
 
 	private void testingInit() {
-		targetTime = 180;
+		targetTime = 120;
 		expYield = 1000;
 		
 		p1Attacks = new Class[6];
