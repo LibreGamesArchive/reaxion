@@ -143,6 +143,10 @@ public class PlayerInput extends InputHandler {
     	}
     	
     	// check attacks
+    	if(KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    		state.toggleZPressed(true);
+    	else
+    		state.toggleZPressed(false);
     	
     	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack1", false)) {
     		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))

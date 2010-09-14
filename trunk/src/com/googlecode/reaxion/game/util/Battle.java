@@ -41,7 +41,7 @@ public class Battle {
 			p1Attacks[2] = Class
 					.forName(attackBaseLocation + "ShieldMediguard");
 			p1Attacks[3] = Class.forName(attackBaseLocation + "ShieldReflega");
-			p1Attacks[4] = Class.forName(attackBaseLocation + "BulletStorm");
+//			p1Attacks[4] = Class.forName(attackBaseLocation + "BulletStorm");
 
 			p2Attacks[0] = Class.forName(attackBaseLocation + "SpinLance");
 			p2Attacks[1] = Class.forName(attackBaseLocation + "LanceWheel");

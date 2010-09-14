@@ -787,6 +787,10 @@ public class BattleGameState extends CameraGameState {
     	return models.remove(m);
     }
     
+    public void toggleZPressed(boolean b) {
+    	hudNode.zPressed = b;
+    }
+    
     /**
      * Ends this GameState and calls the {@code ResultsGameState}.
      */

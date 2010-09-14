@@ -61,7 +61,10 @@ public class HudOverlay extends Overlay {
 	private ColorRGBA textColor;
 	private ColorRGBA[] gaugeColors = {new ColorRGBA(0, .67f, .67f, 1), new ColorRGBA(1, .5f, 0, 1)};
 	private ColorRGBA[] attackUsed;
+	private ColorRGBA[] zPressedColors;
 	private ColorRGBA attackUnavailable;
+	
+	public boolean zPressed;
 	
 	public HudOverlay() {
 		super();
@@ -83,8 +86,11 @@ public class HudOverlay extends Overlay {
         attackUnavailable = new ColorRGBA(.25f, .25f, .25f, 1);
         
         attackUsed = new ColorRGBA[gaugeColors.length];
-        for(int i = 0; i < gaugeColors.length; i++)
+        zPressedColors = new ColorRGBA[gaugeColors.length];
+        for(int i = 0; i < gaugeColors.length; i++) {
         	attackUsed[i] = ColorUtils.lighter(gaugeColors[i], .3);
+        	zPressedColors[i] = ColorUtils.darker(gaugeColors[i], .3);
+        }
         
 		attackFill = new Quad[6];
 		for (int i=0; i<attackFill.length; i++) {
@@ -220,8 +226,14 @@ public class HudOverlay extends Overlay {
 				gaugeCostText[i].setLocalTranslation(new Vector3f(22 + attackFill[i].getWidth() - 25, 100 - 20 * i + 18, 0));
 			} else {
 				attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
-				if(gaugeCosts[i] != -1 && b.getPlayer().gauge >= gaugeCosts[i])
-					attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? gaugeColors[1] : gaugeColors[0]);
+				if(gaugeCosts[i] != -1 && b.getPlayer().gauge >= gaugeCosts[i]) {
+					ColorRGBA[] temp1 = zPressed ? zPressedColors : gaugeColors;
+					ColorRGBA[] temp2 = zPressed ? gaugeColors : zPressedColors;
+					if(i <= 2)
+						attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? temp1[1] : temp1[0]);
+					else
+						attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? temp2[1] : temp2[0]);
+				}
 				else
 					attackFill[i].setSolidColor(attackUnavailable);
 				attackBar[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));

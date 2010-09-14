@@ -154,7 +154,6 @@ public class CharSelectState extends CameraGameState {
     
         
     	private void gotoBattleState() {
-    		System.out.println("switching to stage selection state");
     		Battle c = Battle.getCurrentBattle();
     		c.setPlayers(charSelectNode.getSelectedChars());
     		Battle.setCurrentBattle(c);
@@ -163,7 +162,6 @@ public class CharSelectState extends CameraGameState {
     		GameStateManager.getInstance().attachChild(s);
 			s.setActive(true);
 			setActive(false);
-			System.out.println("switching complete");
     	}
     
     public boolean charSelected()
