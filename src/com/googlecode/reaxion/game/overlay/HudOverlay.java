@@ -88,8 +88,8 @@ public class HudOverlay extends Overlay {
         attackUsed = new ColorRGBA[gaugeColors.length];
         zPressedColors = new ColorRGBA[gaugeColors.length];
         for(int i = 0; i < gaugeColors.length; i++) {
-        	attackUsed[i] = ColorUtils.lighter(gaugeColors[i], .3);
-        	zPressedColors[i] = ColorUtils.darker(gaugeColors[i], .3);
+        	attackUsed[i] = ColorUtils.lighter(gaugeColors[i], .5);
+        	zPressedColors[i] = ColorUtils.darker(gaugeColors[i], .5);
         }
         
 		attackFill = new Quad[6];
