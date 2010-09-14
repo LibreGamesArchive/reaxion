@@ -4,16 +4,21 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.prop.Petal;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
+import com.googlecode.reaxion.test.ProjectionTest;
+import com.jme.image.Texture;
 import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
 import com.jme.math.FastMath;
+import com.jme.math.Matrix4f;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.state.LightState;
+import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
+import com.jme.util.TextureManager;
+import com.jmex.effects.ProjectedTextureUtil;
 
 /**
  * Spacious wasteland at the brink of existence.
@@ -22,15 +27,18 @@ public class WorldsEdge extends Stage {
     
 	private static final String filename = "stages/worlds_edge-ground";
 	
-	private static int r = 180;
+	private static int r = 150;
 	private final float yawInc = FastMath.PI/360;
 	
 	private Model sky;
 	private Model clouds;
 	
+	private Model[] shadow = new Model[2];
+	private float shadowPos = 0;
+	
     public WorldsEdge() {
     	super(filename);
-    	//bgm = new String[] {"packaged.ogg"};
+    	bgm = new String[] {"no_thank_you_mix2.ogg"};
     }
     
     public void loadComponents(BattleGameState b) {
@@ -40,6 +48,13 @@ public class WorldsEdge extends Stage {
     	clouds = LoadingQueue.quickLoad(new Model("stages/worlds_edge-clouds"), b);
     	b.removeModel(clouds);
     	model.attachChild(clouds.model);
+    	shadow[0] = LoadingQueue.quickLoad(new Model("stages/worlds_edge-shadow"), b);
+    	b.removeModel(shadow[0]);
+    	model.attachChild(shadow[0].model);
+    	shadow[1] = LoadingQueue.quickLoad(new Model("stages/worlds_edge-shadow"), b);
+    	shadow[1].model.setLocalTranslation(new Vector3f(0, 0, -800));
+    	b.removeModel(shadow[1]);
+    	model.attachChild(shadow[1].model);
     }
     
     @Override
@@ -53,7 +68,13 @@ public class WorldsEdge extends Stage {
     	// rotate the clouds
     	clouds.yaw += yawInc;
     	clouds.rotate();
-    	clouds.model.setLocalTranslation(new Vector3f(0, -800, 0));
+    	clouds.model.setLocalTranslation(new Vector3f(0, -1100, 0));
+    	
+    	// move the shadows
+    	shadowPos += 64*b.tpf;
+    	shadowPos %= 800;
+    	shadow[0].model.setLocalTranslation(new Vector3f(0, 0, shadowPos));
+    	shadow[1].model.setLocalTranslation(new Vector3f(0, 0, shadowPos-800));
     }
 
     @Override

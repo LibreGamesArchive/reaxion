@@ -1,5 +1,5 @@
 
-material lambert3
+material lambert5
 {
 	technique
 	{
@@ -12,7 +12,7 @@ material lambert3
 
 			texture_unit
 			{
-				texture stages/worlds_edge_UV2-2.png
+				texture stages/worlds_edge_shadow.png
 			}
 		}
 
