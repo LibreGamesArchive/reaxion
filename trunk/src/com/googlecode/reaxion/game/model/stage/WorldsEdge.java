@@ -34,7 +34,7 @@ public class WorldsEdge extends Stage {
 
 	public WorldsEdge() {
 		super(filename);
-		bgm = new String[] { "no_thank_you_mix2.ogg" };
+		bgm = new String[] { "13th_anthology.ogg" };
 	}
 
 	public void loadComponents(BattleGameState b) {
