@@ -153,7 +153,6 @@ public class StageSelectionState extends BasicGameState {
 	 * in the menu.
 	 */
 	private void gotoBattleState() {
-		System.out.println("switching to battle state");
 		Battle c = Battle.getCurrentBattle();
 		c.setStage(stageSelectionNode.getSelectedStageClass());
 		Battle.setCurrentBattle(c);
@@ -162,7 +161,6 @@ public class StageSelectionState extends BasicGameState {
 		GameStateManager.getInstance().attachChild(battleState);
 		battleState.setActive(true);
 		setActive(false);
-		System.out.println("switch complete");
 	}
 
 	@Override
