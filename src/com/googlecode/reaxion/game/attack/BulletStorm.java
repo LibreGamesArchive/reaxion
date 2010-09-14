@@ -7,28 +7,26 @@ import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
-/**
- * Fires an energy bullet towards the target
- */
-public class ShootBullet extends Attack {
+public class BulletStorm extends Attack {
+
+	private float bulletSpeed = ShootBullet.getBulletSpeed() * 2;
+	private int maxBullets = 100;
+	private int height = 40;
+	private int riseSpeed = 1;
+	private int delay = 1;
 	
-	private static final float bulletSpeed = 4;
-	private Bullet bullet;
+	private boolean oldGravity;
 	
-	public ShootBullet() {
-		name = "Shoot";
-		gaugeCost = 2;
+	public BulletStorm() {
+		name = "Bullet Storm";
+		gaugeCost = 18;	
 	}
 	
-	public ShootBullet(AttackData ad) {
+	public BulletStorm(AttackData ad) {
 		super(ad, 2);
-		name = "Shoot";
+		name = "Bullet Storm";
 	}
-	
-	public static float getBulletSpeed() {
-		return bulletSpeed;
-	}
-	
+
 	@Override
 	public void load() {
 		LoadingQueue.push(new Model(Bullet.filename));
@@ -36,46 +34,38 @@ public class ShootBullet extends Attack {
 	
 	@Override
 	public void firstFrame(BattleGameState b) {
+		character.moveLock = true;
 		character.jumpLock = true;
 		character.animationLock = true;
+		
+		oldGravity = character.gravitate;
+		character.gravitate = false;
+		character.setVelocity(new Vector3f(0, 0, 0));
 		character.play("shootUp", b.tpf);
 	}
-	
+
 	@Override
 	public void nextFrame(BattleGameState b) {
-		if (phase == 0 && character.play("shootUp", b.tpf)) {
-			
-			// calculate transformations
+		if (character.play("shootUp", b.tpf) && phase < maxBullets + 2 && frameCount % delay == 0) {
 			Vector3f rotation = character.rotationVector;
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			Vector3f translation = new Vector3f(-1*FastMath.sin(angle), 3.7f, -1*FastMath.cos(angle));
 			
-			bullet = (Bullet)LoadingQueue.quickLoad(new Bullet(getUsers()), b);
+			Bullet bullet = (Bullet) LoadingQueue.quickLoad(new Bullet(getUsers()), b);
 			
-			bullet.rotate(rotation);
+			bullet.rotate();
 			bullet.setVelocity(rotation.mult(bulletSpeed));
 			bullet.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			
 			b.getRootNode().updateRenderState();
 			
-			/*			
-			// check the point blank case, between the character and the bullet's actual creation point
-	        Model[] collisions = bullet.getLinearModelCollisions(b, new Vector3f(-translation.x, 0, -translation.z), 1);
-	        for (Model c : collisions) {
-	        	if (c instanceof Character && !bullet.users.contains(c)) {
-	        		((Character)c).hit(b, bullet);
-	        		bullet.hit(b, ((Character)c));
-	        	}
-	        }
-	        */
-			
 			character.play("shootDown", b.tpf);
 			phase++;
-		} else if (phase == 1 && character.play("shootDown", b.tpf)) {
+		} else if (phase >= maxBullets + 1) {
 			finish();
 		}
 	}
-	
+
 	@Override
 	public void finish() {
 		super.finish();

@@ -288,13 +288,12 @@ public class CharSelectOverlay extends Overlay {
 	}  
 
 	
-	public int[] getSelectedChars()
+	public String[] getSelectedChars()
 	{
-		/*
-		for(int i = 0; i < 3; i++)
-			System.out.println(selectedChars[i]+" ");
-		*/
-		return selectedChars;
+		String[] temp = new String [selectedChars.length];
+		for (int i = 0; i < selectedChars.length; i++)
+			temp[i] = charNames[selectedChars[i]];
+		return temp;
 	}
 	
 	

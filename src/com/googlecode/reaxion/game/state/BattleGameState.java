@@ -13,9 +13,10 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
-import com.googlecode.reaxion.game.overlay.CharSelectOverlay;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
 import com.googlecode.reaxion.game.overlay.PauseOverlay;
+import com.googlecode.reaxion.game.util.Battle;
+import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
@@ -109,6 +110,31 @@ public class BattleGameState extends CameraGameState {
     public BattleGameState() {
     	super("battleGameState");
     	init();
+    }
+    
+    public BattleGameState(Battle b) {
+    	super("battleGameState");
+    	init();    	
+    	
+    	targetTime = b.getTargetTime();
+    	expYield = b.getExpYield();
+    	
+    	//setStage(b.getStage());
+    	LoadingQueue.execute(this);
+    	
+    	BgmPlayer.prepare();
+
+    	assignOpponents(new Character[] {b.getOp()});
+    	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
+    	nextTarget(0);
+    	    	
+    	rootNode.updateRenderState();
+    	
+    	try {
+    		BgmPlayer.play(getStage().bgm[0]);
+    	} catch (NullPointerException e) {
+    		System.out.println("No BGM for " + getStage().name);
+    	}
     }
     
     private void init() {

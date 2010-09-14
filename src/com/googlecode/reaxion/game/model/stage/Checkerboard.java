@@ -15,6 +15,8 @@ import com.jme.system.DisplaySystem;
  */
 public class Checkerboard extends Stage {
     
+	public static final String name = "Checkerboard";
+	
 	private static final String filename = "checkerPlane";
 	
     public Checkerboard() {
