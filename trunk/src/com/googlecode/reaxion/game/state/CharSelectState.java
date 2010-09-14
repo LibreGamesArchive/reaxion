@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.overlay.CharSelectOverlay;
+import com.googlecode.reaxion.game.util.Battle;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
@@ -153,13 +154,16 @@ public class CharSelectState extends CameraGameState {
     
         
     	private void gotoBattleState() {
-    		int[]selected = charSelectNode.getSelectedChars();
+    		System.out.println("switching to stage selection state");
+    		Battle c = Battle.getCurrentBattle();
+    		c.setPlayers(charSelectNode.getSelectedChars());
+    		Battle.setCurrentBattle(c);
     		
-    		StageSelectionState s = new StageSelectionState(selected);
+    		StageSelectionState s = new StageSelectionState();
     		GameStateManager.getInstance().attachChild(s);
 			s.setActive(true);
 			setActive(false);
-
+			System.out.println("switching complete");
     	}
     
     public boolean charSelected()

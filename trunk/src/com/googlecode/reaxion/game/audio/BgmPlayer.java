@@ -25,7 +25,7 @@ public class BgmPlayer {
 	private static MusicTrackQueue queue;
 	private static AudioTrack intro;
 	private static AudioTrack track;
-	private static boolean hasBGMusic = false;
+	private static boolean hasBGM = false;
 
 	/**
 	 * Prepares the queue to load sounds.
@@ -46,7 +46,7 @@ public class BgmPlayer {
 	 *            Filename of track and track-intro file
 	 */
 	public static void play(String f) {
-		hasBGMusic = true;
+		hasBGM = true;
 		stopAndReset();
 
 		filename = f.substring(0, f.length() - 4);
@@ -72,7 +72,7 @@ public class BgmPlayer {
 	 * Clears all tracks from the queue and frees them from memory.
 	 */
 	public static void stopAndReset() {
-		if (hasBGMusic) {
+		if (hasBGM) {
 			queue.stop();
 			ArrayList<AudioTrack> tracks = queue.getTrackList();
 			for (int i = 0; i < tracks.size(); i++) {
@@ -80,16 +80,17 @@ public class BgmPlayer {
 				queue.getTrack(i).release();
 			}
 			queue.clearTracks();
+			hasBGM = false;
 		}
 	}
 
 	public static void gamePaused() {
-		if (hasBGMusic)
+		if (hasBGM)
 			queue.getCurrentTrack().setTargetVolume(0.4f);
 	}
 
 	public static void gameUnpaused() {
-		if (hasBGMusic)
+		if (hasBGM)
 			queue.getCurrentTrack().setTargetVolume(1);
 	}
 

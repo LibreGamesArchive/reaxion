@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.googlecode.reaxion.game.model.stage.Checkerboard;
+import com.googlecode.reaxion.game.model.stage.FlowerField;
+import com.googlecode.reaxion.game.model.stage.WorldsEdge;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
@@ -13,9 +16,11 @@ import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 
 /**
- * {@code StageSelectionOverlay} extends the functionality of {@code Overlay} in order to create a stage selection menu.
- * An image of the stage is displayed on the left of the overlay, which corresponds to the currently selected stage name
- * on the right of the overlay.
+ * {@code StageSelectionOverlay} extends the functionality of {@code Overlay} in
+ * order to create a stage selection menu. An image of the stage is displayed on
+ * the left of the overlay, which corresponds to the currently selected stage
+ * name on the right of the overlay.
+ * 
  * @author Brian
  */
 
@@ -32,11 +37,12 @@ public class StageSelectionOverlay extends Overlay {
 
 	private Node container;
 
-	private String[] stageNames = { "Flower Field", "World's Edge", "Checkerboard" };
+	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
+			Checkerboard.name };
 	private Node[] stageBoxes;
 	private BitmapText[] stageList;
 	private int currentIndex;
-	
+
 	private ColorRGBA selectedText;
 	private ColorRGBA unselectedText;
 
@@ -80,8 +86,8 @@ public class StageSelectionOverlay extends Overlay {
 	}
 
 	private String getImageURL(String s) {
-		String str = s.replace("'", "");
-		return str.toLowerCase().replace(" ", "-") + ".png";
+		String str = s.replace("'", "").replace(" ", "-").toLowerCase();
+		return str + ".png";
 	}
 
 	private void createStageBoxes() {
@@ -174,12 +180,12 @@ public class StageSelectionOverlay extends Overlay {
 		String str = stageNames[currentIndex].replace("'", "");
 		return str.replace(" ", "");
 	}
-	
+
 	public String getSelectedStageName() {
 		return stageNames[currentIndex];
 	}
-	
-	public BitmapFont getTextFont(){
+
+	public BitmapFont getTextFont() {
 		return font;
 	}
 
