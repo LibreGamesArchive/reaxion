@@ -55,12 +55,10 @@ public class BgmPlayer {
 		intro = AudioSystem.getSystem().createAudioTrack(
 				BgmPlayer.class.getClassLoader().getResource(
 						baseURL + filename + "-intro" + ext), false);
-		intro.setVolumeChangeRate(1);
 
 		track = AudioSystem.getSystem().createAudioTrack(
 				BgmPlayer.class.getClassLoader().getResource(
 						baseURL + filename + ext), false);
-		track.setVolumeChangeRate(1);
 		
 		queue.addTrack(intro);
 		queue.addTrack(track);

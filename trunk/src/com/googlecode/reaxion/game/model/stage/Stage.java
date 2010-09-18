@@ -16,7 +16,8 @@ import com.jme.scene.state.LightState;
  */
 public class Stage extends Model {
 	
-	public static String[] bgm;
+	protected static String[] bgm;
+	protected static float[] bgmOdds;
     
     public Stage() {
     	init();
@@ -115,5 +116,30 @@ public class Stage extends Model {
      */
     public LightState createLights() {
     	return null;
+    }
+    
+    /**
+     * Gets the bgm associated with index {@code i}. If {@code i} is negative,
+     * a bgm will be chosen at random according to the odds distribution.
+     * @param i index of bgm or -1 for random
+     * @return String for bgm
+     */
+    public String getBgm(int i) {
+    	String str = null;
+    	if (i < 0) {
+    		float total = 0;
+    		for (float f : bgmOdds)
+    			total += f;
+    		float rand = FastMath.nextRandomFloat()*total;
+    		float sum = 0;
+    		for (int n=0; n<bgmOdds.length; n++) {
+    			sum += bgmOdds[n];
+    			if (rand <= sum)
+    				return bgm[n];
+    		}
+    	} else {
+    		return bgm[i];
+    	}
+    	return str;
     }
 }
