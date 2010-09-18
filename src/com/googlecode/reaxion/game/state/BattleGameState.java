@@ -134,7 +134,9 @@ public class BattleGameState extends CameraGameState {
     	rootNode.updateRenderState();
     	
     	try {
-    		BgmPlayer.play(getStage().bgm[0]);
+    		String str = getStage().getBgm(-1);
+    		BgmPlayer.play(str);
+    		System.out.println("BGM loaded: "+str);
     	} catch (NullPointerException e) {
     		System.out.println("No BGM for " + getStage().name);
     	}

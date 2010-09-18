@@ -37,7 +37,8 @@ public class MikoLake extends Stage {
 	
 	public MikoLake() {
 		super(filename);
-		bgm = new String[] { "551 Depression (Legend of Hourai).ogg" };
+		bgm = new String[] {"japanize_dream.ogg", "551 Depression (Legend of Hourai).ogg" };
+		bgmOdds = new float[] {1, 1};
 	}
 
 	public void loadComponents(BattleGameState b) {

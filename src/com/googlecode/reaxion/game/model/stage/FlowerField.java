@@ -33,6 +33,7 @@ public class FlowerField extends Stage {
 	public FlowerField() {
 		super(filename);
 		bgm = new String[] { "packaged.ogg" };
+		bgmOdds = new float[] {1};
 	}
 
 	public void loadComponents(BattleGameState b) {
