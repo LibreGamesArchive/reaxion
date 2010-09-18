@@ -26,6 +26,7 @@ import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jme.renderer.pass.BasicPassManager;
 import com.jme.scene.Node;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
@@ -65,6 +66,8 @@ public class BattleGameState extends CameraGameState {
     protected InputHandler input;
     protected WireframeState wireState;
     protected LightState lightState;
+    
+    protected BasicPassManager pManager;
     
     protected boolean pause;
     protected boolean showBounds = false;
@@ -149,6 +152,8 @@ public class BattleGameState extends CameraGameState {
         pauseNode = new PauseOverlay();
         rootNode.attachChild(pauseNode);
         
+        // Prepare the pass manager
+        pManager = new BasicPassManager();
         
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
@@ -170,7 +175,7 @@ public class BattleGameState extends CameraGameState {
         Vector3f up = new Vector3f( 0.0f, 1.0f, 0.0f );
         Vector3f dir = new Vector3f( 0.0f, 0f, -1.0f );
         cam.setFrame( loc, left, up, dir );
-        cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem().getWidth()/DisplaySystem.getDisplaySystem().getHeight(), .01f, 1000);
+        cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem().getWidth()/DisplaySystem.getDisplaySystem().getHeight(), .01f, 1500);
         cam.update();
 
         // Initial InputHandler
@@ -219,6 +224,15 @@ public class BattleGameState extends CameraGameState {
     private void hideOverlays() {
     	rootNode.detachChild(hudNode);
     	rootNode.detachChild(mouse);
+    }
+    
+    /**
+     * Returns the {@code BasicPassManager}.
+     * @author Khoa
+     *
+     */
+    public BasicPassManager getPassManager() {
+    	return pManager;
     }
     
     /**
@@ -449,8 +463,6 @@ public class BattleGameState extends CameraGameState {
     @ Override
     public void stateUpdate(float _tpf) {
     	
-    	
-    	
     	tpf = _tpf;
     	if (victoryCount == 0)
     		totalTime += tpf;
@@ -555,6 +567,9 @@ public class BattleGameState extends CameraGameState {
 
         // Update the geometric state of the rootNode
         rootNode.updateGeometricState(tpf, true);
+        
+        // Update the pass manager
+        pManager.updatePasses(tpf);
 
         if (input != null) {
         	/** If camera_mode is a valid command (via key TAB), switch camera modes. */
@@ -825,6 +840,9 @@ public class BattleGameState extends CameraGameState {
             Debugger.drawBuffer(Texture.RenderToTextureType.Depth, Debugger.NORTHEAST,
                     DisplaySystem.getDisplaySystem().getRenderer());
         }
+        
+        // Have the PassManager render
+        pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
     }
 
     public void cleanup() {
