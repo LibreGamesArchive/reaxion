@@ -29,7 +29,7 @@ public class Battle {
 	}
 
 	private void testingInit() {
-		targetTime = 120;
+		targetTime = 60;
 		expYield = 1000;
 		
 		p1Attacks = new Class[6];
@@ -41,7 +41,7 @@ public class Battle {
 			p1Attacks[2] = Class
 					.forName(attackBaseLocation + "ShieldMediguard");
 			p1Attacks[3] = Class.forName(attackBaseLocation + "ShieldReflega");
-//			p1Attacks[4] = Class.forName(attackBaseLocation + "BulletStorm");
+			//p1Attacks[4] = Class.forName(attackBaseLocation + "BulletStorm");
 
 			p2Attacks[0] = Class.forName(attackBaseLocation + "SpinLance");
 			p2Attacks[1] = Class.forName(attackBaseLocation + "LanceWheel");
@@ -74,6 +74,8 @@ public class Battle {
 		p2.setAbilities(p2Abilities);
 		op = (MajorCharacter) LoadingQueue.push(op);
 		op.setAbilities(opAbilities);
+		
+		//op.hp = 5;
 	}
 
 	public void setStage(String name) {

@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.MediShield;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -68,7 +69,8 @@ public class ShieldMediguard extends Attack {
         Model[] collisions = other.getLinearModelCollisions(b, other.getVelocity().normalize().mult(-1.5f), .02f);
         for (Model c : collisions) {
         	if (c == medishield) {
-        		// cancel the damage and no flinch!
+        		// cancel the damage and no flinch
+        		//((AttackObject) other).hit(b, character);
             	return;
         	}
         }
