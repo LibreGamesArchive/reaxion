@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.model.stage.Checkerboard;
+import com.googlecode.reaxion.game.model.stage.Flipside;
 import com.googlecode.reaxion.game.model.stage.FlowerField;
 import com.googlecode.reaxion.game.model.stage.MikoLake;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
@@ -38,8 +39,8 @@ public class StageSelectionOverlay extends Overlay {
 
 	private Node container;
 
-	private String[] stageNames = { FlowerField.name, WorldsEdge.name, MikoLake.name,
-			Checkerboard.name, };
+	private String[] stageNames = { FlowerField.name, WorldsEdge.name, MikoLake.name, Flipside.name,
+			Checkerboard.name};
 	private Node[] stageBoxes;
 	private BitmapText[] stageList;
 	private int currentIndex;
