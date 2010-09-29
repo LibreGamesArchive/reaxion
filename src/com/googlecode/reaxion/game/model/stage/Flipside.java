@@ -31,8 +31,8 @@ public class Flipside extends Stage {
 
 	public Flipside() {
 		super(filename);
-		bgm = new String[] {};
-		bgmOdds = new float[] {};
+		bgm = new String[] {"stairway_to_solstice.ogg"};
+		bgmOdds = new float[] {1};
 	}
 
 	public void loadComponents(BattleGameState b) {
