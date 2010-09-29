@@ -24097,7 +24097,7 @@
             </boneassignments>
         </submesh>
     </submeshes>
-    <skeletonlink name="flipside_city-city.skeleton" />
+    <skeletonlink name="stages/flipside_city-city.skeleton" />
     <submeshnames>
         <submeshname name="submesh28" index="28" />
         <submeshname name="submesh3" index="3" />
