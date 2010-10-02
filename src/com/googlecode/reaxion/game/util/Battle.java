@@ -101,7 +101,9 @@ public class Battle {
 
 	public static BattleGameState createBattleGameState() {
 		currentBattle.getOp().assignAI(new TestAI(currentBattle.getOp()));
-		return new BattleGameState(currentBattle);
+		Battle b = currentBattle;
+		currentBattle = new Battle();
+		return new BattleGameState(b);
 	}
 
 	public MajorCharacter getP1() {

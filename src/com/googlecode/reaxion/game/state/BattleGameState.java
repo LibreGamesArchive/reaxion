@@ -47,6 +47,9 @@ import com.jmex.game.state.StatisticsGameState;
  * @author Khoa
  */
 public class BattleGameState extends CameraGameState {
+	
+	public static final String NAME = "battleGameState";
+	
     private static final Logger logger = Logger.getLogger(BattleGameState.class
             .getName());
     
@@ -111,12 +114,12 @@ public class BattleGameState extends CameraGameState {
     private Character[] opponents;
     
     public BattleGameState() {
-    	super("battleGameState");
+    	super(NAME);
     	init();
     }
     
     public BattleGameState(Battle b) {
-    	super("battleGameState");
+    	super(NAME);
     	init();    	
     	
     	targetTime = b.getTargetTime();
