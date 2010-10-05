@@ -153,11 +153,7 @@ public class ResultsGameState extends CameraGameState {
 		if (input != null) {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					"return", false)) {
-				GameStateManager.getInstance().getChild(CharSelectState.NAME)
-						.setActive(true);
-				setActive(false);
-				BgmPlayer.stopAndReset();
-				GameStateManager.getInstance().detachChild(this);
+				returnToCharSelectState();
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					"screen_shot", false)) {
@@ -183,6 +179,14 @@ public class ResultsGameState extends CameraGameState {
 						+ MouseInput.get().isCursorVisible());
 			}
 		}
+	}
+
+	private void returnToCharSelectState() {
+		GameStateManager.getInstance().getChild(CharSelectState.NAME)
+				.setActive(true);
+		setActive(false);
+		BgmPlayer.stopAndReset();
+		GameStateManager.getInstance().detachChild(this);
 	}
 
 	/**

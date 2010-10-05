@@ -522,7 +522,7 @@ public class BattleGameState extends CameraGameState {
     		if (sumHp <= 0) {
     			System.out.println("You win!");
     			if (victoryCount >= victoryTime)
-    				gotoResults();
+    				goToResults();
     			else {
     				hideOverlays();
     				victoryCount++;
@@ -814,7 +814,7 @@ public class BattleGameState extends CameraGameState {
     /**
      * Ends this GameState and calls the {@code ResultsGameState}.
      */
-    public void gotoResults() {
+    public void goToResults() {
     	ResultsGameState resultsState = new ResultsGameState(this);
     	
 		resultsState.setBackground(pauseNode.getScreenshot());
