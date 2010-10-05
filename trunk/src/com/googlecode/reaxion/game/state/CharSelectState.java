@@ -14,10 +14,10 @@ import com.jme.scene.state.BlendState;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
-import com.jmex.game.state.CameraGameState;
+import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
-public class CharSelectState extends CameraGameState {
+public class CharSelectState extends BasicGameState {
 
 	public static final String NAME = "charSelectState";
 
@@ -104,7 +104,14 @@ public class CharSelectState extends CameraGameState {
 	}
 
 	@Override
-	public void stateUpdate(float _tpf) {
+	public void setActive(boolean active) {
+		super.setActive(active);
+		if(active)
+			initKeyBindings();
+	}
+
+	@Override
+	public void update(float _tpf) {
 		tpf = _tpf;
 
 		// Update the InputHandler
@@ -124,7 +131,6 @@ public class CharSelectState extends CameraGameState {
 
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("arrow_up",
 				false)) {
-			System.out.println("up");
 			charSelectNode.updateDisplay(1);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
@@ -142,12 +148,13 @@ public class CharSelectState extends CameraGameState {
 
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("select",
 				false)) {
+			System.out.println("spacebar pressed");
 			charSelectNode.updateSel();
 		}
 
 		if (KeyBindingManager.getKeyBindingManager()
 				.isValidCommand("go", false)) {
-			gotoStageSelectState();
+			goToStageSelectState();
 		}
 
 		if (input != null) {
@@ -160,14 +167,18 @@ public class CharSelectState extends CameraGameState {
 		}
 	}
 
-	private void gotoStageSelectState() {
+	private void goToStageSelectState() {
 		Battle c = Battle.getCurrentBattle();
 		c.setPlayers(charSelectNode.getSelectedChars());
 		Battle.setCurrentBattle(c);
 
-		StageSelectionState s = new StageSelectionState();
-		GameStateManager.getInstance().attachChild(s);
-		s.setActive(true);
+		if(GameStateManager.getInstance().getChild(StageSelectionState.NAME) == null) {			
+			StageSelectionState s = new StageSelectionState();
+			GameStateManager.getInstance().attachChild(s);
+			s.setActive(true);
+		} else {
+			GameStateManager.getInstance().getChild(StageSelectionState.NAME).setActive(true);
+		}
 		setActive(false);
 	}
 

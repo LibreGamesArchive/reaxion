@@ -1,27 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
-import java.util.ArrayList;
-
-import com.googlecode.reaxion.game.ability.Ability;
-import com.googlecode.reaxion.game.ability.ActiveShielder;
-import com.googlecode.reaxion.game.ability.AfterImage;
-import com.googlecode.reaxion.game.ability.EvasiveStart;
-import com.googlecode.reaxion.game.ability.HealingFactor;
-import com.googlecode.reaxion.game.ability.PassiveHealer;
-import com.googlecode.reaxion.game.ability.RandomInstantGauge;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
-import com.googlecode.reaxion.game.input.ai.TestAI;
-import com.googlecode.reaxion.game.model.character.Austin;
-import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.model.character.Cy;
-import com.googlecode.reaxion.game.model.character.Khoa;
-import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.model.character.Monica;
-import com.googlecode.reaxion.game.model.character.Nilay;
-import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
-import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
@@ -44,9 +24,6 @@ import com.jmex.game.state.GameStateManager;
 public class StageSelectionState extends BasicGameState {
 
 	public static final String NAME = "stageSelectionState";
-
-	private static final String stageClassURL = "com.googlecode.reaxion.game.model.stage.";
-	private static final String attackBaseLocation = "com.googlecode.reaxion.game.attack.";
 
 	public float tpf;
 
@@ -83,6 +60,14 @@ public class StageSelectionState extends BasicGameState {
 		manager.set("arrow_down", KeyInput.KEY_DOWN);
 		manager.set("select", KeyInput.KEY_RETURN);
 		manager.set("exit", KeyInput.KEY_ESCAPE);
+		manager.set("go_back", KeyInput.KEY_BACK);
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		if(active)
+			initKeyBindings();
 	}
 
 	@Override
@@ -119,10 +104,18 @@ public class StageSelectionState extends BasicGameState {
 				stageSelectionNode.updateDisplay(false);
 			if (manager.isValidCommand("select", false)) {
 				// switchToLoadingOverlay();
-				gotoBattleState();
+				goToBattleGameState();
+			}
+			if(manager.isValidCommand("go_back", false)) {
+				returnToCharSelectState();
 			}
 		}
 
+	}
+
+	private void returnToCharSelectState() {
+		GameStateManager.getInstance().getChild(CharSelectState.NAME).setActive(true);
+		setActive(false);
 	}
 
 	// private void switchToLoadingOverlay() {
@@ -152,7 +145,7 @@ public class StageSelectionState extends BasicGameState {
 	 * passes a {@code Stage} object corresponding to the stage the user selects
 	 * in the menu.
 	 */
-	private void gotoBattleState() {
+	private void goToBattleGameState() {
 		Battle c = Battle.getCurrentBattle();
 		c.setStage(stageSelectionNode.getSelectedStageClass());
 		Battle.setCurrentBattle(c);

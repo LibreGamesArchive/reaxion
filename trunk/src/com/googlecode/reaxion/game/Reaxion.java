@@ -1,30 +1,16 @@
 package com.googlecode.reaxion.game;
 
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
-import com.googlecode.reaxion.game.model.character.Cy;
-import com.googlecode.reaxion.game.model.character.Khoa;
-import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.model.character.Monica;
-import com.googlecode.reaxion.game.model.character.Nilay;
-import com.googlecode.reaxion.game.model.stage.FlowerField;
-import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharSelectState;
-import com.googlecode.reaxion.game.state.StageSelectionState;
-import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.load.LoadingGameState;
-import java.util.concurrent.Callable;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import com.googlecode.reaxion.game.model.*;
 
 /**
  * The main game. This should run everything, but for now it's just a luncher for {@code BattleGameState}.
@@ -38,7 +24,6 @@ public class Reaxion {
 	 * Multithreaded game system that shows the state of GameStates
 	 */
 	private StandardGame game;
-	private static final String attackBaseLocation = "com.googlecode.reaxion.game.attack.";
 	
 	private StageSelectionState stageState;
 	
