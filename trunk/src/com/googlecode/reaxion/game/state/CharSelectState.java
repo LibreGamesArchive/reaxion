@@ -148,7 +148,6 @@ public class CharSelectState extends BasicGameState {
 
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("select",
 				false)) {
-			System.out.println("spacebar pressed");
 			charSelectNode.updateSel();
 		}
 
