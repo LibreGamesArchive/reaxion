@@ -139,9 +139,6 @@ public class CharSelectOverlay extends Overlay {
 		p1Display[selectedChars[0]].setDefaultColor(selBoxColor);
 		p2Display[selectedChars[1]].setDefaultColor(selBoxColor);
 		opDisplay[selectedChars[2]].setDefaultColor(selBoxColor);
-		p1Display[selectedChars[0]].update();
-		p2Display[selectedChars[0]].update();
-		opDisplay[selectedChars[0]].update();
 
 		if (currentIndex[0] == 0) {
 			p1Display[currentIndex[1]].setDefaultColor(selTextColor);
@@ -173,7 +170,6 @@ public class CharSelectOverlay extends Overlay {
 	}
 
 	public void updateSel() {
-		System.out.println("hello");
 		int last = selectedChars[currentIndex[0]];
 		selectedChars[currentIndex[0]] = currentIndex[1];
 		if (currentIndex[0] == 0) {
@@ -236,7 +232,7 @@ public class CharSelectOverlay extends Overlay {
 
 		for (int i = 0; i < p1Display.length; i++) {
 			p1Display[i].setSize(16);
-			p1Display[i].setDefaultColor(textColor);
+			p1Display[i].setDefaultColor(i == 0? selTextColor : textColor);
 			p1Display[i].setText(charNames[i]);
 			p1Display[i].setLocalTranslation(new Vector3f(-22 + 175,
 					250 - 20 * i + 18, 0));
@@ -244,7 +240,7 @@ public class CharSelectOverlay extends Overlay {
 			container.attachChild(p1Display[i]);
 
 			p2Display[i].setSize(16);
-			p2Display[i].setDefaultColor(textColor);
+			p2Display[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
 			p2Display[i].setText(charNames[i]);
 			p2Display[i].setLocalTranslation(new Vector3f(-22 + 375,
 					250 - 20 * i + 18, 0));
@@ -252,7 +248,7 @@ public class CharSelectOverlay extends Overlay {
 			container.attachChild(p2Display[i]);
 
 			opDisplay[i].setSize(16);
-			opDisplay[i].setDefaultColor(textColor);
+			opDisplay[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
 			opDisplay[i].setText(charNames[i]);
 			opDisplay[i].setLocalTranslation(new Vector3f(-22 + 575,
 					250 - 20 * i + 18, 0));
