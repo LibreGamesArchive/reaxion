@@ -55,7 +55,7 @@ public class Character extends Model {
 	/**
 	 * Abilities for this character
 	 */
-	private Ability[] abilities;
+	public Ability[] abilities;
 	
 	/**
 	 * Whether movement is being locked
@@ -134,6 +134,16 @@ public class Character extends Model {
     			boolean flag = false;
     			for (int i=0; i<abilities.length; i++)
     				flag = flag || abilities[i].act(this, b);
+    			if (flag)
+    				return;
+    		}
+    		
+    		// call partner's abilities
+    		Character partner =  b.getPartner();
+    		if (partner.hp > 0 && partner.abilities != null) {
+    			boolean flag = false;
+    			for (int i=0; i<partner.abilities.length; i++)
+    				flag = flag || partner.abilities[i].act(this, b);
     			if (flag)
     				return;
     		}
@@ -280,6 +290,15 @@ public class Character extends Model {
     		if (flag)
     			return false;
     	}
+    	// call partner's abilities
+		Character partner =  b.getPartner();
+		if (partner.hp > 0 && partner.abilities != null) {
+			boolean flag = false;
+			for (int i=0; i<partner.abilities.length; i++)
+				flag = flag || partner.abilities[i].heal(this, b, d);
+			if (flag)
+				return false;
+		}
     	hp = Math.min(hp+d, maxHp);
     	return true;
     }
@@ -301,6 +320,15 @@ public class Character extends Model {
     		if (flag)
     			return false;
     	}
+    	// call partner's abilities
+		Character partner =  b.getPartner();
+		if (partner.hp > 0 && partner.abilities != null) {
+			boolean flag = false;
+			for (int i=0; i<partner.abilities.length; i++)
+				flag = flag || partner.abilities[i].hit(this, b, other);
+			if (flag)
+				return false;
+		}
     	if (currentAttack != null) {
     		currentAttack.interrupt(b, other);
     		return false;
@@ -329,6 +357,15 @@ public class Character extends Model {
     		if (flag)
     			return false;
     	}
+    	// call partner's abilities
+		Character partner =  b.getPartner();
+		if (partner.hp > 0 && partner.abilities != null) {
+			boolean flag = false;
+			for (int i=0; i<partner.abilities.length; i++)
+				flag = flag || partner.abilities[i].reactHit(this, b, other);
+			if (flag)
+				return false;
+		}
     	
     	if (other.flinch)
     		toggleFlinch(true);
