@@ -3,6 +3,8 @@ package com.googlecode.reaxion.game.util;
 import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.ability.ActiveShielder;
 import com.googlecode.reaxion.game.ability.AfterImage;
+import com.googlecode.reaxion.game.ability.HealingFactor;
+import com.googlecode.reaxion.game.ability.PassiveHealer;
 import com.googlecode.reaxion.game.ability.RandomInstantGauge;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.input.ai.TestAI;
@@ -51,8 +53,8 @@ public class Battle {
 			e.printStackTrace();
 		}
 
-		p1Abilities = new Ability[] { new ActiveShielder() };
-		p2Abilities = new Ability[] { new RandomInstantGauge() };
+		p1Abilities = new Ability[] { new PassiveHealer() };
+		p2Abilities = new Ability[] { new HealingFactor() };
 		opAbilities = new Ability[] { new AfterImage() };
 	}
 

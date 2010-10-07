@@ -46,8 +46,8 @@ public class BgmPlayer {
 	 *            Filename of track and track-intro file
 	 */
 	public static void play(String f) {
-		hasBGM = true;
 		stopAndReset();
+		hasBGM = true;
 
 		filename = f.substring(0, f.length() - 4);
 		ext = f.substring(f.length() - 4);
@@ -83,13 +83,19 @@ public class BgmPlayer {
 	}
 
 	public static void gamePaused() {
-		if (hasBGM)
-			queue.getCurrentTrack().setTargetVolume(0.4f);
+		if (hasBGM) {
+			ArrayList<AudioTrack> tracks = queue.getTrackList();
+			for (int i = 0; i < tracks.size(); i++)
+				queue.getTrack(i).setTargetVolume(0.25f);
+		}
 	}
 
 	public static void gameUnpaused() {
-		if (hasBGM)
-			queue.getCurrentTrack().setTargetVolume(1);
+		if (hasBGM) {
+			ArrayList<AudioTrack> tracks = queue.getTrackList();
+			for (int i = 0; i < tracks.size(); i++)
+				queue.getTrack(i).setTargetVolume(1.0f);
+		}
 	}
 
 	private static class SongChangeListener implements ChangeListener {
