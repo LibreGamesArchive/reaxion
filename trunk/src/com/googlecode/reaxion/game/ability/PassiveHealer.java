@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
 /**
@@ -16,7 +16,7 @@ public class PassiveHealer extends Ability {
 	}
 	
 	@Override
-	public boolean act(Character c, BattleGameState b) {
+	public boolean act(Character c, StageGameState b) {
 		c.heal(b, hpf);
 		return false;
 	}

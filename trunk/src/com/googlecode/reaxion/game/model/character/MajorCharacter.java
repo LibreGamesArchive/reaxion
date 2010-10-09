@@ -1,6 +1,6 @@
 package com.googlecode.reaxion.game.model.character;
 
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
 public class MajorCharacter extends Character {
@@ -48,7 +48,7 @@ public class MajorCharacter extends Character {
     
     // Standard animated states, only override if specific states differ
     @ Override
-    public void act(BattleGameState b) {
+    public void act(StageGameState b) {
     	super.act(b);
     	
     	// switch if dead

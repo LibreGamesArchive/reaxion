@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
 public class MediShield extends AttackObject {
@@ -29,7 +29,7 @@ public class MediShield extends AttackObject {
     }
 	
 	@Override
-	public void act(BattleGameState b) {
+	public void act(StageGameState b) {
 		// check if user moved or switched
 		if (!displaced && (b.getPlayer() != users.get(users.size()-1) ||  !users.get(users.size()-1).model.getWorldTranslation().equals(position)))
 			displaced = true;

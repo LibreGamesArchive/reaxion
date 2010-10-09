@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
 /**
@@ -59,7 +59,7 @@ public class AttackObject extends Model {
 	}
 	
 	@ Override
-    public void act(BattleGameState b) {
+    public void act(StageGameState b) {
     	super.act(b);
         
         // check if a Character is hit with linear approximation
@@ -84,7 +84,7 @@ public class AttackObject extends Model {
 	/**
 	 * Called when Character is hit, override to add functionality
 	 */
-    public void hit(BattleGameState b, Character other) {
+    public void hit(StageGameState b, Character other) {
     }
 	
 }

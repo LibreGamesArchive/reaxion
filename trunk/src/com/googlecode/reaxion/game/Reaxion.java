@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.state.CharSelectState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.jme.util.GameTaskQueueManager;

@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.model.prop;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -32,7 +32,7 @@ public class Petal extends Model {
     
     // Standard animated states, only override if specific states differ
     @ Override
-    public void act(BattleGameState b) {
+    public void act(StageGameState b) {
     	super.act(b);
     	if (size <= 0) {
     		b.removeModel(this);

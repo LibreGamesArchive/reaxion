@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 
 public class Bullet extends AttackObject {
 	
@@ -23,7 +23,7 @@ public class Bullet extends AttackObject {
     }
 	
 	@Override
-	public void hit(BattleGameState b, Character other) {
+	public void hit(StageGameState b, Character other) {
 		//System.out.println("bullet hit "+other.model);
 		b.removeModel(this);
     }

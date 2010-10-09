@@ -5,7 +5,7 @@ import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.input.AIInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AttackObject;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
@@ -118,7 +118,7 @@ public class Character extends Model {
     }
     
     @ Override
-    public void act(BattleGameState b) {
+    public void act(StageGameState b) {
     		
     	// check if alive
     	if (hp > 0) {
@@ -194,7 +194,7 @@ public class Character extends Model {
      * Checks for other characters with bounding capsules and adjusts movement vector
      * based on the first perceived collision, if one exists.
      */
-    private void moveCollide(BattleGameState b) {
+    private void moveCollide(StageGameState b) {
     	for (Model m:b.getModels()) {
     		// check if the other Model is a Character and has a bounding capsule
     		if (m instanceof Character && m != this) {
@@ -281,7 +281,7 @@ public class Character extends Model {
      * @param d - Amount of HP to recover.
      * @return Whether healing was executed normally or not.
      */
-    public boolean heal(BattleGameState b, double d) {
+    public boolean heal(StageGameState b, double d) {
     	// call abilities
     	if (abilities != null) {
     		boolean flag = false;
@@ -311,7 +311,7 @@ public class Character extends Model {
      * @return Whether attack reaction was handled directly or whether the action
      * was intercepted
      */
-    public boolean hit(BattleGameState b, Model other) {
+    public boolean hit(StageGameState b, Model other) {
     	// call abilities
     	if (abilities != null) {
     		boolean flag = false;
@@ -344,7 +344,7 @@ public class Character extends Model {
      * @param other - Other object involved
      * @return Whether damage was taken or not
      */   
-    public boolean reactHit(BattleGameState b, Model other) {
+    public boolean reactHit(StageGameState b, Model other) {
     	// reciprocate the hit
     	if (other instanceof AttackObject)
     		((AttackObject)other).hit(b, this);

@@ -4,7 +4,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AngelSword;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.prop.GlowRing;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 
 /**
@@ -35,7 +35,7 @@ public class Ability {
 	 * Called by Character at the start of the {@code act()} function, returns
 	 * true if the function is to be interrupted, false if otherwise.
 	 */
-	public boolean act(Character c, BattleGameState b) {
+	public boolean act(Character c, StageGameState b) {
 		return false;
 	}
 	
@@ -43,7 +43,7 @@ public class Ability {
 	 * Called by Character at the start of the {@code hit()} function, returns
 	 * true if the function is to be interrupted, false if otherwise.
 	 */
-	public boolean hit(Character c, BattleGameState b, Model other) {
+	public boolean hit(Character c, StageGameState b, Model other) {
 		return false;
 	}
 	
@@ -51,7 +51,7 @@ public class Ability {
 	 * Called by Character at the start of the {@code reactHit()} function,
 	 * returns true if the function is to be interrupted, false if otherwise.
 	 */
-	public boolean reactHit(Character c, BattleGameState b, Model other) {
+	public boolean reactHit(Character c, StageGameState b, Model other) {
 		return false;
 	}
 	
@@ -59,14 +59,14 @@ public class Ability {
 	 * Called by Character at the start of the {@code heal()} function,
 	 * returns true if the function is to be interrupted, false if otherwise.
 	 */
-	public boolean heal(Character c, BattleGameState b, double hpf) {
+	public boolean heal(Character c, StageGameState b, double hpf) {
 		return false;
 	}
 	
 	/**
 	 * When an ability is set off, create a ring around the character to show it.
 	 */
-	public void activate(Character c, BattleGameState b) {
+	public void activate(Character c, StageGameState b) {
 		LoadingQueue.quickLoad(new GlowRing(c), b);
 		b.getRootNode().updateRenderState();
 	}

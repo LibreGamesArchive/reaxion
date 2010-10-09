@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
 /**
@@ -17,7 +17,7 @@ public class RandomInstantGauge extends Ability {
 	}
 	
 	@Override
-	public boolean act(Character c, BattleGameState b) {
+	public boolean act(Character c, StageGameState b) {
 		if (c.gauge > c.minGauge && FastMath.nextRandomFloat() <= chance) {
 			System.out.println(c.model+" filled the gauge instantly!");
 			c.gauge = c.maxGauge;

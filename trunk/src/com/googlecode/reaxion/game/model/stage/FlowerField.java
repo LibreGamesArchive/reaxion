@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.prop.Petal;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
@@ -36,14 +36,14 @@ public class FlowerField extends Stage {
 		bgmOdds = new float[] {1};
 	}
 
-	public void loadComponents(BattleGameState b) {
+	public void loadComponents(StageGameState b) {
 		sky = LoadingQueue.quickLoad(new Model("stages/flower-field_dome"), b);
 		b.removeModel(sky);
 		model.attachChild(sky.model);
 	}
 
 	@Override
-	public void act(BattleGameState b) {
+	public void act(StageGameState b) {
 		Vector3f playerPos = b.getPlayer().model.getLocalTranslation();
 
 		// make the sky move with the player

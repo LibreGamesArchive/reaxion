@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.Reflector;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -36,7 +36,7 @@ public class ShieldReflega extends Attack {
 	}
 	
 	@Override
-	public void firstFrame(BattleGameState b) {
+	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
 		character.animationLock = true;
@@ -58,14 +58,14 @@ public class ShieldReflega extends Attack {
 	}
 	
 	@Override
-	public void nextFrame(BattleGameState b) {
+	public void nextFrame(StageGameState b) {
 		if (frameCount >= duration) {
 			finish();
 		}
 	}
 	
 	@Override
-	public void interrupt(BattleGameState b, Model other) {
+	public void interrupt(StageGameState b, Model other) {
 		// check if the interrupting object passed through the barrier
         Model[] collisions = other.getLinearModelCollisions(b, other.getVelocity().normalize().mult(-1.5f), .02f);
         for (Model c : collisions) {

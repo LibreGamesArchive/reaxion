@@ -3,7 +3,7 @@ package com.googlecode.reaxion.game.input;
 import com.googlecode.reaxion.game.attack.AttackData;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -26,7 +26,7 @@ public class PlayerInput extends InputHandler {
 	private final int[] jumpLevels = {2, 4};
 	private int jumpCount = 0;
 
-	private BattleGameState state;
+	private StageGameState state;
 	private MajorCharacter player;
 	private MajorCharacter partner;
 	private Camera camera;
@@ -42,7 +42,7 @@ public class PlayerInput extends InputHandler {
      * @param b the current BattleGameState
      * @param q the array of classes of attacks
      */
-    public PlayerInput(BattleGameState b) {
+    public PlayerInput(StageGameState b) {
     	state = b;
     	attacks = state.getPlayerAttacks();
     	player = state.getPlayer();

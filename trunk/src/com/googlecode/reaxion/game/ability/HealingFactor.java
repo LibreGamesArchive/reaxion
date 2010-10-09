@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
 /**
@@ -16,7 +16,7 @@ public class HealingFactor extends Ability {
 	}
 	
 	@Override
-	public boolean heal(Character c, BattleGameState b, double hpf) {
+	public boolean heal(Character c, StageGameState b, double hpf) {
 		c.hp = Math.min(c.hp+hpf*factor, c.maxHp);
 		return true;
 	}

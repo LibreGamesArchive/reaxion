@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
@@ -38,7 +38,7 @@ public class WorldsEdge extends Stage {
 		bgmOdds = new float[] {1, 1};
 	}
 
-	public void loadComponents(BattleGameState b) {
+	public void loadComponents(StageGameState b) {
 		sky = LoadingQueue.quickLoad(new Model("stages/worlds_edge-sky"), b);
 		b.removeModel(sky);
 		model.attachChild(sky.model);
@@ -58,7 +58,7 @@ public class WorldsEdge extends Stage {
 	}
 
 	@Override
-	public void act(BattleGameState b) {
+	public void act(StageGameState b) {
 		Vector3f playerPos = b.getPlayer().model.getLocalTranslation();
 
 		// make the sky and clouds move with the player

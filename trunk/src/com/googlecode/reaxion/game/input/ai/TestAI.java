@@ -8,7 +8,7 @@ import com.googlecode.reaxion.game.attack.SpinLance;
 import com.googlecode.reaxion.game.input.AIInput;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -29,7 +29,7 @@ public class TestAI extends AIInput {
     }
 
     @Override
-    public void makeCommands(BattleGameState state) {
+    public void makeCommands(StageGameState state) {
     	MajorCharacter player = state.getPlayer();
     	
     	if (character.hp/character.maxHp > .67) {

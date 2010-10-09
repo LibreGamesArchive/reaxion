@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Bullet;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -35,14 +35,14 @@ public class ShootBullet extends Attack {
 	}
 	
 	@Override
-	public void firstFrame(BattleGameState b) {
+	public void firstFrame(StageGameState b) {
 		character.jumpLock = true;
 		character.animationLock = true;
 		character.play("shootUp", b.tpf);
 	}
 	
 	@Override
-	public void nextFrame(BattleGameState b) {
+	public void nextFrame(StageGameState b) {
 		if (phase == 0 && character.play("shootUp", b.tpf)) {
 			
 			// calculate transformations

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 
 /**
  * Temporarily acts upon the attacking {@code Character} for the duration
@@ -57,7 +57,7 @@ public class Attack {
 	/**
 	 * Events to be executed on each act() call for character
 	 */
-	public void enterFrame(BattleGameState b) {
+	public void enterFrame(StageGameState b) {
 		if (frameCount == 0) {
 			firstFrame(b);
 		} else {
@@ -70,7 +70,7 @@ public class Attack {
 	 * Events to be executed on the first frame of the attack, override to add
 	 * functionality.
 	 */
-	public void firstFrame(BattleGameState b) {
+	public void firstFrame(StageGameState b) {
 		
 	}
 	
@@ -78,7 +78,7 @@ public class Attack {
 	 * Events to be executed on subsequent frames of the attack, override to add
 	 * functionality.
 	 */
-	public void nextFrame(BattleGameState b) {
+	public void nextFrame(StageGameState b) {
 		
 	}
 	
@@ -86,7 +86,7 @@ public class Attack {
 	 * Called when the attacking character is interrupted by Model m, override to
 	 * add functionality. Default functions as if character was hit as normal.
 	 */
-	public void interrupt(BattleGameState b, Model m) {
+	public void interrupt(StageGameState b, Model m) {
 		character.reactHit(b, m);
 	}
 	

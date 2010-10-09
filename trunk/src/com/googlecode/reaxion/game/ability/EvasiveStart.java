@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
 /**
@@ -17,7 +17,7 @@ public class EvasiveStart extends Ability {
 	}
 	
 	@Override
-	public boolean act(Character c, BattleGameState b) {
+	public boolean act(Character c, StageGameState b) {
 		if (b.getTarget() == c && b.cameraMode == "lock" && FastMath.nextRandomFloat() <= chance) {
 			System.out.println(c.model+" escaped tracking!");
 			b.cameraMode = "free";

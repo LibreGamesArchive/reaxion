@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.ArcingLance;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -34,7 +34,7 @@ public class LanceArc extends Attack {
 	}
 	
 	@Override
-	public void firstFrame(BattleGameState b) {
+	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
 		character.animationLock = true;
@@ -42,7 +42,7 @@ public class LanceArc extends Attack {
 	}
 	
 	@Override
-	public void nextFrame(BattleGameState b) {
+	public void nextFrame(StageGameState b) {
 		// if animation is halfway through
 		MeshAnimationController animControl = (MeshAnimationController) character.model.getController(0);
 		if (phase == 0 && animControl.getCurTime() + b.tpf >= animControl.getAnimationLength("cast")/2) {
