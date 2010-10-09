@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.state.CharSelectState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.test.ModelTest;
@@ -15,7 +15,7 @@ import com.jme.util.resource.SimpleResourceLocator;
 public class LoadingQueue {
 
 	private static ArrayList<Model> queue = new ArrayList<Model>();
-	private static BattleGameState state;
+	private static StageGameState state;
 	private static CharSelectState Cstate;
 	private static StageSelectionState Sstate;
 	private static SimpleResourceLocator locator;
@@ -33,7 +33,7 @@ public class LoadingQueue {
 	 * @param m Model
 	 * @param b BattleGameState
 	 */
-	public static Model quickLoad(Model m, BattleGameState b) {
+	public static Model quickLoad(Model m, StageGameState b) {
 		push(m);
 		execute(b);
 		return m;
@@ -54,7 +54,7 @@ public class LoadingQueue {
 	 *  and then clears the queue
 	 * @param b BattleGameState
 	 */
-	public static void execute(BattleGameState b) {
+	public static void execute(StageGameState b) {
 		state = b;
 		System.out.println("Loading queue executed.");
 		if (locator == null)

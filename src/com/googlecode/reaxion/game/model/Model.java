@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.model;
 
 import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
@@ -126,7 +126,7 @@ public class Model {
      * epsilon along the vector path, assuming that movement with vector is linear, and
      * returning other models at the first instance of collision if collisions occur.
      */
-    public Model[] getLinearModelCollisions(BattleGameState b, Vector3f v, float epsilon) {
+    public Model[] getLinearModelCollisions(StageGameState b, Vector3f v, float epsilon) {
     	Model[] hit = new Model[0];
     	Vector3f step = v.normalize().mult(epsilon);
     	Vector3f start = new Vector3f(model.getLocalTranslation().x, model.getLocalTranslation().y, model.getLocalTranslation().z);
@@ -149,7 +149,7 @@ public class Model {
      * Checks for collision with all models in current {@code BattleGameState}, returning
      * other models if collisions occur.
      */
-    public Model[] getModelCollisions(BattleGameState b) {
+    public Model[] getModelCollisions(StageGameState b) {
     	ArrayList<Model> hit = new ArrayList<Model>();
     	ArrayList<Model> models = b.getModels();
     	for (int i=0; i < models.size(); i++) {
@@ -164,7 +164,7 @@ public class Model {
      * Checks for collision with all nodes in current {@code BattleGameState}, returning
      * other spatials if collisions occur.
      */
-    public Spatial[] getCollisions(BattleGameState b) {
+    public Spatial[] getCollisions(StageGameState b) {
     	ArrayList<Spatial> a = new ArrayList<Spatial>();
     	for (int i=0; i < b.getRootNode().getQuantity(); i++) {
     		Spatial n = b.getRootNode().getChild(i);
@@ -270,6 +270,6 @@ public class Model {
     /**
 	 * Needs to be called during updates, override to add functionality
 	 */
-    public void act(BattleGameState b) {
+    public void act(StageGameState b) {
     }
 }

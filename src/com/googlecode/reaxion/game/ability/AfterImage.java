@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -23,7 +23,7 @@ public class AfterImage extends Ability {
 	}
 	
 	@Override
-	public boolean act(Character c, BattleGameState b) {
+	public boolean act(Character c, StageGameState b) {
 		if (stepCount == 1) {
 			// store first position as possible jumpSpot
 			jumpSpot = c.model.getLocalTranslation().clone();
@@ -41,7 +41,7 @@ public class AfterImage extends Ability {
 	}
 	
 	@Override
-	public boolean hit(Character c, BattleGameState b, Model other) {
+	public boolean hit(Character c, StageGameState b, Model other) {
 		// calculate chance of activation
 		float chance = (float)(c.maxHp - c.hp) / c.maxHp * (upperThreshold - lowerThreshold) + lowerThreshold;
 		if (FastMath.nextRandomFloat() < chance) {

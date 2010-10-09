@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AngelSword;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -38,7 +38,7 @@ public class AngelRain extends Attack {
 	}
 	
 	@Override
-	public void firstFrame(BattleGameState b) {
+	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
 		character.animationLock = true;
@@ -50,7 +50,7 @@ public class AngelRain extends Attack {
 	}
 	
 	@Override
-	public void nextFrame(BattleGameState b) {
+	public void nextFrame(StageGameState b) {
 		// if risen to the right height and animation is through
 		if (phase == 0 && character.play("raiseUp", b.tpf)) {
 			character.play("jump", b.tpf);
@@ -88,7 +88,7 @@ public class AngelRain extends Attack {
 	}
 	
 	@Override
-	public void interrupt(BattleGameState b, Model other) {
+	public void interrupt(StageGameState b, Model other) {
 		// negate flinch, this attack cannot be interrupted
         character.hp -= other.damagePerFrame/2;
 	}

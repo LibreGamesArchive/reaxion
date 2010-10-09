@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
@@ -41,7 +41,7 @@ public class MikoLake extends Stage {
 		bgmOdds = new float[] {1, 1};
 	}
 
-	public void loadComponents(BattleGameState b) {
+	public void loadComponents(StageGameState b) {
 		dome = LoadingQueue.quickLoad(new Model("stages/miko_lake-4_dome"),
 				b);
 		b.removeModel(dome);
@@ -63,7 +63,7 @@ public class MikoLake extends Stage {
 	}
 
 	@Override
-	public void act(BattleGameState b) {
+	public void act(StageGameState b) {
 		Vector3f playerPos = b.getPlayer().model.getLocalTranslation();
 
 		// make the sky move with the player

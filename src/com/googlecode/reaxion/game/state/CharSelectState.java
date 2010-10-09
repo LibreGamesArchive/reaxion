@@ -30,7 +30,7 @@ public class CharSelectState extends BasicGameState {
 
 	protected AbstractGame game = null;
 
-	public CharSelectState(BattleGameState b) {
+	public CharSelectState(StageGameState b) {
 		super(NAME);
 		init();
 	}

@@ -5,7 +5,7 @@ import com.googlecode.reaxion.game.attack.ShieldBarrier;
 import com.googlecode.reaxion.game.attack.ShieldMediguard;
 import com.googlecode.reaxion.game.attack.ShieldReflega;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
 /**
@@ -20,7 +20,7 @@ public class ActiveShielder extends Ability {
 	}
 	
 	@Override
-	public boolean act(Character c, BattleGameState b) {
+	public boolean act(Character c, StageGameState b) {
 		// check if attack was used since last time
 		if (lastAttack != c.currentAttack) {
 			// recover gauge if a barrier attack was used

@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
 public class AngelSword extends AttackObject {
@@ -23,12 +23,12 @@ public class AngelSword extends AttackObject {
     }
 	
 	@Override
-	public void hit(BattleGameState b, Character other) {
+	public void hit(StageGameState b, Character other) {
 		b.removeModel(this);
     }
 	
 	@ Override
-    public void act(BattleGameState b) {
+    public void act(StageGameState b) {
         // billboarding
 		billboard(b.getCamera());
     	

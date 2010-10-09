@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.image.Image;
 import com.jme.image.Texture;
 import com.jme.math.Vector3f;

@@ -3,7 +3,7 @@ package com.googlecode.reaxion.game.audio;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jmex.audio.AudioSystem;
 import com.jmex.audio.AudioTrack;
 import com.jmex.audio.AudioTrack.TrackType;
@@ -98,7 +98,7 @@ public class SfxPlayer {
 	 * on relative spatial location.
 	 * @param b current {@code BattleGameState}
 	 */
-	public static void update(BattleGameState b) {    
+	public static void update(StageGameState b) {    
 		// fade all sounds being tracked by distance to player
         for (int x = tracker.size(); --x >= 0; ) {
         	if (!((AudioTrack) tracker.get(x)[0]).isActive()) {

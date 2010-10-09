@@ -5,7 +5,7 @@ import com.googlecode.reaxion.game.attack.ShootBullet;
 import com.googlecode.reaxion.game.input.AIInput;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 
 /**
  * AI input made to do nothing but continuously shoot bullets.
@@ -20,7 +20,7 @@ public class TestAI2 extends AIInput {
     }
 
     @Override
-    public void makeCommands(BattleGameState state) {
+    public void makeCommands(StageGameState state) {
     	MajorCharacter player = state.getPlayer();
     	
     	// attack whenever possible

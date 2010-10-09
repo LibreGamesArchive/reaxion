@@ -11,6 +11,7 @@ import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 
 public class Battle {
 
@@ -77,7 +78,7 @@ public class Battle {
 		op = (MajorCharacter) LoadingQueue.push(op);
 		op.setAbilities(opAbilities);
 		
-		//op.hp = 5;
+		op.hp = 5;
 	}
 
 	public void setStage(String name) {

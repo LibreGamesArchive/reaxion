@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.input;
 
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -37,7 +37,7 @@ public class AIInput {
      * Override to add specific logic.
      * @author Khoa
      */
-    public void makeCommands(BattleGameState state) {
+    public void makeCommands(StageGameState state) {
     	timer++;
     }
     

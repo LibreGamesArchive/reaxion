@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
 public class Barrier extends AttackObject {
@@ -22,7 +22,7 @@ public class Barrier extends AttackObject {
     }
 	
 	@Override
-	public void act(BattleGameState b) {
+	public void act(StageGameState b) {
 		
 		if (lifeCount >= fadePoint) {
 			float factor = ((float)lifespan - lifeCount)/(float)(lifespan - fadePoint);

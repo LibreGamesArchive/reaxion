@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.ColorUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
@@ -215,7 +215,7 @@ public class HudOverlay extends Overlay {
 	/**
 	 * Function to be called during each update by the GameState.
 	 */
-	public void update(BattleGameState b) {
+	public void update(StageGameState b) {
 		// update attacks
 		for (int i=0; i<attacks.length; i++) {
 			if (attacks[i] != null && b.getPlayer().currentAttack != null && attacks[i].isInstance(b.getPlayer().currentAttack)) {
