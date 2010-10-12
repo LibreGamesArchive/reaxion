@@ -23,8 +23,7 @@ public class ShieldBarrier extends Attack {
 	public ShieldBarrier(AttackData ad) {
 		super(ad, 2);
 		name = "Barrier";
-		if (character.model.getWorldTranslation().y > 0)
-			finish();
+		validateGround();
 	}
 	
 	@Override

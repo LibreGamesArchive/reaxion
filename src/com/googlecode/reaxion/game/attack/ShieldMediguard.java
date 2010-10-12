@@ -25,8 +25,7 @@ public class ShieldMediguard extends Attack {
 	public ShieldMediguard(AttackData ad) {
 		super(ad, 8);
 		name = "Mediguard";
-		if (character.model.getWorldTranslation().y > 0)
-			finish();
+		validateGround();
 	}
 	
 	@Override

@@ -26,8 +26,7 @@ public class ShieldReflega extends Attack {
 	public ShieldReflega(AttackData ad) {
 		super(ad, 12);
 		name = "Reflega";
-		if (character.model.getWorldTranslation().y > 0)
-			finish();
+		validateGround();
 	}
 	
 	@Override

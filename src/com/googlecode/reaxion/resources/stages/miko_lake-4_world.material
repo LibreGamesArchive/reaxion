@@ -10,7 +10,7 @@ material gravel
 
 			texture_unit
 			{
-				texture stages/stages/miko_lake_UVstones.png
+				texture stages/miko_lake_UVstones.png
 			}
 		}
 
