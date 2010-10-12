@@ -123,4 +123,15 @@ public class Attack {
 		return users;
 	}
 	
+	/**
+	 * Convenience function to ensure character is grounded, otherwise finishes
+	 * attack and restores GP.
+	 */
+	protected void validateGround() {
+		if (character.model.getWorldTranslation().y > 0) {
+			character.gauge += gaugeCost;
+			finish();
+		}
+	}
+	
 }

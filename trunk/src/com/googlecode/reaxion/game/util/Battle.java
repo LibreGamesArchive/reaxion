@@ -40,16 +40,17 @@ public class Battle {
 
 		try {
 			p1Attacks[0] = Class.forName(attackBaseLocation + "ShootBullet");
-			p1Attacks[1] = Class.forName(attackBaseLocation + "ShieldBarrier");
-			p1Attacks[2] = Class
+			p1Attacks[1] = Class.forName(attackBaseLocation + "ShootFireball");
+			p1Attacks[2] = Class.forName(attackBaseLocation + "ShieldBarrier");
+			p1Attacks[3] = Class
 					.forName(attackBaseLocation + "ShieldMediguard");
-			p1Attacks[3] = Class.forName(attackBaseLocation + "ShieldReflega");
-			//p1Attacks[4] = Class.forName(attackBaseLocation + "BulletStorm");
+			p1Attacks[4] = Class.forName(attackBaseLocation + "ShieldReflega");
 
 			p2Attacks[0] = Class.forName(attackBaseLocation + "SpinLance");
 			p2Attacks[1] = Class.forName(attackBaseLocation + "LanceWheel");
 			p2Attacks[2] = Class.forName(attackBaseLocation + "LanceArc");
 			p2Attacks[3] = Class.forName(attackBaseLocation + "TriLance");
+			p2Attacks[4] = Class.forName(attackBaseLocation + "ShadowTag");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,7 +79,7 @@ public class Battle {
 		op = (MajorCharacter) LoadingQueue.push(op);
 		op.setAbilities(opAbilities);
 		
-		op.hp = 5;
+		//op.hp = 5;
 	}
 
 	public void setStage(String name) {

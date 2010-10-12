@@ -259,11 +259,14 @@ public class Model {
     }
     
     /**
-     * Convenience method to make model rotate about Y to face the camera
+     * Convenience method to make model rotate to face the camera
+     * @param c Camera to face
+     * @param yFree Whether to face the camera completely or only rotate about Y
      */
-    public void billboard(Camera c) {
+    public void billboard(Camera c, boolean yFree) {
     	Vector3f face = c.getDirection().negate();
-    	face.y = 0;
+    	if (!yFree)
+    		face.y = 0;
     	rotate(face);
     }
     

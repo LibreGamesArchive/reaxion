@@ -30,7 +30,7 @@ public class AngelSword extends AttackObject {
 	@ Override
     public void act(StageGameState b) {
         // billboarding
-		billboard(b.getCamera());
+		billboard(b.getCamera(), false);
     	
     	if (lifeCount <= growFrames) {
     		model.setLocalScale(new Vector3f(1, (float)lifeCount/(float)growFrames, 1));
