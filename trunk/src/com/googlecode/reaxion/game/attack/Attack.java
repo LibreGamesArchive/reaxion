@@ -51,7 +51,7 @@ public class Attack {
 	 * Contains all the commands to load required AttackObjects, override to
 	 * add functionality.
 	 */
-	public void load() {
+	public static void load() {
 	}
 	
 	/**

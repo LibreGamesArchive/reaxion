@@ -32,8 +32,7 @@ public class AngelRain extends Attack {
 		name = "Angel Rain";
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(AngelSword.filename));
 	}
 	

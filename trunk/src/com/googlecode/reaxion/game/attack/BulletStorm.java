@@ -27,8 +27,7 @@ public class BulletStorm extends Attack {
 		name = "Bullet Storm";
 	}
 
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(Bullet.filename));
 	}
 	

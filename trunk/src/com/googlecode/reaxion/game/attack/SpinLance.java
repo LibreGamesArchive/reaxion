@@ -27,8 +27,7 @@ public class SpinLance extends Attack {
 		target = ad.target;
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(SpinningLance.filename));
 	}
 	

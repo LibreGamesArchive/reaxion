@@ -203,7 +203,6 @@ public class PlayerInput extends InputHandler {
     private void executeAttack(int ind) {
     	if (!player.flinching && player.currentAttack == null) {
 			try {
-				System.out.println("!!!");
 				if (attacks[ind] != null) {
 					Character[] friends = new Character[1];
 					friends[0] = partner;

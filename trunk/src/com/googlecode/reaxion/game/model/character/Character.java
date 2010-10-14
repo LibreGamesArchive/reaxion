@@ -86,6 +86,11 @@ public class Character extends Model {
 	 * Initial jump velocity
 	 */
 	public float jump = 1;
+	
+	/**
+	 * Value used to determine what pushes what
+	 */
+	public int mass = 1;
 
 	private boolean frozen = false;
 
@@ -167,9 +172,8 @@ public class Character extends Model {
 
 			// check the ground
 			contactGround();
-			// let other Characters push player around
-			if (b.getPlayer() == this)
-				moveCollide(b);
+			// push characters around
+			moveCollide(b);
 			// remain inside the stage
 			b.getStage().contain(this);
 			// check the ground once more
@@ -198,8 +202,10 @@ public class Character extends Model {
 	 */
 	private void moveCollide(StageGameState b) {
 		for (Model m:b.getModels()) {
-			// check if the other Model is a Character and has a bounding capsule
-			if (m instanceof Character && m != this) {
+			// check if the other Model is a Character, has a bounding capsule, and is more massive
+			if (m instanceof Character && m != this &&
+					(((Character)m).mass > mass ||
+							(((Character)m).mass == mass && ((Character)m).velocity.length()*((Character)m).mass >= mass*velocity.length()))) {
 				Character c = (Character)m;
 				if (c.boundRadius != 0 && c.boundHeight != 0) {
 					// since both capsules are topologically circles, this suffices as an intersection check
@@ -406,6 +412,10 @@ public class Character extends Model {
 	public void animate(float tpf, String stand, String run, String jump, String cast, String raiseUp,
 			String raiseDown, String shootUp, String shootDown, String guard, String flinch, String dying, String dead) {
 		if (hp <= 0) {
+			// interrupt attacks
+			if (currentAttack != null)
+				currentAttack.finish();
+			
 			// Play dying animation
 			if (!frozen) {
 				if (play(dying, tpf)) {

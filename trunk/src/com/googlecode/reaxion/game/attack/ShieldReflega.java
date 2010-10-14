@@ -29,8 +29,7 @@ public class ShieldReflega extends Attack {
 		validateGround();
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(Reflector.filename));
 	}
 	

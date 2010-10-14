@@ -29,8 +29,7 @@ public class ShootFireball extends Attack {
 		validateGround();
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(Fireball.filename));
 	}
 	
@@ -51,6 +50,20 @@ public class ShootFireball extends Attack {
 			
 			// calculate transformations
 			Vector3f rotation = character.rotationVector;
+			float angle = FastMath.atan2(rotation.x, rotation.z);
+			
+			Vector3f translation = new Vector3f(3f*FastMath.sin(angle), 3.7f, 3f*FastMath.cos(angle));
+			
+			fireball = (Fireball)LoadingQueue.quickLoad(new Fireball(getUsers()), b);
+			
+			fireball.rotate(rotation);
+			fireball.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
+			
+			b.getRootNode().updateRenderState();
+			
+		} else if (phase == 1 && fireball.model.getLocalScale().x == 1) {
+			// set the fireball's velocity
+			Vector3f rotation = character.rotationVector;
 			Vector3f targetLine = b.getTarget().model.getWorldTranslation().subtract(b.getPlayer().model.getWorldTranslation()).normalize();
 			
 			float angle = FastMath.atan2(rotation.x, rotation.z);
@@ -62,17 +75,9 @@ public class ShootFireball extends Attack {
 				angle = FastMath.atan2(rotation.x, rotation.z);
 			}
 			
-			Vector3f translation = new Vector3f(2.2f*FastMath.sin(angle), 3.7f, 2.2f*FastMath.cos(angle));
-			
-			fireball = (Fireball)LoadingQueue.quickLoad(new Fireball(getUsers()), b);
-			
 			fireball.rotate(rotation);
 			fireball.setVelocity(rotation.mult(speed));
-			fireball.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			
-			b.getRootNode().updateRenderState();
-			
-		} else if (phase == 1 && fireball.lifespan > fireball.peakTime) {
 			character.play("blowUp", b.tpf);
 			phase++;
 			
