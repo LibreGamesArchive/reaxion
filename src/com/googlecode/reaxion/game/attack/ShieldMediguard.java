@@ -28,8 +28,7 @@ public class ShieldMediguard extends Attack {
 		validateGround();
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(MediShield.filename));
 	}
 	

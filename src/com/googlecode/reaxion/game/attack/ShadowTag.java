@@ -15,7 +15,7 @@ import com.jme.math.Vector3f;
 public class ShadowTag extends Attack {
 	
 	private static final String n = "Shadow Tag";
-	private static final int gc = 12;
+	private static final int gc = 15;
 	
 	private LivingShadow shadow;
 	
@@ -30,8 +30,7 @@ public class ShadowTag extends Attack {
 		validateGround();
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(LivingShadow.filename));
 	}
 	

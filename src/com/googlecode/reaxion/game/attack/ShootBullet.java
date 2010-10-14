@@ -29,8 +29,7 @@ public class ShootBullet extends Attack {
 		return bulletSpeed;
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(Bullet.filename));
 	}
 	

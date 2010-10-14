@@ -26,8 +26,7 @@ public class ShieldBarrier extends Attack {
 		validateGround();
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(Barrier.filename));
 	}
 	

@@ -29,8 +29,7 @@ public class TriLance extends Attack {
 		target = ad.target;
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(SeekingLance.filename));
 	}
 	

@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -10,6 +11,7 @@ import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.attackobject.AngelSword;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
@@ -120,7 +122,9 @@ public class StageGameState extends CameraGameState {
 
     	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
     	nextTarget(0);
-    	    	
+    	
+    	load();
+    	
     	rootNode.updateRenderState();
     	
     	try {
@@ -208,6 +212,29 @@ public class StageGameState extends CameraGameState {
         
         
         
+    }
+    
+    /**
+     * Preloads all elements at start to reduce on-the-fly loading.
+     */
+    protected void load() { 	
+    	try {
+    		// try to preload player characters' attacks
+    		for (int i=0; i<playerAttacks.length; i++) {
+    			if (playerAttacks[i] != null)
+    				playerAttacks[i].getMethod("load").invoke(null);
+    			if (partnerAttacks[i] != null)
+    				partnerAttacks[i].getMethod("load").invoke(null);
+    		}
+    		
+    		// try to preload common resources
+    		LoadingQueue.push(new Model("glow-ring"));
+    		
+    		LoadingQueue.execute(null);
+    	} catch (Exception e) {
+			System.out.println("Error occured during preloading.");
+			e.printStackTrace();
+		}
     }
     
     /**
@@ -314,6 +341,15 @@ public class StageGameState extends CameraGameState {
 
     		rootNode.updateRenderState();
     	}
+    }
+      
+    /**
+     * Returns total time in {@code BattleGameState}.
+     * @author Khoa
+     *
+     */
+    public double getTotalTime() {
+    	return totalTime;
     }
     
     /**

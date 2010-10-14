@@ -76,10 +76,12 @@ public class LoadingQueue {
 		int i = queue.indexOf(m);
 		if (i != -1) {
 			queue.remove(i);
-			if (m instanceof Stage)
-				state.setStage((Stage)m);
-			else
-				state.addModel(m);
+			if (state != null) {
+				if (m instanceof Stage)
+					state.setStage((Stage)m);
+				else
+					state.addModel(m);
+			}
 			System.out.println("Processed: "+m);
 		}
 	}

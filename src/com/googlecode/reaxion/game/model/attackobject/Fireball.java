@@ -13,7 +13,7 @@ public class Fireball extends AttackObject {
 	protected static final float dpf = 13;
 	
 	public int peakTime = 20;
-	protected final float angleInc = .1309f; // approx. pi/24;
+	protected final float angleInc = .1745f; // approx. pi/18;
 	
 	public Fireball(Model m) {
     	super(filename, dpf, m);

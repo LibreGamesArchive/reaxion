@@ -27,8 +27,7 @@ public class LanceWheel extends Attack {
 		name = "Lance Wheel";
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(WheelLance.filename));
 	}
 	

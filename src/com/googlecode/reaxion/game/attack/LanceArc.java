@@ -28,8 +28,7 @@ public class LanceArc extends Attack {
 		name = "Lance Arc";
 	}
 	
-	@Override
-	public void load() {
+	public static void load() {
 		LoadingQueue.push(new Model(ArcingLance.filename));
 	}
 	

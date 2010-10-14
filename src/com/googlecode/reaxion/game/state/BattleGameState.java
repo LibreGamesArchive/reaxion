@@ -1,14 +1,12 @@
 package com.googlecode.reaxion.game.state;
 
-import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.util.Battle;
-import com.jme.input.KeyBindingManager;
 import com.jmex.game.state.GameStateManager;
 
 /**
- * {@code BattleGameState} is a heavily modified version {@code DebugGameState}, with
- * added functionality built around {@code Models}, movement, and the camera system.
+ * {@code BattleGameState} extends {@code StageGameState} with functionality
+ * dedicated to the battle system, such as battle parameters and opponents.
  * @author Khoa
  */
 public class BattleGameState extends StageGameState {
@@ -35,16 +33,6 @@ public class BattleGameState extends StageGameState {
     	expYield = b.getExpYield();
     	
     	assignOpponents(new Character[] {b.getOp()});
-    }
-    
-    
-    /**
-     * Returns total time in {@code BattleGameState}.
-     * @author Khoa
-     *
-     */
-    public double getTotalTime() {
-    	return totalTime;
     }
     
     /**
