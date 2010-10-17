@@ -56,9 +56,9 @@ public class MikoLake extends Stage {
         waterQuad.setLocalRotation(new Quaternion().fromAngles(-FastMath.PI/2, 0, 0));
 
         waterEffectRenderPass.setWaterEffectOnSpatial(waterQuad);
-        model.attachChild(waterQuad);
+        b.getRootNode().attachChild(waterQuad);
         
-        waterEffectRenderPass.setReflectedScene(b.getRootNode());
+        waterEffectRenderPass.setReflectedScene(b.getReflectionNode());
         b.getPassManager().add(waterEffectRenderPass);
 	}
 
@@ -68,8 +68,6 @@ public class MikoLake extends Stage {
 
 		// make the sky move with the player
 		dome.model.setLocalTranslation(playerPos);
-		
-		waterEffectRenderPass.cleanup();
 	}
 
 	@Override
