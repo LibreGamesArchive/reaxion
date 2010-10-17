@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+import quicktime.app.event.MouseButtonAdapter;
+
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
@@ -61,6 +63,8 @@ public class StageGameState extends CameraGameState {
     
     protected HudOverlay hudNode;
     protected PauseOverlay pauseNode;
+    
+    protected Node reflectionNode;
     
     protected InputHandler input;
     protected WireframeState wireState;
@@ -148,6 +152,10 @@ public class StageGameState extends CameraGameState {
         pauseNode = new PauseOverlay();
         rootNode.attachChild(pauseNode);
         
+        // Prepare reflection node (must contain anything being reflected)
+        reflectionNode = new Node("ReflectionNode");
+        rootNode.attachChild(reflectionNode);
+        
         // Prepare the pass manager
         pManager = new BasicPassManager();
         
@@ -179,8 +187,13 @@ public class StageGameState extends CameraGameState {
         input = new InputHandler();
 	    initKeyBindings();
 	    
+	    
+	    
+	    
 	    //Setup software mouse
-		mouse = new AbsoluteMouse("Mouse Input", DisplaySystem.getDisplaySystem().getWidth(), DisplaySystem.getDisplaySystem().getHeight());
+	    // Commented out to get rid of that annoying bs where it would nom the mouse
+	    MouseInput.get().setCursorVisible(true);
+	 /* mouse = new AbsoluteMouse("Mouse Input", DisplaySystem.getDisplaySystem().getWidth(), DisplaySystem.getDisplaySystem().getHeight());
 		mouse.registerWithInputHandler(input);
 		TextureState cursor = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		cursor.setTexture(TextureManager.loadTexture(
@@ -194,7 +207,9 @@ public class StageGameState extends CameraGameState {
 		as1.setTestEnabled(true);
 		as1.setTestFunction(BlendState.TestFunction.GreaterThan);
 		mouse.setRenderState(as1);
-		rootNode.attachChild(mouse);
+		rootNode.attachChild(mouse);*/
+		
+		
 		
 		/*
         // make test cylinders
@@ -209,9 +224,6 @@ public class StageGameState extends CameraGameState {
         rootNode.updateRenderState();
         rootNode.updateWorldBound();
         rootNode.updateGeometricState(0.0f, true);
-        
-        
-        
     }
     
     /**
@@ -263,7 +275,7 @@ public class StageGameState extends CameraGameState {
     public void setStage(Stage s) {
     	stage = s;
     	stage.loadComponents(this);
-    	rootNode.attachChild(s.model);
+    	addModel(s);
     	// attach stage's lighting to rootNode
     	lightState = stage.createLights();
     	rootNode.setRenderState(lightState);
@@ -406,7 +418,7 @@ public class StageGameState extends CameraGameState {
     	return lightState;
     }
 
-    // duplicate the functionality of DebugGameState
+	// duplicate the functionality of DebugGameState
     // Most of this can be commented out during finalization
     protected void initKeyBindings() {
     	/** Assign key TAB to action "camera_mode". */
@@ -787,14 +799,22 @@ public class StageGameState extends CameraGameState {
         cam.update();
     }
     
+    /**
+     * Adds m to the child node that is reflected by water in this stage.
+     * @param m
+     */
     public void addModel(Model m) {
     	models.add(m);
-    	rootNode.attachChild(m.model);
+    	reflectionNode.attachChild(m.model);
     }
     
     public boolean removeModel(Model m) {
-    	rootNode.detachChild(m.model);
+    	reflectionNode.detachChild(m.model);
     	return models.remove(m);
+    }
+    
+    public Node getReflectionNode() {
+    	return reflectionNode;
     }
     
     public void toggleZPressed(boolean b) {
