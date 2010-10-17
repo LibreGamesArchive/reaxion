@@ -10,6 +10,7 @@ import com.googlecode.reaxion.game.model.stage.FlowerField;
 import com.googlecode.reaxion.game.model.stage.MikoLake;
 import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
+import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
@@ -28,13 +29,6 @@ import com.jmex.angelfont.BitmapText;
  */
 
 public class StageSelectionOverlay extends Overlay {
-
-	private static final File fontFile = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol.fnt");
-	private static final File glyphFile = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol_0.png");
-
-	private BitmapFont font;
 
 	private String baseURL = "../../resources/stages/renders/";
 
@@ -65,15 +59,6 @@ public class StageSelectionOverlay extends Overlay {
 		selectedText = new ColorRGBA(0, 1, 0, 1);
 		unselectedText = ColorRGBA.white;
 		fontSize = 24;
-
-		try {
-			font = BitmapFontLoader.load(fontFile.toURI().toURL(), glyphFile
-					.toURI().toURL());
-		} catch (Exception ex) {
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
-					"Unable to load font: " + ex);
-			System.exit(1);
-		}
 
 		createStageBoxes();
 		createStageList();
@@ -135,7 +120,7 @@ public class StageSelectionOverlay extends Overlay {
 	private BitmapText createStageListItem(String name, int index) {
 		int topY, textHeightAndSpacing;
 
-		BitmapText text = new BitmapText(font, false);
+		BitmapText text = new BitmapText(FontUtils.neuropol, false);
 		text.setSize(fontSize);
 		text.setDefaultColor(unselectedText);
 		text.setText(name);
@@ -189,7 +174,7 @@ public class StageSelectionOverlay extends Overlay {
 	}
 
 	public BitmapFont getTextFont() {
-		return font;
+		return FontUtils.neuropol;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -23,11 +24,6 @@ import com.jmex.game.state.GameState;
  *
  */
 public class ResultsOverlay extends Overlay {
-	
-	private static final File fontFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol-c.fnt");
-    private static final File glyphFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol-c_0.png");
-
-	private BitmapFont font = null;
 	
 	private static final String baseURL = "../../resources/gui/";
 	
@@ -57,19 +53,11 @@ public class ResultsOverlay extends Overlay {
 	public ResultsOverlay() {
 		super();
 		
-		// try to load the bitmap font
-		try {
-            font = BitmapFontLoader.load(fontFile.toURI().toURL(), glyphFile.toURI().toURL());
-        } catch(Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Unable to load font: " + ex);
-            System.exit(1);
-        }
-        
         // create a container Node for scaling
         container = new Node("container");
         
         // create combatants text
-        combatants = new BitmapText(font, false);
+        combatants = new BitmapText(FontUtils.neuropol, false);
         combatants.setSize(30);
         combatants.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         combatants.setLocalTranslation(new Vector3f(14, 586, 0));
@@ -174,14 +162,14 @@ public class ResultsOverlay extends Overlay {
 	public void setStats(double ttd, double ctd, MajorCharacter player, MajorCharacter partner, int eY) {
 		
 		// target time
-		BitmapText ttl = new BitmapText(font, false);
+		BitmapText ttl = new BitmapText(FontUtils.neuropol, false);
         ttl.setSize(26);
         ttl.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         ttl.setLocalTranslation(new Vector3f(180, 284, 0));
         ttl.setText("Target Time");
         ttl.update();
 		
-		BitmapText tt = new BitmapText(font, false);
+		BitmapText tt = new BitmapText(FontUtils.neuropol, false);
         tt.setSize(26);
         tt.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         tt.setAlignment(BitmapFont.Align.Right);
@@ -193,14 +181,14 @@ public class ResultsOverlay extends Overlay {
         targetTime.attachChild(tt);       
         
         // clear time
-        BitmapText ctl = new BitmapText(font, false);
+        BitmapText ctl = new BitmapText(FontUtils.neuropol, false);
         ctl.setSize(26);
         ctl.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         ctl.setLocalTranslation(new Vector3f(180, 252, 0));
         ctl.setText("Clear Time");
         ctl.update();
         
-        BitmapText ct = new BitmapText(font, false);
+        BitmapText ct = new BitmapText(FontUtils.neuropol, false);
         ct.setSize(26);
         ct.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         ct.setAlignment(BitmapFont.Align.Right);
@@ -220,14 +208,14 @@ public class ResultsOverlay extends Overlay {
         }
         
         // total hp
-        BitmapText thl = new BitmapText(font, false);
+        BitmapText thl = new BitmapText(FontUtils.neuropol, false);
         thl.setSize(26);
         thl.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         thl.setLocalTranslation(new Vector3f(180, 220, 0));
         thl.setText("Total HP");
         thl.update();
         
-        BitmapText th = new BitmapText(font, false);
+        BitmapText th = new BitmapText(FontUtils.neuropol, false);
         th.setSize(26);
         th.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         th.setAlignment(BitmapFont.Align.Right);
@@ -239,14 +227,14 @@ public class ResultsOverlay extends Overlay {
         totalHp.attachChild(th); 
         
         // remaining hp
-        BitmapText rhl = new BitmapText(font, false);
+        BitmapText rhl = new BitmapText(FontUtils.neuropol, false);
         rhl.setSize(26);
         rhl.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         rhl.setLocalTranslation(new Vector3f(180, 188, 0));
         rhl.setText("Remaining HP");
         rhl.update();
         
-        BitmapText rh = new BitmapText(font, false);
+        BitmapText rh = new BitmapText(FontUtils.neuropol, false);
         rh.setSize(26);
         rh.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         rh.setAlignment(BitmapFont.Align.Right);
@@ -258,14 +246,14 @@ public class ResultsOverlay extends Overlay {
         remainingHp.attachChild(rh);
         
         // expBonus
-        BitmapText ebl = new BitmapText(font, false);
+        BitmapText ebl = new BitmapText(FontUtils.neuropol, false);
         ebl.setSize(26);
         ebl.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         ebl.setLocalTranslation(new Vector3f(180, 124, 0));
         ebl.setText("EXP Bonus");
         ebl.update();
         
-        BitmapText eb = new BitmapText(font, false);
+        BitmapText eb = new BitmapText(FontUtils.neuropol, false);
         eb.setSize(26);
         eb.setDefaultColor(new ColorRGBA(1, 1, 1, 1));
         eb.setAlignment(BitmapFont.Align.Right);
