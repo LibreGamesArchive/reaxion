@@ -13,7 +13,6 @@ import com.jme.math.Plane;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
-import com.jme.scene.Skybox;
 import com.jme.scene.shape.Quad;
 import com.jme.scene.state.LightState;
 import com.jme.system.DisplaySystem;

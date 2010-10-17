@@ -1,20 +1,14 @@
 package com.googlecode.reaxion.game.state;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
-import quicktime.app.event.MouseButtonAdapter;
-
-import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.attackobject.AngelSword;
-import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
@@ -32,13 +26,10 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.pass.BasicPassManager;
 import com.jme.scene.Node;
-import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
-import com.jme.scene.state.TextureState;
 import com.jme.scene.state.WireframeState;
 import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
 import com.jme.util.geom.Debugger;
 import com.jmex.audio.AudioSystem;
 import com.jmex.game.state.CameraGameState;
