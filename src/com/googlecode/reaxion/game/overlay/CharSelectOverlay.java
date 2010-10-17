@@ -1,31 +1,19 @@
 package com.googlecode.reaxion.game.overlay;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
-import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 
 public class CharSelectOverlay extends Overlay {
 
 	private static final String baseURL = "../../resources/gui/";
 
-	private static final File fontFile = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol.fnt");
-	private static final File glyphFile = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol_0.png");
-
 	private final int numchars = 6;
-
-	private BitmapFont font = null;
-
+	
 	private Node container;
 
 	private String[] charNames;
@@ -47,16 +35,6 @@ public class CharSelectOverlay extends Overlay {
 
 	public CharSelectOverlay() {
 		super();
-
-		// try to load the bitmap font
-		try {
-			font = BitmapFontLoader.load(fontFile.toURI().toURL(), glyphFile
-					.toURI().toURL());
-		} catch (Exception ex) {
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
-					"Unable to load font: " + ex);
-			System.exit(1);
-		}
 
 		// create a container Node for scaling
 		container = new Node("container");
@@ -84,14 +62,14 @@ public class CharSelectOverlay extends Overlay {
 		p2Display = new BitmapText[numchars];
 		opDisplay = new BitmapText[numchars];
 		for (int i = 0; i < numchars; i++) {
-			p1Display[i] = new BitmapText(font, false);
-			p2Display[i] = new BitmapText(font, false);
-			opDisplay[i] = new BitmapText(font, false);
+			p1Display[i] = new BitmapText(FontUtils.neuropol, false);
+			p2Display[i] = new BitmapText(FontUtils.neuropol, false);
+			opDisplay[i] = new BitmapText(FontUtils.neuropol, false);
 			p1Display[i].setText(charNames[i]);
 			p2Display[i].setText(charNames[i]);
 			opDisplay[i].setText(charNames[i]);
 		}
-		menu = new BitmapText(font, false);
+		menu = new BitmapText(FontUtils.neuropol, false);
 		menu
 				.setText("Character Select. Use arrow keys to move, space to choose, and enter to play.");
 
@@ -209,7 +187,7 @@ public class CharSelectOverlay extends Overlay {
 		container.attachChild(menu);
 
 		// the following lines can be removed when brian is created.
-		BitmapText warning = new BitmapText(font, false);
+		BitmapText warning = new BitmapText(FontUtils.neuropol, false);
 		warning.setSize(18);
 		warning.setDefaultColor(textColor);
 		warning.setLocalTranslation(-22 + 78, 410, 0);
@@ -221,7 +199,7 @@ public class CharSelectOverlay extends Overlay {
 		BitmapText[] labels = new BitmapText[3];
 		String[] temp = { "Player 1", "Player 2", "Opponent" };
 		for (int i = 0; i < 3; i++) {
-			labels[i] = new BitmapText(font, false);
+			labels[i] = new BitmapText(FontUtils.neuropol, false);
 			labels[i].setSize(17);
 			labels[i].setDefaultColor(textColor);
 			labels[i].setLocalTranslation(-62 + 205 + 200 * i, 250 + 50, 0);

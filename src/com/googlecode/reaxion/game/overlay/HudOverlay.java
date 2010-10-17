@@ -1,20 +1,16 @@
 package com.googlecode.reaxion.game.overlay;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.ColorUtils;
+import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 
 /**
@@ -25,11 +21,6 @@ import com.jmex.angelfont.BitmapText;
 public class HudOverlay extends Overlay {
 	
 	private static final String baseURL = "../../resources/gui/";
-	
-	private static final File fontFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol-c.fnt");
-    private static final File glyphFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol-c_0.png");
-
-	private BitmapFont font = null;
     
 	private Class[] attacks;
 	private int gaugeCap;
@@ -69,14 +60,6 @@ public class HudOverlay extends Overlay {
 	public HudOverlay() {
 		super();
 		
-		// try to load the bitmap font
-		try {
-            font = BitmapFontLoader.load(fontFile.toURI().toURL(), glyphFile.toURI().toURL());
-        } catch(Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Unable to load font: " + ex);
-            System.exit(1);
-        }
-        
         // create a container Node for scaling
         container = new Node("container");
 		
@@ -108,7 +91,7 @@ public class HudOverlay extends Overlay {
 		
 		attackText = new BitmapText[6];
 		for (int i=0; i<attackText.length; i++) {
-			attackText[i] = new BitmapText(font, false);
+			attackText[i] = new BitmapText(FontUtils.neuropol, false);
 			attackText[i].setSize(16);
 			attackText[i].setDefaultColor(textColor);
 			attackText[i].setLocalTranslation(new Vector3f(4, 100 - 20*i + 18, 0));
@@ -117,7 +100,7 @@ public class HudOverlay extends Overlay {
 		
 		gaugeCostText = new BitmapText[6];
 		for (int i = 0; i < gaugeCostText.length; i++) {
-			gaugeCostText[i] = new BitmapText(font, false);
+			gaugeCostText[i] = new BitmapText(FontUtils.neuropol, false);
 			gaugeCostText[i].setSize(16);
 			gaugeCostText[i].setDefaultColor(textColor);
 			gaugeCostText[i].setLocalTranslation(new Vector3f(attackFill[i].getWidth() - 25, 100 - 20 * i + 18, 0));
@@ -134,13 +117,13 @@ public class HudOverlay extends Overlay {
 		opHealth.setLocalTranslation(new Vector3f(6 + 292, 576 + 5, 0));
 		container.attachChild(opHealth);
 		
-		opName = new BitmapText(font, false);
+		opName = new BitmapText(FontUtils.neuropol, false);
         opName.setSize(16);
         opName.setDefaultColor(textColor);
         opName.setLocalTranslation(new Vector3f(18, 572, 0));
         container.attachChild(opName);
         
-        opHealthText = new BitmapText(font, false);
+        opHealthText = new BitmapText(FontUtils.neuropol, false);
         opHealthText.setSize(16);
         opHealthText.setAlignment(BitmapFont.Align.Right);
         opHealthText.setDefaultColor(textColor);
@@ -155,13 +138,13 @@ public class HudOverlay extends Overlay {
 		ptHealth.setLocalTranslation(new Vector3f(208 + 98, 50 + 5, 0));
 		container.attachChild(ptHealth);
 		
-		ptHealthText = new BitmapText(font, false);
+		ptHealthText = new BitmapText(FontUtils.neuropol, false);
         ptHealthText.setSize(16);
         ptHealthText.setDefaultColor(textColor);
         ptHealthText.setLocalTranslation(new Vector3f(222, 76, 0));
         container.attachChild(ptHealthText);
         
-        ptName = new BitmapText(font, false);
+        ptName = new BitmapText(FontUtils.neuropol, false);
         ptName.setSize(16);
         ptName.setAlignment(BitmapFont.Align.Right);
         ptName.setDefaultColor(textColor);
@@ -176,13 +159,13 @@ public class HudOverlay extends Overlay {
 		health.setLocalTranslation(new Vector3f(431 + 180, 50 + 5, 0));
 		container.attachChild(health);
 		
-		healthText = new BitmapText(font, false);
+		healthText = new BitmapText(FontUtils.neuropol, false);
         healthText.setSize(16);
         healthText.setDefaultColor(textColor);
         healthText.setLocalTranslation(new Vector3f(442, 76, 0));
         container.attachChild(healthText);
         
-        name = new BitmapText(font, false);
+        name = new BitmapText(FontUtils.neuropol, false);
         name.setSize(16);
         name.setAlignment(BitmapFont.Align.Right);
         name.setDefaultColor(textColor);
@@ -200,7 +183,7 @@ public class HudOverlay extends Overlay {
 		gauge.setLocalTranslation(new Vector3f(208 + 292, 34 + 5, 0));
 		container.attachChild(gauge);
 		
-		gaugeCount = new BitmapText(font, false);
+		gaugeCount = new BitmapText(FontUtils.neuropol, false);
 		gaugeCount.setSize(16);
 		gaugeCount.setAlignment(BitmapFont.Align.Center);
 		gaugeCount.setDefaultColor(textColor);

@@ -2,12 +2,17 @@ package com.googlecode.reaxion.game;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.state.CharSelectState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
+import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.util.GameTaskQueueManager;
+import com.jmex.angelfont.BitmapFont;
+import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
@@ -87,6 +92,8 @@ public class Reaxion {
 		//@Override
 		public Void call() throws Exception {
 
+			FontUtils.loadFonts();
+			
 			charState = new CharSelectState(battleState);
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
