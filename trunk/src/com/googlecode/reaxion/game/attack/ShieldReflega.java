@@ -11,7 +11,7 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 /**
- * Fires an energy bullet towards the target
+ * Raises a barrier that reflects projectiles
  */
 public class ShieldReflega extends Attack {
 	

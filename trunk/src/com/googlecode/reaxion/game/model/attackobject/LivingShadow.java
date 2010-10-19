@@ -74,7 +74,7 @@ public class LivingShadow extends AttackObject {
 	 * Change {@code damagePerFrame} based on damage done to user since casting.
 	 */
 	private void changeDamage() {
-		damagePerFrame = 10 + (float)Math.min(Math.max(initHp - user.hp, 0), maxBonus);
+		damagePerFrame = dpf + (float)Math.min(Math.max(initHp - user.hp, 0), maxBonus);
 	}
 	
 }

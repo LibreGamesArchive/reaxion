@@ -73,7 +73,7 @@ material skinTex
 
 			texture_unit
 			{
-				texture textures/i_khoa1UV-2.png
+				texture textures/i_khoa1UV-3.png
 			}
 		}
 

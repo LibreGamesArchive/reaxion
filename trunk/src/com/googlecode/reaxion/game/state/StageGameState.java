@@ -55,7 +55,7 @@ public class StageGameState extends CameraGameState {
     protected HudOverlay hudNode;
     protected PauseOverlay pauseNode;
     
-    protected Node reflectionNode;
+    protected Node containerNode;
     
     protected InputHandler input;
     protected WireframeState wireState;
@@ -143,9 +143,9 @@ public class StageGameState extends CameraGameState {
         pauseNode = new PauseOverlay();
         rootNode.attachChild(pauseNode);
         
-        // Prepare reflection node (must contain anything being reflected)
-        reflectionNode = new Node("ReflectionNode");
-        rootNode.attachChild(reflectionNode);
+        // Prepare container node (must contain anything being reflected)
+        containerNode = new Node("ReflectionNode");
+        rootNode.attachChild(containerNode);
         
         // Prepare the pass manager
         pManager = new BasicPassManager();
@@ -266,7 +266,7 @@ public class StageGameState extends CameraGameState {
     public void setStage(Stage s) {
     	stage = s;
     	stage.loadComponents(this);
-    	addModel(s);
+    	containerNode.attachChild(s.model);
     	// attach stage's lighting to rootNode
     	lightState = stage.createLights();
     	rootNode.setRenderState(lightState);
@@ -796,16 +796,16 @@ public class StageGameState extends CameraGameState {
      */
     public void addModel(Model m) {
     	models.add(m);
-    	reflectionNode.attachChild(m.model);
+    	containerNode.attachChild(m.model);
     }
     
     public boolean removeModel(Model m) {
-    	reflectionNode.detachChild(m.model);
+    	containerNode.detachChild(m.model);
     	return models.remove(m);
     }
     
-    public Node getReflectionNode() {
-    	return reflectionNode;
+    public Node getContainerNode() {
+    	return containerNode;
     }
     
     public void toggleZPressed(boolean b) {

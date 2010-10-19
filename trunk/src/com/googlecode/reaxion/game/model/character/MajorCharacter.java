@@ -33,8 +33,8 @@ public class MajorCharacter extends Character {
     public void type() {
     	maxHp = 100;
     	gaugeRate = .0015;
-    	minGauge = 10;
-    	maxGauge = 18;
+    	minGauge = 18;
+    	maxGauge = 30;
     	speed = .5f;
     }
     
@@ -44,6 +44,13 @@ public class MajorCharacter extends Character {
     public void renew() {
     	hp = maxHp;
     	gauge = minGauge;
+    }
+    
+    /**
+     * Removes death animation lock
+     */
+    public void clearDeathFlag() {
+    	frozen = false;
     }
     
     // Standard animated states, only override if specific states differ

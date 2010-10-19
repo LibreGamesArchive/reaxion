@@ -15,7 +15,7 @@ import com.jme.math.Vector3f;
 public class ShadowTag extends Attack {
 	
 	private static final String n = "Shadow Tag";
-	private static final int gc = 15;
+	private static final int gc = 17;
 	
 	private LivingShadow shadow;
 	

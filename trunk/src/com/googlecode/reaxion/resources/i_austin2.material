@@ -9,7 +9,7 @@ material skinTex
 
 			texture_unit
 			{
-				texture textures/i_austin1UV-3.png
+				texture textures/i_austin1UV-4.png
 			}
 		}
 

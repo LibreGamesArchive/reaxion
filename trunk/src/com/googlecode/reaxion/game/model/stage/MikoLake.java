@@ -57,7 +57,7 @@ public class MikoLake extends Stage {
         waterEffectRenderPass.setWaterEffectOnSpatial(waterQuad);
         b.getRootNode().attachChild(waterQuad);
         
-        waterEffectRenderPass.setReflectedScene(b.getReflectionNode());
+        waterEffectRenderPass.setReflectedScene(b.getContainerNode());
         b.getPassManager().add(waterEffectRenderPass);
 	}
 

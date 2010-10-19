@@ -117,7 +117,7 @@ material i_monica6skinTex
 
 			texture_unit
 			{
-				texture textures/i_monica-2UV.png
+				texture textures/i_monica-2UV-2.png
 			}
 		}
 
