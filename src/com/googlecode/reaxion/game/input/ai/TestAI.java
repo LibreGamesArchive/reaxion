@@ -64,7 +64,7 @@ public class TestAI extends AIInput {
     				nextLance = randomBoolean();
     			}
     		} else {
-    			if (character.gauge >= 18 && !character.flinching && character.currentAttack == null) {
+    			if (character.gauge >= 22 && !character.flinching && character.currentAttack == null) {
     				new AngelRain(new AttackData(character));
     				nextLance = randomBoolean();
     			}
@@ -92,7 +92,7 @@ public class TestAI extends AIInput {
     				nextLance = (Math.random() >= .8);
     			}
     		} else {
-    			if (character.gauge >= 18 && !character.flinching && character.currentAttack == null) {
+    			if (character.gauge >= 22 && !character.flinching && character.currentAttack == null) {
     				new AngelRain(new AttackData(character));
     				nextLance = (Math.random() >= .8);
     			}

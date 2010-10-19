@@ -12,7 +12,7 @@ public class CharSelectOverlay extends Overlay {
 
 	private static final String baseURL = "../../resources/gui/";
 
-	private final int numchars = 6;
+	private final int numchars = 7;
 	
 	private Node container;
 
@@ -47,9 +47,9 @@ public class CharSelectOverlay extends Overlay {
 		selTextColor = new ColorRGBA(0, 1, 0, 1);
 		selBoxColor = new ColorRGBA(0, .67f, .67f, 1);
 
-		p1Fill = new Quad[6];
-		p2Fill = new Quad[6];
-		opFill = new Quad[6];
+		p1Fill = new Quad[numchars];
+		p2Fill = new Quad[numchars];
+		opFill = new Quad[numchars];
 
 		charNames = new String[numchars];
 		charNames[0] = "Khoa";
@@ -58,6 +58,7 @@ public class CharSelectOverlay extends Overlay {
 		charNames[3] = "Monica";
 		charNames[4] = "Austin";
 		charNames[5] = "Brian";
+		charNames[6] = "Shine";
 		p1Display = new BitmapText[numchars];
 		p2Display = new BitmapText[numchars];
 		opDisplay = new BitmapText[numchars];
@@ -187,6 +188,7 @@ public class CharSelectOverlay extends Overlay {
 		container.attachChild(menu);
 
 		// the following lines can be removed when brian is created.
+		/*
 		BitmapText warning = new BitmapText(FontUtils.neuropol, false);
 		warning.setSize(18);
 		warning.setDefaultColor(textColor);
@@ -195,6 +197,7 @@ public class CharSelectOverlay extends Overlay {
 				.setText("Note: do not choose brian until his model has been created.");
 		warning.update();
 		container.attachChild(warning);
+		*/
 
 		BitmapText[] labels = new BitmapText[3];
 		String[] temp = { "Player 1", "Player 2", "Opponent" };

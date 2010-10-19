@@ -92,7 +92,7 @@ public class Character extends Model {
 	 */
 	public int mass = 1;
 
-	private boolean frozen = false;
+	protected boolean frozen = false;
 
 	/**
 	 * Bounding capsule (cylinder with spherical ends),

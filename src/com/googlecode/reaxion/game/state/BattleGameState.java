@@ -18,7 +18,8 @@ public class BattleGameState extends StageGameState {
     
     // time between final kill and results display
     public int victoryTime = 72;
-    private int victoryCount = 0;
+    public int defeatTime = 72;
+    private int resultCount = 0;
     
     private Character[] opponents;
     
@@ -56,26 +57,46 @@ public class BattleGameState extends StageGameState {
 
     @ Override
     protected void act() {
-    	if (victoryCount != 0)
+    	if (resultCount != 0)
     		timing = false;
     	
     	// Check winning/losing conditions
     	if (player.hp <= 0 && (partner == null || partner.hp <=0)) {
     		System.out.println("You lose!");
+			if (resultCount >= defeatTime)
+				goToGameOver();
+			else {
+				hideOverlays();
+				resultCount++;
+			}
     	} else if (opponents != null) {
     		int sumHp = 0;
     		for (int i=0; i<opponents.length; i++)
     			sumHp += Math.max(opponents[i].hp, 0);
     		if (sumHp <= 0) {
     			System.out.println("You win!");
-    			if (victoryCount >= victoryTime)
+    			if (resultCount >= victoryTime)
     				goToResults();
     			else {
     				hideOverlays();
-    				victoryCount++;
+    				resultCount++;
     			}
     		}
     	}
+    }
+    
+    /**
+     * Ends this GameState and calls the {@code GameOverGameState}.
+     */
+    public void goToGameOver() {
+    	GameOverState overState = new GameOverState(this);
+    	
+		overState.setBackground(pauseNode.getScreenshot());
+		
+		GameStateManager.getInstance().attachChild(overState);
+		overState.setActive(true);
+    	GameStateManager.getInstance().detachChild(this);
+    	setActive(false);
     }
     
     /**

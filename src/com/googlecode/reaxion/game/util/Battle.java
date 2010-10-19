@@ -1,17 +1,10 @@
 package com.googlecode.reaxion.game.util;
 
-import com.googlecode.reaxion.game.ability.Ability;
-import com.googlecode.reaxion.game.ability.ActiveShielder;
-import com.googlecode.reaxion.game.ability.AfterImage;
-import com.googlecode.reaxion.game.ability.HealingFactor;
-import com.googlecode.reaxion.game.ability.PassiveHealer;
-import com.googlecode.reaxion.game.ability.RandomInstantGauge;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
+import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
-import com.googlecode.reaxion.game.state.StageGameState;
 
 public class Battle {
 
@@ -42,21 +35,22 @@ public class Battle {
 			p1Attacks[0] = Class.forName(attackBaseLocation + "ShootBullet");
 			p1Attacks[1] = Class.forName(attackBaseLocation + "ShootFireball");
 			p1Attacks[2] = Class.forName(attackBaseLocation + "ShieldBarrier");
-			p1Attacks[3] = Class
-					.forName(attackBaseLocation + "ShieldMediguard");
+			p1Attacks[3] = Class.forName(attackBaseLocation + "ShieldMediguard");
 			p1Attacks[4] = Class.forName(attackBaseLocation + "ShieldReflega");
+			p1Attacks[5] = Class.forName(attackBaseLocation + "ShieldHoly");
 
-			p2Attacks[0] = Class.forName(attackBaseLocation + "SpinLance");
-			p2Attacks[1] = Class.forName(attackBaseLocation + "LanceWheel");
-			p2Attacks[2] = Class.forName(attackBaseLocation + "LanceArc");
-			p2Attacks[3] = Class.forName(attackBaseLocation + "TriLance");
-			p2Attacks[4] = Class.forName(attackBaseLocation + "ShadowTag");
+			p2Attacks[0] = Class.forName(attackBaseLocation + "SpawnBubble");
+			p2Attacks[1] = Class.forName(attackBaseLocation + "SpinLance");
+			p2Attacks[2] = Class.forName(attackBaseLocation + "LanceWheel");
+			p2Attacks[3] = Class.forName(attackBaseLocation + "LanceArc");
+			p2Attacks[4] = Class.forName(attackBaseLocation + "TriLance");
+			p2Attacks[5] = Class.forName(attackBaseLocation + "ShadowTag");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		p1Abilities = new Ability[] { new PassiveHealer() };
-		p2Abilities = new Ability[] { new HealingFactor() };
+		p1Abilities = new Ability[] { new Masochist() };
+		p2Abilities = new Ability[] { new RapidGauge() };
 		opAbilities = new Ability[] { new AfterImage() };
 	}
 

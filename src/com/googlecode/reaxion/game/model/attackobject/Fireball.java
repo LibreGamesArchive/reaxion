@@ -38,10 +38,7 @@ public class Fireball extends AttackObject {
 		if (lifeCount < peakTime)
 			model.setLocalScale((float) (lifeCount+1)/peakTime);
 		else
-			if (lifeCount >= lifespan)
-				b.removeModel(this);
-			else
-				model.setLocalScale((float) (lifespan - lifeCount)/(lifespan - peakTime));
+			model.setLocalScale((float) (lifespan - lifeCount)/(lifespan - peakTime));
 		
 		// rotate
     	yaw -= angleInc;
