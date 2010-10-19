@@ -118,7 +118,9 @@ public class Attack {
 	 * character and any friends.
 	 */
 	protected Character[] getUsers() {
-		Character[] users = Arrays.copyOf(friends, friends.length+1);
+		Character[] users = new Character[friends.length+1]; //Arrays.copyOf(friends, friends.length+1);
+		for(int i = 0; i < friends.length; i++)
+			users[i] = friends[i];
 		users[users.length-1] = character;
 		return users;
 	}
