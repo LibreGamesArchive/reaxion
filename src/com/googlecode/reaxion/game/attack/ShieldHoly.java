@@ -78,6 +78,9 @@ public class ShieldHoly extends Attack {
 	@Override
 	public void interrupt(StageGameState b, Model other) {
 		// render immune to damage
+		// reciprocate the hit
+		if (other instanceof AttackObject)
+			((AttackObject)other).hit(b, b.getPlayer());
 	}
 	
 	@Override
