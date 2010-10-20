@@ -142,12 +142,12 @@ public class StageSelectionOverlay extends Overlay {
 		int lastIndex = currentIndex;
 		if (up) {
 			if (currentIndex == 0)
-				return;
+				currentIndex = stageNames.length - 1;
 			else
 				currentIndex--;
 		} else {
 			if (currentIndex == stageNames.length - 1)
-				return;
+				currentIndex = 0;
 			else
 				currentIndex++;
 		}
