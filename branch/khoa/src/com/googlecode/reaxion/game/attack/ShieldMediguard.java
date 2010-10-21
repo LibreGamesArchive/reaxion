@@ -68,7 +68,7 @@ public class ShieldMediguard extends Attack {
         for (Model c : collisions) {
         	if (c == medishield) {
         		// cancel the damage and no flinch
-        		((AttackObject) other).hit(b, character);
+        		//((AttackObject) other).hit(b, character);
             	return;
         	}
         }
