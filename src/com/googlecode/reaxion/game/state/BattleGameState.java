@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
+import java.util.Arrays;
+
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jmex.game.state.GameStateManager;
@@ -33,7 +35,7 @@ public class BattleGameState extends StageGameState {
     	targetTime = b.getTargetTime();
     	expYield = b.getExpYield();
     	
-    	assignOpponents(new Character[] {b.getOp()});
+    	assignOpponents(b.getOps());
     }
     
     /**
@@ -83,6 +85,7 @@ public class BattleGameState extends StageGameState {
     			}
     		}
     	}
+    	
     }
     
     /**

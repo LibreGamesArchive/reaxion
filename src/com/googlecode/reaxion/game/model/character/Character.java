@@ -131,7 +131,7 @@ public class Character extends Model {
 			// call AI
 			if (ai != null)
 				ai.makeCommands(b);
-
+			
 			super.act(b);
 
 			// call abilities
@@ -172,12 +172,15 @@ public class Character extends Model {
 
 			// check the ground
 			contactGround();
+			// remain inside the stage
+			b.getStage().contain(this);
 			// push characters around
 			moveCollide(b);
-			// remain inside the stage
+			// remain inside the stage again
 			b.getStage().contain(this);
 			// check the ground once more
 			contactGround();
+			
 			Vector3f loc = model.getLocalTranslation();
 			loc.addLocal(velocity);
 			model.setLocalTranslation(loc);
@@ -186,12 +189,12 @@ public class Character extends Model {
 			gauge = Math.min(gauge + gaugeRate*maxGauge, maxGauge);
 
 			/*
-        if (b.getPlayer() == this)
-        	System.out.println(gauge +" + "+gaugeRate +" : ("+ minGauge +", "+ maxGauge +")");
-			 */
+	        if (b.getPlayer() == this)
+	        	System.out.println(gauge +" + "+gaugeRate +" : ("+ minGauge +", "+ maxGauge +")");
+			*/
 			/*
-        if (getCollisions(b).length > 0)
-        	System.out.println("collision with: "+Arrays.toString(getCollisions(b)));
+	        if (getCollisions(b).length > 0)
+	        	System.out.println("collision with: "+Arrays.toString(getCollisions(b)));
 			 */
 		}
 	}
@@ -203,9 +206,7 @@ public class Character extends Model {
 	private void moveCollide(StageGameState b) {
 		for (Model m:b.getModels()) {
 			// check if the other Model is a Character, has a bounding capsule, and is more massive
-			if (m instanceof Character && m != this &&
-					(((Character)m).mass > mass ||
-							(((Character)m).mass == mass && ((Character)m).velocity.length()*((Character)m).mass >= mass*velocity.length()))) {
+			if (m instanceof Character && m != this && ((Character)m).mass >= mass) {
 				Character c = (Character)m;
 				if (c.boundRadius != 0 && c.boundHeight != 0) {
 					// since both capsules are topologically circles, this suffices as an intersection check
@@ -216,7 +217,9 @@ public class Character extends Model {
 					float h = boundRadius + c.boundRadius - FastMath.sqrt(FastMath.pow(x, 2) + FastMath.pow(z, 2));
 					// if they overlap, investigate within the plane of intersection along Y
 					if (h > 0) {
+						System.out.println(model+" collided with "+c.model);
 						resolveBounds(c, x, y, z);
+						System.out.println(model.getWorldTranslation()+" -> "+model.getWorldTranslation().add(velocity));
 						break;
 					}
 				}
