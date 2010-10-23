@@ -6,6 +6,7 @@ import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.overlay.GameOverOverlay;
 import com.googlecode.reaxion.game.overlay.ResultsOverlay;
+import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
@@ -198,6 +199,10 @@ public class GameOverState extends CameraGameState {
 	
 	private void returnToMission() {
 		// TODO: Link to the last mission point
+		
+		// flush LoadingQueue
+		LoadingQueue.resetQueue();
+		
 		GameStateManager.getInstance().getChild(CharSelectState.NAME)
 				.setActive(true);
 		setActive(false);
@@ -208,6 +213,10 @@ public class GameOverState extends CameraGameState {
 
 	private void returnToMenu() {
 		// TODO: Link to the main menu
+		
+		// flush LoadingQueue
+		LoadingQueue.resetQueue();
+		
 		GameStateManager.getInstance().getChild(CharSelectState.NAME)
 				.setActive(true);
 		setActive(false);

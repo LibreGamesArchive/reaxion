@@ -3,8 +3,6 @@ package com.googlecode.reaxion.game.ability;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
 
 /**
  * Increases gauge drive proportional to damage received.

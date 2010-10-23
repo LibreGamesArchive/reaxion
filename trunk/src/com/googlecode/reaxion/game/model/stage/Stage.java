@@ -46,6 +46,9 @@ public class Stage extends Model {
     	Point2D.Float offset = snapToBounds(p);
     	c.setVelocity(c.getVelocity().subtract(new Vector3f(offset.x, 0, offset.y)));
     	
+    	// recalculate p
+    	p = new Point2D.Float(v.x + c.getVelocity().x, v.z + c.getVelocity().z);
+    	
     	Point2D.Float[] hit = bound(c);
     	
     	// if hits occur at two or more points along the circumference

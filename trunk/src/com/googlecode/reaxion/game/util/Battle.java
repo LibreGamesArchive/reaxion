@@ -1,10 +1,18 @@
 package com.googlecode.reaxion.game.util;
 
+import java.util.ArrayList;
+
 import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.input.ai.TestAI;
+import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
+
+/**
+ * Contains all parameters needed to initiate a battle.
+ * @author Brian, Khoa
+ */
 
 public class Battle {
 
@@ -14,9 +22,11 @@ public class Battle {
 
 	private static Battle currentBattle;
 
-	private MajorCharacter p1, p2, op;
+	private MajorCharacter p1, p2;
+	private ArrayList<Character> op = new ArrayList<Character>();
 	private Class[] p1Attacks, p2Attacks;
-	private Ability[] p1Abilities, p2Abilities, opAbilities;
+	private Ability[] p1Abilities, p2Abilities;
+	private ArrayList<Ability[]> opAbilities = new ArrayList<Ability[]>();
 	private Stage stage;
 	private int targetTime, expYield;
 
@@ -39,7 +49,7 @@ public class Battle {
 			p1Attacks[4] = Class.forName(attackBaseLocation + "ShieldReflega");
 			p1Attacks[5] = Class.forName(attackBaseLocation + "ShieldHoly");
 
-			p2Attacks[0] = Class.forName(attackBaseLocation + "SpawnBubble");
+			p2Attacks[0] = Class.forName(attackBaseLocation + "BubbleBath");
 			p2Attacks[1] = Class.forName(attackBaseLocation + "SpinLance");
 			p2Attacks[2] = Class.forName(attackBaseLocation + "LanceWheel");
 			p2Attacks[3] = Class.forName(attackBaseLocation + "LanceArc");
@@ -51,27 +61,33 @@ public class Battle {
 
 		p1Abilities = new Ability[] { new Masochist() };
 		p2Abilities = new Ability[] { new RapidGauge() };
-		opAbilities = new Ability[] { new AfterImage() };
+		opAbilities.add(new Ability[] { new AfterImage() });
 	}
 
 	public void setPlayers(String[] chars) {
 		try {
 			Class temp1 = Class.forName(baseURL + chars[0]);
-			p1 = (MajorCharacter) temp1.getConstructors()[1].newInstance(false);
 			Class temp2 = Class.forName(baseURL + chars[1]);
-			p2 = (MajorCharacter) temp2.getConstructors()[1].newInstance(false);
-			Class tempO = Class.forName(baseURL + chars[2]);
-			op = (MajorCharacter) tempO.getConstructors()[0].newInstance();
+			
+			// set players
+			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1.getConstructors()[1].newInstance(false));
+			p1.setAbilities(p1Abilities);
+			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2.getConstructors()[1].newInstance(false));
+			p2.setAbilities(p2Abilities);
+			
+			// set opponents
+			op = new ArrayList<Character>();
+			for (int i=2; i<chars.length; i++) {
+				Class tempO = Class.forName(baseURL + chars[i]);
+				op.add((MajorCharacter) LoadingQueue.push((Character) tempO.getConstructors()[0].newInstance()));
+				if (opAbilities.size() > i-2)
+					op.get(i-2).setAbilities(opAbilities.get(i-2));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		p1 = (MajorCharacter) LoadingQueue.push(p1);
-		p1.setAbilities(p1Abilities);
-		p2 = (MajorCharacter) LoadingQueue.push(p2);
-		p2.setAbilities(p2Abilities);
-		op = (MajorCharacter) LoadingQueue.push(op);
-		op.setAbilities(opAbilities);
+		
 		
 		//op.hp = 5;
 	}
@@ -98,7 +114,7 @@ public class Battle {
 	}
 
 	public static BattleGameState createBattleGameState() {
-		currentBattle.getOp().assignAI(new TestAI(currentBattle.getOp()));
+		currentBattle.getOps()[0].assignAI(new TestAI(currentBattle.getOps()[0]));
 		Battle b = currentBattle;
 		currentBattle = new Battle();
 		return new BattleGameState(b);
@@ -120,12 +136,14 @@ public class Battle {
 		this.p2 = p2;
 	}
 
-	public MajorCharacter getOp() {
-		return op;
+	public Character[] getOps() {
+		return op.toArray(new Character[0]);
 	}
 
-	public void setOp(MajorCharacter op) {
-		this.op = op;
+	public void setOps(Character[] o) {
+		op = new ArrayList<Character>();
+		for (int i=0; i<o.length; i++)
+			op.add(o[i]);
 	}
 
 	public Class[] getP1Attacks() {
@@ -162,13 +180,14 @@ public class Battle {
 		p2.setAbilities(p2Abilities);
 	}
 
-	public Ability[] getOpAbilities() {
+	public ArrayList<Ability[]> getOpAbilities() {
 		return opAbilities;
 	}
 
-	public void setOpAbilities(Ability[] opAbilities) {
-		this.opAbilities = opAbilities;
-		op.setAbilities(opAbilities);
+	public void setOpAbilities(ArrayList<Ability[]> oA) {
+		this.opAbilities = oA;
+		for (int i=0; i<opAbilities.size(); i++)
+		op.get(i).setAbilities(oA.get(i));
 	}
 
 	public Stage getStage() {
