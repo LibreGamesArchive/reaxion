@@ -68,6 +68,7 @@ public class Flipside extends Stage {
     		offset.y = center.y + s - .1f;
     	else if (center.y >= s)
     		offset.y = center.y - s + .1f;
+    	
     	return offset;
     }
     

@@ -32,6 +32,9 @@ public class TestAI extends AIInput {
     public void makeCommands(StageGameState state) {
     	MajorCharacter player = state.getPlayer();
     	
+    	// reset velocity so as to not interfere with bounds checking
+    	character.setVelocity(new Vector3f());
+    	
     	if (character.hp/character.maxHp > .67) {
     		// change direction at random
     		if (timer % 80 == 0) {
@@ -52,7 +55,7 @@ public class TestAI extends AIInput {
     			avoidWall(t, p);
     		
     		// change direction at random
-    		if (timer % 40 == 0) {
+    		if (timer % 80 == 0) {
     			vel = randomVector();
     			vel.y = 0;
     		}
@@ -79,7 +82,7 @@ public class TestAI extends AIInput {
     			avoidWall(t, p);
     		
     		// run away from player, with slight offset
-    		if (timer % 60 == 0) {
+    		if (timer  == 0) {
     			float angle = FastMath.nextRandomFloat()*FastMath.PI*2;
     			Vector3f offset = new Vector3f(2*FastMath.cos(angle), 0, 2*FastMath.sin(angle));
     			vel = player.getVelocity().add(offset);

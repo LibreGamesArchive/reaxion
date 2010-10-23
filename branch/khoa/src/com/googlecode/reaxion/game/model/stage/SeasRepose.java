@@ -10,37 +10,51 @@ import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
 import com.jme.math.FastMath;
 import com.jme.math.Plane;
-import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
-import com.jme.scene.shape.Quad;
+import com.jme.scene.state.FogState;
 import com.jme.scene.state.LightState;
 import com.jme.system.DisplaySystem;
+import com.jmex.effects.water.HeightGenerator;
+import com.jmex.effects.water.ProjectedGrid;
 import com.jmex.effects.water.WaterRenderPass;
 
 /**
- * Open seas set a lit by a beautiful sunset.
+ * Tropical seas set a lit by a beautiful sunset.
  */
 public class SeasRepose extends Stage {
 
 	public static final String name = "Sea's Repose";
 
-	private static final String filename = "stages/seas_repose-turbine";
+	private static final String filename = "stages/seas_repose-islands";
 	
-	private static Vector3f[] turbinePos = { new Vector3f(-21, -118, -36),
-		new Vector3f(-34, -124, -72),
-		new Vector3f(-65, -146, -42),
-		new Vector3f(-64, -178, -5),
-		new Vector3f(-21, -118, -37),
-		new Vector3f(15, -94, -69),
-		new Vector3f(41, -114, -43),
-		new Vector3f(70, -122, -42),
-		new Vector3f(-71, -216, 30),
-		new Vector3f(-44, -223, 68),
-		new Vector3f(-32, -219, 30),
-		new Vector3f(14, -244, 65),
-		new Vector3f(29, -252, 27),
-		new Vector3f(65, -214, 29),
+	private static Vector3f[] turbinePos = { new Vector3f(-16, -87, -136),
+		new Vector3f(-44, -124, -96),
+		new Vector3f(-42, -118, -54),
+		new Vector3f(-118, -124, -107),
+		new Vector3f(-88, -146, -59),
+		new Vector3f(-96, -179, -5),
+		new Vector3f(-162, -167, -15),
+		
+		new Vector3f(18, -94, -89),
+		new Vector3f(67, -73, -129),
+		new Vector3f(56, -114, -68),
+		new Vector3f(94, -136, -41),
+		new Vector3f(125, -32, -70),
+		new Vector3f(146, -3, -5),
+		
+		new Vector3f(-145, -194, 27),
+		new Vector3f(-86, -216, 90),
+		new Vector3f(-47, -219, 49),
+		new Vector3f(-53, -223, -107),
+		new Vector3f(-118, -204, -110),
+		new Vector3f(-2, -263, 156),
+		
+		new Vector3f(99, -214, 28),
+		new Vector3f(44, -252, 44),
+		new Vector3f(136, -335, 76),
+		new Vector3f(25, -243, 98),
+		new Vector3f(63, -298, 129),
 		};
 	
 	private static int r = 80;
@@ -48,12 +62,12 @@ public class SeasRepose extends Stage {
 	private Model dome;
 	
 	private WaterRenderPass waterEffectRenderPass;
-    private Quad waterQuad;
+    private ProjectedGrid projectedGrid;
 	
 	public SeasRepose() {
 		super(filename);
-		bgm = new String[] {"japanize_dream.ogg", "551 Depression (Legend of Hourai).ogg" };
-		bgmOdds = new float[] {1, 1};
+		bgm = new String[] {"dj_got_us_fallin_in_love.ogg" };
+		bgmOdds = new float[] {1};
 	}
 
 	public void loadComponents(StageGameState b) {
@@ -66,24 +80,33 @@ public class SeasRepose extends Stage {
 			Model t = LoadingQueue.quickLoad(new Model("stages/seas_repose-turbine"), b);
 			b.removeModel(t);
 			model.attachChild(t.model);
-			t.model.setLocalTranslation(turbinePos[i].x, 0, turbinePos[i].z);
+			t.model.setLocalTranslation(turbinePos[i].x, -1, turbinePos[i].z);
+			t.model.setLocalScale(1.5f);
 			t.rotate(new Vector3f(FastMath.cos(turbinePos[i].y), 0, FastMath.sin(turbinePos[i].y)));
 			// animate the turbines
 			t.play("spin");
 		}
 		
+		// create fog
+		setupFog(b);
+		
 		// set up water
 		waterEffectRenderPass = new WaterRenderPass(b.getCamera(), 4, false, true);
         waterEffectRenderPass.setWaterPlane(new Plane(new Vector3f(0.0f, 1.0f,
                 0.0f), 0.0f));
+        waterEffectRenderPass.setWaterMaxAmplitude(1.0f);
+        
+        projectedGrid = new ProjectedGrid("ProjectedGrid", b.getCamera(), 100, 100, 0.01f,
+        		new HeightGenerator() {
+        	public float getHeight( float x, float z, float time ) {
+        		return FastMath.sin(x*0.05f+time*-2.0f)+FastMath.cos(z*0.1f+time*-4.0f)*2 - 1;
+        	} } );
 
-        waterQuad = new Quad("waterQuad", 580, 580);
-        waterQuad.setLocalRotation(new Quaternion().fromAngles(-FastMath.PI/2, 0, 0));
-
-        waterEffectRenderPass.setWaterEffectOnSpatial(waterQuad);
-        b.getRootNode().attachChild(waterQuad);
+        waterEffectRenderPass.setWaterEffectOnSpatial(projectedGrid);
+        b.getRootNode().attachChild(projectedGrid);
         
         waterEffectRenderPass.setReflectedScene(b.getContainerNode());
+        waterEffectRenderPass.setSkybox(dome.model);
         b.getPassManager().add(waterEffectRenderPass);
 	}
 
@@ -150,6 +173,18 @@ public class SeasRepose extends Stage {
 
 		return (p.toArray(new Point2D.Float[0]));
 	}
+	
+	private void setupFog(StageGameState b) {
+        FogState fogState = DisplaySystem.getDisplaySystem().getRenderer().createFogState();
+        fogState.setDensity(1.0f);
+        fogState.setEnabled(true);
+        fogState.setColor(new ColorRGBA(1.0f, 1.0f, 1.0f, 1.0f));
+        fogState.setEnd(10000.0f);
+        fogState.setStart(10000.0f / 10.0f);
+        fogState.setDensityFunction(FogState.DensityFunction.Linear);
+        fogState.setQuality(FogState.Quality.PerVertex);
+        b.getRootNode().setRenderState(fogState);
+    }
 
 	@Override
 	public LightState createLights() {

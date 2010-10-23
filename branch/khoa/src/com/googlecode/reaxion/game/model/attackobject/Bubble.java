@@ -17,6 +17,8 @@ public class Bubble extends AttackObject {
 	private int maxSize = 4;
 	public int peakTime = 20;
 	
+	public float amplitude = .1f;
+	
 	private float baseY;
 	
 	public Bubble(Model m) {
@@ -50,11 +52,15 @@ public class Bubble extends AttackObject {
 			model.setLocalScale((float) maxSize*(lifespan - lifeCount)/peakTime);
 			changeDamage();
 		}
+		
+		// reset initial amplitude
+		if ((float) lifeCount/10 >= FastMath.PI)
+			amplitude = .1f;
         
 		// bob
 		Vector3f pos = model.getLocalTranslation();
 		pos.y = baseY;
-		model.setLocalTranslation(pos.add(new Vector3f(0, .1f*FastMath.sin((float) lifeCount/10), 0)));
+		model.setLocalTranslation(pos.add(new Vector3f(0, amplitude*FastMath.sin((float) lifeCount/10), 0)));
 		
     	super.act(b);
     }

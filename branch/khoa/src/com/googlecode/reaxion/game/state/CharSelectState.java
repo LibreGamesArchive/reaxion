@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.state;
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.overlay.CharSelectOverlay;
 import com.googlecode.reaxion.game.util.Battle;
+import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
@@ -167,6 +168,9 @@ public class CharSelectState extends BasicGameState {
 	}
 
 	private void goToStageSelectState() {
+		// flush LoadingQueue
+		LoadingQueue.resetQueue();
+		
 		Battle c = Battle.getCurrentBattle();
 		c.setPlayers(charSelectNode.getSelectedChars());
 		Battle.setCurrentBattle(c);
