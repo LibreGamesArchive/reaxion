@@ -43,23 +43,23 @@ public class Battle {
 
 		try {
 			p1Attacks[0] = Class.forName(attackBaseLocation + "ShootBullet");
-			p1Attacks[2] = Class.forName(attackBaseLocation + "ShieldBarrier");
 			p1Attacks[1] = Class.forName(attackBaseLocation + "ShootFireball");
+			p1Attacks[2] = Class.forName(attackBaseLocation + "SlideIce");
 			p1Attacks[3] = Class.forName(attackBaseLocation + "ShieldMediguard");
 			p1Attacks[4] = Class.forName(attackBaseLocation + "ShieldReflega");
 			p1Attacks[5] = Class.forName(attackBaseLocation + "ShieldHoly");
 
 			p2Attacks[0] = Class.forName(attackBaseLocation + "BubbleBath");
-			p2Attacks[1] = Class.forName(attackBaseLocation + "SpinLance");
+			p2Attacks[1] = Class.forName(attackBaseLocation + "BombingMagnet");
 			p2Attacks[2] = Class.forName(attackBaseLocation + "LanceWheel");
-			p2Attacks[3] = Class.forName(attackBaseLocation + "LanceArc");
-			p2Attacks[4] = Class.forName(attackBaseLocation + "TriLance");
+			p2Attacks[3] = Class.forName(attackBaseLocation + "TriLance");
+			p2Attacks[4] = Class.forName(attackBaseLocation + "LanceGuard");
 			p2Attacks[5] = Class.forName(attackBaseLocation + "ShadowTag");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		p1Abilities = new Ability[] { new Masochist() };
+		p1Abilities = new Ability[] { new Insurance() };
 		p2Abilities = new Ability[] { new RapidGauge() };
 		opAbilities.add(new Ability[] { new AfterImage() });
 	}
