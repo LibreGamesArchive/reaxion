@@ -1,0 +1,20 @@
+
+material pipe
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-turbine.png
+			}
+		}
+
+	}
+
+}
+
+

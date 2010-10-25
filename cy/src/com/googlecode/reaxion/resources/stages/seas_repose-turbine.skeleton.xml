@@ -1,0 +1,87 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="joint1">
+            <position x="0" y="5.74903" z="-1.86302" />
+            <rotation angle="2.09543">
+                <axis x="0.577696" y="-0.577696" z="0.576658" />
+            </rotation>
+        </bone>
+        <bone id="1" name="joint2">
+            <position x="1.8659" y="6.87646e-016" z="0.00210642" />
+            <rotation angle="1.5708">
+                <axis x="0" y="0" z="-1" />
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy>
+        <boneparent bone="joint2" parent="joint1" />
+    </bonehierarchy>
+    <animations>
+        <animation name="spin" length="0.375">
+            <tracks>
+                <track bone="joint1">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="0" y="2.00097" z="0" />
+                            <rotate angle="0">
+                                <axis x="1" y="0" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.0938333">
+                            <translate x="0" y="2.00097" z="0" />
+                            <rotate angle="0">
+                                <axis x="1" y="0" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.2815">
+                            <translate x="0" y="2.00097" z="0" />
+                            <rotate angle="0">
+                                <axis x="1" y="0" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.375">
+                            <translate x="0" y="2.00097" z="0" />
+                            <rotate angle="0">
+                                <axis x="1" y="0" z="0" />
+                            </rotate>
+                        </keyframe>
+                    </keyframes>
+                </track>
+                <track bone="joint2">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="0" y="0" z="0" />
+                            <rotate angle="0">
+                                <axis x="1" y="0" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.0938333">
+                            <translate x="0" y="0" z="0" />
+                            <rotate angle="0.524063">
+                                <axis x="0" y="1" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.187667">
+                            <translate x="0" y="0" z="0" />
+                            <rotate angle="1.04813">
+                                <axis x="0" y="1" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.2815">
+                            <translate x="0" y="0" z="0" />
+                            <rotate angle="1.57219">
+                                <axis x="0" y="1" z="0" />
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.375">
+                            <translate x="0" y="0" z="0" />
+                            <rotate angle="4.18879">
+                                <axis x="0" y="-1" z="0" />
+                            </rotate>
+                        </keyframe>
+                    </keyframes>
+                </track>
+            </tracks>
+        </animation>
+    </animations>
+</skeleton>
