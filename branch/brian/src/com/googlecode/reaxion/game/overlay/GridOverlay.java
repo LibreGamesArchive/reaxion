@@ -18,7 +18,7 @@ public class GridOverlay extends Overlay {
 		
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
-				positions[i][j] = new Point(xDisp + (boxWidth + horizontalSpacing) * j, yDisp + (boxHeight + verticalSpacing) * i);
+				positions[i][j] = new Point(xDisp + (boxWidth + horizontalSpacing) * j, yDisp - (boxHeight + verticalSpacing) * i);
 		
 		return positions;
 	}
