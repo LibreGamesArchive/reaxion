@@ -60,7 +60,7 @@ public class SpawnBubble extends Attack {
 			
 			b.getRootNode().updateRenderState();
 			
-		} else if (phase == 1 && bubble.model.getLocalScale().x == 1) {
+		} else if (phase == 1 && (bubble.model.getLocalScale().x == 1 || bubble.model.getParent() == null)) {
 			// set the bubble's velocity
 			Vector3f rotation = character.rotationVector;
 			
