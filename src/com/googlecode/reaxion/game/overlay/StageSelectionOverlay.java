@@ -1,8 +1,6 @@
 package com.googlecode.reaxion.game.overlay;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Point;
 
 import com.googlecode.reaxion.game.model.stage.Checkerboard;
 import com.googlecode.reaxion.game.model.stage.Flipside;
@@ -17,7 +15,6 @@ import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 
 /**
@@ -29,14 +26,15 @@ import com.jmex.angelfont.BitmapText;
  * @author Brian
  */
 
-public class StageSelectionOverlay extends Overlay {
+public class StageSelectionOverlay extends GridOverlay {
 
 	private String baseURL = "../../resources/stages/renders/";
 
 	private Node container;
 
-	private String[] stageNames = { FlowerField.name, WorldsEdge.name, MikoLake.name, Flipside.name, TwilightKingdom.name, SeasRepose.name,
-			Checkerboard.name};
+	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
+			MikoLake.name, Flipside.name, TwilightKingdom.name,
+			SeasRepose.name, Checkerboard.name };
 	private Node[] stageBoxes;
 	private BitmapText[] stageList;
 	private int currentIndex;
@@ -44,10 +42,9 @@ public class StageSelectionOverlay extends Overlay {
 	private ColorRGBA selectedText;
 	private ColorRGBA unselectedText;
 
-	private int fontSize;
+	private Point[][] stageListGrid;
 
-	private int totalWidth = 800;
-	private int totalHeight = 600;
+	private int fontSize;
 
 	public StageSelectionOverlay() {
 		super();
@@ -61,6 +58,12 @@ public class StageSelectionOverlay extends Overlay {
 		unselectedText = ColorRGBA.white;
 		fontSize = 24;
 
+		screenWidth = 800;
+		screenHeight = 600;
+
+		stageListGrid = createVerticallyCenteredGrid(stageNames.length, 1,
+				screenWidth - 300, fontSize, 200, 0, 10);
+
 		createStageBoxes();
 		createStageList();
 
@@ -69,7 +72,7 @@ public class StageSelectionOverlay extends Overlay {
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight()
-				/ totalHeight);
+				/ screenHeight);
 
 		attachChild(container);
 	}
@@ -99,7 +102,7 @@ public class StageSelectionOverlay extends Overlay {
 		stageBox.attachChild(border);
 		stageBox.attachChild(image);
 		stageBox.setLocalTranslation(border.getWidth() / 2 + 40,
-				totalHeight / 2, 0);
+				screenHeight / 2, 0);
 
 		return stageBox;
 	}
@@ -115,6 +118,9 @@ public class StageSelectionOverlay extends Overlay {
 			}
 
 			container.attachChild(stageList[i]);
+			System.out.println(stageList[i].getLineWidth() + " || "
+					+ stageList[i].getLineHeight());
+
 		}
 	}
 
@@ -127,13 +133,8 @@ public class StageSelectionOverlay extends Overlay {
 		text.setText(name);
 		text.setAlignment(BitmapFont.Align.Left);
 
-		topY = totalHeight / 2 + (stageNames.length / 2)
-				* (int) text.getLineHeight();
-		textHeightAndSpacing = (int) text.getLineHeight() + 10;
-		// position = (stageNames.length / 2) + index;
-
-		text.setLocalTranslation(totalWidth - 300, topY - textHeightAndSpacing
-				* index, 0);
+		text.setLocalTranslation(stageListGrid[index][0].x,
+				stageListGrid[index][0].y, 0);
 		text.update();
 
 		return text;
