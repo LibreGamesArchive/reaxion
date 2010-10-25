@@ -18,7 +18,7 @@ public class FinalHour extends Ability {
 	
 	@Override
 	public boolean act(Character c, StageGameState b) {
-		if (c.hp/c.maxHp <= .25) {
+		if (c.hp/c.maxHp <= .1) {
 			if (count == changeRate) {
 				System.out.println(c.model+"'s gauge is berserking!");
 				c.gauge = (2/(FastMath.nextRandomFloat()+1) - 1)*c.maxGauge;

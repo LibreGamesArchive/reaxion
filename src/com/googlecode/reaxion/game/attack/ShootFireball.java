@@ -61,7 +61,7 @@ public class ShootFireball extends Attack {
 			
 			b.getRootNode().updateRenderState();
 			
-		} else if (phase == 1 && fireball.model.getLocalScale().x == 1) {
+		} else if (phase == 1 && (fireball.model.getLocalScale().x == 1 || fireball.model.getParent() == null)) {
 			// set the fireball's velocity
 			Vector3f rotation = character.rotationVector;
 			Vector3f targetLine = b.getTarget().model.getWorldTranslation().subtract(b.getPlayer().model.getWorldTranslation()).normalize();

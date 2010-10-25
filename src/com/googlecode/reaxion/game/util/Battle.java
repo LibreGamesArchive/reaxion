@@ -3,7 +3,7 @@ package com.googlecode.reaxion.game.util;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.ability.*;
-import com.googlecode.reaxion.game.input.ai.TestAI;
+import com.googlecode.reaxion.game.input.ai.*;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
