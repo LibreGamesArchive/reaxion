@@ -71,8 +71,7 @@ public class CharSelectOverlay extends Overlay {
 			opDisplay[i].setText(charNames[i]);
 		}
 		menu = new BitmapText(FontUtils.neuropol, false);
-		menu
-				.setText("Character Select. Use arrow keys to move, space to choose, and enter to play.");
+		menu.setText("Character Select. Use arrow keys to move, space to choose, and enter to play.");
 
 		for (int i = 0; i < 3; i++)
 			selectedChars[i] = 0;
@@ -88,26 +87,30 @@ public class CharSelectOverlay extends Overlay {
 		lastIndex[0] = currentIndex[0];
 		lastIndex[1] = currentIndex[1];
 		if (dir == 1) {
-			if (currentIndex[1] == 0)
+
+			if (currentIndex[0] == 0)
 				return;
 			else
-				currentIndex[1]--;
+				currentIndex[0]--;
 		} else {
 			if (dir == 2) {
-				if (currentIndex[0] == 2)
-					return;
-				else
-					currentIndex[0]++;
-			} else if (dir == 3) {
 				if (currentIndex[1] == p1Fill.length - 1)
 					return;
 				else
 					currentIndex[1]++;
-			} else {
-				if (currentIndex[0] == 0)
+
+			} else if (dir == 3) {
+				if (currentIndex[0] == 2)
 					return;
 				else
-					currentIndex[0]--;
+					currentIndex[0]++;
+
+			} else {
+				if (currentIndex[1] == 0)
+					return;
+				else
+					currentIndex[1]--;
+
 			}
 		}
 		/*
@@ -166,23 +169,23 @@ public class CharSelectOverlay extends Overlay {
 	public void initGUI() {
 
 		for (int i = 0; i < p1Fill.length; i++) {
-			p1Fill[i] = drawRect(162, 18, boxColor);
-			p1Fill[i].setLocalTranslation(new Vector3f(-22 + 205,
-					250 - 20 * i + 10, 0));
+			p1Fill[i] = drawRect(70, 70, boxColor);
+			p1Fill[i].setLocalTranslation(new Vector3f(-100 + 225 + 90 * i,
+					410 - /*20 * i + */10, 0));
 			container.attachChild(p1Fill[i]);
 
-			p2Fill[i] = drawRect(162, 18, boxColor);
-			p2Fill[i].setLocalTranslation(new Vector3f(-22 + 405,
-					250 - 20 * i + 10, 0));
+			p2Fill[i] = drawRect(70,70, boxColor);
+			p2Fill[i].setLocalTranslation(new Vector3f(-100 + 225 + 90 * i,
+					280 -10, 0));
 			container.attachChild(p2Fill[i]);
 
-			opFill[i] = drawRect(162, 18, boxColor);
-			opFill[i].setLocalTranslation(new Vector3f(-22 + 605,
-					250 - 20 * i + 10, 0));
+			opFill[i] = drawRect(70,70, boxColor);
+			opFill[i].setLocalTranslation(new Vector3f(-100 + 225 + 90 * i,
+					150 -  10, 0));
 			container.attachChild(opFill[i]);
 		}
 
-		menu.setLocalTranslation(new Vector3f(-22 + 78, 450, 0));
+		menu.setLocalTranslation(new Vector3f(-22 + 78, 550, 0));
 		menu.setSize(18);
 		menu.update();
 		container.attachChild(menu);
@@ -205,7 +208,7 @@ public class CharSelectOverlay extends Overlay {
 			labels[i] = new BitmapText(FontUtils.neuropol, false);
 			labels[i].setSize(17);
 			labels[i].setDefaultColor(textColor);
-			labels[i].setLocalTranslation(-62 + 205 + 200 * i, 250 + 50, 0);
+			labels[i].setLocalTranslation(-62 + 152, 405 + 50 - 130*i, 0);
 			labels[i].setText(temp[i]);
 			labels[i].update();
 			container.attachChild(labels[i]);
@@ -215,24 +218,24 @@ public class CharSelectOverlay extends Overlay {
 			p1Display[i].setSize(16);
 			p1Display[i].setDefaultColor(i == 0? selTextColor : textColor);
 			p1Display[i].setText(charNames[i]);
-			p1Display[i].setLocalTranslation(new Vector3f(-22 + 175,
-					250 - 20 * i + 18, 0));
+			p1Display[i].setLocalTranslation(new Vector3f(-130 + 225 + 90 * i,
+					360, 0));
 			p1Display[i].update();
 			container.attachChild(p1Display[i]);
 
 			p2Display[i].setSize(16);
 			p2Display[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
 			p2Display[i].setText(charNames[i]);
-			p2Display[i].setLocalTranslation(new Vector3f(-22 + 375,
-					250 - 20 * i + 18, 0));
+			p2Display[i].setLocalTranslation(new Vector3f(-130 + 225 + 90 * i,
+					230, 0));
 			p2Display[i].update();
 			container.attachChild(p2Display[i]);
 
 			opDisplay[i].setSize(16);
 			opDisplay[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
 			opDisplay[i].setText(charNames[i]);
-			opDisplay[i].setLocalTranslation(new Vector3f(-22 + 575,
-					250 - 20 * i + 18, 0));
+			opDisplay[i].setLocalTranslation(new Vector3f(-130 + 225 + 90 * i,
+					100, 0));
 			opDisplay[i].update();
 			container.attachChild(opDisplay[i]);
 
