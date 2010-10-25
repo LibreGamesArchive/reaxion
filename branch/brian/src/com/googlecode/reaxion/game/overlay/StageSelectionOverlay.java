@@ -29,7 +29,7 @@ import com.jmex.angelfont.BitmapText;
  * @author Brian
  */
 
-public class StageSelectionOverlay extends Overlay {
+public class StageSelectionOverlay extends GridOverlay {
 
 	private String baseURL = "../../resources/stages/renders/";
 
@@ -43,11 +43,8 @@ public class StageSelectionOverlay extends Overlay {
 
 	private ColorRGBA selectedText;
 	private ColorRGBA unselectedText;
-
+	
 	private int fontSize;
-
-	private int totalWidth = 800;
-	private int totalHeight = 600;
 
 	public StageSelectionOverlay() {
 		super();
@@ -61,6 +58,9 @@ public class StageSelectionOverlay extends Overlay {
 		unselectedText = ColorRGBA.white;
 		fontSize = 24;
 
+		screenWidth = 800;
+		screenHeight = 600;
+		
 		createStageBoxes();
 		createStageList();
 
@@ -69,7 +69,7 @@ public class StageSelectionOverlay extends Overlay {
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight()
-				/ totalHeight);
+				/ screenHeight);
 
 		attachChild(container);
 	}
@@ -99,7 +99,7 @@ public class StageSelectionOverlay extends Overlay {
 		stageBox.attachChild(border);
 		stageBox.attachChild(image);
 		stageBox.setLocalTranslation(border.getWidth() / 2 + 40,
-				totalHeight / 2, 0);
+				screenHeight / 2, 0);
 
 		return stageBox;
 	}
@@ -127,12 +127,12 @@ public class StageSelectionOverlay extends Overlay {
 		text.setText(name);
 		text.setAlignment(BitmapFont.Align.Left);
 
-		topY = totalHeight / 2 + (stageNames.length / 2)
+		topY = screenHeight / 2 + (stageNames.length / 2)
 				* (int) text.getLineHeight();
 		textHeightAndSpacing = (int) text.getLineHeight() + 10;
 		// position = (stageNames.length / 2) + index;
 
-		text.setLocalTranslation(totalWidth - 300, topY - textHeightAndSpacing
+		text.setLocalTranslation(screenWidth - 300, topY - textHeightAndSpacing
 				* index, 0);
 		text.update();
 
