@@ -20,7 +20,7 @@ import com.jmex.game.state.load.LoadingGameState;
 
 /**
  * The main game. This should run everything, but for now it's just a luncher for {@code BattleGameState}.
- * @author Nilay, Khoa
+ * @author Nilay, Khoa 
  */
 public class Reaxion {
 
