@@ -59,8 +59,8 @@ public class Battle {
 			e.printStackTrace();
 		}
 
-		p1Abilities = new Ability[] { new Insurance() };
-		p2Abilities = new Ability[] { new RapidGauge() };
+		p1Abilities = new Ability[] { new Chivalry() };
+		p2Abilities = new Ability[] { new FinalHour() };
 		opAbilities.add(new Ability[] { new AfterImage() });
 	}
 
@@ -87,8 +87,6 @@ public class Battle {
 			e.printStackTrace();
 		}
 
-		
-		
 		//op.hp = 5;
 	}
 
