@@ -1,0 +1,32 @@
+
+material red
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 1 0 0 1
+		}
+
+	}
+
+}
+
+
+
+material blue
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0 0 1 1
+		}
+
+	}
+
+}
+
+

@@ -1,0 +1,21 @@
+
+material sky
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/sunset_wake-sky.png
+			}
+		}
+
+	}
+
+}
+
+

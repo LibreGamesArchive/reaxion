@@ -1,0 +1,40 @@
+
+material eyeTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/shadowEye.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material skinTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/shadow.png
+			}
+		}
+
+	}
+
+}
+
+
