@@ -2,6 +2,15 @@ package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Point;
 
+/**
+ * {@code GridOverlay} extends the functionality of {@code Overlay} in order to provide grid layout support.
+ * Grid properties can be entered into methods which return two-dimensional arrays containing the appopriate
+ * positions for each item in the grid.
+ * 
+ * @author Brian
+ *
+ */
+
 public class GridOverlay extends Overlay {
 
 	public int screenHeight, screenWidth;
@@ -10,6 +19,18 @@ public class GridOverlay extends Overlay {
 		super();
 	}
 
+	/**
+	 * Returns the positions
+	 * 
+	 * @param rows
+	 * @param columns
+	 * @param xDisp
+	 * @param boxHeight
+	 * @param boxWidth
+	 * @param horizontalSpacing
+	 * @param verticalSpacing
+	 * @return
+	 */
 	protected Point[][] createVerticallyCenteredGrid(int rows, int columns, int xDisp, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
