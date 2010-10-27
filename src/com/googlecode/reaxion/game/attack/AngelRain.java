@@ -8,7 +8,7 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 /**
- * Fires an energy bullet towards the target
+ * Leaps into the air and rains down swords.
  */
 public class AngelRain extends Attack {
 	

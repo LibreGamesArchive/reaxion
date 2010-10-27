@@ -250,12 +250,41 @@ public class Model {
     public void rotate(Vector3f point) {
     	rotationVector = point.normalize();
 
-    	float pointRoll = (float) Math.atan2(point.x, point.z);
-    	float pointYaw = (float) Math.atan2(point.y, FastMath.sqrt(FastMath.pow(point.x, 2) + FastMath.pow(point.z, 2)));
+    	float pointRoll = (float) Math.atan2(rotationVector.x, rotationVector.z);
+    	float pointYaw = (float) -Math.atan2(rotationVector.y, FastMath.sqrt(FastMath.pow(rotationVector.x, 2) + FastMath.pow(rotationVector.z, 2)));
     	
     	//System.out.println(point.x+" "+point.y+" "+point.z+": "+yaw+" "+roll+" "+pitch);
+    	//model.setLocalRotation(q.fromAngles(yaw + pointYaw, roll + pointRoll, pitch));
+    	model.setLocalRotation(rotateXYZ(yaw + pointYaw, roll + pointRoll, pitch));
+    }
+    
+    private Quaternion rotateXYZ(float yaw, float roll, float pitch) {
     	Quaternion q = new Quaternion();
-    	model.setLocalRotation(q.fromAngles(yaw + pointYaw, roll + pointRoll, pitch));
+    	float angle;
+        float sinRoll, sinPitch, sinYaw, cosRoll, cosPitch, cosYaw;
+        angle = pitch * 0.5f;
+        sinPitch = FastMath.sin(angle);
+        cosPitch = FastMath.cos(angle);
+        angle = roll * 0.5f;
+        sinRoll = FastMath.sin(angle);
+        cosRoll = FastMath.cos(angle);
+        angle = yaw * 0.5f;
+        sinYaw = FastMath.sin(angle);
+        cosYaw = FastMath.cos(angle);
+
+        // variables used to reduce multiplication calls.
+        float cosPitchXcosYaw = cosPitch * cosYaw;
+        float sinPitchXsinYaw = sinPitch * sinYaw;
+        float cosPitchXsinYaw = cosPitch * sinYaw;
+        float sinPitchXcosYaw = sinPitch * cosYaw;
+        
+        q.w = (cosPitchXcosYaw * cosRoll - sinPitchXsinYaw * sinRoll);
+        q.y = (cosPitchXcosYaw * sinRoll + sinPitchXsinYaw * cosRoll);
+        q.x = (cosPitchXsinYaw * cosRoll - sinPitchXcosYaw * sinRoll);
+        q.z = (sinPitchXcosYaw * cosRoll - cosPitchXsinYaw * sinRoll);
+        
+        q.normalize();
+    	return q;
     }
     
     /**
