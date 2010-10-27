@@ -9,7 +9,7 @@ import com.jme.math.Vector3f;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**
- * Fires an energy bullet towards the target
+ * Creates a spinning lance that seeks the opponent.
  */
 public class SpinLance extends Attack {
 	
