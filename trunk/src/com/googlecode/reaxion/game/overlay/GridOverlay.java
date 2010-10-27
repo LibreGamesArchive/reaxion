@@ -20,7 +20,7 @@ public class GridOverlay extends Overlay {
 	}
 
 	/**
-	 * Returns the positions
+	 * Returns the positions for grid items. The grid area is vertically centered.
 	 * 
 	 * @param rows
 	 * @param columns
@@ -29,7 +29,7 @@ public class GridOverlay extends Overlay {
 	 * @param boxWidth
 	 * @param horizontalSpacing
 	 * @param verticalSpacing
-	 * @return
+	 * @return positions
 	 */
 	protected Point[][] createVerticallyCenteredGrid(int rows, int columns, int xDisp, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
@@ -44,6 +44,18 @@ public class GridOverlay extends Overlay {
 		return positions;
 	}
 
+	/**
+	 * Returns the positions for grid items. The grid area is horizontally centered.
+	 * 
+	 * @param rows
+	 * @param columns
+	 * @param xDisp
+	 * @param boxHeight
+	 * @param boxWidth
+	 * @param horizontalSpacing
+	 * @param verticalSpacing
+	 * @return positions
+	 */
 	protected Point[][] createHorizontallyCenteredGrid(int rows, int columns, int yDisp, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
@@ -57,6 +69,18 @@ public class GridOverlay extends Overlay {
 		return positions;
 	}
 
+	/**
+	 * Returns the positions for grid items. The grid area is horizontally and vertically centered.
+	 * 
+	 * @param rows
+	 * @param columns
+	 * @param xDisp
+	 * @param boxHeight
+	 * @param boxWidth
+	 * @param horizontalSpacing
+	 * @param verticalSpacing
+	 * @return positions
+	 */
 	protected Point[][] createCenteredGrid(int rows, int columns, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
