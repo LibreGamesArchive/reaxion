@@ -69,7 +69,7 @@ public class BurstGrid
 				}
 				while(attachedID != 0){
 					attachedID = read.nextInt();
-					nextNodes.add({attachedID,);
+					nextNodes.add({attachedID,});
 				}
 			nextNodes.clear();
 			}

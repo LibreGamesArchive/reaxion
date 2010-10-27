@@ -8,27 +8,33 @@
 |  » Attack		Adds an attack to the character's repertoire
 |  » MinGauge	Increases the low gauge limit
 |  » MaxGauge	Increases the max gauge limit
+|  » Rate		Increases the rate at which the gauge refills
 |  » Strength	Increases the character's strength
 |  » HP			Increases the character's max HP
 
 1 Attack BasicAttack 2,1 3,3 4,1 5,2 6,1 0
 
-2 HP 100 7,3 8, 9 10 11 0
-3 Attack ! 12 13 14 15 16 0
-4 Strength 1 17 18 19 20 21 0
-5 Strength 2 22 23 24 25 26 0
-6 HP 100 27 28 29 30 31 0
+2 HP 100 7,3 8,2 3,2 6,2 0
+3 Rate 1 9,2 10,2 2,1 4,2 0
+4 Strength 1 11,3 12,4 3,3 5,4 0
+5 Attack ! 13,3 14,2 4,2 6,3 0
+6 MinGauge 2 15,4 16,3 5,3 2,2 0
 
 7 Ability ! 21 22 0
-8 MinGauge 2 23 24 0
+8 MaxGauge 2 23 24 0
+
 9 Strength ! 25 26 0
-10 MinGauge 2 27 28 0
-11 MaxGauge 3 29 30 0
+10 HP 150 27 28 0
+
+11 HP 200 29 30 0
 12 Attack ! 31 32 0
-13 Attack ! 33 34 0
-14 Attack ! 35 36 0
-15 HP 200 37 38 0
-16 MinGauge 2 39 40 0
+
+13 MaxGauge 3 33 34 0
+14 MinGauge 3 35 36 0
+
+15 Attack ! 37 38 0
+16 Rate 1 2 39 40 0
+
 17 Strength ! 0
 18 HP 200 0
 19 MinGauge 2 0
