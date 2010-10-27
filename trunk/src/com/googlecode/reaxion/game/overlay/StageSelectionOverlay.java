@@ -18,10 +18,10 @@ import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
 /**
- * {@code StageSelectionOverlay} extends the functionality of {@code Overlay} in
- * order to create a stage selection menu. An image of the stage is displayed on
- * the left of the overlay, which corresponds to the currently selected stage
- * name on the right of the overlay.
+ * {@code StageSelectionOverlay} extends the functionality of {@code GridOverlay} in
+ * order to create a stage selection menu with grid elements. An image of the stage is 
+ * displayed on the left of the overlay, which corresponds to the currently selected 
+ * stage name on the right of the overlay.
  * 
  * @author Brian
  */
@@ -125,8 +125,6 @@ public class StageSelectionOverlay extends GridOverlay {
 	}
 
 	private BitmapText createStageListItem(String name, int index) {
-		int topY, textHeightAndSpacing;
-
 		BitmapText text = new BitmapText(FontUtils.neuropol, false);
 		text.setSize(fontSize);
 		text.setDefaultColor(unselectedText);
