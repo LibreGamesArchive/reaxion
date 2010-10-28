@@ -254,11 +254,19 @@ public class Model {
     	float pointYaw = (float) -Math.atan2(rotationVector.y, FastMath.sqrt(FastMath.pow(rotationVector.x, 2) + FastMath.pow(rotationVector.z, 2)));
     	
     	//System.out.println(point.x+" "+point.y+" "+point.z+": "+yaw+" "+roll+" "+pitch);
-    	//model.setLocalRotation(q.fromAngles(yaw + pointYaw, roll + pointRoll, pitch));
-    	model.setLocalRotation(rotateXYZ(yaw + pointYaw, roll + pointRoll, pitch));
+    	//model.setLocalRotation(new Quaternion().fromAngles(yaw + pointYaw, roll + pointRoll, pitch));
+    	model.setLocalRotation(rotateYXZ(yaw + pointYaw, roll + pointRoll, pitch));
     }
     
-    private Quaternion rotateXYZ(float yaw, float roll, float pitch) {
+    /**
+     * Convenience method that generates a rotation quaternion with Euler angles
+     * applied in roll, yaw, pitch order, as consistant with spherical coordinates.
+     * @param yaw rotation about x
+     * @param roll rotation about y
+     * @param pitch rotation about z
+     * @return
+     */
+    private Quaternion rotateYXZ(float yaw, float roll, float pitch) {
     	Quaternion q = new Quaternion();
     	float angle;
         float sinRoll, sinPitch, sinYaw, cosRoll, cosPitch, cosYaw;
