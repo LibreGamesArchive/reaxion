@@ -25,13 +25,13 @@ public class GridOverlay extends Overlay {
 	 * @param rows
 	 * @param columns
 	 * @param xDisp
-	 * @param boxHeight
 	 * @param boxWidth
+	 * @param boxHeight
 	 * @param horizontalSpacing
 	 * @param verticalSpacing
 	 * @return positions
 	 */
-	protected Point[][] createVerticallyCenteredGrid(int rows, int columns, int xDisp, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
+	protected Point[][] createVerticallyCenteredGrid(int rows, int columns, int xDisp, int boxWidth, int boxHeight, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceY = rows * boxHeight + (rows - 1) * verticalSpacing;
@@ -50,13 +50,13 @@ public class GridOverlay extends Overlay {
 	 * @param rows
 	 * @param columns
 	 * @param xDisp
-	 * @param boxHeight
 	 * @param boxWidth
+	 * @param boxHeight
 	 * @param horizontalSpacing
 	 * @param verticalSpacing
 	 * @return positions
 	 */
-	protected Point[][] createHorizontallyCenteredGrid(int rows, int columns, int yDisp, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
+	protected Point[][] createHorizontallyCenteredGrid(int rows, int columns, int yDisp, int boxWidth, int boxHeight, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceX = columns * boxWidth + (columns - 1) * horizontalSpacing;
@@ -75,13 +75,13 @@ public class GridOverlay extends Overlay {
 	 * @param rows
 	 * @param columns
 	 * @param xDisp
-	 * @param boxHeight
 	 * @param boxWidth
+	 * @param boxHeight
 	 * @param horizontalSpacing
 	 * @param verticalSpacing
 	 * @return positions
 	 */
-	protected Point[][] createCenteredGrid(int rows, int columns, int boxHeight, int boxWidth, int horizontalSpacing, int verticalSpacing) {
+	protected Point[][] createCenteredGrid(int rows, int columns, int boxWidth, int boxHeight, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceX = columns * boxWidth + (columns - 1) * horizontalSpacing;

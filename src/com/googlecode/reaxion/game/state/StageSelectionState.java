@@ -40,6 +40,9 @@ public class StageSelectionState extends BasicGameState {
 		init();
 	}
 
+	/**
+	 * Initializes visual and non-visual elements of {@code StageSelectionState}.
+	 */
 	private void init() {
 		rootNode = new Node("RootNode");
 
@@ -54,10 +57,15 @@ public class StageSelectionState extends BasicGameState {
 		rootNode.updateGeometricState(0.0f, true);
 	}
 
+	/**
+	 * Key binding initialization.
+	 */
 	private void initKeyBindings() {
 		manager = KeyBindingManager.getKeyBindingManager();
 		manager.set("arrow_up", KeyInput.KEY_UP);
 		manager.set("arrow_down", KeyInput.KEY_DOWN);
+		manager.set("arrow_left", KeyInput.KEY_LEFT);
+		manager.set("arrow_right", KeyInput.KEY_RIGHT);
 		manager.set("select", KeyInput.KEY_RETURN);
 		manager.set("exit", KeyInput.KEY_ESCAPE);
 		manager.set("go_back", KeyInput.KEY_BACK);
@@ -90,20 +98,21 @@ public class StageSelectionState extends BasicGameState {
 		checkKeyInput();
 	}
 	
-	public StageSelectionOverlay getstageOverlay()
-	{
-		return stageSelectionNode;
-	}
-	
-
+	/**
+	 * Checks key input.
+	 */
 	private void checkKeyInput() {
 		if (input != null) {
 			if (manager.isValidCommand("arrow_up", false))
-				stageSelectionNode.updateDisplay(true);
+				stageSelectionNode.updateDisplay(KeyInput.KEY_UP);
 			if (manager.isValidCommand("arrow_down", false))
-				stageSelectionNode.updateDisplay(false);
+				stageSelectionNode.updateDisplay(KeyInput.KEY_DOWN);
+			if (manager.isValidCommand("arrow_left", false))
+				stageSelectionNode.updateDisplay(KeyInput.KEY_LEFT);
+			if (manager.isValidCommand("arrow_right", false))
+				stageSelectionNode.updateDisplay(KeyInput.KEY_RIGHT);
 			if (manager.isValidCommand("select", false)) {
-				// switchToLoadingOverlay();
+//				switchToLoadingOverlay();
 				goToBattleGameState();
 			}
 			if(manager.isValidCommand("go_back", false)) {
@@ -113,32 +122,37 @@ public class StageSelectionState extends BasicGameState {
 
 	}
 
+	/**
+	 * Switches from stage selection menu to character selection menu.
+	 */
 	private void returnToCharSelectState() {
 		GameStateManager.getInstance().getChild(CharSelectState.NAME).setActive(true);
 		setActive(false);
 	}
 
-	// private void switchToLoadingOverlay() {
-	// Quad cover = new Quad("cover",
-	// DisplaySystem.getDisplaySystem().getWidth(),
-	// DisplaySystem.getDisplaySystem().getHeight());
-	// cover.setSolidColor(new ColorRGBA(0, 0, 0, 1));
-	// BitmapText loadingText = new BitmapText(stageSelectionNode.getTextFont(),
-	// false);
-	// loadingText.setText("Loading " +
-	// stageSelectionNode.getSelectedStageName());
-	// loadingText.setSize(48);
-	// loadingText.setLocalTranslation(cover.getWidth() / 2, cover.getHeight() /
-	// 2, 0);
-	//		
-	// Overlay loading = new Overlay();
-	// loading.attachChild(cover);
-	// loading.attachChild(loadingText);
-	// loading.updateRenderState();
-	//		
-	// rootNode.detachChild(stageSelectionNode);
-	// rootNode.attachChild(loading);
-	// }
+//	private void switchToLoadingOverlay() {
+//		Quad cover = new Quad("cover",
+//				DisplaySystem.getDisplaySystem().getWidth(),
+//				DisplaySystem.getDisplaySystem().getHeight());
+//		cover.setSolidColor(new ColorRGBA(0, 0, 0, 1));
+//		BitmapText loadingText = new BitmapText(stageSelectionNode.getTextFont(),
+//				false);
+//		loadingText.setText("Loading " +
+//				stageSelectionNode.getSelectedStageName());
+//		loadingText.setSize(48);
+//		loadingText.setLocalTranslation(cover.getWidth() / 2, cover.getHeight() /
+//				2, 0);
+//		loadingText.update();
+//
+//		Overlay loading = new Overlay();
+//		loading.attachChild(cover);
+//		loading.attachChild(loadingText);
+//		loading.updateRenderState();
+//
+//		rootNode.detachChild(stageSelectionNode);
+//		rootNode.attachChild(loading);
+//		rootNode.updateRenderState();
+//	}
 
 	/**
 	 * Switches from {@code StageSelectionState} to {@code BattleGameState} and
