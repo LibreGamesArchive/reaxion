@@ -1,0 +1,23 @@
+
+material darkness
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+
+			texture_unit
+			{
+				texture textures/dark-pit.png
+			}
+		}
+
+	}
+
+}
+
+

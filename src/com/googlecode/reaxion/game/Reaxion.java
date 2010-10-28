@@ -18,8 +18,6 @@ import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.load.LoadingGameState;
 
-// This is a test comment.
-
 /**
  * The main game. This should run everything, but for now it's just a luncher for {@code BattleGameState}.
  * @author Nilay, Khoa
