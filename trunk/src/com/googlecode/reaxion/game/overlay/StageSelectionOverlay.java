@@ -10,6 +10,7 @@ import com.googlecode.reaxion.game.model.stage.SeasRepose;
 import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
@@ -21,7 +22,8 @@ import com.jmex.angelfont.BitmapText;
  * {@code StageSelectionOverlay} extends the functionality of {@code GridOverlay} in
  * order to create a stage selection menu with grid elements. An image of the stage is 
  * displayed on the left of the overlay, which corresponds to the currently selected 
- * stage name on the right of the overlay.
+ * stage grid item on the right of the overlay. The name of the currently selected stage
+ * is displayed under the stage preview image.
  * 
  * @author Brian
  */
@@ -35,39 +37,56 @@ public class StageSelectionOverlay extends GridOverlay {
 	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
 			MikoLake.name, Flipside.name, TwilightKingdom.name,
 			SeasRepose.name, Checkerboard.name };
-	private Node[] stageBoxes;
-	private BitmapText[] stageList;
-	private int currentIndex;
+	
+	private Node[] previewBoxes;
+	private BitmapText[] stageTitles;
+	private Quad[][] stageGrid;
+	private Quad cursor;
+	
+	private Point[][] stageGridLayout;
 
-	private ColorRGBA selectedText;
-	private ColorRGBA unselectedText;
-
-	private Point[][] stageListGrid;
-
+	private int currentRow, currentColumn;
 	private int fontSize;
+	private int stageGridRows, stageGridColumns;
 
 	public StageSelectionOverlay() {
 		super();
 		init();
 	}
 
+	/**
+	 * This method initializes both visible and background elements of {@code StageSelectionOverlay}.
+	 */
 	private void init() {
 		container = new Node("container");
-		currentIndex = 0;
-		selectedText = new ColorRGBA(0, 1, 0, 1);
-		unselectedText = ColorRGBA.white;
-		fontSize = 24;
+		
+		// Settings Initialization
+		currentRow = 0;
+		currentColumn = 0;
+		fontSize = 32;
 
 		screenWidth = 800;
 		screenHeight = 600;
+		
+		stageGridRows = 3;
+		stageGridColumns = 3;
 
-		stageListGrid = createVerticallyCenteredGrid(stageNames.length, 1,
-				screenWidth - 300, fontSize, 200, 0, 10);
-
-		createStageBoxes();
-		createStageList();
-
-		container.attachChild(stageBoxes[currentIndex]);
+		stageGridLayout = createVerticallyCenteredGrid(stageGridRows, stageGridColumns, screenWidth - 250,
+				64, 48, 10, 10);
+		
+		// Visual Element Initialization
+		createPreviewBoxes();
+		createStageTitles();
+		createStageGrid();
+		
+		cursor = getImage(baseURL + "stageselect.png");
+		cursor.setLocalTranslation(stageGridLayout[currentRow][currentColumn].x,
+				stageGridLayout[currentRow][currentColumn].y, 0);
+		
+		// Visual Element Attachment
+		container.attachChild(cursor);
+		container.attachChild(previewBoxes[currentRow * stageGridColumns + currentColumn]);
+		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
 
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
@@ -77,102 +96,199 @@ public class StageSelectionOverlay extends GridOverlay {
 		attachChild(container);
 	}
 
-	private String getImageURL(String s) {
-		String str = s.replace("'", "").replace(" ", "-").toLowerCase();
-		return str + ".png";
+	/**
+	 * Returns the file URL of a stage image. The {@code isPreview} parameter is used to discern between
+	 * preview images and grid item images.
+	 * 
+	 * @param stageName
+	 * @param isPreview
+	 * @return File URL
+	 */
+	private String getImageURL(String stageName, boolean isPreview) {
+		String str = stageName.replace("'", "").replace(" ", "-").toLowerCase();
+		return baseURL + str + (isPreview ? "_preview" : "_griditem") + ".png";
 	}
 
-	private void createStageBoxes() {
-		stageBoxes = new Node[stageNames.length];
+	/**
+	 * Creates all of the preview boxes and stores them in an {@code Array}.
+	 */
+	private void createPreviewBoxes() {
+		previewBoxes = new Node[stageNames.length];
 
 		for (int i = 0; i < stageNames.length; i++)
-			stageBoxes[i] = createStageBox(stageNames[i]);
+			previewBoxes[i] = createPreviewBox(stageNames[i]);
 	}
 
-	private Node createStageBox(String name) {
-		Node stageBox = new Node("stageBox_" + name);
+	/**
+	 * Creates an individual preview box.
+	 * 
+	 * @param name
+	 * @return Preview box for the stage specified by the {@code name} parameter
+	 */
+	private Node createPreviewBox(String name) {
+		Node previewBox = new Node("previewBox_" + name);
 
-		Quad image = getImage(baseURL + getImageURL(name));
-		image.setName("image_" + name);
+		Quad image = getImage(getImageURL(name, true));
 
-		Quad border = new Quad("border_" + name, image.getWidth() + 20, image
+		Quad border = new Quad("border_preview_" + name, image.getWidth() + 20, image
 				.getHeight() + 16);
 		border.setSolidColor(ColorRGBA.white);
 
-		stageBox.attachChild(border);
-		stageBox.attachChild(image);
-		stageBox.setLocalTranslation(border.getWidth() / 2 + 40,
-				screenHeight / 2, 0);
+		previewBox.attachChild(border);
+		previewBox.attachChild(image);
+		previewBox.setLocalTranslation(border.getWidth() / 2 + 40,
+				screenHeight / 2 + 30, 0);
 
-		return stageBox;
+		return previewBox;
+	}
+	
+	/**
+	 * Creates all of the stage titles and stores them in an {@code Array}.
+	 */
+	private void createStageTitles() {
+		stageTitles = new BitmapText[stageNames.length];
+		
+		for (int i = 0; i < stageNames.length; i++)
+			stageTitles[i] = createStageTitle(stageNames[i]);
+	}
+	
+	/**
+	 * Creates an individual stage title. Text, name, color, size, and local translation are defined.
+	 * 
+	 * @param name
+	 * @return {@code BitmapText} object with text set to {@code name}
+	 */
+	private BitmapText createStageTitle(String name) {
+		BitmapText stage = new BitmapText(FontUtils.neuropol, false);
+		stage.setText(name);
+		stage.setName("stageTitle_" + name);
+		stage.setDefaultColor(ColorRGBA.white);
+		stage.setSize(fontSize);
+		stage.update();
+		stage.setLocalTranslation(210 - stage.getLineWidth() / 2, screenHeight / 2 - 256 / 2, 0);
+		
+		return stage;
 	}
 
-	private void createStageList() {
-		stageList = new BitmapText[stageNames.length];
+	/**
+	 * Creates the navigable grid of stages.
+	 */
+	private void createStageGrid() {
+		stageGrid = new Quad[stageGridRows][stageGridColumns];
 		for (int i = 0; i < stageNames.length; i++) {
-			stageList[i] = createStageListItem(stageNames[i], i);
+			int r = i / stageGridRows;
+			int c = i % stageGridColumns;
 
-			if (i == 0) {
-				stageList[i].setDefaultColor(selectedText);
-				stageList[i].update();
+			stageGrid[r][c] = getImage(getImageURL(stageNames[i], false));
+			stageGrid[r][c].setName("stageGridItem_" + stageNames[i]);
+
+			stageGrid[r][c].setLocalTranslation(
+					stageGridLayout[r][c].x,
+					stageGridLayout[r][c].y, 0);
+			container.attachChild(stageGrid[r][c]);
+		}
+	}
+
+	/**
+	 * Handles arrow key input caught by {@code StageSelectionState}. The arrow key input is interpreted and displayed
+	 * as a change in the selected stage grid item.
+	 * 
+	 * @param key
+	 */
+	public void updateDisplay(int key) {
+		int lastRow = currentRow;
+		int lastColumn = currentColumn;
+		
+		/*
+		 * lastItem, uneven, and onLastRow are use to handle cases when the grid is uneven.
+		 * If the user presses up on the top row, the last row is uneven, and the grid item selected is in a 
+		 * column that does not exist on the last row, then the last item in the last row is selected.
+		 * If the user presses down on the second to last row, the last row is uneven, and the grid item selected
+		 * is in a column that does not exits on the last row, then the last item in the last row is selected.
+		 * Wrap around on the last row is also handled correctly.
+		 */
+		int lastItem = 	stageNames.length - (stageGridRows * (stageGridColumns - 1)) - 1;
+		
+		boolean uneven = lastItem != stageGridRows - 1;
+		boolean onLastRow = currentRow == stageGridRows - 1;
+		
+		//Key Input Checking
+		switch(key) {
+		case KeyInput.KEY_UP:
+			if (currentRow == 0) {
+				if(uneven && currentColumn > lastItem)
+					currentColumn = lastItem;
+				currentRow = stageGridRows - 1;
 			}
-
-			container.attachChild(stageList[i]);
-			System.out.println(stageList[i].getLineWidth() + " || "
-					+ stageList[i].getLineHeight());
-
-		}
-	}
-
-	private BitmapText createStageListItem(String name, int index) {
-		BitmapText text = new BitmapText(FontUtils.neuropol, false);
-		text.setSize(fontSize);
-		text.setDefaultColor(unselectedText);
-		text.setText(name);
-		text.setAlignment(BitmapFont.Align.Left);
-
-		text.setLocalTranslation(stageListGrid[index][0].x,
-				stageListGrid[index][0].y, 0);
-		text.update();
-
-		return text;
-	}
-
-	public void updateDisplay(boolean up) {
-		int lastIndex = currentIndex;
-		if (up) {
-			if (currentIndex == 0)
-				currentIndex = stageNames.length - 1;
 			else
-				currentIndex--;
-		} else {
-			if (currentIndex == stageNames.length - 1)
-				currentIndex = 0;
+				currentRow--;
+			break;
+			
+		case KeyInput.KEY_DOWN:
+			if (currentRow == stageGridRows - 1)
+				currentRow = 0;				
+			else {
+				if (currentRow == stageGridRows - 2 && uneven && currentColumn > lastItem)
+					currentColumn = lastItem;
+				currentRow ++;
+			}
+			break;
+			
+		case KeyInput.KEY_LEFT:
+			if (currentColumn == 0)
+				currentColumn = onLastRow? lastItem : stageGridColumns - 1;
 			else
-				currentIndex++;
+				currentColumn--;
+			break;
+			
+		case KeyInput.KEY_RIGHT:
+			if (onLastRow && currentColumn == lastItem || currentColumn == stageGridColumns - 1)
+				currentColumn = 0;
+			else
+				currentColumn++;
+			break;
 		}
-
-		container.detachChild(stageBoxes[lastIndex]);
-		container.attachChild(stageBoxes[currentIndex]);
-
-		stageList[lastIndex].setDefaultColor(unselectedText);
-		stageList[lastIndex].update();
-
-		stageList[currentIndex].setDefaultColor(selectedText);
-		stageList[currentIndex].update();
+		
+		// Cursor location changed
+		cursor.setLocalTranslation(stageGridLayout[currentRow][currentColumn].x,
+				stageGridLayout[currentRow][currentColumn].y, 0);
+		
+		// Changes currently displayed preview box
+		container.detachChild(previewBoxes[lastRow * stageGridColumns + lastColumn]);
+		container.attachChild(previewBoxes[currentRow * stageGridColumns + currentColumn]);
+		
+		// Changes current displayed stage title
+		container.detachChild(stageTitles[lastRow * stageGridColumns + lastColumn]);
+		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
 
 		container.updateRenderState();
 	}
 
+	/**
+	 * Removes apostrophes and spaces in the currently selected stage name in order to generate a
+	 * {@code String} corresponding to its class name. 
+	 * 
+	 * @return className
+	 */
 	public String getSelectedStageClass() {
-		String str = stageNames[currentIndex].replace("'", "");
+		String str = stageNames[currentRow * stageGridColumns + currentColumn].replace("'", "");
 		return str.replace(" ", "");
 	}
 
+	/**
+	 * Returns the selected stage name.
+	 * 
+	 * @return stageName
+	 */
 	public String getSelectedStageName() {
-		return stageNames[currentIndex];
+		return stageNames[currentRow * stageGridColumns + currentColumn];
 	}
 
+	/**
+	 * Returns the text font used in {@code StageSelectionOverlay}.
+	 * 
+	 * @return font
+	 */
 	public BitmapFont getTextFont() {
 		return FontUtils.neuropol;
 	}
