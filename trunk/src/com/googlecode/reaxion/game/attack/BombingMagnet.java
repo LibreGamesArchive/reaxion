@@ -16,7 +16,7 @@ public class BombingMagnet extends Attack {
 	private static final String n = "Magnet Bomb";
 	private static final int gc = 6;
 	
-	private static final float bulletSpeed = 2.5f;
+	private static final float bulletSpeed = 2f;
 	private MagnetBomb bomb;
 	
 	public BombingMagnet() {
