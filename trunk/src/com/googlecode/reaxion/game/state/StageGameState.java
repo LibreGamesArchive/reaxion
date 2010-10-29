@@ -115,6 +115,7 @@ public class StageGameState extends CameraGameState {
     	
     	BgmPlayer.prepare();
 
+    	b.assignPositions();
     	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
     	nextTarget(0);
     	

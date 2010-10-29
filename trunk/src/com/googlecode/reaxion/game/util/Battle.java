@@ -2,12 +2,16 @@ package com.googlecode.reaxion.game.util;
 
 import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.ability.*;
-import com.googlecode.reaxion.game.input.ai.*;
+import com.googlecode.reaxion.game.ability.Ability;
+import com.googlecode.reaxion.game.ability.AfterImage;
+import com.googlecode.reaxion.game.ability.Chivalry;
+import com.googlecode.reaxion.game.ability.FinalHour;
+import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.jme.math.Vector3f;
 
 /**
  * Contains all parameters needed to initiate a battle.
@@ -26,8 +30,10 @@ public class Battle {
 	private ArrayList<Character> op = new ArrayList<Character>();
 	private Class[] p1Attacks, p2Attacks;
 	private Ability[] p1Abilities, p2Abilities;
+	private Vector3f p1Position, p2Position;
+	private ArrayList<Vector3f> opPositions = new ArrayList<Vector3f>();
 	private ArrayList<Ability[]> opAbilities = new ArrayList<Ability[]>();
-	private Stage stage;
+	private Stage stage;	
 	private int targetTime, expYield;
 
 	public Battle() {
@@ -59,11 +65,27 @@ public class Battle {
 			e.printStackTrace();
 		}
 
+		p1Position = new Vector3f(0, 0, 20);
+		p2Position = p1Position;
+		opPositions.add(new Vector3f(0, 0, -20));
+		
 		p1Abilities = new Ability[] { new Chivalry() };
 		p2Abilities = new Ability[] { new FinalHour() };
 		opAbilities.add(new Ability[] { new AfterImage() });
 	}
 
+	public void addOponentPosition(Vector3f position) {
+		opPositions.add(position);
+	}
+	
+	public void assignPositions() {
+		p1.model.setLocalTranslation(p1Position);
+		p2.model.setLocalTranslation(p2Position);
+		
+		for (int i = 0; i < op.size(); i++)
+			op.get(i).model.setLocalTranslation(opPositions.get(i));
+	}
+	
 	public void setPlayers(String[] chars) {
 		try {
 			Class temp1 = Class.forName(baseURL + chars[0]);
@@ -186,6 +208,22 @@ public class Battle {
 		this.opAbilities = oA;
 		for (int i=0; i<opAbilities.size(); i++)
 		op.get(i).setAbilities(oA.get(i));
+	}
+
+	public Vector3f getP1Position() {
+		return p1Position;
+	}
+
+	public void setP1Position(Vector3f p1Position) {
+		this.p1Position = p1Position;
+	}
+
+	public Vector3f getP2Position() {
+		return p2Position;
+	}
+
+	public void setP2Position(Vector3f p2Position) {
+		this.p2Position = p2Position;
 	}
 
 	public Stage getStage() {

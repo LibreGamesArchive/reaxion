@@ -188,7 +188,7 @@ public class HudOverlay extends Overlay {
 		gaugeCount.setSize(16);
 		gaugeCount.setAlignment(BitmapFont.Align.Center);
 		gaugeCount.setDefaultColor(textColor);
-        gaugeCount.setLocalTranslation(new Vector3f(214, 34, 0));
+        gaugeCount.setLocalTranslation(new Vector3f(210, 34, 0));
         container.attachChild(gaugeCount);
         
         attachChild(container);
@@ -207,7 +207,7 @@ public class HudOverlay extends Overlay {
 				attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? attackUsed[1] : attackUsed[0]);
 				attackBar[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
 				attackText[i].setLocalTranslation(new Vector3f(22 + 4, 100 - 20*i + 18, 0));
-				gaugeCostText[i].setLocalTranslation(new Vector3f(22 + attackFill[i].getWidth() - 15, 100 - 20 * i + 18, 0));
+				gaugeCostText[i].setLocalTranslation(new Vector3f(22 + attackFill[i].getWidth() - 10, 100 - 20 * i + 18, 0));
 			} else {
 				attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
 				if(gaugeCosts[i] != -1 && b.getPlayer().gauge >= gaugeCosts[i]) {
@@ -222,7 +222,7 @@ public class HudOverlay extends Overlay {
 					attackFill[i].setSolidColor(attackUnavailable);
 				attackBar[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
 				attackText[i].setLocalTranslation(new Vector3f(4, 100 - 20*i + 18, 0));
-				gaugeCostText[i].setLocalTranslation(new Vector3f(attackFill[i].getWidth() - 15, 100 - 20 * i + 18, 0));
+				gaugeCostText[i].setLocalTranslation(new Vector3f(attackFill[i].getWidth() - 10, 100 - 20 * i + 18, 0));
 			}
 		}
 		
@@ -284,7 +284,7 @@ public class HudOverlay extends Overlay {
 		// update gaugeCount
 		gaugeCount.setText(""+(int)b.getPlayer().gauge);
 		gaugeCount.update();
-		gaugeCount.setLocalTranslation(new Vector3f(214 + 576*percentGauge, 34, 0));
+		gaugeCount.setLocalTranslation(new Vector3f(210 + 576*percentGauge, 34, 0));
 	}
 	
 	public void passCharacterInfo(Class[] c, int cap) {
