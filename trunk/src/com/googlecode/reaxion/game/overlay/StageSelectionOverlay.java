@@ -11,12 +11,16 @@ import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyInput;
+import com.jme.math.FastMath;
+import com.jme.math.Matrix3f;
+import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
+import com.jmex.game.state.GameState;
 
 /**
  * {@code StageSelectionOverlay} extends the functionality of {@code GridOverlay} in
@@ -31,6 +35,7 @@ import com.jmex.angelfont.BitmapText;
 public class StageSelectionOverlay extends GridOverlay {
 
 	private String baseURL = "../../resources/stages/renders/";
+	private String guiURL = "../../resources/gui/";
 
 	private Node container;
 
@@ -38,7 +43,13 @@ public class StageSelectionOverlay extends GridOverlay {
 			MikoLake.name, Flipside.name, TwilightKingdom.name,
 			SeasRepose.name, Checkerboard.name };
 	
-	private Node[] previewBoxes;
+	private Quad bg;
+	private Quad back;
+	private Quad front;
+	private float bgAngle = 0;
+	
+	private Node previews;
+	private Quad[] previewBoxes;
 	private BitmapText[] stageTitles;
 	private Quad[][] stageGrid;
 	private Quad cursor;
@@ -83,9 +94,26 @@ public class StageSelectionOverlay extends GridOverlay {
 		cursor.setLocalTranslation(stageGridLayout[currentRow][currentColumn].x,
 				stageGridLayout[currentRow][currentColumn].y, 0);
 		
+		bg = getImage(guiURL + "stage-select-bg.png");
+		bg.setLocalTranslation(new Vector3f(400, 300, 0));
+		bg.setZOrder(3);
+		back = getImage(guiURL + "stage-select-back.png");
+		back.setLocalTranslation(new Vector3f(210, 300, 0));
+		back.setZOrder(2);
+		front = getImage(guiURL + "stage-select-front.png");
+		front.setLocalTranslation(new Vector3f(400, 300, 0));
+		
+		// Create Preview Holder
+		previews = new Node("previews");
+		previews.attachChild(previewBoxes[currentRow * stageGridColumns + currentColumn]);
+		previews.setZOrder(1);
+		
 		// Visual Element Attachment
+		container.attachChild(bg);
+		container.attachChild(back);
 		container.attachChild(cursor);
-		container.attachChild(previewBoxes[currentRow * stageGridColumns + currentColumn]);
+		container.attachChild(previews);
+		container.attachChild(front);
 		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
 
 		container.updateRenderState();
@@ -94,6 +122,16 @@ public class StageSelectionOverlay extends GridOverlay {
 				/ screenHeight);
 
 		attachChild(container);
+	}
+	
+	/**
+	 * Function to be called during each update by the GameState.
+	 */
+	public void update(GameState b) {
+		bgAngle = (bgAngle - FastMath.PI/600)%(FastMath.PI*2);
+		Matrix3f m = new Matrix3f();
+		m.fromAngleNormalAxis(bgAngle, new Vector3f(0, 0, 1));
+		bg.setLocalRotation(m);
 	}
 
 	/**
@@ -113,10 +151,13 @@ public class StageSelectionOverlay extends GridOverlay {
 	 * Creates all of the preview boxes and stores them in an {@code Array}.
 	 */
 	private void createPreviewBoxes() {
-		previewBoxes = new Node[stageNames.length];
+		previewBoxes = new Quad[stageNames.length];
 
-		for (int i = 0; i < stageNames.length; i++)
-			previewBoxes[i] = createPreviewBox(stageNames[i]);
+		for (int i = 0; i < stageNames.length; i++) {
+			previewBoxes[i] = getImage(getImageURL(stageNames[i], true));
+			previewBoxes[i].setLocalTranslation(210, 330, 0);
+			//previewBoxes[i] = createPreviewBox(stageNames[i]);
+		}
 	}
 
 	/**
@@ -254,8 +295,8 @@ public class StageSelectionOverlay extends GridOverlay {
 				stageGridLayout[currentRow][currentColumn].y, 0);
 		
 		// Changes currently displayed preview box
-		container.detachChild(previewBoxes[lastRow * stageGridColumns + lastColumn]);
-		container.attachChild(previewBoxes[currentRow * stageGridColumns + currentColumn]);
+		previews.detachChild(previewBoxes[lastRow * stageGridColumns + lastColumn]);
+		previews.attachChild(previewBoxes[currentRow * stageGridColumns + currentColumn]);
 		
 		// Changes current displayed stage title
 		container.detachChild(stageTitles[lastRow * stageGridColumns + lastColumn]);
