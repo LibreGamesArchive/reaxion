@@ -81,7 +81,8 @@ public class StageSelectionState extends BasicGameState {
 	@Override
 	public void update(float _tpf) {
 		tpf = _tpf;
-
+		stageSelectionNode.update(this);
+		
 		if (input != null) {
 			input.update(tpf);
 

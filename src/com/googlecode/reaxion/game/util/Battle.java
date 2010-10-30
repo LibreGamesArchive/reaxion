@@ -2,10 +2,7 @@ package com.googlecode.reaxion.game.util;
 
 import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.ability.Ability;
-import com.googlecode.reaxion.game.ability.AfterImage;
-import com.googlecode.reaxion.game.ability.Chivalry;
-import com.googlecode.reaxion.game.ability.FinalHour;
+import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
@@ -69,7 +66,7 @@ public class Battle {
 		p2Position = p1Position;
 		opPositions.add(new Vector3f(0, 0, -20));
 		
-		p1Abilities = new Ability[] { new Chivalry() };
+		p1Abilities = new Ability[] { new MedusaEyes() };
 		p2Abilities = new Ability[] { new FinalHour() };
 		opAbilities.add(new Ability[] { new AfterImage() });
 	}
