@@ -288,7 +288,7 @@ public class Model {
         
         q.w = (cosPitchXcosYaw * cosRoll - sinPitchXsinYaw * sinRoll);
         q.y = (cosPitchXcosYaw * sinRoll + sinPitchXsinYaw * cosRoll);
-        q.x = (cosPitchXsinYaw * cosRoll - sinPitchXcosYaw * sinRoll);
+        q.x = (cosPitchXsinYaw * cosRoll + sinPitchXcosYaw * sinRoll);
         q.z = (sinPitchXcosYaw * cosRoll - cosPitchXsinYaw * sinRoll);
         
         q.normalize();

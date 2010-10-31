@@ -3,7 +3,7 @@ package com.googlecode.reaxion.game.util;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.ability.*;
-import com.googlecode.reaxion.game.input.ai.TestAI;
+import com.googlecode.reaxion.game.input.ai.*;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
@@ -47,9 +47,9 @@ public class Battle {
 		try {
 			p1Attacks[0] = Class.forName(attackBaseLocation + "ShootBullet");
 			p1Attacks[1] = Class.forName(attackBaseLocation + "ShootFireball");
-			p1Attacks[2] = Class.forName(attackBaseLocation + "SpikeLine");
-			p1Attacks[3] = Class.forName(attackBaseLocation + "BlackHole");
-			p1Attacks[4] = Class.forName(attackBaseLocation + "ShieldReflega");
+			p1Attacks[2] = Class.forName(attackBaseLocation + "LightningCloud");
+			p1Attacks[3] = Class.forName(attackBaseLocation + "LightningStorm");
+			p1Attacks[4] = Class.forName(attackBaseLocation + "BlackHole");
 			p1Attacks[5] = Class.forName(attackBaseLocation + "ShieldHoly");
 
 			p2Attacks[0] = Class.forName(attackBaseLocation + "Beacon");
