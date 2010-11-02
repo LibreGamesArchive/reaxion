@@ -1,0 +1,106 @@
+
+material i_andrew2pasted__hairTex4
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture textures/i_andrewHairUVBangs3.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_andrew2hairTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture textures/i_andrew1-hairUV2.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_andrew2skinTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/i_andrew2UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_andrew2glassesTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture textures/i_nilay1UVGlasses.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_andrew2eyeTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/i_andrew-2UVEye.png
+			}
+		}
+
+	}
+
+}
+
+

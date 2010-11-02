@@ -12,7 +12,7 @@ public class CharSelectOverlay extends Overlay {
 
 	private static final String baseURL = "../../resources/gui/";
 
-	private final int numchars = 7;
+	private final int numchars = 8;
 	
 	private Node container;
 
@@ -58,7 +58,8 @@ public class CharSelectOverlay extends Overlay {
 		charNames[3] = "Monica";
 		charNames[4] = "Austin";
 		charNames[5] = "Brian";
-		charNames[6] = "Shine";
+		charNames[6] = "Andrew";
+		charNames[7] = "Shine";
 		p1Display = new BitmapText[numchars];
 		p2Display = new BitmapText[numchars];
 		opDisplay = new BitmapText[numchars];
