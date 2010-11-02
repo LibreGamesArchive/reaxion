@@ -127,7 +127,7 @@ public class StageSelectionState extends BasicGameState {
 	 * Switches from stage selection menu to character selection menu.
 	 */
 	private void returnToCharSelectState() {
-		GameStateManager.getInstance().getChild(CharSelectState.NAME).setActive(true);
+		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
 		setActive(false);
 	}
 
