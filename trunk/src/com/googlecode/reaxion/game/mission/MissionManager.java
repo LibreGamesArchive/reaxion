@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.state.DialogueGameState;
-import com.googlecode.reaxion.game.state.HubGameState;
 import com.googlecode.reaxion.game.util.Actor;
+import com.googlecode.reaxion.game.util.Battle;
 import com.jmex.game.state.GameStateManager;
 
 public class MissionManager {
@@ -23,10 +23,10 @@ public class MissionManager {
 	}
 	
 	public static void startNext() {
-		if(currentIndex - 1 == currentMission.getStateCount()) {
+		if(currentIndex + 1 == currentMission.getStateCount()) {
 			endMission();
 		} else {
-			currentMission.activateStateAt(currentIndex);
+			currentMission.deactivateStateAt(currentIndex);
 			currentIndex++;
 			GameStateManager.getInstance().attachChild(currentMission.getStateAt(currentIndex));
 			currentMission.activateStateAt(currentIndex);
@@ -40,7 +40,8 @@ public class MissionManager {
 		currentMission = null;
 		currentIndex = 0;
 		
-		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
+		System.exit(0);
+//		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
 	}
 	
 	public static void initMissions() {
@@ -73,8 +74,14 @@ public class MissionManager {
 		int[] durations = {0, -1, 230, -2, 600};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_twilight-kingdom.png");
-		
 		temp.addState(dialogueState);
+		
+		Battle b = new Battle();
+		b.setPlayers(new String[] {"Brian", "Cy", "Khoa"});
+		b.setStage("TwilightKingdom");
+		Battle.setCurrentBattle(b);
+		
+		temp.addState(Battle.createBattleGameState());
 		
 		missions.add(temp);
 	}

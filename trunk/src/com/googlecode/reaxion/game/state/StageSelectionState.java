@@ -168,6 +168,7 @@ public class StageSelectionState extends BasicGameState {
 		BattleGameState battleState = Battle.createBattleGameState();
 		GameStateManager.getInstance().attachChild(battleState);
 		battleState.setActive(true);
+		battleState.startBGM();
 		setActive(false);
 	}
 
