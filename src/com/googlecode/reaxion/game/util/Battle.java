@@ -226,11 +226,7 @@ public class Battle {
 	public Stage getStage() {
 		return stage;
 	}
-
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-
+	
 	public int getTargetTime() {
 		return targetTime;
 	}

@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -96,6 +97,9 @@ public class Reaxion {
 		public Void call() throws Exception {
 
 			FontUtils.loadFonts();
+			
+//			MissionManager.initMissions();
+//			MissionManager.startMission(0);
 			
 			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);

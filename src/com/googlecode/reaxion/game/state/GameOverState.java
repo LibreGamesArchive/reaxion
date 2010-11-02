@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.GameOverOverlay;
 import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -217,12 +218,16 @@ public class GameOverState extends CameraGameState {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
-		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
-				.setActive(true);
-		setActive(false);
-		BgmPlayer.stopAndReset();
-		GameStateManager.getInstance().detachChild(this);
-		setActive(false);
+		if (MissionManager.hasCurrentMission())
+			MissionManager.startNext();
+		else {
+			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
+					.setActive(true);
+			setActive(false);
+			BgmPlayer.stopAndReset();
+			GameStateManager.getInstance().detachChild(this);
+			setActive(false);
+		}
 	}
 
 	/**

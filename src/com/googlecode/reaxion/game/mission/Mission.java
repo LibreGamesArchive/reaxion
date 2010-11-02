@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.jmex.game.state.GameState;
 
 public class Mission {
@@ -91,6 +92,12 @@ public class Mission {
 	
 	public void activateStateAt(int index) {
 		states.get(index).setActive(true);
+		if(states.get(index) instanceof StageGameState)
+			((StageGameState) states.get(index)).startBGM();
+	}
+	
+	public void deactivateStateAt(int index) {
+		states.get(index).setActive(false);
 	}
 
 	public int getStateCount() {

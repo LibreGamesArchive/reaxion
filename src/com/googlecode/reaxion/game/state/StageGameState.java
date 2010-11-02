@@ -122,7 +122,9 @@ public class StageGameState extends CameraGameState {
     	load();
     	
     	rootNode.updateRenderState();
-    	
+    }
+    
+    public void startBGM() {
     	try {
     		String str = getStage().getBgm(-1);
     		BgmPlayer.play(str);
