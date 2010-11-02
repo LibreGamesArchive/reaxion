@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.googlecode.reaxion.game.state.CharSelectState;
+import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.test.ModelTest;
 import com.jme.util.resource.ResourceLocatorTool;
@@ -16,7 +16,7 @@ public class LoadingQueue {
 
 	private static ArrayList<Model> queue = new ArrayList<Model>();
 	private static StageGameState state;
-	private static CharSelectState Cstate;
+	private static CharacterSelectionState Cstate;
 	private static StageSelectionState Sstate;
 	private static SimpleResourceLocator locator;
 	

@@ -1,7 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.overlay.CharSelectOverlay;
+import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
@@ -18,11 +18,11 @@ import com.jme.util.TextureManager;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
-public class CharSelectState extends BasicGameState {
+public class CharacterSelectionState extends BasicGameState {
 
-	public static final String NAME = "charSelectState";
+	public static final String NAME = "characterSelectionState";
 
-	private CharSelectOverlay charSelectNode;
+	private CharacterSelectionOverlay charSelectNode;
 	protected InputHandler input;
 
 	private AbsoluteMouse mouse;
@@ -31,7 +31,7 @@ public class CharSelectState extends BasicGameState {
 
 	protected AbstractGame game = null;
 
-	public CharSelectState(StageGameState b) {
+	public CharacterSelectionState() {
 		super(NAME);
 		init();
 	}
@@ -39,7 +39,7 @@ public class CharSelectState extends BasicGameState {
 	private void init() {
 		// Initial charSelect
 		rootNode = new Node("RootNode");
-		charSelectNode = new CharSelectOverlay();
+		charSelectNode = new CharacterSelectionOverlay();
 		rootNode.attachChild(charSelectNode);
 
 		// Initial InputHandler

@@ -8,7 +8,7 @@ import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapText;
 
-public class CharSelectOverlay extends Overlay {
+public class CharacterSelectionOverlay extends Overlay {
 
 	private static final String baseURL = "../../resources/gui/";
 
@@ -33,7 +33,7 @@ public class CharSelectOverlay extends Overlay {
 	private int[] currentIndex = new int[2];
 	private int[] selectedChars = new int[3];
 
-	public CharSelectOverlay() {
+	public CharacterSelectionOverlay() {
 		super();
 
 		// create a container Node for scaling

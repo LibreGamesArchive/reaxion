@@ -307,7 +307,7 @@ public class DialogueGameState extends CameraGameState {
 	}
 
 	private void returnToCharSelectState() {
-		GameStateManager.getInstance().getChild(CharSelectState.NAME)
+		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
 				.setActive(true);
 		setActive(false);
 		BgmPlayer.stopAndReset();

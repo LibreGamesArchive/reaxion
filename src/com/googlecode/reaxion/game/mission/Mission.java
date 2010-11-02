@@ -1,4 +1,4 @@
-package com.googlecode.reaxion.game.util;
+package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,15 @@ public class Mission {
 	
 	private ArrayList<GameState> states;
 	
+	private int stateCount;
+	
 	public Mission() {
 		title = "???";
 		missionID = 0;
 		difficultyRating = 0;
 		required = false;
 		states = new ArrayList<GameState> ();
+		stateCount = 0;
 	}
 	
 	public Mission(String title, int missionID, int difficultyRating, boolean required, String imageURL, ArrayList<GameState> states) {
@@ -29,6 +32,7 @@ public class Mission {
 		this.required = required;
 		this.imageURL = imageURL;
 		this.states = states;
+		stateCount = states.size();
 	}
 
 	public String getTitle() {
@@ -71,11 +75,25 @@ public class Mission {
 		this.imageURL = imageURL;
 	}
 
-	public ArrayList<GameState> getStates() {
-		return states;
-	}
-
 	public void setStates(ArrayList<GameState> states) {
 		this.states = states;
+		stateCount = states.size();
+	}
+	
+	public void addState(GameState g) {
+		states.add(g);
+		stateCount++;
+	}
+	
+	public GameState getStateAt(int index) {
+		return states.get(index);
+	}
+	
+	public void activateStateAt(int index) {
+		states.get(index).setActive(true);
+	}
+
+	public int getStateCount() {
+		return stateCount;
 	}
 }

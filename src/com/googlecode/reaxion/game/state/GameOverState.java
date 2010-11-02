@@ -203,7 +203,7 @@ public class GameOverState extends CameraGameState {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
-		GameStateManager.getInstance().getChild(CharSelectState.NAME)
+		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
 				.setActive(true);
 		setActive(false);
 		BgmPlayer.stopAndReset();
@@ -217,7 +217,7 @@ public class GameOverState extends CameraGameState {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
-		GameStateManager.getInstance().getChild(CharSelectState.NAME)
+		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
 				.setActive(true);
 		setActive(false);
 		BgmPlayer.stopAndReset();

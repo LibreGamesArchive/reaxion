@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.googlecode.reaxion.game.state.CharSelectState;
+import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.FontUtils;
@@ -51,7 +51,7 @@ public class Reaxion {
 	/**
 	 * GameState that allows character selection.
 	 */
-	private CharSelectState charState;
+	private CharacterSelectionState charState;
 	//private StageSelectionState stageState;
 
 	/**
@@ -97,14 +97,18 @@ public class Reaxion {
 
 			FontUtils.loadFonts();
 			
-			charState = new CharSelectState(battleState);
+			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);
 			//charState.setActive(true);
+			
+			int[] times = new int[24];
+			for(int i = 0; i < times.length; i++)
+				times[i] = i * 20;
 			
 			// dialogue code
 			Actor[] a = {new Actor(), new Actor()};
 			a[0].setPortraits(0, new int[]{0}, new String[]{"khoa-test.png"});
-			a[0].setPortraits(2, new int[]{0,10,20,30, 40,50,60,70, 80,90,100,110, 120,130,140,150, 160,170,180,190, 200,210,220,230}, 
+			a[0].setPortraits(2, times, 
 					new String[]{"cy-test1.png", "cy-test2.png", "cy-test1.png", "cy-test3.png",
 					"cy-test1.png", "cy-test2.png", "cy-test1.png", "cy-test3.png",
 					"cy-test1.png", "cy-test2.png", "cy-test1.png", "cy-test3.png",
