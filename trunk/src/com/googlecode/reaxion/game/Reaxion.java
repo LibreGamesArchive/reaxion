@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
@@ -96,6 +97,7 @@ public class Reaxion {
 		//@Override
 		public Void call() throws Exception {
 
+	    	AudioPlayer.prepare();
 			FontUtils.loadFonts();
 			
 //			MissionManager.initMissions();

@@ -8,12 +8,25 @@ import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jmex.game.state.GameStateManager;
 
+/**
+ * Allows iteration through the {@code GameState} objects in {@code Mission} objects. Used for conduction missions
+ * in story mode.
+ * 
+ * @author Brian
+ *
+ */
+
 public class MissionManager {
 	
 	private static ArrayList<Mission> missions = new ArrayList<Mission>();
 	private static Mission currentMission = null;
 	private static int currentIndex;
 	
+	/**
+	 * Starts a mission by ID number.
+	 * 
+	 * @param missionNumber
+	 */
 	public static void startMission(int missionNumber) {
 		currentMission = missions.get(missionNumber);
 		currentIndex = 0;
@@ -22,6 +35,9 @@ public class MissionManager {
 		currentMission.activateStateAt(currentIndex);
 	}
 	
+	/**
+	 * Progresses to next {@code GameState} in {@code currentMission}.
+	 */
 	public static void startNext() {
 		if(currentIndex + 1 == currentMission.getStateCount()) {
 			endMission();
@@ -33,6 +49,9 @@ public class MissionManager {
 		}
 	}
 	
+	/**
+	 * Ends mission in progress and returns control to {@code HubGameState}.
+	 */
 	private static void endMission() {
 		for(int i = 0; i <= currentIndex; i++)
 			GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
@@ -44,6 +63,9 @@ public class MissionManager {
 //		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
 	}
 	
+	/**
+	 * Triggers the intialization of all misisons and their addition to {@code missions}.
+	 */
 	public static void initMissions() {
 		Mission temp = new Mission();
 		
@@ -86,6 +108,11 @@ public class MissionManager {
 		missions.add(temp);
 	}
 	
+	/**
+	 * Checks to see if a mission is currently in progress.
+	 * 
+	 * @return {@code true} if mission progress, {@code false} if no mission in progress
+	 */
 	public static boolean hasCurrentMission() {
 		return currentMission != null;
 	}
