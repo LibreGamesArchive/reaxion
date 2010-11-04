@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.app.AbstractGame;
@@ -90,7 +91,7 @@ public class StageSelectionState extends BasicGameState {
 				if (game != null)
 					game.finish();
 				else
-					System.exit(0);
+					Reaxion.terminate();
 			}
 		}
 
