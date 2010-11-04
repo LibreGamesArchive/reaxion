@@ -78,4 +78,11 @@ public class AudioPlayer {
 		sound.removeSource(currentBGM);
 	}
 	
+	/**
+	 * Calls cleanup method of SoundSystem.
+	 */
+	public static void cleanup() {
+		sound.cleanup();
+	}
+	
 }

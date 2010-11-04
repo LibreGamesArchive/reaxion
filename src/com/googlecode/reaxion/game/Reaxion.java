@@ -86,6 +86,14 @@ public class Reaxion {
 		GameTaskQueueManager.getManager().update(new GameInit());
         
 	}
+	
+	/**
+	 * Performs necessary cleanup, then closes application.
+	 */
+	public static void terminate() {
+		AudioPlayer.cleanup();
+		System.exit(0);
+	}
 
 	/**
 	 * Initializes the system.

@@ -125,7 +125,7 @@ public class CharacterSelectionState extends BasicGameState {
 				if (game != null) {
 					game.finish();
 				} else {
-					System.exit(0);
+					Reaxion.terminate();
 				}
 			}
 		}

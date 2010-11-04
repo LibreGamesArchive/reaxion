@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.mission;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.state.DialogueGameState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.Battle;
@@ -59,7 +60,7 @@ public class MissionManager {
 		currentMission = null;
 		currentIndex = 0;
 		
-		System.exit(0);
+		Reaxion.terminate();
 //		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
 	}
 	

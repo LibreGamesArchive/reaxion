@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
@@ -483,7 +484,7 @@ public class StageGameState extends CameraGameState {
 	        	if (game != null) {
 	        		game.finish();
 	        	} else {
-	        		System.exit(0);
+	        		Reaxion.terminate();
 	        	}
 	        }
 	        

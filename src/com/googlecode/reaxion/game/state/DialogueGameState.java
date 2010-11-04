@@ -165,7 +165,7 @@ public class DialogueGameState extends CameraGameState {
 				if (game != null) {
 					game.finish();
 				} else {
-					System.exit(0);
+					Reaxion.terminate();
 				}
 			}
 		}
