@@ -18,9 +18,9 @@ public class MaxGaugeNode extends BurstNode
 		maxGPlus = 50;
 	}
 	
-	public MaxGaugeNode(int hp, int id){
+	public MaxGaugeNode(int mg, int id){
 		super(id);
-		maxGPlus = hp;
+		maxGPlus = mg;
 	}
 	
 	/**

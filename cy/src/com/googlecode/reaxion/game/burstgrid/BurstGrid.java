@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class BurstGrid
 {
-	public ArrayList<BurstNode> bg; // the entire Burst Grid
+	private ArrayList<BurstNode> bg; // the entire Burst Grid
 
 	public BurstGrid(){
 		bg = new ArrayList<BurstNode>();
@@ -30,8 +30,8 @@ public class BurstGrid
 
 	private void readGrid(String filePath){
 		String s, type, abilityName;
-		int id, statboost, attachedID = 1;
-		ArrayList<Integer> nextNodes = new ArrayList<Integer>();
+		int id, statboost, attachedID = 1, cost, totalNodes = 0;
+		ArrayList<Integer[]> nextNodes = new ArrayList<Integer[]>();
 		BurstNode b;
 
 		try {
@@ -40,36 +40,46 @@ public class BurstGrid
 			while(s.charAt(0)== '|'){
 				s = read.nextLine();
 			}
+			totalNodes = read.nextInt();
+			BurstNode[] allNodes = new BurstNode[totalNodes];
 			while(read.hasNext()){
 				id = read.nextInt();
 				type = read.next();
 				if(type.contains("Max")){
 					statboost = read.nextInt();
 					b = new MaxGaugeNode(statboost, id);
+					allNodes[id-1] = b;
 				}
 				else if(type.contains("Min")){
 					statboost = read.nextInt();
 					b = new MinGaugeNode(statboost, id);
+					allNodes[id-1] = b;
 				}
 				else if(type.contains("Attack")){
 					abilityName = read.next();
 					b = new AttackNode(abilityName, id);
+					allNodes[id-1] = b;
 				}
 				else if(type.contains("Strength")){
 					statboost = read.nextInt();
 					b = new StrengthNode(statboost, id);
+					allNodes[id-1] = b;
 				}
 				else if(type.contains("Ability")){
 					abilityName = read.next();
 					b = new AbilityNode(abilityName, id);
+					allNodes[id-1] = b;
 				}
 				else{
 					statboost = read.nextInt();
 					b = new MinGaugeNode(statboost, id);
+					allNodes[id-1] = b;
 				}
 				while(attachedID != 0){
 					attachedID = read.nextInt();
-					nextNodes.add({attachedID,});
+					read.next();
+					cost = read.nextInt();
+					nextNodes.add(new Integer[] {attachedID, cost});
 				}
 			nextNodes.clear();
 			}

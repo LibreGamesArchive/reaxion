@@ -3,24 +3,24 @@ package com.googlecode.reaxion.game.burstgrid;
 import java.util.ArrayList;
 
 /** 
- * A simple MinGaugeNode. Will have functionality included to manipulate the augment to the Min Gauge it provides.
+ * A simple RateNode. Will have functionality included to manipulate the augment to the Max Gauge it provides.
  * 
  * @author Cy Neita
  */
 
-public class MinGaugeNode extends BurstNode
+public class RateNode extends BurstNode
 {
 	public ArrayList<BurstNode> linkedNodes; // the list of all the nodes that this node leads to
-	public int minGPlus;
+	public int rate;
 	
-	public MinGaugeNode(int id){
+	public RateNode(int id){
 		super(id);
-		minGPlus = 50;
+		rate = 1;
 	}
 	
-	public MinGaugeNode(int mg, int id){
+	public RateNode(int r, int id){
 		super(id);
-		minGPlus = mg;
+		rate = r;
 	}
 	
 	/**
