@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
@@ -113,7 +114,8 @@ public class StageGameState extends CameraGameState {
     	
     	LoadingQueue.execute(this);
     	
-    	BgmPlayer.prepare();
+//    	BgmPlayer.prepare();
+		AudioPlayer.queueBGM(getStage().getBgm(-1));
 
     	b.assignPositions();
     	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
@@ -125,13 +127,14 @@ public class StageGameState extends CameraGameState {
     }
     
     public void startBGM() {
-    	try {
-    		String str = getStage().getBgm(-1);
-    		BgmPlayer.play(str);
-    		System.out.println("BGM loaded: "+str);
-    	} catch (NullPointerException e) {
-    		System.out.println("No BGM for " + getStage().name);
-    	}
+//    	try {
+//    		String str = getStage().getBgm(-1);
+//    		BgmPlayer.play(str);
+//    		System.out.println("BGM loaded: "+str);
+//    	} catch (NullPointerException e) {
+//    		System.out.println("No BGM for " + getStage().name);
+//    	}
+    	AudioPlayer.startBGM();
     }
     
     protected void init() {
@@ -492,12 +495,14 @@ public class StageGameState extends CameraGameState {
     	        	pause = !pause;
     	        	// toggle the overlay
     	        	if (pause) {
+    	        		AudioPlayer.gamePaused();
     	        		pauseNode.pause();
-    	        		BgmPlayer.gamePaused();
+//    	        		BgmPlayer.gamePaused();
     	        	}
     	        	else {
+    	        		AudioPlayer.gameUnpaused();
     	        		pauseNode.unpause();
-    	        		BgmPlayer.gameUnpaused();
+//    	        		BgmPlayer.gameUnpaused();
     	        	}
     	        	System.out.println("Paused: "+pause);
     	        }

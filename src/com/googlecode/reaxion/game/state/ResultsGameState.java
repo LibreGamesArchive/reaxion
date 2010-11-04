@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.state;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.ResultsOverlay;
@@ -183,13 +184,14 @@ public class ResultsGameState extends CameraGameState {
 	}
 
 	private void returnToCharSelectState() {
+//		BgmPlayer.stopAndReset();
+		AudioPlayer.clearBGM();
 		if (MissionManager.hasCurrentMission())
 			MissionManager.startNext();
 		else {
 			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
 			.setActive(true);
 			setActive(false);
-			BgmPlayer.stopAndReset();
 			GameStateManager.getInstance().detachChild(this);
 		}
 	}
