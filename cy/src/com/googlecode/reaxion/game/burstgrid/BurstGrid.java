@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.burstgrid;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class BurstGrid
 
 	public BurstGrid(){
 		bg = new ArrayList<BurstNode>();
+		readGrid("../../com/googlecode/reaxion/resources/burstgrid/BurstGrid1.txt");
 	}
 
 	/**
@@ -29,64 +31,73 @@ public class BurstGrid
 	}
 
 	private void readGrid(String filePath){
-		String s, type, abilityName;
+		String line, type, abilityName;
 		int id, statboost, attachedID = 1, cost, totalNodes = 0;
-		ArrayList<Integer[]> nextNodes = new ArrayList<Integer[]>();
+		ArrayList<BurstNode> nextNodes = new ArrayList<BurstNode>();
+		ArrayList<String> conns = new ArrayList<String>();
 		BurstNode b;
 
 		try {
-			Scanner read = new Scanner(new FileReader(filePath + ".txt"));
-			s = read.nextLine();
-			while(s.charAt(0)== '|'){
-				s = read.nextLine();
+			Scanner read = new Scanner(new File(filePath));
+			line = read.nextLine();
+			while(line.charAt(0)== '|'){
+				line = read.nextLine();
 			}
 			totalNodes = read.nextInt();
 			BurstNode[] allNodes = new BurstNode[totalNodes];
 			while(read.hasNext()){
-				id = read.nextInt();
+				line = read.nextLine();
 				type = read.next();
-				if(type.contains("Max")){
-					statboost = read.nextInt();
-					b = new MaxGaugeNode(statboost, id);
-					allNodes[id-1] = b;
+
+				if(!line.equals("")){
+					String[] temp = line.split("|");
+					String[] node = temp[0].split(" ");
+					conns.add(temp[1]);
+					
+					if(node[1].contains("Max")){
+						b = new MaxGaugeNode(Integer.parseInt(node[3]), Integer.parseInt(node[0]));
+					}
+					if(node[1].contains("HP")){
+						b = new MaxGaugeNode(Integer.parseInt(node[3]), Integer.parseInt(node[0]));
+					}
+					else if(node[1].contains("Min")){
+						b = new MinGaugeNode(Integer.parseInt(node[3]), Integer.parseInt(node[0]));
+					}
+					else if(node[1].contains("Attack")){
+						b = new AttackNode(node[3], Integer.parseInt(node[0]));
+					}
+					else if(node[1].contains("Strength")){
+						b = new StrengthNode(Integer.parseInt(node[3]), Integer.parseInt(node[0]));
+					}
+					else if(node[1].contains("Ability")){
+						b = new AbilityNode(node[3], Integer.parseInt(node[0]));
+					}
+					else{
+						b = new RateNode(Integer.parseInt(node[3]), Integer.parseInt(node[0]));
+					}
+					bg.add(b);					
 				}
-				else if(type.contains("Min")){
-					statboost = read.nextInt();
-					b = new MinGaugeNode(statboost, id);
-					allNodes[id-1] = b;
+				for(int i = 0; i < conns.size(); i++){
+					String[] temp = conns.get(i).split(" ");
+					for(int j = 0; j < temp.length; j++){
+						String[] c = temp[j].split(",");
+						bg.get(i).addConnection(bg.get(Integer.parseInt(c[0])), Integer.parseInt(c[1]));
+					}
 				}
-				else if(type.contains("Attack")){
-					abilityName = read.next();
-					b = new AttackNode(abilityName, id);
-					allNodes[id-1] = b;
-				}
-				else if(type.contains("Strength")){
-					statboost = read.nextInt();
-					b = new StrengthNode(statboost, id);
-					allNodes[id-1] = b;
-				}
-				else if(type.contains("Ability")){
-					abilityName = read.next();
-					b = new AbilityNode(abilityName, id);
-					allNodes[id-1] = b;
-				}
-				else{
-					statboost = read.nextInt();
-					b = new MinGaugeNode(statboost, id);
-					allNodes[id-1] = b;
-				}
-				while(attachedID != 0){
-					attachedID = read.nextInt();
-					read.next();
-					cost = read.nextInt();
-					nextNodes.add(new Integer[] {attachedID, cost});
-				}
-			nextNodes.clear();
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void printGrid(){
+		for(BurstNode b: bg){
+			for(BurstNode c:b.nodes){
+				c.print();
+			}
+			System.out.println();
 		}
 	}
 }

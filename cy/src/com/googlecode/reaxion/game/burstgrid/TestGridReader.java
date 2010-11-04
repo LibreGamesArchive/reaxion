@@ -13,13 +13,8 @@ import java.util.Scanner;
 
 public class TestGridReader{
 	
-	BurstGrid bg;
-	
 	public static void main(String[] args){
-		new TestGridReader();
-	}
-	
-	public TestGridReader(){
-		bg = new BurstGrid();
+		BurstGrid bg = new BurstGrid();
+		bg.printGrid();
 	}
 }

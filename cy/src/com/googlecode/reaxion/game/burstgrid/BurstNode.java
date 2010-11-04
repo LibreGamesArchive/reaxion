@@ -12,11 +12,21 @@ import java.util.ArrayList;
 
 public class BurstNode
 {
-	public ArrayList<BurstNode> NodeList;
+	public ArrayList<BurstNode> nodes;
+	public ArrayList<Integer> costs;
 	public int id; //ID number of the node; used to find nodes in the tree
 	public boolean activated; //checks to see if this node has been activated by the player
 	
 	public BurstNode(int idNo){
 		id = idNo;
+	}
+	
+	public void addConnection(BurstNode b, int cost){
+		nodes.add(b);
+		costs.add(cost);
+	}
+	
+	public void print(){
+		System.out.print(id);
 	}
 }

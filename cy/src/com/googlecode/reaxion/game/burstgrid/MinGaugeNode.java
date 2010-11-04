@@ -47,4 +47,8 @@ public class MinGaugeNode extends BurstNode
 		for(BurstNode bn : newNodes)
 			linkedNodes.add(bn);
 	}
+	
+	public void print(){
+		System.out.print(id + " MinGauge");
+	}
 }

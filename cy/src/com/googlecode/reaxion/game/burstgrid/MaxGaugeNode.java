@@ -47,4 +47,8 @@ public class MaxGaugeNode extends BurstNode
 		for(BurstNode bn : newNodes)
 			linkedNodes.add(bn);
 	}
+	
+	public void print(){
+		System.out.print(id + " MaxGauge");
+	}
 }
