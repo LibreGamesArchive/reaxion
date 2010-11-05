@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.SeekingCloud;
 import com.googlecode.reaxion.game.model.attackobject.Lightning;
@@ -53,6 +54,10 @@ public class LightningCloud extends Attack {
 			
 			b.getRootNode().updateRenderState();
 			character.play("heave", b.tpf);
+			
+			Vector3f loc = character.model.getLocalTranslation();
+			AudioPlayer.playSoundEffect("lightning bolt.ogg", loc.x, loc.y, loc.z);
+			
 			phase++;
 			
 		} else if (phase == 1 && frameCount >= 60) {
@@ -62,7 +67,7 @@ public class LightningCloud extends Attack {
 	
 	@Override
 	public void finish() {
-		super.finish();
+		super.finish();		
 		character.moveLock = false;
 		character.jumpLock = false;
 		character.animationLock = false;
