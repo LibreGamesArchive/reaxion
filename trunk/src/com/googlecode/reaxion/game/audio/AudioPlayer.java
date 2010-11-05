@@ -15,7 +15,9 @@ import paulscode.sound.libraries.LibraryJavaSound;
 
 public class AudioPlayer {
 
-	private static String baseURL = "com/googlecode/reaxion/resources/audio/tracks/";
+	private static String baseURL = "com/googlecode/reaxion/resources/audio/";
+	private static String trackDir = "tracks/";
+	private static String sfxDir = "sfx/";
 	private static SoundSystem sound;
 	private static String currentBGM;
 	
@@ -45,8 +47,8 @@ public class AudioPlayer {
 		String intro = bgmName + "-intro";
 		currentBGM = bgmName;
 		
-		sound.newStreamingSource(true, currentBGM, intro + ext, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
-		sound.queueSound(currentBGM, filename);	
+		sound.newStreamingSource(true, currentBGM, trackDir + intro + ext, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
+		sound.queueSound(currentBGM, trackDir + filename);	
 	}
 	
 	/**
@@ -54,6 +56,18 @@ public class AudioPlayer {
 	 */
 	public static void startBGM() {
 		sound.play(currentBGM);
+	}
+	
+	/**
+	 * Plays a sound at a given position with rolloff attenuation.
+	 * 
+	 * @param filename
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public static void playSoundEffect(String filename, float x, float y, float z) {
+		sound.quickPlay(true, sfxDir + filename, false, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
 	}
 	
 	/**
