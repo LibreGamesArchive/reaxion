@@ -346,6 +346,7 @@ public class StageGameState extends CameraGameState {
     		// Synchronize position
     		player.model.setLocalTranslation(partner.model.getLocalTranslation().clone());
     		player.model.setLocalRotation(partner.model.getLocalRotation().clone());
+    		player.rotationVector = partner.rotationVector;
     		player.gravVel = partner.gravVel;
     		// Remove the inactive character
     		removeModel(partner);

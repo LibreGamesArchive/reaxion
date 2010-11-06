@@ -113,13 +113,14 @@ public class Reaxion {
 			
 			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);
-			//charState.setActive(true);
+			charState.setActive(true);
 			
 			int[] times = new int[24];
 			for(int i = 0; i < times.length; i++)
 				times[i] = i * 20;
 			
 			// dialogue code
+			/*
 			Actor[] a = {new Actor(), new Actor()};
 			a[0].setPortraits(0, new int[]{0}, new String[]{"khoa-test.png"});
 			a[0].setPortraits(2, times, 
@@ -144,7 +145,7 @@ public class Reaxion {
 			DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_twilight-kingdom.png");
 			GameStateManager.getInstance().attachChild(dialogueState);
 			dialogueState.setActive(true);
-			
+			*/
 			return null;
 		}	
 	}

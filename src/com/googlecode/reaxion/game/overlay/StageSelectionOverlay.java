@@ -2,13 +2,7 @@ package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Point;
 
-import com.googlecode.reaxion.game.model.stage.Checkerboard;
-import com.googlecode.reaxion.game.model.stage.Flipside;
-import com.googlecode.reaxion.game.model.stage.FlowerField;
-import com.googlecode.reaxion.game.model.stage.MikoLake;
-import com.googlecode.reaxion.game.model.stage.SeasRepose;
-import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
-import com.googlecode.reaxion.game.model.stage.WorldsEdge;
+import com.googlecode.reaxion.game.model.stage.*;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
@@ -41,7 +35,8 @@ public class StageSelectionOverlay extends GridOverlay {
 
 	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
 			MikoLake.name, Flipside.name, TwilightKingdom.name,
-			SeasRepose.name, Checkerboard.name };
+			SeasRepose.name, CityOfDreams.name, CloudNine.name,
+			Checkerboard.name };
 	
 	private Quad bg;
 	private Quad back;
