@@ -11,9 +11,9 @@ import java.util.logging.Logger;
  * @author Brian
  *
  */
-public class SoundEffectsManager {
+public class SoundEffectManager {
 
-	protected static final Logger logger = Logger.getLogger(SoundEffectsManager.class.getName());
+	protected static final Logger logger = Logger.getLogger(SoundEffectManager.class.getName());
 
 	private static HashMap<Integer, String> sfx;
 
