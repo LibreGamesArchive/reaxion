@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
+import com.googlecode.reaxion.game.audio.SoundEffectsManager;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
@@ -106,6 +107,7 @@ public class Reaxion {
 		public Void call() throws Exception {
 
 	    	AudioPlayer.prepare();
+	    	SoundEffectsManager.initialize();
 			FontUtils.loadFonts();
 			
 //			MissionManager.initMissions();
