@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.audio.SoundEffectsManager;
+import com.googlecode.reaxion.game.audio.SoundEffectManager;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
@@ -107,7 +107,7 @@ public class Reaxion {
 		public Void call() throws Exception {
 
 	    	AudioPlayer.prepare();
-	    	SoundEffectsManager.initialize();
+	    	SoundEffectManager.initialize();
 			FontUtils.loadFonts();
 			
 //			MissionManager.initMissions();
@@ -117,12 +117,12 @@ public class Reaxion {
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
 			
+			/*
 			int[] times = new int[24];
 			for(int i = 0; i < times.length; i++)
 				times[i] = i * 20;
 			
 			// dialogue code
-			/*
 			Actor[] a = {new Actor(), new Actor()};
 			a[0].setPortraits(0, new int[]{0}, new String[]{"khoa-test.png"});
 			a[0].setPortraits(2, times, 
