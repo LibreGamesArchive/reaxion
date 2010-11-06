@@ -1,0 +1,21 @@
+
+material cloud
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/cloud-nine_cloudUV.png
+			}
+		}
+
+	}
+
+}
+
+

@@ -96,7 +96,7 @@ public class SeasRepose extends Stage {
                 0.0f), 0.0f));
         waterEffectRenderPass.setWaterMaxAmplitude(1.0f);
         
-        projectedGrid = new ProjectedGrid("ProjectedGrid", b.getCamera(), 100, 100, 0.01f,
+        projectedGrid = new ProjectedGrid("ProjectedGrid", b.getCamera(), 30, 30, 0.01f,
         		new HeightGenerator() {
         	public float getHeight( float x, float z, float time ) {
         		return FastMath.sin(x*0.05f+time*-2.0f)+FastMath.cos(z*0.1f+time*-4.0f)*2 - 1;

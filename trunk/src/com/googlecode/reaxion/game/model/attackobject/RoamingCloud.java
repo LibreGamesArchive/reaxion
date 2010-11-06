@@ -15,9 +15,12 @@ public class RoamingCloud extends AttackObject {
 	
 	private int strikeDelay = 4;
 	private final int sizeTime = 40;
-	private final float speed = .5f;
+	private final float speed = 1f;
 	
+	private int seekRange = 32;
 	private boolean strike = false;
+	
+	private final float overhead = 7;
 	
 	private Model[] clouds = new Model[5];
 	
@@ -74,16 +77,11 @@ public class RoamingCloud extends AttackObject {
 			
 		} else {
 	    	if (model.getLocalScale().x == 1) {
-	    		//roam
-	    		if (lifeCount % 30 == 0 || FastMath.nextRandomFloat() > .9f) {
-	    			float angle = FastMath.nextRandomFloat()*FastMath.PI*2;
-	    			velocity = new Vector3f(speed*FastMath.cos(angle), 0, speed*FastMath.sin(angle));
-	    		}
-	    		
-	    		// check if target is underneath
+	    		// check enemies
 	    		Vector3f pos = model.getLocalTranslation();
-	    		for (Model m : b.getModels())
-	    			if (m instanceof Character && pos.distance(m.model.getLocalTranslation())<=3) {
+	    		for (Model m : b.getModels()) {
+	    			Vector3f mpos = m.model.getLocalTranslation();
+	    			if (m instanceof Character && pos.distance(mpos) <= seekRange) {
 	    				boolean flag = false;
 	    				for (Model u : users)
 	    					if (m == u) {
@@ -91,10 +89,21 @@ public class RoamingCloud extends AttackObject {
 	    						break;
 	    					}
 	    				if (!flag) {
-	    					strike = true;
+	    					if (FastMath.sqrt(FastMath.pow(pos.x-mpos.x, 2) + FastMath.pow(pos.z-mpos.z, 2)) <= 2)
+	    						strike = true;
+	    					else
+	    						velocity = m.model.getLocalTranslation().add(new Vector3f(0, overhead, 0)).subtract(pos).normalize().mult(speed);
 	    					break;
 	    				}
 	    			}
+	    		}
+	    		
+	    		//roam
+	    		if (lifeCount % 30 == 0 || FastMath.nextRandomFloat() > .9f) {
+	    			float angle = FastMath.nextRandomFloat()*FastMath.PI*2;
+	    			velocity = new Vector3f(speed*FastMath.cos(angle), 0, speed*FastMath.sin(angle));
+	    		}
+	    		
 	    	} else
 	    		velocity = new Vector3f();
 		}
