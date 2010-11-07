@@ -1,4 +1,4 @@
-package com.googlecode.reaxion.game.burstgrid;
+package com.googlecode.reaxion.game.burstgrid.info;
 
 /**
  * This class represents Nilay's statistics. Reasonable base stats are yet to be decided.

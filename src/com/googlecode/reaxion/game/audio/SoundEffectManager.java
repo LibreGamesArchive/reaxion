@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 /**
- * {@code SoundEffectsManager} contains a hashmap of sound effect file names. The class provides centrilization for
- * all sound effects, since sound effects can be shared between characters.
+ * {@code SoundEffectsManager} contains a {@code HashMap} of sound effect file names. 
+ * The class provides centralization for all sound effects, since sound effects can be shared between characters.
  * 
  * @author Brian
  *
@@ -18,7 +18,7 @@ public class SoundEffectManager {
 	private static HashMap<Integer, String> sfx;
 
 	/**
-	 * Initializes sound effect hash map.
+	 * Initializes sound effect {@code HashMap}.
 	 */
 	public static void initialize() {
 		sfx = new HashMap<Integer, String> ();
