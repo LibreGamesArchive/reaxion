@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.burstgrid.info;
 
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 
-public class PlayerInfo{
+public abstract class PlayerInfo{
 	
 	protected int maxHP = 0;
 	protected int strength = 0;
@@ -12,16 +12,14 @@ public class PlayerInfo{
 	protected int exp = 0;
 	protected BurstGrid bg;
 	
-	public PlayerInfo(){
-		maxHP = 0;
-		strength = 0;
-		minGauge = 0;
-		maxGauge = 0;
-		rate = 0;
-		exp = 0;
+	/**
+	 * To be called at the program launch to create all player info.
+	 */
+	public void init() {
+		
 	}
 	
-	public PlayerInfo(int hp, int str, int minG, int maxG, int r){
+	protected void setStats(int hp, int str, int minG, int maxG, int r){
 		maxHP = hp;
 		strength = str;
 		minGauge = minG;
@@ -34,32 +32,39 @@ public class PlayerInfo{
 		return maxHP;
 	}
 
-	public void setMaxHP(int maxHP) {
-		this.maxHP = maxHP;
+	public void setMaxHP(int val) {
+		maxHP = val;
 	}
 
 	public int getStrength() {
 		return strength;
 	}
+	
+	/**
+	 * Returns the damage multiplier for this character's attacks as a function of {@code strength}.
+	 */
+	public double getAtkMultiplier() {
+		return 1.5/12*strength + 1;
+	}
 
-	public void setStrength(int strength) {
-		this.strength = strength;
+	public void setStrength(int val) {
+		strength = val;
 	}
 
 	public int getMinGauge() {
 		return minGauge;
 	}
 
-	public void setMinGauge(int minGauge) {
-		this.minGauge = minGauge;
+	public void setMinGauge(int val) {
+		minGauge = val;
 	}
 
 	public int getMaxGauge() {
 		return maxGauge;
 	}
 
-	public void setMaxGauge(int maxGauge) {
-		this.maxGauge = maxGauge;
+	public void setMaxGauge(int val) {
+		maxGauge = val;
 	}
 	
 	protected void createBurstGrid(String location){

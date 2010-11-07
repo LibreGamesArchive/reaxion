@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
+import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
@@ -34,6 +35,8 @@ public class AttackObject extends Model {
 		super(fn);
 		init();
 		damagePerFrame = dpf;
+		if (m instanceof MajorCharacter)
+			damageMult = ((MajorCharacter)m).info.getAtkMultiplier();
     	users.add(m);
     }
 	
@@ -49,6 +52,8 @@ public class AttackObject extends Model {
 		super(fn);
 		init();
 		damagePerFrame = dpf;
+		if (m[m.length-1] instanceof MajorCharacter)
+			damageMult = ((MajorCharacter)m[m.length-1]).info.getAtkMultiplier();
     	users.addAll(Arrays.asList(m));
     }
 	

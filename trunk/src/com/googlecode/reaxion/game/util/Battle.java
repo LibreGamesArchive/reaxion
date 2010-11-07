@@ -66,7 +66,7 @@ public class Battle {
 		p2Position = p1Position;
 		opPositions.add(new Vector3f(0, 0, -20));
 		
-		p1Abilities = new Ability[] { new MedusaEyes() };
+		p1Abilities = new Ability[] { new Chivalry() };
 		p2Abilities = new Ability[] { new FinalHour() };
 		opAbilities.add(new Ability[] { new AfterImage() });
 	}

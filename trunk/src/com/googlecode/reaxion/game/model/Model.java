@@ -71,6 +71,11 @@ public class Model {
 	public float damagePerFrame = 0;
 	
 	/**
+	 * Damage multiplier.
+	 */
+	protected double damageMult = 1;
+	
+	/**
 	 * Whether this object causes contacting objects to flinch
 	 */
 	public boolean flinch = false;
@@ -305,6 +310,10 @@ public class Model {
     	if (!yFree)
     		face.y = 0;
     	rotate(face);
+    }
+    
+    public float getDamage() {
+    	return (float)damageMult*damagePerFrame;
     }
     
     /**

@@ -27,7 +27,7 @@ public class Insurance extends Ability {
 	public boolean reactHit(Character c, StageGameState b, Model other) {
 		System.out.println(c.model+" is insured against hits!");
 		
-		c.hp += other.damagePerFrame / 2;
+		c.hp += other.getDamage() / 2;
 		activate(c, b);
 		
 		return false;

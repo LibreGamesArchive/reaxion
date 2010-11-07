@@ -66,7 +66,7 @@ public class ShieldBarrier extends Attack {
         for (Model c : collisions) {
         	if (c == barrier) {
         		// third the damage and no flinch!
-            	character.hp -= other.damagePerFrame/3;
+            	character.hp -= other.getDamage()/3;
             	//System.out.println(character.model+" hit by "+other+": "+(character.hp+other.damagePerFrame/2)+" -> "+character.hp);
             	return;
         	}

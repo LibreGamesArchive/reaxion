@@ -386,9 +386,9 @@ public class Character extends Model {
 
 		if (other.flinch)
 			toggleFlinch(true);
-		hp -= other.damagePerFrame;
+		hp -= other.getDamage();
 
-		System.out.println(model+" hit by "+other+": "+(hp+other.damagePerFrame)+" -> "+hp);
+		System.out.println(model+" hit by "+other+": "+(hp+other.getDamage())+" -> "+hp);
 		return true;
 	}
 
