@@ -136,4 +136,11 @@ public class Attack {
 		}
 	}
 	
+	/**
+	 * Finds which sound effect to play given the character that triggered it.
+	 */
+	protected void triggerSoundEffect() {
+		
+	}
+	
 }

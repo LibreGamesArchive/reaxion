@@ -48,7 +48,7 @@ public class AudioPlayer {
 		currentBGM = bgmName;
 		
 		sound.newStreamingSource(true, currentBGM, trackDir + intro + ext, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
-		sound.queueSound(currentBGM, trackDir + filename);	
+		sound.queueSound(currentBGM, trackDir + filename);
 	}
 	
 	/**
@@ -85,11 +85,10 @@ public class AudioPlayer {
 	}
 	
 	/**
-	 * Stops background music and removes the background music source from memory.
+	 * Stops background music.
 	 */
 	public static void clearBGM() {
 		sound.stop(currentBGM);
-		sound.removeSource(currentBGM);
 	}
 	
 	/**
