@@ -1,9 +1,13 @@
 package com.googlecode.reaxion.game.model.character;
 
+import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.math.Vector3f;
 
 public class MajorCharacter extends Character {
+	
+	public PlayerInfo info;
 	
     public MajorCharacter(String filename) {
     	// Load model
@@ -22,7 +26,8 @@ public class MajorCharacter extends Character {
     @Override
     protected void init() {
     	super.init();
-    	type();  	
+    	type();
+    	info = PlayerInfoManager.get(name);
     	trackOffset = new Vector3f(0, 3, 0);
     	renew();
     }

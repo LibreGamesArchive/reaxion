@@ -7,13 +7,8 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class AustinInfo extends PlayerInfo{
 	
-	public AustinInfo(){
-		super();
-		createBurstGrid("");
-	}
-	
-	public AustinInfo(int hp, int str, int minG, int maxG, int r){ //HP, Strength, MinGauge, MaxGauge, Rate
-		super(hp, str, minG, maxG, r);
+	@Override
+	public void init(){
 		createBurstGrid("");
 	}
 }

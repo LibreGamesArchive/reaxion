@@ -40,7 +40,7 @@ public class LanceGuard extends Attack {
 	@Override
 	public void interrupt(StageGameState b, Model other) {
 		// negate flinch, this attack cannot be interrupted
-        character.hp -= other.damagePerFrame;
+        character.hp -= other.getDamage();
         
         // reciprocate the hit
 		if (other instanceof AttackObject)

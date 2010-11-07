@@ -7,13 +7,9 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class NilayInfo extends PlayerInfo{
 	
-	public NilayInfo(){
-		super(200, 1, 20, 30, 1);
-		createBurstGrid("");
-	}
-	
-	public NilayInfo(int hp, int str, int minG, int maxG, int r){ //HP, Strength, MinGauge, MaxGauge, Rate
-		super(hp, str, minG, maxG, r);
+	@Override
+	public void init(){
+		setStats(200, 1, 20, 30, 1);
 		createBurstGrid("");
 	}
 }

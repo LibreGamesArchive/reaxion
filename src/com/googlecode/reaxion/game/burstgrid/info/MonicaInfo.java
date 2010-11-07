@@ -8,13 +8,11 @@ package com.googlecode.reaxion.game.burstgrid.info;
  *
  */
 public class MonicaInfo extends PlayerInfo{
-	public MonicaInfo(){
-		super(200, 2, 15, 30, 1);
+	
+	@Override
+	public void init(){
+		setStats(200, 12, 15, 30, 1);
 		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
 	}
 	
-	public MonicaInfo(int hp, int str, int minG, int maxG, int r){ //HP, Strength, MinGauge, MaxGauge, Rate
-		super(hp, str, minG, maxG, r);
-		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
-	}
 }

@@ -17,7 +17,7 @@ public class Chivalry extends Ability {
 	@Override
 	public boolean hit(Character c, StageGameState b, Model other) {
 		
-		if (c.hp - other.damagePerFrame <= 0 && b.getPartner().hp - other.damagePerFrame > 0) {
+		if (c.hp - other.getDamage() <= 0 && b.getPartner().hp - other.getDamage() > 0) {
 			activate(c, b);
 			b.tagSwitch();
 			b.getPlayer().hit(b, other);

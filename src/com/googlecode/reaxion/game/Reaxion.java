@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.SoundEffectManager;
+import com.googlecode.reaxion.game.burstgrid.info.*;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
@@ -16,6 +17,7 @@ import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapFontLoader;
@@ -103,12 +105,14 @@ public class Reaxion {
 	 */
 	private class GameInit implements Callable<Void> {
 
-		//@Override
+		//@Override	
 		public Void call() throws Exception {
 
 	    	AudioPlayer.prepare();
 //	    	SoundEffectManager.initialize();
 			FontUtils.loadFonts();
+			
+			PlayerInfoManager.init();
 			
 //			MissionManager.initMissions();
 //			MissionManager.startMission(0);
