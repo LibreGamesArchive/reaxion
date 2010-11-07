@@ -18,8 +18,6 @@ public class Nilay extends MajorCharacter {
     public void type() {
     	super.type();
     	name = "Nilay";
-    	maxHp = 100;
-    	speed = .5f;
     }
     
 }

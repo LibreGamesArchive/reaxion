@@ -18,8 +18,6 @@ public class Khoa extends MajorCharacter {
     public void type() {
     	super.type();
     	name = "Khoa";
-    	maxHp = 100;
-    	speed = .5f;
     }
     
 }

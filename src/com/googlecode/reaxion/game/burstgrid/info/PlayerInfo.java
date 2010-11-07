@@ -4,10 +4,11 @@ import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 
 public abstract class PlayerInfo{
 	
-	protected int maxHP = 0;
+	// default values
+	protected int maxHP = 100;
 	protected int strength = 0;
-	protected int minGauge = 0;
-	protected int maxGauge = 0;
+	protected int minGauge = 18;
+	protected int maxGauge = 30;
 	protected int rate = 0;
 	protected int exp = 0;
 	protected BurstGrid bg;
@@ -65,6 +66,13 @@ public abstract class PlayerInfo{
 
 	public void setMaxGauge(int val) {
 		maxGauge = val;
+	}
+	
+	/**
+	 * Returns the gauge rate scaled by a factor of 10.
+	 */
+	public double getScaledGauge() {
+		return rate/10+.05;
 	}
 	
 	protected void createBurstGrid(String location){

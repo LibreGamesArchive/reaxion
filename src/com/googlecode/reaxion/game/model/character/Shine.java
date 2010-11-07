@@ -18,8 +18,6 @@ public class Shine extends MajorCharacter {
     public void type() {
     	super.type();
     	name = "Shine";
-    	maxHp = 100;
-    	speed = .5f;
     }
     
 }
