@@ -11,7 +11,7 @@ public class MonicaInfo extends PlayerInfo{
 	
 	@Override
 	public void init(){
-		setStats(200, 12, 15, 30, 1);
+		setStats(200, 2, 15, 30, 1);
 		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
 	}
 	

@@ -18,8 +18,6 @@ public class Cy extends MajorCharacter {
     public void type() {
     	super.type();
     	name = "Cy";
-    	maxHp = 100;
-    	speed = .5f;
     }
     
 }

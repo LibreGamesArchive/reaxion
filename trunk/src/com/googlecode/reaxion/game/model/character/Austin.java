@@ -18,8 +18,6 @@ public class Austin extends MajorCharacter {
     public void type() {
     	super.type();
     	name = "Austin";
-    	maxHp = 100;
-    	speed = .5f;
     }
     
 }

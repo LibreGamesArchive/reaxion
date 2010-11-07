@@ -31,6 +31,11 @@ public class Character extends Model {
 	 * Maximum hit points of character
 	 */
 	public int maxHp = 0;
+	
+	/**
+	 * Strength multiplier for character
+	 */
+	public double strengthMult = 1;
 
 	/**
 	 * Current gauge points of character
@@ -186,7 +191,7 @@ public class Character extends Model {
 			model.setLocalTranslation(loc);
 
 			// increase gauge
-			gauge = Math.min(gauge + gaugeRate*maxGauge, maxGauge);
+			gauge = Math.min(gauge + gaugeRate, maxGauge);
 
 			/*
 	        if (b.getPlayer() == this)

@@ -27,20 +27,35 @@ public class MajorCharacter extends Character {
     protected void init() {
     	super.init();
     	type();
-    	info = PlayerInfoManager.get(name);
+    	setInfo();
     	trackOffset = new Vector3f(0, 3, 0);
     	renew();
     }
     
     /**
-	 * Set traits for all characters of this type, override this to set custom stats
+	 * Override this to set additional character-specific data, such as name.
 	 */
     public void type() {
+    	/*
     	maxHp = 100;
     	gaugeRate = .0015;
     	minGauge = 18;
     	maxGauge = 30;
+    	*/
     	speed = .5f;
+    }
+    
+    /**
+	 * Set traits for all characters of this type based on {@code PlayerInfo}.
+	 */
+    protected void setInfo() {
+    	// create stats based on PlayerInfo
+    	info = PlayerInfoManager.get(name);
+    	maxHp = info.getMaxHP();
+    	strengthMult = info.getAtkMultiplier();
+    	minGauge = info.getMinGauge();
+    	maxGauge = info.getMaxGauge();
+    	gaugeRate = info.getScaledGauge();
     }
     
     /**

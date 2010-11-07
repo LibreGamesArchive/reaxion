@@ -18,8 +18,6 @@ public class Monica extends MajorCharacter {
     public void type() {
     	super.type();
     	name = "Monica";
-    	maxHp = 100;
-    	speed = .5f;
     }
     
 }
