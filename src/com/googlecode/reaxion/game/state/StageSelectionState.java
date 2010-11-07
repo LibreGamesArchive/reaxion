@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.app.AbstractGame;
@@ -162,6 +163,7 @@ public class StageSelectionState extends BasicGameState {
 	 * in the menu.
 	 */
 	private void goToBattleGameState() {
+		/*
 		Battle c = Battle.getCurrentBattle();
 		c.setStage(stageSelectionNode.getSelectedStageClass());
 		Battle.setCurrentBattle(c);
@@ -170,6 +172,11 @@ public class StageSelectionState extends BasicGameState {
 		GameStateManager.getInstance().attachChild(battleState);
 		battleState.setActive(true);
 		battleState.startBGM();
+		*/
+		
+		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
+		MissionManager.startMission(0);
+		
 		setActive(false);
 	}
 
