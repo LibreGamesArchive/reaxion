@@ -3,6 +3,8 @@ package com.googlecode.reaxion.game.mission.missions;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.ability.*;
+import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Khoa;
@@ -52,9 +54,16 @@ public class Mission00 extends Mission {
 		addState(dialogueState);
 		
 		Battle b = new Battle();
-		b.setOps(new Character[] {(Character)LoadingQueue.push(new Khoa())});
+		Character khoa = (Character)LoadingQueue.push(new Khoa());
+		ArrayList<Ability[]> ab = new ArrayList<Ability[]>();
+		ab.add(new Ability[] {new AfterImage()});
+		khoa.assignAI(new TestAI(khoa));
+		b.setOps(new Character[] {khoa});
+		b.setOpAbilities(ab);
 		//b.setPlayers(new String[] {"Brian", "Cy", "Khoa"});
 		//b.setStage("TwilightKingdom");
+		b.setTargetTime(60);
+		b.setExpYield(1000);
 		Battle.setCurrentBattle(b);
 		
 		addState(Battle.createBattleGameState());

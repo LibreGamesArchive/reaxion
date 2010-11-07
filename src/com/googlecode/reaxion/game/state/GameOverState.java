@@ -208,7 +208,8 @@ public class GameOverState extends CameraGameState {
 		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
 				.setActive(true);
 		setActive(false);
-		BgmPlayer.stopAndReset();
+		//BgmPlayer.stopAndReset();
+		AudioPlayer.clearBGM();
 		GameStateManager.getInstance().detachChild(this);
 		setActive(false);
 	}
