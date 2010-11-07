@@ -6,6 +6,14 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
+import com.googlecode.reaxion.game.burstgrid.node.AttackNode;
+import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
+import com.googlecode.reaxion.game.burstgrid.node.MaxGaugeNode;
+import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
+import com.googlecode.reaxion.game.burstgrid.node.RateNode;
+import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
+
 /** 
  * This class represents the Burst Grid and handles all the functionality of it. The Burst Grid holds
  * BurstNodes of type HPNode, GaugeNode, or AbilityNode

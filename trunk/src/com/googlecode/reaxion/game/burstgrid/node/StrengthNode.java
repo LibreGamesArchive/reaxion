@@ -1,4 +1,4 @@
-package com.googlecode.reaxion.game.burstgrid;
+package com.googlecode.reaxion.game.burstgrid.node;
 
 import java.util.ArrayList;
 

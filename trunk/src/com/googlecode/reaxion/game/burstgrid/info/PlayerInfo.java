@@ -1,4 +1,6 @@
-package com.googlecode.reaxion.game.burstgrid;
+package com.googlecode.reaxion.game.burstgrid.info;
+
+import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 
 public class PlayerInfo{
 	
