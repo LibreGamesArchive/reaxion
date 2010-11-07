@@ -18,6 +18,7 @@ import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
+import com.jme.input.MouseInput;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapFontLoader;
@@ -107,7 +108,7 @@ public class Reaxion {
 
 		//@Override	
 		public Void call() throws Exception {
-
+			MouseInput.get().setCursorVisible(true);
 	    	AudioPlayer.prepare();
 //	    	SoundEffectManager.initialize();
 			FontUtils.loadFonts();

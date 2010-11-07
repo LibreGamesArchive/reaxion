@@ -11,6 +11,7 @@ import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
+import com.jme.input.MouseInput;
 import com.jme.scene.Node;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.TextureState;
@@ -46,30 +47,6 @@ public class CharacterSelectionState extends BasicGameState {
 		// Initial InputHandler
 		input = new InputHandler();
 		initKeyBindings();
-
-		// Setup software mouse
-		mouse = new AbsoluteMouse("Mouse Input", DisplaySystem
-				.getDisplaySystem().getWidth(), DisplaySystem
-				.getDisplaySystem().getHeight());
-		mouse.registerWithInputHandler(input);
-		TextureState cursor = DisplaySystem.getDisplaySystem().getRenderer()
-				.createTextureState();
-		cursor.setTexture(TextureManager.loadTexture(Reaxion.class
-				.getClassLoader().getResource(
-						"com/googlecode/reaxion/resources/cursors/cursor.png"),
-				Texture.MinificationFilter.NearestNeighborNoMipMaps,
-				Texture.MagnificationFilter.NearestNeighbor));
-		mouse.setRenderState(cursor);
-		BlendState as1 = DisplaySystem.getDisplaySystem().getRenderer()
-				.createBlendState();
-		as1.setBlendEnabled(true);
-		as1.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
-		as1
-				.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
-		as1.setTestEnabled(true);
-		as1.setTestFunction(BlendState.TestFunction.GreaterThan);
-		mouse.setRenderState(as1);
-		rootNode.attachChild(mouse);
 
 		// Finish up
 		rootNode.updateRenderState();
