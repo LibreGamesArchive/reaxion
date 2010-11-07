@@ -9,6 +9,8 @@ public class CyInfo extends PlayerInfo{
 	
 	@Override
 	public void init(){
+		setAbilities(new String[] {"Chivalry", "Masochist"});
+		setAttacks(new String[] {"SpikeLine", "ShadowTag", "BlackHole", "SpinLance"});
 		createBurstGrid("");
 	}
 }

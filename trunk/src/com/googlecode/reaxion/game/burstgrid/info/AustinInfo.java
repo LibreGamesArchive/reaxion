@@ -9,6 +9,8 @@ public class AustinInfo extends PlayerInfo{
 	
 	@Override
 	public void init(){
+		setAbilities(new String[] {"RapidGauge"});
+		setAttacks(new String[] {"BombingMagnet", "ShootFireball", "SpawnBubble", "LanceGuard"});
 		createBurstGrid("");
 	}
 }

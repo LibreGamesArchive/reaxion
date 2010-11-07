@@ -112,14 +112,13 @@ public class Reaxion {
 	    	AudioPlayer.prepare();
 //	    	SoundEffectManager.initialize();
 			FontUtils.loadFonts();
+			MissionManager.createMissions();
 			
 			PlayerInfoManager.init();
 			
 			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
-			
-			MissionManager.createMissions();
 			
 			return null;
 		}	

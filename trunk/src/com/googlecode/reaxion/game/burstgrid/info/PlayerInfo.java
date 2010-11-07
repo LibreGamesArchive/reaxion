@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.burstgrid.info;
 
+import java.util.ArrayList;
+
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 
 public abstract class PlayerInfo{
@@ -11,7 +13,10 @@ public abstract class PlayerInfo{
 	protected int maxGauge = 30;
 	protected int rate = 0;
 	protected int exp = 0;
+	
 	protected BurstGrid bg;
+	protected String[] abilities = new String[2];
+	protected String[] attacks = new String[6];
 	
 	/**
 	 * To be called at the program launch to create all player info.
@@ -73,6 +78,44 @@ public abstract class PlayerInfo{
 	 */
 	public double getScaledGauge() {
 		return rate/10+.05;
+	}
+	
+	/**
+	 * Sets abilities according to {@code abl}.
+	 */
+	public void setAbilities(String[] abl) {
+		abilities = abl;
+	}
+	
+	/**
+	 * Returns an array of abilities, omitting null values.
+	 */
+	public String[] getAbilities() {
+		ArrayList<String> a = new ArrayList<String>();  
+		for (int i = 0; i < abilities.length; i++) {  
+			if (abilities[i] != null)
+				a.add(abilities[i]);   
+		}
+		return a.toArray(new String[0]);  
+	}
+	
+	/**
+	 * Sets attacks according to {@code atk}.
+	 */
+	public void setAttacks(String[] atk) {
+		attacks = atk;
+	}
+	
+	/**
+	 * Returns an array of attacks, omitting null values.
+	 */
+	public String[] getAttacks() {
+		ArrayList<String> a = new ArrayList<String>();  
+		for (int i = 0; i < attacks.length; i++) {  
+			if (attacks[i] != null)
+				a.add(attacks[i]);   
+		}  
+		return a.toArray(new String[0]);  
 	}
 	
 	protected void createBurstGrid(String location){

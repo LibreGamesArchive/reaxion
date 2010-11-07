@@ -12,7 +12,10 @@ public class MonicaInfo extends PlayerInfo{
 	@Override
 	public void init(){
 		setStats(200, 2, 15, 30, 1);
-		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
+		setAbilities(new String[] {"EvasiveStart"});
+		setAttacks(new String[] {"ShootBullet", "ShieldBarrier", "SpinLance", "SpikeLine"});
+		createBurstGrid("");
+		//createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
 	}
 	
 }

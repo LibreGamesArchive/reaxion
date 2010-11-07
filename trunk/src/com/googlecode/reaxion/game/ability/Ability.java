@@ -18,7 +18,7 @@ import com.googlecode.reaxion.game.util.LoadingQueue;
  */
 public class Ability {
 	
-	private static String name;
+	private String name;
 	
 	public Ability(String n) {
 		name = n;

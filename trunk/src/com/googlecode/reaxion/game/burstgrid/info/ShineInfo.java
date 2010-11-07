@@ -9,6 +9,8 @@ public class ShineInfo extends PlayerInfo{
 	
 	@Override
 	public void init(){
+		setAbilities(new String[] {"AfterImage", "PassiveHealer"});
+		setAttacks(new String[] {"ShootBullet", "Beacon", "BubbleBath", "ShieldMediguard", "ShieldReflega", "ShieldHoly"});
 		createBurstGrid("");
 	}
 }
