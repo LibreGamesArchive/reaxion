@@ -107,7 +107,7 @@ public class Reaxion {
 		public Void call() throws Exception {
 
 	    	AudioPlayer.prepare();
-	    	SoundEffectManager.initialize();
+//	    	SoundEffectManager.initialize();
 			FontUtils.loadFonts();
 			
 //			MissionManager.initMissions();

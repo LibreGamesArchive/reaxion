@@ -1,4 +1,3 @@
-
 package com.googlecode.reaxion.game.model.character;
 
 public class Brian extends MajorCharacter {

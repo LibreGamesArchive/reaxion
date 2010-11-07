@@ -1,8 +1,8 @@
 package com.googlecode.reaxion.game.audio;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.logging.Logger;
+
+import com.googlecode.reaxion.game.model.character.Cy;
 
 /**
  * {@code SoundEffectsManager} contains a {@code HashMap} of sound effect file names. 
@@ -13,42 +13,47 @@ import java.util.logging.Logger;
  */
 public class SoundEffectManager {
 
-	protected static final Logger logger = Logger.getLogger(SoundEffectManager.class.getName());
-
-	private static HashMap<Integer, String> sfx;
-
-	/**
-	 * Initializes sound effect {@code HashMap}.
-	 */
 	public static void initialize() {
-		sfx = new HashMap<Integer, String> ();
-
-		File sfxDirectory = new File("src/com/googlecode/reaxion/resources/audio/sfx/");
-		String[] soundEffects = sfxDirectory.list();
+		initCy();
+		initAndrew();
+		initShine();
+		initNilay();
+		initMonica();
+		initKhoa();
+		initAustin();
+		initBrian();
+	}
+	
+	private static void initCy() {
 		
-		if(soundEffects == null)
-			logger.info("Sound effects could not be loaded.");
-		else {
-			int count = 0;
-			for(int i = 0; i < soundEffects.length; i++) {
-				if(soundEffects[i].contains(".ogg") || soundEffects[i].contains(".wav")) {
-					sfx.put(i, soundEffects[i]);
-					count++;
-				}
-			}
-
-			logger.info("Successfully loaded " + count + " sound effects.");
-		}
+	}
+	
+	private static void initAndrew() {
+		
+	}
+	
+	private static void initShine() {
+		
 	}
 
-	/**
-	 * Returns a sound effect file name given its index.
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public static String getSfx(int index) {
-		return sfx.get(index);
+	private static void initNilay() {
+		
+	}
+
+	private static void initMonica() {
+		
+	}
+
+	private static void initKhoa() {
+		
+	}
+
+	private static void initAustin() {
+		
+	}
+
+	private static void initBrian() {
+		
 	}
 
 }
