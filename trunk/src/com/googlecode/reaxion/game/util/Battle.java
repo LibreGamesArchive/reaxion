@@ -22,7 +22,9 @@ public class Battle {
 	private static final String stageClassURL = "com.googlecode.reaxion.game.model.stage.";
 
 	private static Battle currentBattle;
-
+	private static MajorCharacter nextP1, nextP2;
+	private static Stage nextStage;
+	
 	private MajorCharacter p1, p2;
 	private ArrayList<Character> op = new ArrayList<Character>();
 	private Class[] p1Attacks, p2Attacks;
@@ -30,11 +32,21 @@ public class Battle {
 	private Vector3f p1Position, p2Position;
 	private ArrayList<Vector3f> opPositions = new ArrayList<Vector3f>();
 	private ArrayList<Ability[]> opAbilities = new ArrayList<Ability[]>();
-	private Stage stage;	
+	private Stage stage;
 	private int targetTime, expYield;
 
 	public Battle() {
+		loadSelection();
 		testingInit();
+	}
+	
+	/**
+	 * Sets players and stage to Battle's globals.
+	 */
+	private void loadSelection() {
+		p1 = nextP1;
+		p2 = nextP2;
+		stage = nextStage;
 	}
 
 	private void testingInit() {
@@ -83,6 +95,25 @@ public class Battle {
 			op.get(i).model.setLocalTranslation(opPositions.get(i));
 	}
 	
+	/**
+	 * Sets the default players for all {@code Battle} objects.
+	 */
+	public static void setDefaultPlayers(String dp1, String dp2) {
+		try {
+			Class temp1 = Class.forName(baseURL + dp1);
+			Class temp2 = Class.forName(baseURL + dp2);
+			
+			// set players
+			nextP1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1.getConstructors()[1].newInstance(false));
+			//p1.setAbilities(p1Abilities);
+			nextP2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2.getConstructors()[1].newInstance(false));
+			//p2.setAbilities(p2Abilities);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void setPlayers(String[] chars) {
 		try {
 			Class temp1 = Class.forName(baseURL + chars[0]);
@@ -107,6 +138,20 @@ public class Battle {
 		}
 
 		//op.hp = 5;
+	}
+	
+	/**
+	 * Sets the default stage for all {@code Battle} objects.
+	 */
+	public static void setDefaultStage(String name) {
+		try {
+			Class cl;
+			cl = Class.forName(stageClassURL + name);
+			Stage temp = (Stage) cl.getConstructors()[0].newInstance();
+			nextStage = (Stage) LoadingQueue.push(temp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setStage(String name) {

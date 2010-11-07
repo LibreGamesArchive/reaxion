@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -171,10 +172,15 @@ public class CharacterSelectionState extends BasicGameState {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
+		String[] chars = charSelectNode.getSelectedChars();
+		Battle.setDefaultPlayers(chars[0], chars[1]);
+		
+		/*
 		Battle c = Battle.getCurrentBattle();
 		c.setPlayers(charSelectNode.getSelectedChars());
 		Battle.setCurrentBattle(c);
-
+		 */
+		
 		if(GameStateManager.getInstance().getChild(StageSelectionState.NAME) == null) {			
 			StageSelectionState s = new StageSelectionState();
 			GameStateManager.getInstance().attachChild(s);
@@ -182,6 +188,7 @@ public class CharacterSelectionState extends BasicGameState {
 		} else {
 			GameStateManager.getInstance().getChild(StageSelectionState.NAME).setActive(true);
 		}
+		
 		setActive(false);
 	}
 

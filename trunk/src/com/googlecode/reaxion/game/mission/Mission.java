@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jmex.game.state.GameState;
 
-public class Mission {
+/**
+ * Represents an in-game mission. All specific missions should subclass this.
+ *
+ */
+
+public abstract class Mission {
 	
 	private String title;
 	private int missionID;
@@ -26,14 +31,21 @@ public class Mission {
 		stateCount = 0;
 	}
 	
-	public Mission(String title, int missionID, int difficultyRating, boolean required, String imageURL, ArrayList<GameState> states) {
+	public Mission(String title, int missionID, int difficultyRating, boolean required, String imageURL) {
 		this.title = title;
 		this.missionID = missionID;
 		this.difficultyRating = difficultyRating;
 		this.required = required;
 		this.imageURL = imageURL;
-		this.states = states;
+		states = new ArrayList<GameState> ();
 		stateCount = states.size();
+	}
+	
+	/**
+	 * Set up all states for this mission. Override to add content.
+	 */
+	public void init() {
+		
 	}
 
 	public String getTitle() {
