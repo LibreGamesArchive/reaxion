@@ -235,7 +235,7 @@ public class HudOverlay extends Overlay {
 		opHealthFill.setSolidColor(new ColorRGBA((percentOpHp<.5)?1:0, (percentOpHp>=.25)?1:0, 0, 1));
 		
 		// update opName
-		opName.setText(b.getTarget().name);
+		opName.setText((b.getTarget() != null) ? (b.getTarget().name) : "");
 		opName.update();
 		
 		// update opHealthText
