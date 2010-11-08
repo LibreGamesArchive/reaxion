@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Fireball;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -14,6 +15,7 @@ public class ShootFireball extends Attack {
 	
 	private static final String n = "Fireball";
 	private static final int gc = 6;
+	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_FIREBALL};
 	
 	private static final float speed = 3;
 	private Fireball fireball;
@@ -58,6 +60,8 @@ public class ShootFireball extends Attack {
 			
 			fireball.rotate(rotation);
 			fireball.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
+			
+			triggerSoundEffect(sfxTypes);
 			
 			b.getRootNode().updateRenderState();
 			

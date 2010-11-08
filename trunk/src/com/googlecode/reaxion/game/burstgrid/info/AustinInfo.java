@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.burstgrid.info;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
+
 /**
  * This class represents Austin's statistics. Reasonable base stats are yet to
  * be decided.
@@ -15,6 +17,12 @@ public class AustinInfo extends PlayerInfo {
 		setAttacks(new String[] { "BombingMagnet", "ShootFireball",
 				"SpawnBubble", "LanceGuard" });
 		createBurstGrid("");
+		setUsableSfx();
+	}
+
+	@Override
+	protected void setUsableSfx() {
+		usableSfx.put(SoundEffectType.ATTACK_FIREBALL, "test3.ogg");
 	}
 	
 }
