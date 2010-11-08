@@ -61,7 +61,7 @@ public class ShootFireball extends Attack {
 			fireball.rotate(rotation);
 			fireball.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			
-			triggerSoundEffect(sfxTypes);
+			triggerSoundEffect(sfxTypes, false);
 			
 			b.getRootNode().updateRenderState();
 			

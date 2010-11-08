@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.burstgrid.info;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
+
 /**
  * This class represents Cy's statistics. Reasonable base stats are yet to be decided.
  * 
@@ -14,6 +16,12 @@ public class CyInfo extends PlayerInfo {
 		setAbilities(new String[] {"Chivalry", "Masochist"});
 		setAttacks(new String[] {"SpikeLine", "ShadowTag", "BlackHole", "SpinLance"});
 		createBurstGrid("");
+		setUsableSfx();
+	}
+
+	@Override
+	protected void setUsableSfx() {
+		usableSfx.put(SoundEffectType.ATTACK_BLACK_HOLE, "test.ogg");
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.DarkPit;
 import com.googlecode.reaxion.game.model.attackobject.DarkSpike;
@@ -17,6 +19,7 @@ public class BlackHole extends Attack {
 	
 	private static final String n = "Black Hole";
 	private static final int gc = 20;
+	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_BLACK_HOLE};
 	
 	private Model target;
 	
@@ -42,6 +45,7 @@ public class BlackHole extends Attack {
 		character.jumpLock = true;
 		character.animationLock = true;
 		character.play("smite", b.tpf);
+		triggerSoundEffect(sfxTypes, true);
 	}
 	
 	@Override
@@ -60,6 +64,7 @@ public class BlackHole extends Attack {
 	@Override
 	public void finish() {
 		super.finish();
+		stopSoundEffect(sfxTypes);
 		character.moveLock = false;
 		character.jumpLock = false;
 		character.animationLock = false;

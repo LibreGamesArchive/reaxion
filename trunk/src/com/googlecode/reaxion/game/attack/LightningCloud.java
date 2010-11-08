@@ -57,7 +57,7 @@ public class LightningCloud extends Attack {
 			b.getRootNode().updateRenderState();
 			character.play("heave", b.tpf);
 			
-			triggerSoundEffect(sfxTypes);
+			triggerSoundEffect(sfxTypes, false);
 			
 			phase++;
 			
