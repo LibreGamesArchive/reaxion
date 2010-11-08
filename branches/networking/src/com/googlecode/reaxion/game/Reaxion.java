@@ -1,33 +1,30 @@
 package com.googlecode.reaxion.game;
 
-import java.awt.Point;
 import java.io.IOException;
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.burstgrid.info.*;
 import com.googlecode.reaxion.game.mission.MissionManager;
+import com.googlecode.reaxion.game.networking.ChatClient;
+import com.googlecode.reaxion.game.networking.ChatServer;
 import com.googlecode.reaxion.game.state.BattleGameState;
-import com.googlecode.reaxion.game.state.DialogueGameState;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
-import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.input.MouseInput;
 import com.jme.util.GameTaskQueueManager;
-import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.load.LoadingGameState;
 
 /**
- * The main game. This should run everything, but for now it's just a luncher for {@code BattleGameState}.
+ * The main game. This should run everything, but for now it's just a luncher
+ * for {@code BattleGameState}.
+ * 
  * @author Nilay, Khoa
  */
 public class Reaxion {
@@ -38,26 +35,26 @@ public class Reaxion {
 	 * Multithreaded game system that shows the state of GameStates
 	 */
 	private StandardGame game;
-	
+
 	private StageSelectionState stageState;
-	
+
 	/**
 	 * GameState that shows progress of resource loading
 	 */
 	private LoadingGameState loadState;
-	
+
 	/**
-	 * GameState that allows basic WASD movement, mouse camera rotation,
-	 * and placement of objects, lights, etc.
+	 * GameState that allows basic WASD movement, mouse camera rotation, and
+	 * placement of objects, lights, etc.
 	 */
 	private BattleGameState battleState;
-	
-	
+
 	/**
 	 * GameState that allows character selection.
 	 */
 	private CharacterSelectionState charState;
-	//private StageSelectionState stageState;
+
+	// private StageSelectionState stageState;
 
 	/**
 	 * Initialize the system
@@ -77,19 +74,21 @@ public class Reaxion {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Start up the system
-	 * @throws IOException when StandardGame's settings are unavailable (?)	
-	 * @throws InterruptedException 
+	 * 
+	 * @throws IOException
+	 *             when StandardGame's settings are unavailable (?)
+	 * @throws InterruptedException
 	 */
 	public void start() throws InterruptedException {
-		if(GameSettingsPanel.prompt(game.getSettings()))
+		if (GameSettingsPanel.prompt(game.getSettings()))
 			game.start();
 		GameTaskQueueManager.getManager().update(new GameInit());
-        
+
 	}
-	
+
 	/**
 	 * Performs necessary cleanup, then closes application.
 	 */
@@ -100,26 +99,40 @@ public class Reaxion {
 
 	/**
 	 * Initializes the system.
+	 * 
 	 * @author Nilay
-	 *
+	 * 
 	 */
 	private class GameInit implements Callable<Void> {
 
-		//@Override	
+		// @Override
 		public Void call() throws Exception {
 			MouseInput.get().setCursorVisible(true);
-	    	AudioPlayer.prepare();
-//	    	SoundEffectManager.initialize();
+			AudioPlayer.prepare();
+			// SoundEffectManager.initialize();
 			FontUtils.loadFonts();
 			MissionManager.createMissions();
-			
+
+			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
+
+			switch (sv) {
+			case 0:
+				new ChatServer();
+			case 1:
+				new ChatClient();
+				break;
+			case 2:
+			default:
+				terminate();
+			}
+
 			PlayerInfoManager.init();
-			
+
 			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
-			
+
 			return null;
-		}	
+		}
 	}
 }
