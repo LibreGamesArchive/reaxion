@@ -755,6 +755,10 @@ public class StageGameState extends CameraGameState {
     		}
     	}
     	
+    	// do nothing if there's nothing to sort
+    	if (o.size() == 0)
+    		return;
+    	
     	// Make it an array
     	Object[] t = o.toArray();
     	

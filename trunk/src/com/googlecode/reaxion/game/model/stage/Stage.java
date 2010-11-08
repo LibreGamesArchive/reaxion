@@ -16,8 +16,10 @@ import com.jme.scene.state.LightState;
  */
 public class Stage extends Model {
 	
-	protected static String[] bgm;
-	protected static float[] bgmOdds;
+	protected String[] bgm;
+	protected float[] bgmOdds;
+	
+	protected Vector3f terminalPos = new Vector3f(0, 4, 0);
     
     public Stage() {
     	init();
@@ -119,6 +121,14 @@ public class Stage extends Model {
      */
     public LightState createLights() {
     	return null;
+    }
+    
+    /**
+     * Gets the position at which to put the terminal in {@code HubGameState}.
+     * @return Position vector of the terminal
+     */
+    public Vector3f getTerminalPosition() {
+    	return terminalPos;
     }
     
     /**

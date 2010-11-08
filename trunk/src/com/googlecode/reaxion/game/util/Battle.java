@@ -9,6 +9,7 @@ import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.HubGameState;
 import com.jme.math.Vector3f;
 
 /**
@@ -223,6 +224,13 @@ public class Battle {
 		b.init();
 		currentBattle = new Battle();
 		return new BattleGameState(b);
+	}
+	
+	public static HubGameState createHubGameState() {
+		Battle b = currentBattle;
+		b.init();
+		currentBattle = new Battle();
+		return new HubGameState(b);
 	}
 
 	public MajorCharacter getP1() {
