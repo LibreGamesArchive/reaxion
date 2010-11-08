@@ -1,0 +1,147 @@
+
+material lambert4
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/dream_port-building3UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material lambert5
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/dream_port-building4UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material lambert3
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/dream_port-building2UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/dream_port-building1UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material lambert6
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/dream_port-pierUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material lambert7
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture stages/dream_port-railsUV3.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material dream_port_arena2lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/dream_port-arenaUV.png
+			}
+		}
+
+	}
+
+}
+
+

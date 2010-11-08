@@ -1,0 +1,21 @@
+
+material lambert11
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/flipside_city_UVsky2.png
+			}
+		}
+
+	}
+
+}
+
+

@@ -1,0 +1,356 @@
+
+material sand
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-sandUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree8bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree8leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree9bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree9leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree7bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree7leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree5bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree5leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree4bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree4leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree6bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree6leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree3bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree3leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree2bark
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material sunset_wake_tree2leaf
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			depth_write off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/sunset_wake-treeLeafUV.png
+			}
+		}
+
+	}
+
+}
+
+
