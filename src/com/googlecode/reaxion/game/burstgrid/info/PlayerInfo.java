@@ -3,22 +3,42 @@ package com.googlecode.reaxion.game.burstgrid.info;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.googlecode.reaxion.game.ability.Ability;
+import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
+import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
+import com.googlecode.reaxion.game.burstgrid.node.AttackNode;
+import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
+import com.googlecode.reaxion.game.burstgrid.node.HPNode;
+import com.googlecode.reaxion.game.burstgrid.node.MaxGaugeNode;
+import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
+import com.googlecode.reaxion.game.burstgrid.node.RateNode;
+import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 
 public abstract class PlayerInfo{
 	
 	// default values
-	protected int maxHP = 100;
+	protected int baseHP = 60;
+	protected int baseStrength = 0;
+	protected int baseMinGauge = 8;
+	protected int baseMaxGauge = 16;
+	protected int baseRate = 0;
+	protected int baseExp = 0;
+	
+	//current values
+	protected int maxHP = 60;
 	protected int strength = 0;
-	protected int minGauge = 18;
-	protected int maxGauge = 30;
+	protected int minGauge = 8;
+	protected int maxGauge = 16;
 	protected int rate = 0;
 	protected int exp = 0;
 	
-	protected BurstGrid bg;
+	protected BurstGrid grid;
 	protected String[] abilities = new String[2];
 	protected String[] attacks = new String[6];
+	protected ArrayList<Ability> abilityPool = new ArrayList<Ability>();
+	protected ArrayList<Attack> attackPool = new ArrayList<Attack>();
 	
 	protected HashMap<SoundEffectType, String> usableSfx = new HashMap<SoundEffectType, String>();
 	
@@ -26,16 +46,36 @@ public abstract class PlayerInfo{
 	 * To be called at the program launch to create all player info.
 	 */
 	public void init() {
-		
+		readStatsFromGrid();
 	}
 	
 	protected void setStats(int hp, int str, int minG, int maxG, int r){
-		maxHP = hp;
-		strength = str;
-		minGauge = minG;
-		maxGauge = maxG;
-		rate = r;
-		exp = 0;
+		baseHP = hp;
+		baseStrength = str;
+		baseMinGauge = minG;
+		baseMaxGauge = maxG;
+		baseRate = r;
+		baseExp = 0;
+	}
+
+	public int getBaseHP() {
+		return baseHP;
+	}
+
+	public int getBaseStrength() {
+		return baseStrength;
+	}
+
+	public int getBaseMinGauge() {
+		return baseMinGauge;
+	}
+
+	public int getBaseMaxGauge() {
+		return baseMaxGauge;
+	}
+
+	public int getBaseRate() {
+		return baseRate;
 	}
 
 	public int getMaxHP() {
@@ -123,7 +163,7 @@ public abstract class PlayerInfo{
 	}
 	
 	protected void createBurstGrid(String location){
-		bg = new BurstGrid(location);
+		grid = new BurstGrid(location);
 	}
 	
 	/**
@@ -151,6 +191,38 @@ public abstract class PlayerInfo{
 	 */
 	public String getSoundEffect(SoundEffectType type) {
 		return usableSfx.get(type);
+	}
+	
+	/**
+	 * Reads the character's statistics from his/her burstgrid.
+	 */
+	public void readStatsFromGrid(){
+		ArrayList<BurstNode> bg = grid.getBurstGrid();
+		for(BurstNode b:bg){
+			if(b.activated){
+				if(b instanceof HPNode){
+					maxHP+=((HPNode)b).hpPlus;
+				}
+				else if(b instanceof StrengthNode){
+					strength+=((StrengthNode)b).strengthPlus;
+				}
+				if(b instanceof MinGaugeNode){
+					minGauge+=((MinGaugeNode)b).minGPlus;
+				}
+				if(b instanceof MaxGaugeNode){
+					maxGauge+=((MaxGaugeNode)b).maxGPlus;
+				}
+				if(b instanceof RateNode){
+					rate+=((RateNode)b).rate;
+				}
+				if(b instanceof AbilityNode){
+					abilityPool.add(((AbilityNode)b).ab);
+				}
+				if(b instanceof AttackNode){
+					attackPool.add(((AttackNode)b).at);
+				}
+			}
+		}
 	}
 	
 }

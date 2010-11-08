@@ -22,7 +22,7 @@ public class StrengthNode extends BurstNode
 		strengthPlus = str;
 	}
 	
-	public void print(){
-		System.out.print(id + " Strength ");
+	public String toString(){
+		return "" + id + " Strength ";
 	}
 }

@@ -10,7 +10,7 @@ public class NilayInfo extends PlayerInfo {
 	
 	@Override
 	public void init(){
-		setStats(200, 1, 20, 30, 1);
+		setStats(100, 1, 12, 18, 1);
 		setAbilities(new String[] {"RapidGauge"});
 		setAttacks(new String[] {"SpinLance", "LanceWheel", "TriLance", "LanceArc", "LanceGuard"});
 		createBurstGrid("");

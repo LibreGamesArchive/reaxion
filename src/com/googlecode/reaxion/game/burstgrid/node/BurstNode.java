@@ -28,7 +28,7 @@ public class BurstNode
 		costs.add(cost);
 	}
 	
-	public void print(){
-		System.out.print(id);
+	public String toString(){
+		return "" + id;
 	}
 }

@@ -27,7 +27,7 @@ public class AbilityNode extends BurstNode
 		//ab = findAbility(s);
 	}
 	
-	public void print(){
-		System.out.print(id + " Ability ");
+	public String toString(){
+		return "" + id + " Ability ";
 	}
 }

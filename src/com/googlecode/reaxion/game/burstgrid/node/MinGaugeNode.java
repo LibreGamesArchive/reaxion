@@ -22,7 +22,7 @@ public class MinGaugeNode extends BurstNode
 		minGPlus = mg;
 	}
 	
-	public void print(){
-		System.out.print(id + " MinGauge ");
+	public String toString(){
+		return "" + id + " MinGauge ";
 	}
 }
