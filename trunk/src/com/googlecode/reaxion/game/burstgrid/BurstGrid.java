@@ -104,14 +104,16 @@ public class BurstGrid
 		}
 	}
 
-	public void printGrid(){
+	public String toString(){
+		String s = "";
 		for(BurstNode b: bg){
-			System.out.print(b.id + ": ");
+			s += "" + b.id + ": ";
 			for(BurstNode c:b.nodes){
-				c.print();
-				System.out.print("(" + b.costs.get(b.nodes.indexOf(c)) + ") ");
+				s += c.toString();
+				s += "(" + b.costs.get(b.nodes.indexOf(c)) + ") ";
 			}
-			System.out.println();
+			s += "\n";
 		}
+		return s;
 	}
 }

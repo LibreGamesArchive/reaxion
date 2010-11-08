@@ -22,7 +22,7 @@ public class MaxGaugeNode extends BurstNode
 		maxGPlus = mg;
 	}
 	
-	public void print(){
-		System.out.print(id + " MaxGauge ");
+	public String toString(){
+		return "" + id + " MaxGauge ";
 	}
 }

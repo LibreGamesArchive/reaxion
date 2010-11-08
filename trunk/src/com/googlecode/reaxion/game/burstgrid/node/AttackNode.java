@@ -32,7 +32,7 @@ public class AttackNode extends BurstNode
 		//ab = findAttack(s);
 	}
 	
-	public void print(){
-		System.out.print(id + " Attack ");
+	public String toString(){
+		return "" + id + " Attack ";
 	}
 }

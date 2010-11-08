@@ -13,6 +13,7 @@ public class AustinInfo extends PlayerInfo {
 
 	@Override
 	public void init() {
+		setStats(100,3,10,15,0);
 		setAbilities(new String[] { "RapidGauge" });
 		setAttacks(new String[] { "BombingMagnet", "ShootFireball",
 				"SpawnBubble", "LanceGuard" });

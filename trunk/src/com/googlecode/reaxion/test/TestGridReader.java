@@ -23,6 +23,6 @@ public class TestGridReader{
 	
 	public TestGridReader(){
 		bg = new BurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
-		bg.printGrid();
+		System.out.println(bg.toString());
 	}
 }
