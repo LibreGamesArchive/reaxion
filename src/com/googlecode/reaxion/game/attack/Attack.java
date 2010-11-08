@@ -1,10 +1,12 @@
 package com.googlecode.reaxion.game.attack;
 
-import java.util.Arrays;
-
+import com.googlecode.reaxion.game.audio.AudioPlayer;
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
+import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.jme.math.Vector3f;
 
 /**
  * Temporarily acts upon the attacking {@code Character} for the duration
@@ -139,8 +141,17 @@ public class Attack {
 	/**
 	 * Finds which sound effect to play given the character that triggered it.
 	 */
-	protected void triggerSoundEffect() {
-		
+	protected void triggerSoundEffect(SoundEffectType[] sfxTypes) {
+		if(character instanceof MajorCharacter) {
+			MajorCharacter temp = (MajorCharacter) character;
+			for(int i = 0; i < sfxTypes.length; i++) {
+				if(temp.info.hasSoundEffectType(sfxTypes[i])) {
+					Vector3f loc = temp.model.getLocalTranslation();
+					AudioPlayer.playSoundEffect(temp.info.getSoundEffect(sfxTypes[i]), loc.x, loc.y, loc.z);
+					break;
+				}
+			}			
+		}
 	}
 	
 }

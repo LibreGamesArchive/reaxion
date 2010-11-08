@@ -6,8 +6,9 @@ import com.googlecode.reaxion.game.state.StageGameState;
 import com.jmex.game.state.GameState;
 
 /**
- * Represents an in-game mission. All specific missions should subclass this.
+ * Represents an in-game mission. All specific missions should extend this class.
  *
+ * @author Brian Clanton
  */
 
 public abstract class Mission {

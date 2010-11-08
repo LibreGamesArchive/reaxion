@@ -3,12 +3,12 @@ package com.googlecode.reaxion.game.attack;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.attackobject.SeekingCloud;
 import com.googlecode.reaxion.game.model.attackobject.Lightning;
+import com.googlecode.reaxion.game.model.attackobject.SeekingCloud;
+import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.Vector3f;
-import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**
  * Spawns a cloud of lightning that seeks the opponent.
@@ -57,7 +57,7 @@ public class LightningCloud extends Attack {
 			b.getRootNode().updateRenderState();
 			character.play("heave", b.tpf);
 			
-			triggerSoundEffect();
+			triggerSoundEffect(sfxTypes);
 			
 			phase++;
 			
@@ -74,10 +74,4 @@ public class LightningCloud extends Attack {
 		character.animationLock = false;
 	}
 
-	@Override
-	protected void triggerSoundEffect() {
-		Vector3f loc = character.model.getLocalTranslation();
-		AudioPlayer.playSoundEffect("lightning bolt.ogg", loc.x, loc.y, loc.z);
-	}	
-	
 }

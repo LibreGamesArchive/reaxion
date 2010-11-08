@@ -2,10 +2,11 @@ package com.googlecode.reaxion.game.burstgrid.info;
 
 /**
  * This class represents Shine's statistics. Reasonable base stats are yet to be decided.
+ * 
  * @author Khoa
  *
  */
-public class ShineInfo extends PlayerInfo{
+public class ShineInfo extends PlayerInfo {
 	
 	@Override
 	public void init(){
@@ -13,4 +14,5 @@ public class ShineInfo extends PlayerInfo{
 		setAttacks(new String[] {"ShootBullet", "Beacon", "BubbleBath", "ShieldMediguard", "ShieldReflega", "ShieldHoly"});
 		createBurstGrid("");
 	}
+	
 }

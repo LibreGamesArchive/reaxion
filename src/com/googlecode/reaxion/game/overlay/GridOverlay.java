@@ -7,7 +7,7 @@ import java.awt.Point;
  * Grid properties can be entered into methods which return two-dimensional arrays containing the appopriate
  * positions for each item in the grid.
  * 
- * @author Brian
+ * @author Brian Clanton
  *
  */
 

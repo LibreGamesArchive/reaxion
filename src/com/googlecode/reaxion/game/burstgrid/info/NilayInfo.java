@@ -2,10 +2,11 @@ package com.googlecode.reaxion.game.burstgrid.info;
 
 /**
  * This class represents Nilay's statistics. Reasonable base stats are yet to be decided.
+ * 
  * @author Cycofactory
  *
  */
-public class NilayInfo extends PlayerInfo{
+public class NilayInfo extends PlayerInfo {
 	
 	@Override
 	public void init(){
@@ -14,4 +15,5 @@ public class NilayInfo extends PlayerInfo{
 		setAttacks(new String[] {"SpinLance", "LanceWheel", "TriLance", "LanceArc", "LanceGuard"});
 		createBurstGrid("");
 	}
+	
 }
