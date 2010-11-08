@@ -13,8 +13,8 @@ public class DarkSpike extends AttackObject {
 	protected static final int span = 260;
 	protected static final float dpf = 16;
 	
-	private final int upTime = 40;
-	private final int downTime = 240;
+	private final int upTime = 12;
+	private final int downTime = 236;
 	
 	public DarkSpike(Model m) {
     	super(filename, dpf, m);
