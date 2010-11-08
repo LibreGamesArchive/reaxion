@@ -41,6 +41,8 @@ public class Attack {
 	public Attack() {}
 	public Attack(AttackData ad) {}
 	
+	protected int sfxIndex = -1;
+	
 	public Attack(AttackData ad, int gc) {
 		character = ad.character;
 		friends = ad.friends;
@@ -141,16 +143,27 @@ public class Attack {
 	/**
 	 * Finds which sound effect to play given the character that triggered it.
 	 */
-	protected void triggerSoundEffect(SoundEffectType[] sfxTypes) {
+	protected void triggerSoundEffect(SoundEffectType[] sfxTypes, boolean repeating) {
 		if(character instanceof MajorCharacter) {
 			MajorCharacter temp = (MajorCharacter) character;
 			for(int i = 0; i < sfxTypes.length; i++) {
 				if(temp.info.hasSoundEffectType(sfxTypes[i])) {
 					Vector3f loc = temp.model.getLocalTranslation();
-					AudioPlayer.playSoundEffect(temp.info.getSoundEffect(sfxTypes[i]), loc.x, loc.y, loc.z);
+					if(repeating)
+						AudioPlayer.playRepeatingSoundEffect(temp.info.getSoundEffect(sfxTypes[i]), loc.x, loc.y, loc.z);
+					else
+						AudioPlayer.playSoundEffect(temp.info.getSoundEffect(sfxTypes[i]), loc.x, loc.y, loc.z);
+					sfxIndex = i;
 					break;
 				}
 			}			
+		}
+	}
+	
+	protected void stopSoundEffect(SoundEffectType[] sfxTypes) {
+		if(sfxIndex != -1) {
+			MajorCharacter temp = (MajorCharacter) character;
+			AudioPlayer.stopRepeatingSoundEffect(temp.info.getSoundEffect(sfxTypes[sfxIndex]));
 		}
 	}
 	

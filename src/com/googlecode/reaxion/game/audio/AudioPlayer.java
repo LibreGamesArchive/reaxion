@@ -70,6 +70,15 @@ public class AudioPlayer {
 		sound.quickPlay(true, sfxDir + filename, false, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
 	}
 	
+	public static void playRepeatingSoundEffect(String filename, float x, float y, float z) {
+		sound.newStreamingSource(true, filename, sfxDir + filename, true, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
+		sound.play(filename);
+	}
+	
+	public static void stopRepeatingSoundEffect(String filename) {
+		sound.stop(filename);
+	}
+	
 	/**
 	 * Lowers master volume due to game pause.
 	 */
