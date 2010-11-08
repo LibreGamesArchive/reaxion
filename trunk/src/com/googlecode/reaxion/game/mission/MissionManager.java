@@ -7,10 +7,10 @@ import com.googlecode.reaxion.game.mission.missions.*;
 import com.jmex.game.state.GameStateManager;
 
 /**
- * Allows iteration through the {@code GameState} objects in {@code Mission} objects. Used for conduction missions
- * in story mode.
+ * Allows iteration through the {@code GameState} objects in {@code Mission} objects. 
+ * Used for conduction missions in story mode.
  * 
- * @author Brian
+ * @author Brian Clanton
  *
  */
 
@@ -30,10 +30,10 @@ public class MissionManager {
 	/**
 	 * Starts a mission by ID number.
 	 * 
-	 * @param missionNumber
+	 * @param missionID
 	 */
-	public static void startMission(int missionNumber) {
-		currentMission = missions.get(missionNumber);
+	public static void startMission(MissionID missionID) {
+		currentMission = missions.get(missionID.id);
 		currentIndex = 0;
 		
 		currentMission.init();

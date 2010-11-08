@@ -1,7 +1,9 @@
 package com.googlecode.reaxion.game.burstgrid.info;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 
 public abstract class PlayerInfo{
@@ -17,6 +19,8 @@ public abstract class PlayerInfo{
 	protected BurstGrid bg;
 	protected String[] abilities = new String[2];
 	protected String[] attacks = new String[6];
+	
+	protected HashMap<SoundEffectType, String> usableSfx = new HashMap<SoundEffectType, String>();
 	
 	/**
 	 * To be called at the program launch to create all player info.
@@ -49,7 +53,7 @@ public abstract class PlayerInfo{
 	/**
 	 * Returns the damage multiplier for this character's attacks as a function of {@code strength}.
 	 */
-	public double getAtkMultiplier() {
+	public double getAttackMultiplier() {
 		return 1.5/12*strength + 1;
 	}
 
@@ -121,4 +125,32 @@ public abstract class PlayerInfo{
 	protected void createBurstGrid(String location){
 		bg = new BurstGrid(location);
 	}
+	
+	/**
+	 * Sets the {@code HashMap} of usable sound effects. Must be overridden by each subclass of {@code PlayerInfo};
+	 */
+	protected void setUsableSfx() {
+		
+	}
+	
+	/**
+	 * Checks if a {@code SoundEffectType} is usable by a character.
+	 * 
+	 * @param type
+	 * @return {@code true} if the character has a defined filename for {@code type}, {@code false} if not.
+	 */
+	public boolean hasSoundEffectType(SoundEffectType type) {
+		return usableSfx.containsKey(type);
+	}
+	
+	/**
+	 * Gets a sound effect filename given a sound effect type.
+	 * 
+	 * @param type
+	 * @return Sound effect filename
+	 */
+	public String getSoundEffect(SoundEffectType type) {
+		return usableSfx.get(type);
+	}
+	
 }

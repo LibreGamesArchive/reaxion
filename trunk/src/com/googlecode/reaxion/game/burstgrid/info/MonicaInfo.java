@@ -7,7 +7,7 @@ package com.googlecode.reaxion.game.burstgrid.info;
  * @author Cycofactory
  *
  */
-public class MonicaInfo extends PlayerInfo{
+public class MonicaInfo extends PlayerInfo {
 	
 	@Override
 	public void init(){

@@ -23,7 +23,7 @@ import com.jmex.game.state.GameState;
  * stage grid item on the right of the overlay. The name of the currently selected stage
  * is displayed under the stage preview image.
  * 
- * @author Brian
+ * @author Brian Clanton
  */
 
 public class StageSelectionOverlay extends GridOverlay {

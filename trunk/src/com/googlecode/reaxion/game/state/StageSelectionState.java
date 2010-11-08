@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
@@ -19,7 +20,7 @@ import com.jmex.game.state.GameStateManager;
  * the selected stage name, and the enter key is used to load that stage and
  * create a new {@code BattleGameState}.
  * 
- * @author Brian
+ * @author Brian Clanton
  * 
  */
 
@@ -175,7 +176,7 @@ public class StageSelectionState extends BasicGameState {
 		*/
 		
 		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
-		MissionManager.startMission(0);
+		MissionManager.startMission(MissionID.DEFEAT_LIGHT_USER);
 		
 		setActive(false);
 	}
