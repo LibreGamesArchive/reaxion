@@ -73,7 +73,7 @@ public class Model {
 	/**
 	 * Damage multiplier.
 	 */
-	protected double damageMult = 1;
+	public double damageMult = 1;
 	
 	/**
 	 * Whether this object causes contacting objects to flinch

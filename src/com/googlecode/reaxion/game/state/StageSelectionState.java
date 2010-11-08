@@ -175,8 +175,6 @@ public class StageSelectionState extends BasicGameState {
 		battleState.startBGM();
 		*/
 		/*
-		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
-		
 		Battle c = Battle.getCurrentBattle();
 		c.setStage(stageSelectionNode.getSelectedStageClass());
 		Battle.setCurrentBattle(c);
@@ -185,6 +183,8 @@ public class StageSelectionState extends BasicGameState {
 		GameStateManager.getInstance().attachChild(hubState);
 		hubState.setActive(true);
 		*/
+		
+		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
 		MissionManager.startMission(MissionID.DEFEAT_LIGHT_USER);
 		
 		
