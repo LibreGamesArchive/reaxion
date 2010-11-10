@@ -30,7 +30,6 @@ public class AudioPlayer {
 			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
 			SoundSystemConfig.setSoundFilesPackage(baseURL);
 		} catch (SoundSystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		sound = new SoundSystem();

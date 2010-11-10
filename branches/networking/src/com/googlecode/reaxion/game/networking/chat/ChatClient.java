@@ -94,7 +94,7 @@ public class ChatClient extends DynamicMessageAdapter implements ActionListener 
 
 	private void initGUI() {
 		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// TODO fix
+	//	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	fixed
 		frame.setTitle("Chat Client - " + nickname);
 		frame.setSize(300, 300);
 		Container c = frame.getContentPane();

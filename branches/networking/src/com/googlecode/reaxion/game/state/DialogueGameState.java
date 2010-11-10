@@ -3,7 +3,12 @@ package com.googlecode.reaxion.game.state;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
@@ -62,7 +67,7 @@ public class DialogueGameState extends CameraGameState {
 	 * Index of current text block.
 	 */
 	private int current = 0;
-	private String[] reserveText;
+	private List<String> reserveText;
 	private String currentText = "";
 	
 	/**
@@ -260,17 +265,22 @@ public class DialogueGameState extends CameraGameState {
 		}
 	}
 	
+	int curChar;
+	
 	/**
 	 * Load the text block denoted by {@code ind} and changes the
 	 * {@code dialogueNode} accordingly.
 	 * @param ind index to change to
 	 */
 	private void loadText(int ind) {
-		reserveText = strings[ind].split(" ");
+		//reserveText  = Arrays.asList(strings[ind].split(" "));
+	//	reserveText = strings[ind];
 		currentText = "";
 		dialogueNode.setName(names[ind]);
 		dialogueNode.setText(currentText);
 		count = 0;
+		
+		curChar = 0;
 	}
 	
 	/**
@@ -280,17 +290,21 @@ public class DialogueGameState extends CameraGameState {
 	 * is complete, the next word is deployed. When all words have
 	 * been added, the reserve is emptied.
 	 */
-	private void add() {
+	/*private void add() {
 		// if there is text left to add
 		if (reserveText != null) {
 			
+			String first = reserveText.get(0);
+			
 			// add the next letter
-			String nextChar = reserveText[0].substring(0, 1);
+			String nextChar = first.substring(0, 1);
 			currentText += nextChar;
 			
+			first.
+			
 			// subtract from the current reserved word
-			if (reserveText[0].length() > 1) {
-				reserveText[0] = reserveText[0].substring(1);
+			if (first.length() > 1) {
+				first = first.substring(1);
 			} else {
 				// shift to the next word
 				if (reserveText.length > 1) {
@@ -305,6 +319,11 @@ public class DialogueGameState extends CameraGameState {
 				}
 			}
 		}
+	}*/
+	
+	private void add() {
+		currentText += strings[ind].charAt(curChar++);
+		
 	}
 
 	private void returnToCharSelectState() {
