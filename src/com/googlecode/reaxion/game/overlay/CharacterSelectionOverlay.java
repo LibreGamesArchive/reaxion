@@ -169,19 +169,36 @@ public class CharacterSelectionOverlay extends Overlay {
 
 	public void initGUI() {
 
+
+    	String [] charLoc = new String[numchars];
+    	Quad [] pix = new Quad[numchars];
+    	for(int j = 0; j<numchars; j++)
+    	{
+    		charLoc[j] = "../../resources/icons/"+charNames[j].toLowerCase()+".png";
+    		p1Fill[j] = getImage(charLoc[j]);
+    		p1Fill[j].setLocalScale(35f/64f);
+    		p2Fill[j] = getImage(charLoc[j]);
+    		p2Fill[j].setLocalScale(35f/64f);
+    		opFill[j] = getImage(charLoc[j]);
+    		opFill[j].setLocalScale(35f/64f);
+    	}
+    	
+    	
+    	
+		
 		for (int i = 0; i < p1Fill.length; i++) {
-			p1Fill[i] = drawRect(70, 70, boxColor);
-			p1Fill[i].setLocalTranslation(new Vector3f(-100 + 225 + 90 * i,
+			//p1Fill[i] = pix[i];
+			p1Fill[i].setLocalTranslation(new Vector3f(-100 + 185 + 90 * i,
 					410 - /*20 * i + */10, 0));
 			container.attachChild(p1Fill[i]);
 
-			p2Fill[i] = drawRect(70,70, boxColor);
-			p2Fill[i].setLocalTranslation(new Vector3f(-100 + 225 + 90 * i,
+			//p2Fill[i] = pix[i];
+			p2Fill[i].setLocalTranslation(new Vector3f(-100 + 185 + 90 * i,
 					280 -10, 0));
 			container.attachChild(p2Fill[i]);
 
-			opFill[i] = drawRect(70,70, boxColor);
-			opFill[i].setLocalTranslation(new Vector3f(-100 + 225 + 90 * i,
+			//opFill[i] = pix[i];
+			opFill[i].setLocalTranslation(new Vector3f(-100 + 185 + 90 * i,
 					150 -  10, 0));
 			container.attachChild(opFill[i]);
 		}
@@ -209,7 +226,7 @@ public class CharacterSelectionOverlay extends Overlay {
 			labels[i] = new BitmapText(FontUtils.neuropol, false);
 			labels[i].setSize(17);
 			labels[i].setDefaultColor(textColor);
-			labels[i].setLocalTranslation(-62 + 152, 405 + 50 - 130*i, 0);
+			labels[i].setLocalTranslation(-62 + 112, 405 + 50 - 130*i, 0);
 			labels[i].setText(temp[i]);
 			labels[i].update();
 			container.attachChild(labels[i]);
@@ -219,7 +236,7 @@ public class CharacterSelectionOverlay extends Overlay {
 			p1Display[i].setSize(16);
 			p1Display[i].setDefaultColor(i == 0? selTextColor : textColor);
 			p1Display[i].setText(charNames[i]);
-			p1Display[i].setLocalTranslation(new Vector3f(-130 + 225 + 90 * i,
+			p1Display[i].setLocalTranslation(new Vector3f(-130 + 185 + 90 * i,
 					360, 0));
 			p1Display[i].update();
 			container.attachChild(p1Display[i]);
@@ -227,7 +244,7 @@ public class CharacterSelectionOverlay extends Overlay {
 			p2Display[i].setSize(16);
 			p2Display[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
 			p2Display[i].setText(charNames[i]);
-			p2Display[i].setLocalTranslation(new Vector3f(-130 + 225 + 90 * i,
+			p2Display[i].setLocalTranslation(new Vector3f(-130 + 185 + 90 * i,
 					230, 0));
 			p2Display[i].update();
 			container.attachChild(p2Display[i]);
@@ -235,7 +252,7 @@ public class CharacterSelectionOverlay extends Overlay {
 			opDisplay[i].setSize(16);
 			opDisplay[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
 			opDisplay[i].setText(charNames[i]);
-			opDisplay[i].setLocalTranslation(new Vector3f(-130 + 225 + 90 * i,
+			opDisplay[i].setLocalTranslation(new Vector3f(-130 + 185 + 90 * i,
 					100, 0));
 			opDisplay[i].update();
 			container.attachChild(opDisplay[i]);
