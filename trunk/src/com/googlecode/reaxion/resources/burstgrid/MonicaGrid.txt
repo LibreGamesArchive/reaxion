@@ -11,7 +11,7 @@
 |  » Rate		Increases the rate at which the gauge refills
 |  » Strength	Increases the character's strength
 |  » HP			Increases the character's max HP
-46
+Monica
 
 1 Attack BasicAttack-2,1 3,3 4,1 5,3 6,2
 

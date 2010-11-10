@@ -21,7 +21,7 @@ public class CyInfo extends PlayerInfo {
 
 	@Override
 	protected void setUsableSfx() {
-		usableSfx.put(SoundEffectType.ATTACK_BLACK_HOLE, "test.ogg");
+		//usableSfx.put(SoundEffectType.ATTACK_BLACK_HOLE, "test3.ogg");
 	}
 	
 }
