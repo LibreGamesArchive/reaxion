@@ -31,7 +31,7 @@
  *
  * Created: Jul 31, 2006
  */
-package com.googlecode.reaxion.game.networking;
+package com.googlecode.reaxion.game.networking.chat;
 
 import com.captiveimagination.jgn.JGN;
 import com.captiveimagination.jgn.clientserver.JGNClient;

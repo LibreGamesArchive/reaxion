@@ -31,7 +31,7 @@
  *
  * Created: Jul 31, 2006
  */
-package com.googlecode.reaxion.game.networking;
+package com.googlecode.reaxion.game.networking.chat;
 
 import java.net.*;
 
