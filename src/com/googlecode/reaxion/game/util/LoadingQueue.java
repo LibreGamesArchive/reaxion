@@ -28,7 +28,7 @@ public class LoadingQueue {
 	}
 	
 	/**
-	 * Convinience method to quickly push model m and execute the stack,
+	 * Convenience method to quickly push model m and execute the stack,
 	 * model should still be loaded before this method is called
 	 * @param m Model
 	 * @param b BattleGameState
@@ -55,6 +55,10 @@ public class LoadingQueue {
 	 * @param b BattleGameState
 	 */
 	public static void execute(StageGameState b) {
+		
+		//TODO (nwk) make it send stuff to the server.
+		
+		
 		state = b;
 		System.out.println("Loading queue executed.");
 		if (locator == null)
