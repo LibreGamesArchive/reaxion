@@ -23,7 +23,7 @@ public class BattleGameState extends StageGameState {
     public int defeatTime = 72;
     private int resultCount = 0;
     
-    private Character[] opponents;
+    protected Character[] opponents;
     
     public BattleGameState() {
     	super();
