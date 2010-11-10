@@ -78,5 +78,9 @@ public class MissionManager {
 	public static boolean hasCurrentMission() {
 		return currentMission != null;
 	}
+
+	public static ArrayList<Mission> getMissions() {
+		return missions;
+	}
 	
 }
