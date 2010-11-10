@@ -2,7 +2,6 @@ package com.googlecode.reaxion.game.burstgrid;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +12,8 @@ import com.googlecode.reaxion.game.burstgrid.node.MaxGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.RateNode;
 import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
+import com.jme.math.FastMath;
+import com.jme.math.Vector3f;
 
 /** 
  * This class represents the Burst Grid and handles all the functionality of it. The Burst Grid holds
@@ -24,11 +25,12 @@ import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 public class BurstGrid
 {
 	private ArrayList<BurstNode> bg; // the entire Burst Grid
+	String gridType; // refers to the 3-dimensional organization of the grid's nodes 
 
 	public BurstGrid(){
 		bg = new ArrayList<BurstNode>();
 	}
-	
+
 	public BurstGrid(String filePath){
 		bg = new ArrayList<BurstNode>();
 		readGrid(filePath);
@@ -51,20 +53,21 @@ public class BurstGrid
 		try {
 			File f = new File(filePath);
 			if (f.exists()) {
-				
+
 				Scanner read = new Scanner(f);
 				line = read.nextLine();
 				while(line.charAt(0)== '|'){
 					line = read.nextLine();
 				}
+				gridType = line;
 				while(read.hasNext()){
 					line = read.nextLine();
-	
+
 					if(!line.equals("")){
 						String[] temp = line.split("-");
 						String[] node = temp[0].split(" ");
 						conns.add(temp[1]);
-	
+
 						if(node[1].contains("Max")){
 							b = new MaxGaugeNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
@@ -94,6 +97,20 @@ public class BurstGrid
 					for(int j = 0; j < temp.length; j++){
 						String[] c = temp[j].split(",");
 						bg.get(i).addConnection(bg.get(Integer.parseInt(c[0])-1), Integer.parseInt(c[1]));
+					}
+				}
+			} 
+			for(BurstNode a: bg){
+				if(gridType.contains("Monica")){
+					int ang1 = 72;
+					int ang2 = 30;
+					if(a.id<=6)
+						a.setVect(new Vector3f(FastMath.cos(ang1*(a.id-2)),FastMath.sin(ang1*(a.id-2)),1f));
+					else if(a.id<=16 && a.id%2!=0){
+						a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/2)-2).vect.getX()+2*FastMath.cos(ang1-ang2), bg.get((int)FastMath.ceil(a.id/2)-2).vect.getY()+2*FastMath.cos(ang1-ang2),2));
+					}
+					else if(a.id<=16 && a.id%2==0){
+						a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/2)-2).vect.getX()+2*FastMath.cos(ang1+ang2), bg.get((int)FastMath.ceil(a.id/2)-2).vect.getY()+2*FastMath.cos(ang1+ang2),2));
 					}
 				}
 			}
