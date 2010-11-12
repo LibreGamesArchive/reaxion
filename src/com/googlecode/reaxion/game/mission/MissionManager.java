@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -84,12 +85,13 @@ public class MissionManager {
 	}
 
 	public static ArrayList<Mission> getMissions() {
-		ArrayList<Mission> temp = (ArrayList<Mission>) missions.values();
+		ArrayList<Mission> temp = new ArrayList<Mission>();
+		temp.addAll(missions.values());
 		Collections.sort(temp);
 		
-		for (Mission m : temp)
-			if(m.getMissionID() <= 0)
-				temp.remove(m);
+		for (int i = 0; i < temp.size(); i++)
+			if (temp.get(i).getMissionID() <= 0)
+				temp.remove(i);
 		
 		return temp;
 	}

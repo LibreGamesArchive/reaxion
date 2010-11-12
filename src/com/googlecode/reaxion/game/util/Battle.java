@@ -227,6 +227,8 @@ public class Battle {
 	}
 	
 	public static HubGameState createHubGameState() {
+		if(currentBattle == null)
+			currentBattle = new Battle();
 		Battle b = currentBattle;
 		b.init();
 		currentBattle = new Battle();
