@@ -2,7 +2,6 @@ package com.googlecode.reaxion.game.mission.missions;
 
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
-import com.googlecode.reaxion.game.state.HubGameState;
 import com.googlecode.reaxion.game.util.Battle;
 
 public class MissionHGS extends Mission {
@@ -13,7 +12,7 @@ public class MissionHGS extends Mission {
 
 	@Override
 	public void init() {
-		addState(new HubGameState(Battle.getCurrentBattle()));
+		addState(Battle.createHubGameState());
 	}
 	
 }
