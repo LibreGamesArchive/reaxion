@@ -45,7 +45,7 @@ public class BlackHole extends Attack {
 		character.jumpLock = true;
 		character.animationLock = true;
 		character.play("smite", b.tpf);
-		triggerSoundEffect(sfxTypes, true);
+//		triggerSoundEffect(sfxTypes, true);
 	}
 	
 	@Override
@@ -64,7 +64,6 @@ public class BlackHole extends Attack {
 	@Override
 	public void finish() {
 		super.finish();
-		stopSoundEffect(sfxTypes);
 		character.moveLock = false;
 		character.jumpLock = false;
 		character.animationLock = false;

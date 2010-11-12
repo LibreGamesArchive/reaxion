@@ -28,8 +28,8 @@ import com.jmex.game.state.GameState;
 
 public class StageSelectionOverlay extends GridOverlay {
 
-	private String baseURL = "../../resources/stages/renders/";
-	private String guiURL = "../../resources/gui/";
+	private String baseIconURL = "../../resources/icons/stageselect/";
+	private String baseGuiURL = "../../resources/gui/";
 
 	private Node container;
 
@@ -64,7 +64,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	 * This method initializes both visible and background elements of {@code StageSelectionOverlay}.
 	 */
 	private void init() {
-		container = new Node("container");
+		container = new Node("container_stageSelect");
 		
 		// Settings Initialization
 		currentRow = 0;
@@ -85,17 +85,17 @@ public class StageSelectionOverlay extends GridOverlay {
 		createStageTitles();
 		createStageGrid();
 		
-		cursor = getImage(baseURL + "stageselect.png");
+		cursor = getImage(baseIconURL + "stageselect.png");
 		cursor.setLocalTranslation(stageGridLayout[currentRow][currentColumn].x,
 				stageGridLayout[currentRow][currentColumn].y, 0);
 		
-		bg = getImage(guiURL + "stage-select-bg.png");
+		bg = getImage(baseGuiURL + "stage-select-bg.png");
 		bg.setLocalTranslation(new Vector3f(400, 300, 0));
 		bg.setZOrder(3);
-		back = getImage(guiURL + "stage-select-back.png");
+		back = getImage(baseGuiURL + "stage-select-back.png");
 		back.setLocalTranslation(new Vector3f(210, 300, 0));
 		back.setZOrder(2);
-		front = getImage(guiURL + "stage-select-front.png");
+		front = getImage(baseGuiURL + "stage-select-front.png");
 		front.setLocalTranslation(new Vector3f(400, 300, 0));
 		
 		// Create Preview Holder
@@ -139,7 +139,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	 */
 	private String getImageURL(String stageName, boolean isPreview) {
 		String str = stageName.replace("'", "").replace(" ", "-").toLowerCase();
-		return baseURL + str + (isPreview ? "_preview" : "_griditem") + ".png";
+		return baseIconURL + str + (isPreview ? "_preview" : "_griditem") + ".png";
 	}
 
 	/**

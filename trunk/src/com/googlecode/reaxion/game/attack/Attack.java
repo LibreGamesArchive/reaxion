@@ -149,10 +149,11 @@ public class Attack {
 			for(int i = 0; i < sfxTypes.length; i++) {
 				if(temp.info.hasSoundEffectType(sfxTypes[i])) {
 					Vector3f loc = temp.model.getLocalTranslation();
+					String filename = temp.info.getSoundEffect(sfxTypes[i]);
 					if(repeating)
-						AudioPlayer.playRepeatingSoundEffect(temp.info.getSoundEffect(sfxTypes[i]), loc.x, loc.y, loc.z);
+						AudioPlayer.playRepeatingSoundEffect(filename, loc.x, loc.y, loc.z);
 					else
-						AudioPlayer.playSoundEffect(temp.info.getSoundEffect(sfxTypes[i]), loc.x, loc.y, loc.z);
+						AudioPlayer.playSoundEffect(filename, loc.x, loc.y, loc.z);
 					sfxIndex = i;
 					break;
 				}
