@@ -11,7 +11,7 @@ import com.jmex.game.state.GameState;
  * @author Brian Clanton
  */
 
-public abstract class Mission {
+public abstract class Mission implements Comparable<Mission> {
 	
 	private String title;
 	private int missionID;
@@ -42,6 +42,10 @@ public abstract class Mission {
 		stateCount = states.size();
 	}
 	
+	public int compareTo(Mission m) {
+		return m.getMissionID() - missionID;
+	}
+
 	/**
 	 * Set up all states for this mission. Override to add content.
 	 */

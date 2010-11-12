@@ -11,7 +11,8 @@ package com.googlecode.reaxion.game.mission;
 
 public enum MissionID {
 
-	DEFEAT_LIGHT_USER (0);
+	DEFEAT_LIGHT_USER(1),
+	OPEN_HUBGAMESTATE(-1);
 	
 	public int id;
 	
