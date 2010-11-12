@@ -322,7 +322,8 @@ public class DialogueGameState extends CameraGameState {
 	}*/
 	
 	private void add() {
-		currentText += strings[ind].charAt(curChar++);
+		if(curChar < strings[current].length())
+			currentText += strings[current].charAt(curChar++);
 		
 	}
 

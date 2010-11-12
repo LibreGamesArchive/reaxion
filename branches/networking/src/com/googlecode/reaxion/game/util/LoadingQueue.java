@@ -1,8 +1,12 @@
 package com.googlecode.reaxion.game.util;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
+import com.googlecode.reaxion.game.NetworkingObjects;
+import com.googlecode.reaxion.game.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -66,6 +70,15 @@ public class LoadingQueue {
 		while (!queue.isEmpty()) {
 			Model m = queue.get(0);
 			ModelLoader.load(m, m.filename);
+			if(NetworkingObjects.isServer) {
+				// khoa was biscuiting about efficiency here. w/e.
+				try {
+					NetworkingObjects.serverSyncManager.register(m, new SynchronizeCreateModelMessage(m), NetworkingObjects.updateRate);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		resetQueue();
 	}
