@@ -63,7 +63,7 @@ public class MissionOverlay extends GridOverlay {
 		Node listItem = new Node("listItem_" + m.getTitle());
 		
 		BitmapText id = new BitmapText(FontUtils.neuropol, false);
-		id.setText("No. " + (m.getMissionID() + 1));
+		id.setText("No. " + (m.getMissionID()));
 		id.update();
 		
 		BitmapText title = new BitmapText(FontUtils.neuropol, false);
@@ -77,4 +77,5 @@ public class MissionOverlay extends GridOverlay {
 		
 		return listItem;
 	}
+	
 }

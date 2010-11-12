@@ -1,9 +1,12 @@
 package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.mission.missions.*;
+import com.googlecode.reaxion.game.mission.missions.Mission00;
+import com.googlecode.reaxion.game.mission.missions.MissionHGS;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -16,7 +19,7 @@ import com.jmex.game.state.GameStateManager;
 
 public class MissionManager {
 	
-	private static ArrayList<Mission> missions = new ArrayList<Mission>();
+	private static HashMap<MissionID, Mission> missions = new HashMap<MissionID, Mission>();
 	private static Mission currentMission = null;
 	private static int currentIndex;
 	
@@ -24,7 +27,8 @@ public class MissionManager {
 	 * Fills the missions list. Should be called at startup.
 	 */
 	public static void createMissions() {
-		missions.add(new Mission00());
+		missions.put(MissionID.DEFEAT_LIGHT_USER, new Mission00());
+		missions.put(MissionID.OPEN_HUBGAMESTATE, new MissionHGS());
 	}
 	
 	/**
@@ -33,7 +37,7 @@ public class MissionManager {
 	 * @param missionID
 	 */
 	public static void startMission(MissionID missionID) {
-		currentMission = missions.get(missionID.id);
+		currentMission = missions.get(missionID);
 		currentIndex = 0;
 		
 		currentMission.init();
@@ -80,7 +84,14 @@ public class MissionManager {
 	}
 
 	public static ArrayList<Mission> getMissions() {
-		return missions;
+		ArrayList<Mission> temp = (ArrayList<Mission>) missions.values();
+		Collections.sort(temp);
+		
+		for (Mission m : temp)
+			if(m.getMissionID() <= 0)
+				temp.remove(m);
+		
+		return temp;
 	}
 	
 }

@@ -138,7 +138,7 @@ public class StageGameState extends CameraGameState {
     	AudioPlayer.startBGM();
     }
     
-    protected void init() {
+    private void init() {
         rootNode = new Node("RootNode");
         models = new ArrayList<Model>();
         
@@ -420,7 +420,7 @@ public class StageGameState extends CameraGameState {
 
 	// duplicate the functionality of DebugGameState
     // Most of this can be commented out during finalization
-    protected void initKeyBindings() {
+    private void initKeyBindings() {
     	/** Assign key TAB to action "camera_mode". */
         KeyBindingManager.getKeyBindingManager().set("camera_mode",
                 KeyInput.KEY_TAB);

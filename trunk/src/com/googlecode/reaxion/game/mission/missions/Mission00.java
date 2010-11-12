@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.mission.Mission;
+import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.state.DialogueGameState;
@@ -18,7 +19,7 @@ import com.jmex.game.state.GameState;
 public class Mission00 extends Mission {
 	
 	public Mission00() {
-		super("Defeat the Light-user!", 0, 1, false, "");
+		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER.id, 1, false, "");
 	}
 	
 	@Override

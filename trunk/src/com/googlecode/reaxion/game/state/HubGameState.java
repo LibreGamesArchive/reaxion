@@ -1,10 +1,14 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.overlay.MissionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
+import com.jme.input.KeyBindingManager;
+import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jme.scene.Node;
 
 /**
  * {@code HubGameState} extends {@code StageGameState} with functionality
@@ -16,17 +20,53 @@ public class HubGameState extends StageGameState {
 	public static final String NAME = "hubGameState";
     
 	private Model terminal;
+	
+	private MissionOverlay missionOverlay;
     
     public HubGameState() {
     	super();
+    	init();
     }
     
     public HubGameState(Battle b) {
     	super(b);
+    	init();
+    	
     	createTerminal(b.getStage().getTerminalPosition());
     }
     
+    private void init() {
+    	rootNode = new Node("RootNode");
+    	
+    	missionOverlay = new MissionOverlay();
+    	
+    	initKeyBindings();
+    }
+    
+    private void initKeyBindings() {
+    	KeyBindingManager.getKeyBindingManager().set("access_terminal", KeyInput.KEY_RETURN);
+    }
+    
+    
+    
     @Override
+	public void stateUpdate(float tpf) {
+		super.stateUpdate(tpf);
+		
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand("access_terminal", false)) {
+			Vector3f loc = player.model.getLocalTranslation();
+			if (loc.distance(terminal.model.getLocalTranslation()) <= 1) {
+				if (!rootNode.hasChild(missionOverlay)) {
+					pause = true;
+					rootNode.attachChild(missionOverlay);
+				} else {
+					rootNode.detachChild(missionOverlay);
+				}
+			}
+		}
+	}
+
+	@Override
     protected void act() {
     	Vector3f p = player.model.getLocalTranslation();
     	Vector3f t = terminal.model.getLocalTranslation();
