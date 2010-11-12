@@ -559,8 +559,9 @@ public class StageGameState extends CameraGameState {
     	}
     	
     	// Update the audio system
-        AudioSystem.getSystem().update();
-        SfxPlayer.update(this);
+    	AudioPlayer.update(this);
+//        AudioSystem.getSystem().update();
+//        SfxPlayer.update(this);
     	
     	// Update the HUD
     	hudNode.update(this);

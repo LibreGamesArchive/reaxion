@@ -10,7 +10,7 @@ import com.jmex.angelfont.BitmapText;
 
 public class CharacterSelectionOverlay extends Overlay {
 
-	private static final String baseURL = "../../resources/gui/";
+	private static final String baseURL = "../../resources/icons/characterselect/";
 
 	private final int numchars = 8;
 	
@@ -174,7 +174,7 @@ public class CharacterSelectionOverlay extends Overlay {
     	Quad [] pix = new Quad[numchars];
     	for(int j = 0; j<numchars; j++)
     	{
-    		charLoc[j] = "../../resources/icons/"+charNames[j].toLowerCase()+".png";
+    		charLoc[j] = baseURL+charNames[j].toLowerCase()+".png";
     		p1Fill[j] = getImage(charLoc[j]);
     		p1Fill[j].setLocalScale(35f/64f);
     		p2Fill[j] = getImage(charLoc[j]);

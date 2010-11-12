@@ -29,9 +29,9 @@ public abstract class PlayerInfo{
 	//current values
 	protected int maxHP = 60;
 	protected int strength = 0;
-	protected int minGauge = 8;
-	protected int maxGauge = 16;
-	protected int rate = 0;
+	protected int minGauge = 20;
+	protected int maxGauge = 30;
+	protected int rate = 1;
 	protected int exp = 0;
 	
 	protected BurstGrid grid;
