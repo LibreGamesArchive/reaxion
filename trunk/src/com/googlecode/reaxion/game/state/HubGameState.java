@@ -75,8 +75,8 @@ public class HubGameState extends StageGameState {
     }
     
     private void createTerminal(Vector3f pos) {
-    	terminal = LoadingQueue.quickLoad(new Model("dashboard"), null);
-    	rootNode.attachChild(terminal.model);
+    	terminal = LoadingQueue.quickLoad(new Model("dashboard"), this);
+    	terminal.trackable = true;
     	terminal.model.setLocalTranslation(pos);
     	rootNode.updateRenderState();
     }

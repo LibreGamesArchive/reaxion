@@ -116,7 +116,8 @@ public class StageGameState extends CameraGameState {
     	LoadingQueue.execute(this);
     	
 //    	BgmPlayer.prepare();
-		AudioPlayer.queueBGM(getStage().getBgm(-1));
+    	if (b.music)
+    		AudioPlayer.queueBGM(getStage().getBgm(-1));
 
     	b.assignPositions();
     	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());

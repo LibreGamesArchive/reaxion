@@ -19,7 +19,7 @@ import com.jmex.game.state.GameState;
 public class Mission00 extends Mission {
 	
 	public Mission00() {
-		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER.id, 1, false, "");
+		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER.id, 1, false, "(Test scenario.)", "");
 	}
 	
 	@Override
