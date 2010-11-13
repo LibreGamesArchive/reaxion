@@ -17,6 +17,7 @@ public abstract class Mission implements Comparable<Mission> {
 	private int missionID;
 	private int difficultyRating;
 	private boolean required;
+	private String description;
 	private String imageURL;
 	
 	private ArrayList<GameState> states;
@@ -28,15 +29,17 @@ public abstract class Mission implements Comparable<Mission> {
 		missionID = 0;
 		difficultyRating = 0;
 		required = false;
+		description = "";
 		states = new ArrayList<GameState> ();
 		stateCount = 0;
 	}
 	
-	public Mission(String title, int missionID, int difficultyRating, boolean required, String imageURL) {
+	public Mission(String title, int missionID, int difficultyRating, boolean required, String description, String imageURL) {
 		this.title = title;
 		this.missionID = missionID;
 		this.difficultyRating = difficultyRating;
 		this.required = required;
+		this.description = description;
 		this.imageURL = imageURL;
 		states = new ArrayList<GameState> ();
 		stateCount = states.size();

@@ -51,7 +51,7 @@ public class MajorCharacter extends Character {
     protected void setInfo() {
     	// create stats based on PlayerInfo
     	info = PlayerInfoManager.get(name);
-    	maxHp = info.getMaxHP();
+    	maxHp = info.getMaxHp();
     	strengthMult = info.getAttackMultiplier();
     	minGauge = info.getMinGauge();
     	maxGauge = info.getMaxGauge();

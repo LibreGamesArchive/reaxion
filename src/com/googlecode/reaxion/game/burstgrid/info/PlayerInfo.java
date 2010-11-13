@@ -19,7 +19,7 @@ import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 public abstract class PlayerInfo{
 	
 	// default values
-	protected int baseHP = 60;
+	protected int baseHp = 60;
 	protected int baseStrength = 0;
 	protected int baseMinGauge = 8;
 	protected int baseMaxGauge = 16;
@@ -27,7 +27,7 @@ public abstract class PlayerInfo{
 	protected int baseExp = 0;
 	
 	//current values
-	protected int maxHP = 60;
+	protected int maxHp = 60;
 	protected int strength = 0;
 	protected int minGauge = 20;
 	protected int maxGauge = 30;
@@ -50,16 +50,16 @@ public abstract class PlayerInfo{
 	}
 	
 	protected void setStats(int hp, int str, int minG, int maxG, int r){
-		baseHP = hp;
-		baseStrength = str;
-		baseMinGauge = minG;
-		baseMaxGauge = maxG;
-		baseRate = r;
-		baseExp = 0;
+		maxHp = baseHp = hp;
+		strength = baseStrength = str;
+		minGauge = baseMinGauge = minG;
+		maxGauge = baseMaxGauge = maxG;
+		rate = baseRate = r;
+		exp = baseExp = 0;
 	}
 
-	public int getBaseHP() {
-		return baseHP;
+	public int getBaseHp() {
+		return baseHp;
 	}
 
 	public int getBaseStrength() {
@@ -78,12 +78,12 @@ public abstract class PlayerInfo{
 		return baseRate;
 	}
 
-	public int getMaxHP() {
-		return maxHP;
+	public int getMaxHp() {
+		return maxHp;
 	}
 
-	public void setMaxHP(int val) {
-		maxHP = val;
+	public void setHp(int val) {
+		maxHp = val;
 	}
 
 	public int getStrength() {
@@ -201,7 +201,7 @@ public abstract class PlayerInfo{
 		for(BurstNode b:bg){
 			if(b.activated){
 				if(b instanceof HPNode){
-					maxHP+=((HPNode)b).hpPlus;
+					maxHp+=((HPNode)b).hpPlus;
 				}
 				else if(b instanceof StrengthNode){
 					strength+=((StrengthNode)b).strengthPlus;

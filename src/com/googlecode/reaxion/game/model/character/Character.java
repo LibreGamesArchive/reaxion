@@ -208,7 +208,7 @@ public class Character extends Model {
 	 * Checks for other characters with bounding capsules and adjusts movement vector
 	 * based on the first perceived collision, if one exists.
 	 */
-	private void moveCollide(StageGameState b) {
+	protected void moveCollide(StageGameState b) {
 		for (Model m:b.getModels()) {
 			// check if the other Model is a Character, has a bounding capsule, and is more massive
 			if (m instanceof Character && m != this && ((Character)m).mass >= mass) {

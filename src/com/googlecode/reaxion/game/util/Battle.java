@@ -39,24 +39,31 @@ public class Battle {
 	private Stage stage;
 	private int targetTime, expYield;
 
+	public boolean music = true;
+	
 	public Battle() {
-		loadSelection();
-		//testingInit();
+		
 	}
 	
 	/**
 	 * Sets players and stage to Battle's globals.
 	 */
-	private void loadSelection() {
-		p1 = nextP1;
-		p2 = nextP2;
+	protected void loadDefaults() {
+		if (p1 == null)
+			p1 = nextP1;
+		if (p2 == null)
+			p2 = nextP2;
+		if (stage == null)
 		stage = nextStage;
 	}
 
 	/**
-	 * Load all attacks and abilities from data.
+	 * Load all attacks, abilities, and stage from data.
 	 */
 	private void init() {
+		// Load stage
+		LoadingQueue.push(stage);
+		
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
 		
@@ -88,40 +95,6 @@ public class Battle {
 			if (opAbilities.size() > i)
 				op.get(i).setAbilities(opAbilities.get(i));
 		}
-	}
-	
-	private void testingInit() {
-		targetTime = 60;
-		expYield = 1000;
-		
-		p1Attacks = new Class[6];
-		p2Attacks = new Class[6];
-
-		try {
-			p1Attacks[0] = Class.forName(attackBaseLocation + "ShootBullet");
-			p1Attacks[1] = Class.forName(attackBaseLocation + "ShootFireball");
-			p1Attacks[2] = Class.forName(attackBaseLocation + "LightningCloud");
-			p1Attacks[3] = Class.forName(attackBaseLocation + "LightningStorm");
-			p1Attacks[4] = Class.forName(attackBaseLocation + "BlackHole");
-			p1Attacks[5] = Class.forName(attackBaseLocation + "ShieldHoly");
-
-			p2Attacks[0] = Class.forName(attackBaseLocation + "Beacon");
-			p2Attacks[1] = Class.forName(attackBaseLocation + "BombingMagnet");
-			p2Attacks[2] = Class.forName(attackBaseLocation + "BubbleBath");
-			p2Attacks[3] = Class.forName(attackBaseLocation + "TriLance");
-			p2Attacks[4] = Class.forName(attackBaseLocation + "LanceGuard");
-			p2Attacks[5] = Class.forName(attackBaseLocation + "ShadowTag");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		p1Position = new Vector3f(0, 0, 20);
-		p2Position = p1Position;
-		opPositions.add(new Vector3f(0, 0, -20));
-		
-		p1Abilities = new Ability[] { new Chivalry() };
-		p2Abilities = new Ability[] { new FinalHour() };
-		opAbilities.add(new Ability[] { new AfterImage() });
 	}
 
 	public void addOponentPosition(Vector3f position) {
@@ -190,8 +163,7 @@ public class Battle {
 		try {
 			Class cl;
 			cl = Class.forName(stageClassURL + name);
-			Stage temp = (Stage) cl.getConstructors()[0].newInstance();
-			nextStage = (Stage) LoadingQueue.push(temp);
+			nextStage = (Stage) cl.getConstructors()[0].newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -219,8 +191,8 @@ public class Battle {
 	}
 
 	public static BattleGameState createBattleGameState() {
-		//currentBattle.getOps()[0].assignAI(new TestAI(currentBattle.getOps()[0]));
 		Battle b = currentBattle;
+		b.loadDefaults();
 		b.init();
 		currentBattle = new Battle();
 		return new BattleGameState(b);
@@ -230,6 +202,7 @@ public class Battle {
 		if(currentBattle == null)
 			currentBattle = new Battle();
 		Battle b = currentBattle;
+		b.loadDefaults();
 		b.init();
 		currentBattle = new Battle();
 		return new HubGameState(b);

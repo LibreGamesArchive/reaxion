@@ -101,6 +101,11 @@ public class Model {
     public boolean trackable = false;
     
     /**
+     * Whether or not to check triangles in this model's collision checking.
+     */
+    protected boolean checkTriangles = true;
+    
+    /**
 	 * Refers to creators of model, if needed
 	 */
     public ArrayList<Model> users;
@@ -158,7 +163,7 @@ public class Model {
     	ArrayList<Model> hit = new ArrayList<Model>();
     	ArrayList<Model> models = b.getModels();
     	for (int i=0; i < models.size(); i++) {
-    		if (model.hasCollision(models.get(i).model, true)) {
+    		if (model.hasCollision(models.get(i).model, checkTriangles)) {
     			hit.add(models.get(i));
     		}
     	}
@@ -173,7 +178,7 @@ public class Model {
     	ArrayList<Spatial> a = new ArrayList<Spatial>();
     	for (int i=0; i < b.getRootNode().getQuantity(); i++) {
     		Spatial n = b.getRootNode().getChild(i);
-    		if (model.hasCollision(n, true)) {
+    		if (model.hasCollision(n, checkTriangles)) {
     			a.add(n);
     		}
     	}
