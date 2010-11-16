@@ -1,12 +1,10 @@
 package com.googlecode.reaxion.game.model.enemies;
 
-import java.util.Arrays;
-
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.DarkOrb;
 import com.googlecode.reaxion.game.model.attackobject.Shockwave;
-import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;

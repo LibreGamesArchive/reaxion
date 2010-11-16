@@ -35,9 +35,7 @@ public class HubGameState extends StageGameState {
     	createTerminal(b.getStage().getTerminalPosition());
     }
     
-    private void init() {
-    	rootNode = new Node("RootNode");
-    	
+    private void init() {    	
     	missionOverlay = new MissionOverlay();
     	
     	initKeyBindings();
@@ -47,19 +45,22 @@ public class HubGameState extends StageGameState {
     	KeyBindingManager.getKeyBindingManager().set("access_terminal", KeyInput.KEY_RETURN);
     }
     
-    
-    
     @Override
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("access_terminal", false)) {
-			Vector3f loc = player.model.getLocalTranslation();
-			if (loc.distance(terminal.model.getLocalTranslation()) <= 1) {
+			Vector3f playerLoc = player.getXZTranslation();
+			Vector3f terminalLoc = terminal.getXZTranslation();
+			
+			System.out.println("####### Distance: " + playerLoc.distance(terminalLoc));
+			
+			if (playerLoc.distance(terminalLoc) <= 3) {
 				if (!rootNode.hasChild(missionOverlay)) {
 					pause = true;
 					rootNode.attachChild(missionOverlay);
 				} else {
+					pause = false;
 					rootNode.detachChild(missionOverlay);
 				}
 			}

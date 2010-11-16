@@ -33,21 +33,14 @@ public class MissionOverlay extends GridOverlay {
 		screenHeight = 600;
 		
 		createMissionList();
-		createShade();
 		
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight()
 				/ screenHeight);
+		container.setLocalTranslation(screenWidth / 2, screenHeight / 2, 0);
 		
 		attachChild(container);
-	}
-	
-	private void createShade() {
-		Quad shade = new Quad("shade", screenWidth, screenHeight);
-		shade.setSolidColor(new ColorRGBA(1f, 1f, 1f, .75f));
-		shade.setZOrder(1);
-		container.attachChild(shade);
 	}
 	
 	private void createMissionList() {
@@ -64,10 +57,13 @@ public class MissionOverlay extends GridOverlay {
 		
 		BitmapText id = new BitmapText(FontUtils.neuropol, false);
 		id.setText("No. " + (m.getMissionID()));
+		id.setSize(16);
 		id.update();
 		
 		BitmapText title = new BitmapText(FontUtils.neuropol, false);
 		title.setText(m.getTitle());
+		title.setSize(16);
+		title.update();
 		
 		Quad image = getImage(baseURL + "question_listitem.png");
 		

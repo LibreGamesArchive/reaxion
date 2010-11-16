@@ -7,7 +7,7 @@ import com.googlecode.reaxion.game.util.Battle;
 public class MissionHGS extends Mission {
 	
 	public MissionHGS() {
-		super("Open HubGameState", MissionID.OPEN_HUBGAMESTATE.id, 0, false, "", "");
+		super("Open HubGameState", MissionID.OPEN_HUBGAMESTATE.id, 0, false, "Opens HubGameState. For testing purposes.", "");
 	}
 
 	@Override

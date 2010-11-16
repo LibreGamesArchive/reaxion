@@ -320,13 +320,4 @@ public class StageSelectionOverlay extends GridOverlay {
 		return stageNames[currentRow * stageGridColumns + currentColumn];
 	}
 
-	/**
-	 * Returns the text font used in {@code StageSelectionOverlay}.
-	 * 
-	 * @return font
-	 */
-	public BitmapFont getTextFont() {
-		return FontUtils.neuropol;
-	}
-
 }

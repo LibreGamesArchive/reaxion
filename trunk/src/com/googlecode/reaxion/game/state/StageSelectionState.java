@@ -186,9 +186,7 @@ public class StageSelectionState extends BasicGameState {
 		*/
 		
 		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
-		MissionManager.startMission(MissionID.VS_TOYBOX);
-//		MissionManager.startMission(MissionID.OPEN_HUBGAMESTATE);
-		
+		MissionManager.startMission(MissionID.OPEN_HUBGAMESTATE);		
 		
 		setActive(false);
 	}

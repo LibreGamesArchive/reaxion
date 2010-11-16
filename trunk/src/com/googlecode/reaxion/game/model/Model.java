@@ -244,6 +244,11 @@ public class Model {
     	return model.getWorldTranslation().add(trackOffset);
     }
     
+    public Vector3f getXZTranslation() {
+    	Vector3f loc = model.getLocalTranslation();
+    	return new Vector3f(loc.x, 0, loc.z);    	
+    }
+    
     /**
 	 * Rotate the model according to {@code yaw}, {@code roll}, and {@code pitch}.
 	 */
