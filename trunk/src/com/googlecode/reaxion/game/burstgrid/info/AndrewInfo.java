@@ -11,6 +11,10 @@ import com.googlecode.reaxion.game.audio.SoundEffectType;
  */
 public class AndrewInfo extends PlayerInfo {
 
+	public AndrewInfo() {
+		super("Andrew");
+	}
+	
 	@Override
 	public void init() {
 		setStats(125,0,12,18,1);

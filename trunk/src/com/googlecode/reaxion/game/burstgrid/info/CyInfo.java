@@ -10,6 +10,10 @@ import com.googlecode.reaxion.game.audio.SoundEffectType;
  */
 public class CyInfo extends PlayerInfo {
 	
+	public CyInfo() {
+		super("Cy");
+	}
+	
 	@Override
 	public void init(){
 		setStats(100,1,15,20,0);

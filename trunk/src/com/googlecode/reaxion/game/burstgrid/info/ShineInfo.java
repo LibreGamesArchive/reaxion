@@ -8,6 +8,10 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class ShineInfo extends PlayerInfo {
 	
+	public ShineInfo() {
+		super("Shine");
+	}
+	
 	@Override
 	public void init(){
 		setStats(110,0,10,18,1);

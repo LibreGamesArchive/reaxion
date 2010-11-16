@@ -11,9 +11,9 @@ public class FontUtils {
 
 	public static BitmapFont neuropol;
 	private static final File neuropolFile = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol.fnt");
+			"src/com/googlecode/reaxion/resources/fonts/neuropol-c.fnt");
 	private static final File neuropolGlyph = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol_0.png");
+			"src/com/googlecode/reaxion/resources/fonts/neuropol-c_0.png");
 	
 	public static BitmapFont eurostile;
 	private static final File eurostileFile = new File(
