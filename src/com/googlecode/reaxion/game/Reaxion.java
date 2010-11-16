@@ -107,16 +107,15 @@ public class Reaxion {
 			
 			PlayerInfoManager.init();
 			
-			/*
 			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
 			GameStateManager.getInstance().attachChild(gridState);
 			gridState.setActive(true);
-			*/
 			
+			/*
 			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
-			
+			*/
 			return null;
 		}	
 	}
