@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.RoamingCloud;
 import com.googlecode.reaxion.game.model.attackobject.Lightning;
@@ -15,6 +16,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class LightningStorm extends Attack {
 	private static final String n = "Elec Storm";
 	private static final int gc = 22;
+	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_LIGHTNING_STORM};
 	
 	private RoamingCloud[] cloud = new RoamingCloud[10];
 	
@@ -52,6 +54,8 @@ public class LightningStorm extends Attack {
 				t.y = 7;
 				cloud[i].model.setLocalTranslation(t);
 			}
+			
+			triggerSoundEffect(sfxTypes, false);
 			
 			b.getRootNode().updateRenderState();
 			character.play("heave", b.tpf);

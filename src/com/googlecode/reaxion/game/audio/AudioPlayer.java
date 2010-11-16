@@ -5,6 +5,7 @@ import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 import paulscode.sound.SoundSystemLogger;
 import paulscode.sound.codecs.CodecJOrbis;
+import paulscode.sound.codecs.CodecWav;
 import paulscode.sound.libraries.LibraryJavaSound;
 
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -22,6 +23,7 @@ public class AudioPlayer {
 	private static String baseURL = "com/googlecode/reaxion/resources/audio/";
 	private static String trackDir = "tracks/";
 	private static String sfxDir = "sfx/";
+	private static String loggerHeader = "Audio Player Logger: ";
 	
 	private static String currentBGM;
 	
@@ -35,6 +37,7 @@ public class AudioPlayer {
 		try {
 			SoundSystemConfig.addLibrary(LibraryJavaSound.class);
 			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
+			SoundSystemConfig.setCodec("wav", CodecWav.class);
 			SoundSystemConfig.setSoundFilesPackage(baseURL);
 			
 		} catch (SoundSystemException e) {
@@ -46,9 +49,6 @@ public class AudioPlayer {
 		
 		logger = new SoundSystemLogger();
 		SoundSystemConfig.setLogger(logger);
-		
-		System.out.println("Streaming channels: " + SoundSystemConfig.getNumberStreamingChannels());
-		System.out.println("Non-streaming channels: " + SoundSystemConfig.getNumberNormalChannels());
 	}
 	
 	/**
@@ -64,6 +64,8 @@ public class AudioPlayer {
 		
 		sound.newStreamingSource(true, currentBGM, trackDir + intro + ext, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
 		sound.queueSound(currentBGM, trackDir + filename);
+		
+		logger.message(loggerHeader + "Queued BGM " + filename, 0);
 	}
 	
 	/**
@@ -71,10 +73,14 @@ public class AudioPlayer {
 	 */
 	public static void startBGM() {
 		sound.play(currentBGM);
-		logger.message("BGM " + currentBGM + " started.", 1);
+		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 1);
 	}
 	
-	
+	/**
+	 * Updates the listener position and orientation.
+	 * 
+	 * @param b
+	 */
 	public static void update(StageGameState b) {
 		Vector3f loc = b.getPlayer().model.getLocalTranslation();
 		Vector3f lookAt = b.getPlayer().rotationVector;
@@ -83,7 +89,7 @@ public class AudioPlayer {
 	}
 
 	/**
-	 * Plays a sound at a given position with rolloff attenuation.
+	 * Plays a sound effect at a given position with rolloff attenuation.
 	 * 
 	 * @param filename
 	 * @param x
@@ -92,18 +98,31 @@ public class AudioPlayer {
 	 */
 	public static void playSoundEffect(String filename, float x, float y, float z) {
 		sound.quickPlay(true, sfxDir + filename, false, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
-		logger.message("Quick SFX " + filename + " played.", 1);
+		logger.message(loggerHeader + "Quick SFX " + filename + " played.", 0);
 	}
 	
+	/**
+	 * Plays a repeating sound effect at a given position with rolloff attenuation.
+	 * 
+	 * @param filename
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public static void playRepeatingSoundEffect(String filename, float x, float y, float z) {
 		sound.newStreamingSource(true, filename, sfxDir + filename, true, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
 		sound.play(filename);
-		logger.message("Repeating SFX " + filename + " played.", 1);
+		logger.message(loggerHeader + "Repeating SFX " + filename + " played.", 0);
 	}
 	
+	/**
+	 * Stops a repeating sound effect.
+	 * 
+	 * @param filename
+	 */
 	public static void stopRepeatingSoundEffect(String filename) {
 		sound.stop(filename);
-		logger.message("Repeating SFX " + filename + " stopped.", 1);
+		logger.message(loggerHeader + "Repeating SFX " + filename + " stopped.", 0);
 	}
 	
 	/**
@@ -111,7 +130,7 @@ public class AudioPlayer {
 	 */
 	public static void gamePaused() {
 		sound.setMasterVolume(.5f);
-		logger.message("Master Volume lowered.", 1);
+		logger.message(loggerHeader + "Master Volume lowered.", 0);
 	}
 	
 	/**
@@ -119,7 +138,7 @@ public class AudioPlayer {
 	 */
 	public static void gameUnpaused() {
 		sound.setMasterVolume(1f);
-		logger.message("Master Volume returned to normal.", 1);
+		logger.message(loggerHeader + "Master Volume returned to normal.", 0);
 	}
 	
 	/**
@@ -127,7 +146,7 @@ public class AudioPlayer {
 	 */
 	public static void clearBGM() {
 		sound.stop(currentBGM);
-		logger.message("BGM " + currentBGM + " cleared.", 1);
+		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
 	}
 	
 	/**

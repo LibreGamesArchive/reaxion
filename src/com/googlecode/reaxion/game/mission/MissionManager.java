@@ -1,12 +1,13 @@
 package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.mission.missions.*;
+import com.googlecode.reaxion.game.mission.missions.Mission00;
+import com.googlecode.reaxion.game.mission.missions.MissionHGS;
+import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -84,6 +85,12 @@ public class MissionManager {
 		return currentMission != null;
 	}
 
+	/**
+	 * Returns an {@code ArrayList} of type {@code Mission} containing all of the non-test missions in 
+	 * {@code MissionManager}.
+	 * 
+	 * @return missions
+	 */
 	public static ArrayList<Mission> getMissions() {
 		ArrayList<Mission> temp = new ArrayList<Mission>();
 		temp.addAll(missions.values());

@@ -55,6 +55,15 @@ public abstract class Mission implements Comparable<Mission> {
 	public void init() {
 		
 	}
+	
+	public String toString() {
+		String s = "Mission No. " + missionID + " : " + title + "\n";
+		s += "\t" + description + "\n";
+		s += "\tDifficulty: " + difficultyRating + "\n";
+		s += "\t" + (required ? "Required" : "Not Required") + "\n";
+		s += "\tImage URL: " + imageURL;
+		return s;
+	}
 
 	public String getTitle() {
 		return title;
@@ -88,6 +97,14 @@ public abstract class Mission implements Comparable<Mission> {
 		this.required = required;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getImageURL() {
 		return imageURL;
 	}
@@ -101,21 +118,42 @@ public abstract class Mission implements Comparable<Mission> {
 		stateCount = states.size();
 	}
 	
+	/**
+	 * Adds a state to the mission scenario.
+	 * 
+	 * @param g
+	 */
 	public void addState(GameState g) {
 		states.add(g);
 		stateCount++;
 	}
 	
+	/**
+	 * Returns a state at a given index.
+	 * 
+	 * @param index
+	 * @return state at index
+	 */
 	public GameState getStateAt(int index) {
 		return states.get(index);
 	}
 	
+	/**
+	 * Sets active a state at a given index.
+	 * 
+	 * @param index
+	 */
 	public void activateStateAt(int index) {
 		states.get(index).setActive(true);
 		if(states.get(index) instanceof StageGameState)
 			((StageGameState) states.get(index)).startBGM();
 	}
 	
+	/**
+	 * Sets inactive a state at a given index.
+	 * 
+	 * @param index
+	 */
 	public void deactivateStateAt(int index) {
 		states.get(index).setActive(false);
 	}

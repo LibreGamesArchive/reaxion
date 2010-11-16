@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.burstgrid.info;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
+
 /**
  * This class represents Andrew's statistics. Reasonable base stats are yet to
  * be decided.
@@ -16,7 +18,12 @@ public class AndrewInfo extends PlayerInfo {
 		setAttacks(new String[] { "SlideIce", "TriLance", "LightningCloud",
 				"BlackHole" });
 		createBurstGrid("");
-		super.init();
+		setUsableSfx();
+	}
+
+	@Override
+	protected void setUsableSfx() {
+		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_CLOUD, "lightning bolt.wav");
 	}
 	
 }
