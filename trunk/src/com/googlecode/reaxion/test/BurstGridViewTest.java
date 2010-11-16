@@ -2,8 +2,6 @@ package com.googlecode.reaxion.test;
 
 import java.util.ArrayList;
 
-import jmetest.flagrushtut.Lesson2;
-
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
 import com.googlecode.reaxion.game.burstgrid.node.AttackNode;
@@ -32,72 +30,72 @@ public class BurstGridViewTest extends SimpleGame {
 
 	BurstGrid grid;
 	float scale = 6;
-	
+
 	Texture ci;
 	Texture ca;
-	
-    public static void main(String[] args) {
-        BurstGridViewTest app = new BurstGridViewTest();
-        app.setConfigShowMode(SimpleGame.ConfigShowMode.AlwaysShow);
-        app.start();
-    }
-    protected void simpleInitGame() {
-        display.setTitle("BurstGrid Test");
-        
-        // to handle texture transparency:
-        // create a blend state
-        final BlendState bs = display.getRenderer().createBlendState();
-        // activate blending
-        bs.setBlendEnabled(true);
-        // set the source function
-        bs.setSourceFunctionAlpha(BlendState.SourceFunction.OneMinusDestinationAlpha);
-        // set the destination function
-        bs.setDestinationFunctionAlpha(BlendState.DestinationFunction.DestinationAlpha);
-        // activate the blend state
-        bs.setEnabled(true);
-        // assign the blender state to the quad
-        rootNode.setRenderState(bs);
-        
-        rootNode.setRenderQueueMode(Renderer.QUEUE_TRANSPARENT);
-        rootNode.setLightCombineMode(Spatial.LightCombineMode.Off);
-        
-        // create textures
-        ci = createTexture("connector-inactive");
-        ca = createTexture("connector-active");
-        
-        // read in burstgrid
-        grid = new BurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
-        
-        // test activate
-        grid.getNodes().get(0).activated = true;
-        grid.getNodes().get(1).activated = true;
-        
-        readNodes();
-        
-        System.out.println(grid);
-    }
 
-    protected void simpleUpdate() {
-    	// displace textures
-    	ca.getTranslation().y += 0.001f;
-        if(ca.getTranslation().y > 1)
-            ca.getTranslation().y = 0;
-    }
-    
-    /**
-     * Returns a Texture loaded from {@code str}.
-     */
-    private Texture createTexture(String str) { 	
-        Texture tex = TextureManager.loadTexture(
-        		getClass().getResource("../resources/cosmos/"+str+".png"),
-                  Texture.MinificationFilter.Trilinear, Texture.MagnificationFilter.Bilinear);  
-        tex.setWrap(Texture.WrapMode.Repeat);
-        tex.setTranslation(new Vector3f());
-        return tex;
-        
-    }
-    
-    /**
+	public static void main(String[] args) {
+		BurstGridViewTest app = new BurstGridViewTest();
+		app.setConfigShowMode(SimpleGame.ConfigShowMode.AlwaysShow);
+		app.start();
+	}
+	protected void simpleInitGame() {
+		display.setTitle("BurstGrid Test");
+
+		// to handle texture transparency:
+		// create a blend state
+		final BlendState bs = display.getRenderer().createBlendState();
+		// activate blending
+		bs.setBlendEnabled(true);
+		// set the source function
+		bs.setSourceFunctionAlpha(BlendState.SourceFunction.OneMinusDestinationAlpha);
+		// set the destination function
+		bs.setDestinationFunctionAlpha(BlendState.DestinationFunction.DestinationAlpha);
+		// activate the blend state
+		bs.setEnabled(true);
+		// assign the blender state to the quad
+		rootNode.setRenderState(bs);
+
+		rootNode.setRenderQueueMode(Renderer.QUEUE_TRANSPARENT);
+		rootNode.setLightCombineMode(Spatial.LightCombineMode.Off);
+
+		// create textures
+		ci = createTexture("connector-inactive");
+		ca = createTexture("connector-active");
+
+		// read in burstgrid
+		grid = new BurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
+
+		// test activate
+		grid.getNodes().get(0).activated = true;
+		grid.getNodes().get(1).activated = true;
+
+		readNodes();
+
+		System.out.println(grid);
+	}
+
+	protected void simpleUpdate() {
+		// displace textures
+		ca.getTranslation().y += 0.001f;
+		if(ca.getTranslation().y > 1)
+			ca.getTranslation().y = 0;
+	}
+
+	/**
+	 * Returns a Texture loaded from {@code str}.
+	 */
+	private Texture createTexture(String str) { 	
+		Texture tex = TextureManager.loadTexture(
+				getClass().getResource("../resources/cosmos/"+str+".png"),
+				Texture.MinificationFilter.Trilinear, Texture.MagnificationFilter.Bilinear);  
+		tex.setWrap(Texture.WrapMode.Repeat);
+		tex.setTranslation(new Vector3f());
+		return tex;
+
+	}
+
+	/**
 	 * Creates nodes from Burstgrid.
 	 */
 	private void readNodes(){
@@ -118,13 +116,14 @@ public class BurstGridViewTest extends SimpleGame {
 				createNode(b.activated, "ability", b.vect);
 			else if(b instanceof AttackNode)
 				createNode(b.activated, "attack", b.vect);
-			
+
 			// create connections
-	        for(BurstNode c:b.nodes)
-				createConnector(b.activated && c.activated, b.vect, c.vect);
+			for(BurstNode c:b.nodes)
+				if(b.id<=2)
+					createConnector(b.activated && c.activated, b.vect, c.vect);
 		}
 	}
-	
+
 	/**
 	 * Creates the node of type str at position vec.
 	 * @param str
@@ -132,41 +131,41 @@ public class BurstGridViewTest extends SimpleGame {
 	private void createNode(boolean active, String str, Vector3f vec) {
 		Quad q = new Quad("", 1, 1);
 
-        TextureState ts = display.getRenderer().createTextureState();
-        ts.setEnabled(true);
+		TextureState ts = display.getRenderer().createTextureState();
+		ts.setEnabled(true);
 		ts.setTexture(createTexture(str + (active?"":"-i") ));
 		q.setRenderState(ts);
 
-        rootNode.attachChild(q);
-        q.setLocalTranslation(vec.mult(scale));
-        
-        if (active) {
-        	// create glow
-        	Quad g = new Quad("", 3, 3);
-        	TextureState gs = display.getRenderer().createTextureState();
-    		gs.setTexture(createTexture("shine"));
-    		g.setRenderState(gs);
+		rootNode.attachChild(q);
+		q.setLocalTranslation(vec.mult(scale));
 
-            rootNode.attachChild(g);
-            g.setLocalTranslation(vec.mult(scale).add(new Vector3f(0, 0, -.01f)));
-        }
+		if (active) {
+			// create glow
+			Quad g = new Quad("", 3, 3);
+			TextureState gs = display.getRenderer().createTextureState();
+			gs.setTexture(createTexture("shine"));
+			g.setRenderState(gs);
+
+			rootNode.attachChild(g);
+			g.setLocalTranslation(vec.mult(scale).add(new Vector3f(0, 0, -.01f)));
+		}
 	}
-	
+
 	private void createConnector(boolean active, Vector3f from, Vector3f to) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
-    	if (active)
-    		ts.setTexture(ca);
-    	else
-    		ts.setTexture(ci);
-        
-    	Quad q = new Quad("", .1f, from.distance(to)*scale);
-    	q.setLocalTranslation(from.add(to).divide(2).mult(scale));
-    	Matrix3f m = new Matrix3f();
-    	m.fromStartEndVectors(new Vector3f(0, 1, 0), to.subtract(from).normalize());
-    	q.setLocalRotation(m);
-    	
-        q.setRenderState(ts);
-        rootNode.attachChild(q);
+		if (active)
+			ts.setTexture(ca);
+		else
+			ts.setTexture(ci);
+
+		Quad q = new Quad("", .1f, from.distance(to)*scale);
+		q.setLocalTranslation(from.add(to).divide(2).mult(scale));
+		Matrix3f m = new Matrix3f();
+		m.fromStartEndVectors(new Vector3f(0, 1, 0), to.subtract(from).normalize());
+		q.setLocalRotation(m);
+
+		q.setRenderState(ts);
+		rootNode.attachChild(q);
 	}
-	
+
 }
