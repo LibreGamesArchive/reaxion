@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game.burstgrid.node;
 
-import java.util.ArrayList;
-
 /** 
  * A simple MinGaugeNode. Will have functionality included to manipulate the augment to the Min Gauge it provides.
  * 
@@ -22,6 +20,7 @@ public class MinGaugeNode extends BurstNode
 		minGPlus = mg;
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " MinGauge ");
 	}

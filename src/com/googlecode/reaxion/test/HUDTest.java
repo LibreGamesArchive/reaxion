@@ -6,7 +6,6 @@ import com.jme.app.SimpleGame;
 import com.jme.bounding.BoundingBox;
 import com.jme.image.Texture;
 import com.jme.math.Quaternion;
-import com.jme.math.Vector2f;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.renderer.Renderer;
@@ -16,7 +15,6 @@ import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Cylinder;
 import com.jme.scene.shape.Quad;
 import com.jme.scene.state.BlendState;
-import com.jme.scene.state.LightState;
 import com.jme.scene.state.MaterialState;
 import com.jme.scene.state.TextureState;
 import com.jme.util.TextureManager; 
@@ -36,7 +34,8 @@ public class HUDTest extends SimpleGame {
         app.setConfigShowMode(SimpleGame.ConfigShowMode.AlwaysShow);
         app.start();
     }
-    protected void simpleInitGame() {
+    @Override
+	protected void simpleInitGame() {
         display.setTitle("HUD Tutorial");
         
         /* create a rotating cylinder so we have something in the background */
@@ -89,7 +88,8 @@ public class HUDTest extends SimpleGame {
 
     }
 
-    protected void simpleUpdate() {
+    @Override
+	protected void simpleUpdate() {
     	/* recalculate rotation for the cylinder */
         if (timer.getTimePerFrame() < 1) {
             angle = angle + timer.getTimePerFrame();

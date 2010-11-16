@@ -2,7 +2,6 @@ package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
 
 /**
  * Heals a small amount of HP on every frame

@@ -40,6 +40,7 @@ public class MikoLake extends Stage {
 		bgmOdds = new float[] {1, 1};
 	}
 
+	@Override
 	public void loadComponents(StageGameState b) {
 		dome = LoadingQueue.quickLoad(new Model("stages/miko_lake-4_dome"),
 				b);

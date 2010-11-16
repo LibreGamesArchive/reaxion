@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game.burstgrid.node;
 
-import java.util.ArrayList;
-
 /** 
  * A simple HPNode. Will have functionality included to manipulate the augment to HP it provides.
  * 
@@ -22,6 +20,7 @@ public class StrengthNode extends BurstNode
 		strengthPlus = str;
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " Strength ");
 	}

@@ -36,6 +36,7 @@ public class FlowerField extends Stage {
 		bgmOdds = new float[] {1};
 	}
 
+	@Override
 	public void loadComponents(StageGameState b) {
 		sky = LoadingQueue.quickLoad(new Model("stages/flower-field_dome"), b);
 		b.removeModel(sky);

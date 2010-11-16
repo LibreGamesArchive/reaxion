@@ -42,9 +42,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.Arrays;
 
 /**
  * @author Matthew D. Hicks

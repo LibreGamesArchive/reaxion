@@ -101,7 +101,7 @@ public class Firework extends Node {
 		final float lifetime = this.minLifetime + rand.nextFloat() * (this.maxLifetime - this.minLifetime);
 		final float speed = this.minSpeed + rand.nextFloat() * (this.maxSpeed - this.minSpeed);
 		// Define a new start location and create a new Sphere.
-		float angle = (float)(rand.nextInt(2))*FastMath.PI + (rand.nextFloat()*(maxAngle - minAngle) + minAngle);
+		float angle = (rand.nextInt(2))*FastMath.PI + (rand.nextFloat()*(maxAngle - minAngle) + minAngle);
 		float radius = rand.nextFloat()*(maxRadius - minRadius) + minRadius;
 		final Vector3f start = new Vector3f(radius*FastMath.cos(angle), 0, radius*FastMath.sin(angle));
 		final Sphere sphere = new Sphere("s", 5, 5, 0.06f);

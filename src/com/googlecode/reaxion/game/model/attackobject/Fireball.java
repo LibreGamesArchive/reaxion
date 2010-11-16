@@ -3,8 +3,6 @@ package com.googlecode.reaxion.game.model.attackobject;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
 
 public class Fireball extends AttackObject {
 	

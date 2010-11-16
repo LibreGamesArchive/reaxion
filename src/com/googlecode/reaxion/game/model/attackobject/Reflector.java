@@ -25,9 +25,9 @@ public class Reflector extends AttackObject {
 	public void act(StageGameState b) {
 		
 		if (lifeCount >= fadePoint) {
-			float factor = ((float)lifespan - lifeCount)/(float)(lifespan - fadePoint);
+			float factor = ((float)lifespan - lifeCount)/(lifespan - fadePoint);
 			model.setLocalScale(new Vector3f(factor, factor, factor));
-			model.setLocalTranslation(model.getLocalTranslation().add(new Vector3f(0, 2.75f/(float)(lifespan - fadePoint), 0)));
+			model.setLocalTranslation(model.getLocalTranslation().add(new Vector3f(0, 2.75f/(lifespan - fadePoint), 0)));
 		}
         
         //check lifespan

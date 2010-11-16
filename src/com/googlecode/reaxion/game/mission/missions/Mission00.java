@@ -9,11 +9,9 @@ import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.state.DialogueGameState;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jmex.game.state.GameState;
 
 public class Mission00 extends Mission {
 	

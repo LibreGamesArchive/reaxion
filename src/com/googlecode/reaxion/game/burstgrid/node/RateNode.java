@@ -48,6 +48,7 @@ public class RateNode extends BurstNode
 			linkedNodes.add(bn);
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " Rate ");
 	}

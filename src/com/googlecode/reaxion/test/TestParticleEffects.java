@@ -8,6 +8,7 @@ import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
+import com.jme.scene.Controller;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.TextureState;
 import com.jme.scene.state.ZBufferState;
@@ -30,7 +31,8 @@ public class TestParticleEffects extends SimpleGame {
         }
 
 
-        protected void simpleUpdate() {
+        @Override
+		protected void simpleUpdate() {
                 KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
                 if(manager.isValidCommand("fireball", false))
                         createFireball();
@@ -120,7 +122,7 @@ public class TestParticleEffects extends SimpleGame {
                 pMesh.getParticleController().setControlFlow(false);
                 pMesh.setParticlesInWorldCoords(true);
                 pMesh.warmUp(1);
-                pMesh.setRepeatType(ParticleController.RT_CLAMP);
+                pMesh.setRepeatType(Controller.RT_CLAMP);
                 if(wind != null) {
                         wind.setEnabled(false);
                         pMesh.removeInfluence(wind);
@@ -137,7 +139,8 @@ public class TestParticleEffects extends SimpleGame {
                 rootNode.updateRenderState();
         }
 
-        protected void simpleInitGame() {
+        @Override
+		protected void simpleInitGame() {
                 display.setTitle("Particle Effects Test");
                 KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
                 manager.set("fireball", KeyInput.KEY_1);

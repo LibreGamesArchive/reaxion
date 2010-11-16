@@ -1,8 +1,6 @@
 package com.googlecode.reaxion.game.model.stage;
 
 import java.awt.geom.Point2D;
-import java.util.Arrays;
-
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;

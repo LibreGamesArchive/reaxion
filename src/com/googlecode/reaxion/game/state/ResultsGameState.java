@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.jme.app.AbstractGame;
@@ -203,6 +202,7 @@ public class ResultsGameState extends CameraGameState {
 		resultsNode.setBackground(q);
 	}
 
+	@Override
 	public void cleanup() {
 	}
 }

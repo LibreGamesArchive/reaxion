@@ -1,8 +1,6 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
 
 /**
  * Increases character's gauge rate by a factor of 1.1x.

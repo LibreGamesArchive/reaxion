@@ -35,6 +35,7 @@ public class Flipside extends Stage {
 		bgmOdds = new float[] {1};
 	}
 
+	@Override
 	public void loadComponents(StageGameState b) {
 		sky = LoadingQueue.quickLoad(new Model("stages/flipside_city-sky"), b);
 		b.removeModel(sky);

@@ -4,10 +4,8 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.GameOverOverlay;
-import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
@@ -241,6 +239,7 @@ public class GameOverState extends CameraGameState {
 		overNode.setBackground(q);
 	}
 
+	@Override
 	public void cleanup() {
 	}
 }

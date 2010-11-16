@@ -3,7 +3,6 @@ package com.googlecode.reaxion.game.model.prop;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
 
 public class Dust extends Model {
 	private static final String filename = "twilight-dust";

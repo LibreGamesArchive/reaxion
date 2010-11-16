@@ -2,13 +2,10 @@ package com.googlecode.reaxion.game.model.attackobject;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.Vector;
-
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 public class MagnetBomb extends AttackObject {
@@ -78,7 +75,7 @@ public class MagnetBomb extends AttackObject {
 				
 				if (toBomb.length() > 20) {
 					netAccel = netAccel.add(toBomb.normalize().mult(seekSpeed*
-							(float)ttd * (float)ttdOther / (toBomb.lengthSquared())));
+							ttd * ttdOther / (toBomb.lengthSquared())));
 				}
 				else
 					closeBombs.push(bomb);

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.prop.Dust;
-import com.googlecode.reaxion.game.model.prop.Petal;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.light.DirectionalLight;
@@ -35,6 +34,7 @@ public class TwilightKingdom extends Stage {
 		bgmOdds = new float[] {1};
 	}
 
+	@Override
 	public void loadComponents(StageGameState b) {
 		sky = LoadingQueue.quickLoad(new Model("stages/twilight_kingdom-sky"), b);
 		b.removeModel(sky);

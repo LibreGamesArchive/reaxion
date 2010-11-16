@@ -29,9 +29,6 @@
 package com.googlecode.reaxion.test;
 
 import com.radakan.jme.mxml.*;
-import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.state.StageGameState;
-import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.SimpleGame;
 import com.jme.input.FirstPersonHandler;
 import com.jme.light.DirectionalLight;
@@ -46,7 +43,6 @@ import com.jme.renderer.pass.BasicPassManager;
 import com.jme.renderer.pass.RenderPass;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
-import com.jme.scene.shape.Quad;
 import com.jme.scene.state.FogState;
 import com.jme.scene.state.LightState;
 import com.jme.system.DisplaySystem;
@@ -136,7 +132,7 @@ public class SeasReposeRender extends SimpleGame {
 					loader.setMaterials(matLoader.getMaterials());
 			}
 
-			model = (Node) loader.loadModel(meshURL);
+			model = loader.loadModel(meshURL);
 		} catch (IOException ex) {
 			Logger.getLogger(SeasReposeRender.class.getName()).log(Level.SEVERE,
 					null, ex);
@@ -232,6 +228,7 @@ public class SeasReposeRender extends SimpleGame {
 	private Vector3f tmpVec = new Vector3f();
 
 	// Update each frame to check for input
+	@Override
 	protected void simpleUpdate() {
 		Vector3f playerPos = cam.getLocation();
 
@@ -241,6 +238,7 @@ public class SeasReposeRender extends SimpleGame {
 		pManager.updatePasses(tpf);
 	}
 
+	@Override
 	protected void simpleRender() {
 		pManager.renderPasses(display.getRenderer());
 	}

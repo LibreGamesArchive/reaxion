@@ -1,12 +1,6 @@
 package com.googlecode.reaxion.game.overlay;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
@@ -14,7 +8,6 @@ import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 import com.jmex.game.state.GameState;
 

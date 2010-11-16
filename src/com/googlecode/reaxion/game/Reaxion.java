@@ -1,29 +1,12 @@
 package com.googlecode.reaxion.game;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.util.concurrent.Callable;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-import com.captiveimagination.jgn.JGN;
-import com.captiveimagination.jgn.clientserver.JGNClient;
-import com.captiveimagination.jgn.clientserver.JGNServer;
-import com.captiveimagination.jgn.synchronization.SyncObjectManager;
-import com.captiveimagination.jgn.synchronization.SynchronizationManager;
-import com.captiveimagination.jgn.synchronization.message.Synchronize3DMessage;
-import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
-import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
-import com.captiveimagination.jgn.synchronization.swing.SwingGraphicalController;
-import com.captiveimagination.jgn.test.sync.SimpleSynchronization;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
-import com.googlecode.reaxion.game.networking.JMEGraphicalController;
-import com.googlecode.reaxion.game.networking.chat.ChatClient;
-import com.googlecode.reaxion.game.networking.chat.ChatServer;
-import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;

@@ -1,10 +1,5 @@
 package com.googlecode.reaxion.test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 
 /** 

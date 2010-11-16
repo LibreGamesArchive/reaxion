@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
 import com.googlecode.reaxion.game.NetworkingObjects;
 import com.googlecode.reaxion.game.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.model.Model;

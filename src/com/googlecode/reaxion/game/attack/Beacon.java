@@ -6,7 +6,6 @@ import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
-import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**
  * Flags the enemy to be targeted by light orbs.
@@ -49,7 +48,7 @@ public class Beacon extends Attack {
 			for (int i=0; i<orb.length; i++) {
 				orb[i] = (BeaconOrb)LoadingQueue.quickLoad(new BeaconOrb(getUsers()), b);
 				orb[i].model.setLocalTranslation(new Vector3f(0, target.model.getLocalTranslation().y + 3f, 0));
-				orb[i].theta = i*FastMath.PI*2/(float)orb.length;
+				orb[i].theta = i*FastMath.PI*2/orb.length;
 				orb[i].target = target;
 			}
 			

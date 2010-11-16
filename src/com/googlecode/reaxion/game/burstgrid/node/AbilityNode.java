@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game.burstgrid.node;
 
-import java.util.ArrayList;
-
 import com.googlecode.reaxion.game.ability.Ability;
 
 /** 
@@ -27,6 +25,7 @@ public class AbilityNode extends BurstNode
 		//ab = findAbility(s);
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " Ability ");
 	}
