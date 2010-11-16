@@ -32,7 +32,6 @@ import com.radakan.jme.mxml.*;
 import com.jme.app.SimpleGame;
 import com.jme.input.FirstPersonHandler;
 import com.jme.input.KeyInput;
-import com.jme.math.FastMath;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
@@ -77,7 +76,7 @@ public class ModelTest extends SimpleGame {
                     loader.setMaterials(matLoader.getMaterials());
             }
             
-            model = (Node) loader.loadModel(meshURL);
+            model = loader.loadModel(meshURL);
         } catch (IOException ex) {
             Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,7 +133,8 @@ public class ModelTest extends SimpleGame {
     }
     
     // Update each frame to check for input
-    protected void simpleUpdate(){
+    @Override
+	protected void simpleUpdate(){
         // press 1 and 2 to cycle through states
         if (KeyInput.get().isKeyDown(KeyInput.KEY_1)){
         	index = (animation.size() + index - 1) % animation.size();

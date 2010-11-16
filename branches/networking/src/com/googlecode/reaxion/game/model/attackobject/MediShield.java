@@ -39,9 +39,9 @@ public class MediShield extends AttackObject {
 			((Character)users.get(users.size()-1)).heal(b, hpf);
 		
 		if (lifeCount >= fadePoint) {
-			float factor = ((float)lifespan - lifeCount)/(float)(lifespan - fadePoint);
+			float factor = ((float)lifespan - lifeCount)/(lifespan - fadePoint);
 			model.setLocalScale(new Vector3f(factor, factor, factor));
-			model.setLocalTranslation(model.getLocalTranslation().add(new Vector3f(0, 2.75f/(float)(lifespan - fadePoint), 0)));
+			model.setLocalTranslation(model.getLocalTranslation().add(new Vector3f(0, 2.75f/(lifespan - fadePoint), 0)));
 		}
         
         //check lifespan

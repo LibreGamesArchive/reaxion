@@ -99,7 +99,7 @@ public class MikoLakeRender extends SimpleGame {
 					loader.setMaterials(matLoader.getMaterials());
 			}
 
-			model = (Node) loader.loadModel(meshURL);
+			model = loader.loadModel(meshURL);
 		} catch (IOException ex) {
 			Logger.getLogger(MikoLakeRender.class.getName()).log(Level.SEVERE,
 					null, ex);
@@ -173,6 +173,7 @@ public class MikoLakeRender extends SimpleGame {
 	private Vector3f tmpVec = new Vector3f();
 
 	// Update each frame to check for input
+	@Override
 	protected void simpleUpdate() {
 		Vector3f playerPos = cam.getLocation();
 
@@ -182,6 +183,7 @@ public class MikoLakeRender extends SimpleGame {
 		pManager.updatePasses(tpf);
 	}
 
+	@Override
 	protected void simpleRender() {
 		pManager.renderPasses(display.getRenderer());
 	}

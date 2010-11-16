@@ -42,6 +42,7 @@ public class CityOfDreams extends Stage {
 		bgmOdds = new float[] {1};
 	}
 
+	@Override
 	public void loadComponents(StageGameState b) {
 		dome = LoadingQueue.quickLoad(new Model("stages/dream_port-sky"), b);
 		b.removeModel(dome);

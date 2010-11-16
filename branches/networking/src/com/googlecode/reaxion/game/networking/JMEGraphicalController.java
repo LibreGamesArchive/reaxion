@@ -37,7 +37,6 @@ import com.captiveimagination.jgn.synchronization.*;
 import com.captiveimagination.jgn.synchronization.message.*;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
-import com.jme.scene.*;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**

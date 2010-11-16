@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game.burstgrid.node;
 
-import java.util.ArrayList;
-
 /** 
  * A simple MaxGaugeNode. Will have functionality included to manipulate the augment to the Max Gauge it provides.
  * 
@@ -22,6 +20,7 @@ public class MaxGaugeNode extends BurstNode
 		maxGPlus = mg;
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " MaxGauge ");
 	}

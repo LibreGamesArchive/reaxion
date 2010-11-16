@@ -1,9 +1,6 @@
 package com.googlecode.reaxion.game.networking.sync.message;
 
 import com.captiveimagination.jgn.synchronization.message.Synchronize3DMessage;
-import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
-import com.jme.math.Quaternion;
-import com.jme.math.Vector3f;
 
 public class SynchronizeModelMessage extends Synchronize3DMessage {
 	private float scaleX, scaleY, scaleZ;

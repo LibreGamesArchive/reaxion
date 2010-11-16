@@ -7,7 +7,6 @@ import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
-import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**
  * Summons multiple storm clouds that roam the area.

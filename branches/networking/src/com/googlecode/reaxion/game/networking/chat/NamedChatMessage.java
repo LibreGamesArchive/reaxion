@@ -49,6 +49,7 @@ public class NamedChatMessage extends ChatMessage {
 		this.playerName = playerName;
 	}
 
+	@Override
 	public String toString() {
 		return "NCM id=" + getId() + " player:" + playerName + " playerId:" + getPlayerId() + " destPl:" + getDestinationPlayerId();
 	}

@@ -5,7 +5,6 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.util.Battle;
-import com.jmex.game.state.GameStateManager;
 
 /**
  * {@code ServerGameState} extends {@code BattleGameState} with functionality

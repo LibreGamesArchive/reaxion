@@ -1,8 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.attackobject.Bubble;
-import com.googlecode.reaxion.game.model.attackobject.Bullet;
 import com.googlecode.reaxion.game.model.attackobject.IceCube;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;

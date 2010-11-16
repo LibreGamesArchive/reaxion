@@ -1,42 +1,26 @@
 package com.googlecode.reaxion.game.state;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.DialogueOverlay;
-import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.googlecode.reaxion.game.util.Actor;
 import com.jme.app.AbstractGame;
-import com.jme.image.Texture;
-import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
-import com.jme.scene.shape.Quad;
-import com.jme.scene.state.BlendState;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
 import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 
 /**
- * {@code DialogueGameState} provides an interface for text-based
- * cutscenes.
+ * {@code DialogueGameState} provides an interface for text-based cutscenes.
  * 
  * @author Khoa
  */
@@ -54,9 +38,9 @@ public class DialogueGameState extends CameraGameState {
 	protected InputHandler input;
 
 	protected AbstractGame game = null;
-	
+
 	private String bg;
-	
+
 	private final int textSpeed = 2;
 	private final int textWidth = 760;
 	/**
@@ -69,7 +53,7 @@ public class DialogueGameState extends CameraGameState {
 	private int current = 0;
 	private List<String> reserveText;
 	private String currentText = "";
-	
+
 	/**
 	 * Contains the text block for each index.
 	 */
@@ -79,16 +63,15 @@ public class DialogueGameState extends CameraGameState {
 	 */
 	private String[] names;
 	/**
-	 * Contains the duration in frames for each index.
-	 * {@code 0} denotes no limit, skipping is available.
-	 * {@code -1} denotes no skipping until text finishes.
+	 * Contains the duration in frames for each index. {@code 0} denotes no
+	 * limit, skipping is available. {@code -1} denotes no skipping until text
+	 * finishes.
 	 */
 	private int[] durations;
 	/**
 	 * Contains all the {@code Actors} for this cutscene.
 	 */
 	private Actor[] actors;
-	
 
 	public DialogueGameState(String[] s, int[] d, Actor[] a, String b) {
 		super(NAME);
@@ -129,14 +112,14 @@ public class DialogueGameState extends CameraGameState {
 		rootNode.updateRenderState();
 		rootNode.updateWorldBound();
 		rootNode.updateGeometricState(0.0f, true);
-		
+
 		// Set the background
 		dialogueNode.setBg(bg);
-		
+
 		// Setup actors
 		dialogueNode.setupActors(actors.length);
 		updateActors();
-		
+
 		// Prepare the text
 		loadText(current);
 	}
@@ -174,7 +157,7 @@ public class DialogueGameState extends CameraGameState {
 				}
 			}
 		}
-		
+
 		// Update the geometric state of the rootNode
 		rootNode.updateGeometricState(tpf, true);
 
@@ -183,7 +166,7 @@ public class DialogueGameState extends CameraGameState {
 					"return", false)) {
 				// check the duration limit
 				if (count >= durations[current]) {
-					
+
 					// if text is done
 					if (reserveText == null) {
 						current++;
@@ -191,7 +174,7 @@ public class DialogueGameState extends CameraGameState {
 							loadText(current);
 						else
 							returnToCharSelectState();
-						
+
 					} else if (durations[current] >= 0) {
 						// if allowed, skip the scrolling
 						while (reserveText != null)
@@ -223,121 +206,119 @@ public class DialogueGameState extends CameraGameState {
 						+ MouseInput.get().isCursorVisible());
 			}
 		}
-		
+
 		// Update the dialogue node
 		if (count % textSpeed == 0) {
 			add();
 			dialogueNode.setText(currentText);
 		}
 		updateActors();
-		dialogueNode.showArrow(current < durations.length && (durations[current] >= 0 || reserveText == null) && count >= durations[current]);
-		//System.out.println(count+" "+durations[current]);
+		dialogueNode.showArrow(current < durations.length
+				&& (durations[current] >= 0 || reserveText == null)
+				&& count >= durations[current]);
+		// System.out.println(count+" "+durations[current]);
 		count++;
 	}
-	
+
 	/**
 	 * Parses input array for name labels and text, separated by "::".
+	 * 
 	 * @param str
 	 */
 	private void parseInput(String[] s) {
 		names = new String[s.length];
 		strings = new String[s.length];
-		
-		for (int i=0; i<s.length; i++) {
+
+		for (int i = 0; i < s.length; i++) {
 			String[] p = s[i].split("::");
 			if (p.length > 1)
 				names[i] = p[0].trim();
-			strings[i] = p[p.length-1].trim();
+			strings[i] = p[p.length - 1].trim();
 		}
 	}
-	
+
 	/**
 	 * Updates {@code Actor}s' positions and portraits.
 	 */
 	private void updateActors() {
-		for (int i=0; i<actors.length; i++) {
+		for (int i = 0; i < actors.length; i++) {
 			String p = actors[i].getPortrait(current, count);
 			if (p != null)
 				dialogueNode.loadPortrait(i, p);
-			dialogueNode.movePortrait(i, actors[i].getPosition(current, count, dialogueNode.getPoint(i)));
-			
-			//System.out.println(current+" "+count+" : "+p+" / "+actors[i].getPosition(current, count, dialogueNode.getPoint(i)));
+			dialogueNode.movePortrait(i, actors[i].getPosition(current, count,
+					dialogueNode.getPoint(i)));
+
+			// System.out.println(current+" "+count+" : "+p+" / "+actors[i].getPosition(current,
+			// count, dialogueNode.getPoint(i)));
 		}
 	}
-	
+
 	int curChar;
-	
+
 	/**
-	 * Load the text block denoted by {@code ind} and changes the
-	 * {@code dialogueNode} accordingly.
-	 * @param ind index to change to
+	 * Load the text block denoted by {@code ind} and changes the {@code
+	 * dialogueNode} accordingly.
+	 * 
+	 * @param ind
+	 *            index to change to
 	 */
 	private void loadText(int ind) {
-		//reserveText  = Arrays.asList(strings[ind].split(" "));
-	//	reserveText = strings[ind];
+		// reserveText = Arrays.asList(strings[ind].split(" "));
+		// reserveText = strings[ind];
 		currentText = "";
 		dialogueNode.setName(names[ind]);
 		dialogueNode.setText(currentText);
 		count = 0;
-		
+
 		curChar = 0;
 	}
-	
+
 	/**
-	 * Add to the current text block, iterating over the current
-	 * index's string. Characters are added one at a time or in
-	 * conjunction with spaces/line breaks. If the current word
-	 * is complete, the next word is deployed. When all words have
-	 * been added, the reserve is emptied.
+	 * Add to the current text block, iterating over the current index's string.
+	 * Characters are added one at a time or in conjunction with spaces/line
+	 * breaks. If the current word is complete, the next word is deployed. When
+	 * all words have been added, the reserve is emptied.
 	 */
-	/*private void add() {
-		// if there is text left to add
-		if (reserveText != null) {
-			
-			String first = reserveText.get(0);
-			
-			// add the next letter
-			String nextChar = first.substring(0, 1);
-			currentText += nextChar;
-			
-			first.
-			
-			// subtract from the current reserved word
-			if (first.length() > 1) {
-				first = first.substring(1);
-			} else {
-				// shift to the next word
-				if (reserveText.length > 1) {
-					reserveText = Arrays.copyOfRange(reserveText, 1, reserveText.length);
-					if (dialogueNode.testText(currentText+reserveText[0]) > textWidth)
-						currentText += "\n";
-					else
-						currentText += " ";
-				} else {
-					// empty the reserve
-					reserveText = null;
-				}
-			}
-		}
-	}*/
-	
+	/*
+	 * private void add() { // if there is text left to add if (reserveText !=
+	 * null) {
+	 * 
+	 * String first = reserveText.get(0);
+	 * 
+	 * // add the next letter String nextChar = first.substring(0, 1);
+	 * currentText += nextChar;
+	 * 
+	 * first.
+	 * 
+	 * // subtract from the current reserved word if (first.length() > 1) {
+	 * first = first.substring(1); } else { // shift to the next word if
+	 * (reserveText.length > 1) { reserveText = Arrays.copyOfRange(reserveText,
+	 * 1, reserveText.length); if
+	 * (dialogueNode.testText(currentText+reserveText[0]) > textWidth)
+	 * currentText += "\n"; else currentText += " "; } else { // empty the
+	 * reserve reserveText = null; } } } }
+	 */
+
 	private void add() {
-		if(curChar < strings[current].length())
-			currentText += strings[current].charAt(curChar++);
-		
+		if (current < strings.length)
+			if (curChar < strings[current].length())
+				currentText += strings[current].charAt(curChar++);
+
 	}
 
 	private void returnToCharSelectState() {
 		if (MissionManager.hasCurrentMission())
 			MissionManager.startNext();
 		else {
-			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
+			GameStateManager.getInstance().getChild(
+					CharacterSelectionState.NAME).setActive(true);
 			setActive(false);
 			BgmPlayer.stopAndReset();
 			GameStateManager.getInstance().detachChild(this);
 		}
 	}
 
+	@Override
 	public void cleanup() {
 	}
 }

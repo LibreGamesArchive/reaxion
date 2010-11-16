@@ -1,13 +1,10 @@
 package com.googlecode.reaxion.game.attack;
 
-import java.util.ArrayList;
-
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.Holy;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 /**

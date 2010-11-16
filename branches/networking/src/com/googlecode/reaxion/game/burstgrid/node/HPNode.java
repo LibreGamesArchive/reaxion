@@ -48,6 +48,7 @@ public class HPNode extends BurstNode
 			linkedNodes.add(bn);
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " HP ");
 	}

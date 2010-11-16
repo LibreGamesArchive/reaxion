@@ -6,7 +6,6 @@ import com.googlecode.reaxion.game.attack.ShieldMediguard;
 import com.googlecode.reaxion.game.attack.ShieldReflega;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
 
 /**
  * Recovers some gauge points when a Barrier type attack is used.

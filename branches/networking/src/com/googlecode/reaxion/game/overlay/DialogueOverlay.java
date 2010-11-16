@@ -1,31 +1,12 @@
 package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.googlecode.reaxion.game.attack.Attack;
-import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.FontUtils;
-import com.jme.image.Image;
-import com.jme.image.Texture;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
-import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Quad;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
-import com.jme.util.geom.BufferUtils;
-import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 
 /**
@@ -170,6 +151,7 @@ public class DialogueOverlay extends Overlay {
 	/**
 	 * Sets the name label to the parameter.
 	 */
+	@Override
 	public void setName(String str) {
 		if (str == null)
 			str = "";

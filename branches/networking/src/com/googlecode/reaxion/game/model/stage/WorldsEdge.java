@@ -38,6 +38,7 @@ public class WorldsEdge extends Stage {
 		bgmOdds = new float[] {1, 1};
 	}
 
+	@Override
 	public void loadComponents(StageGameState b) {
 		sky = LoadingQueue.quickLoad(new Model("stages/worlds_edge-sky"), b);
 		b.removeModel(sky);

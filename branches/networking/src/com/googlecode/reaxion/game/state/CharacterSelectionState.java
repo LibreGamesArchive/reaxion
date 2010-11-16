@@ -1,22 +1,16 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
-import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
-import com.jme.input.MouseInput;
 import com.jme.scene.Node;
-import com.jme.scene.state.BlendState;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 

@@ -240,7 +240,7 @@ public class HudOverlay extends Overlay {
 		
 		// update opHealthText
 		if (b.getTarget() instanceof Character)
-			opHealthText.setText((int)Math.max(((Character)(b.getTarget())).hp, 0) +"/"+ (int)((Character)(b.getTarget())).maxHp);
+			opHealthText.setText((int)Math.max(((Character)(b.getTarget())).hp, 0) +"/"+ ((Character)(b.getTarget())).maxHp);
 		else
 			opHealthText.setText("-- / --");
 		opHealthText.update();
@@ -252,7 +252,7 @@ public class HudOverlay extends Overlay {
 		ptHealthFill.setSolidColor(new ColorRGBA((percentPtHp<.5)?1:0, (percentPtHp>=.25)?1:0, 0, 1));
 		
 		// update ptHealthText
-		ptHealthText.setText((int)Math.max(b.getPartner().hp, 0) +"/"+ (int)(b.getPartner().maxHp));
+		ptHealthText.setText((int)Math.max(b.getPartner().hp, 0) +"/"+ (b.getPartner().maxHp));
 		ptHealthText.update();
 		
 		// update ptName
@@ -266,7 +266,7 @@ public class HudOverlay extends Overlay {
 		healthFill.setSolidColor(new ColorRGBA((percentHp<.5)?1:0, (percentHp>=.25)?1:0, 0, 1));
 		
 		// update healthText
-		healthText.setText((int)Math.max(b.getPlayer().hp, 0) +"/"+ (int)(b.getPlayer().maxHp));
+		healthText.setText((int)Math.max(b.getPlayer().hp, 0) +"/"+ (b.getPlayer().maxHp));
 		healthText.update();
 		
 		// update name
@@ -278,7 +278,7 @@ public class HudOverlay extends Overlay {
 		float percentGauge = (float) b.getPlayer().gauge/b.getPlayer().maxGauge;
 		gaugeHighFill.setLocalScale(new Vector3f(percentGauge, 1, 1));
 		gaugeHighFill.setLocalTranslation(new Vector3f(208 + 9 + 283 - (1-percentGauge)*283, 34 + 5, 0));
-		gaugeLowFill.setLocalScale(new Vector3f((float) Math.min(percentGauge, lowerFraction), 1, 1));
+		gaugeLowFill.setLocalScale(new Vector3f(Math.min(percentGauge, lowerFraction), 1, 1));
 		gaugeLowFill.setLocalTranslation(new Vector3f(208 + 9 + 283 - (1-Math.min(percentGauge, lowerFraction))*283, 34 + 5, 0));
 		
 		// update gaugeCount
@@ -296,9 +296,9 @@ public class HudOverlay extends Overlay {
 			try {
 				if (attacks[i] != null) {
 					Attack temp = (Attack) attacks[i].getConstructors()[0].newInstance();
-					attackText[i].setText(temp.name);
-					gaugeCostText[i].setText("" + temp.gaugeCost);
-					gaugeCosts[i] = temp.gaugeCost;
+					attackText[i].setText(Attack.name);
+					gaugeCostText[i].setText("" + Attack.gaugeCost);
+					gaugeCosts[i] = Attack.gaugeCost;
 				} else {
 					attackText[i].setText("---");
 					gaugeCostText[i].setText("--");

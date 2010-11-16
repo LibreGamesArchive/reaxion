@@ -1,19 +1,11 @@
 package com.googlecode.reaxion.game.overlay;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.googlecode.reaxion.game.attack.Attack;
-import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.image.Image;
 import com.jme.image.Texture;
 import com.jme.math.Vector3f;
-import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Quad;
@@ -21,9 +13,6 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jme.util.geom.BufferUtils;
-import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
-import com.jmex.angelfont.BitmapText;
 
 /**
  * Facilitates the creation of and maintains in-battle pausing.
@@ -87,9 +76,9 @@ public class PauseOverlay extends Overlay {
                 
                 int index = 3 * ((h- y - 1) * w + x);
                 //if (index < 0) { System.out.println(); }
-                int argb = (((int) (buff.get(index+0)) & 0xFF) << 16) //r
-                         | (((int) (buff.get(index+1)) & 0xFF) << 8)  //g
-                         | (((int) (buff.get(index+2)) & 0xFF));      //b
+                int argb = (((buff.get(index+0)) & 0xFF) << 16) //r
+                         | (((buff.get(index+1)) & 0xFF) << 8)  //g
+                         | (((buff.get(index+2)) & 0xFF));      //b
 
                 img.setRGB(x, y, argb);
             }

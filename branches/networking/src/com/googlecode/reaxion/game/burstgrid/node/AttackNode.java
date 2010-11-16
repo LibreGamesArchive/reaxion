@@ -32,6 +32,7 @@ public class AttackNode extends BurstNode
 		//ab = findAttack(s);
 	}
 	
+	@Override
 	public void print(){
 		System.out.print(id + " Attack ");
 	}

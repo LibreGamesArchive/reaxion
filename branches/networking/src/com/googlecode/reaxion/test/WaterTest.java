@@ -47,14 +47,16 @@ public class WaterTest extends SimplePassGame {
         app.start();
     }
 
-    protected void cleanup() {
+    @Override
+	protected void cleanup() {
         super.cleanup();
         waterEffectRenderPass.cleanup();
     }
 
     private Vector3f tmpVec = new Vector3f();
 
-    protected void simpleUpdate() {
+    @Override
+	protected void simpleUpdate() {
         if (KeyBindingManager.getKeyBindingManager().isValidCommand("e", false)) {
             switchShowDebug();
         }
@@ -85,7 +87,8 @@ public class WaterTest extends SimplePassGame {
         }
     }
 
-    protected void simpleInitGame() {
+    @Override
+	protected void simpleInitGame() {
         display.setTitle("Water Test");
         cam.setFrustumPerspective(45.0f, (float) display.getWidth()
                 / (float) display.getHeight(), 1f, farPlane);

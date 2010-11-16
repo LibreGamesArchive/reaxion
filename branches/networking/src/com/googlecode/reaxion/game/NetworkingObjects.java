@@ -63,15 +63,15 @@ public abstract class NetworkingObjects {
 		controller = new JMEGraphicalController();
 
 		// Start the server
-		serverReliable = new InetSocketAddress("10.72.11.2", 9001);
-		serverFast = new InetSocketAddress("10.72.11.2", 9002);
+		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(), 9001);
+		serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
 	}
 
 	public static void setUpClient() throws IOException, InterruptedException {
 		isServer = false;
 
 		// Start the client
-		client = new JGNClient(serverReliable, serverFast);
+		client = new JGNClient(new InetSocketAddress(InetAddress.getLocalHost(), 9001), new InetSocketAddress(InetAddress.getLocalHost(), 9002));
 		clientSyncManager = new SynchronizationManager(client, controller);
 		clientSyncManager.addSyncObjectManager(new SyncObjectManager() {
 			public Object create(SynchronizeCreateMessage scm) {

@@ -43,7 +43,7 @@ public class ResourceLibrary {
             }
             
             // Store the loaded model to the map
-            map.put(filename, (Node) loader.loadModel(meshURL));
+            map.put(filename, loader.loadModel(meshURL));
             System.out.println(filename+" added to ResourceLibrary.");
         } catch (IOException ex) {
             Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);

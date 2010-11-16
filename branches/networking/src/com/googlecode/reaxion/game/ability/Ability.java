@@ -1,7 +1,6 @@
 package com.googlecode.reaxion.game.ability;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.attackobject.AngelSword;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.prop.GlowRing;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -71,6 +70,7 @@ public class Ability {
 		b.getRootNode().updateRenderState();
 	}
 	
+	@Override
 	public String toString() {
 		return name;
 	}

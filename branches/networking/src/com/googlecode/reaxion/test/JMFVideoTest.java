@@ -33,7 +33,6 @@ package com.googlecode.reaxion.test;
 
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Vector;
 
 import javax.media.Format;
@@ -73,6 +72,7 @@ public class JMFVideoTest extends SimpleGame {
 	JMFVideoImage image;
 	Spatial spatial;
 
+	@Override
 	protected void simpleInitGame() {
 		initFobs();
 
@@ -122,6 +122,7 @@ public class JMFVideoTest extends SimpleGame {
 
 	}
 
+	@Override
 	protected void simpleUpdate() {
 		if (!image.update(tex, false)) {
 			// if we did not update the texture, wait some time, but when the
@@ -162,7 +163,7 @@ public class JMFVideoTest extends SimpleGame {
 			if (timeElp < (time / 2))
 				scaling = (timeElp / time) * 5;
 			else
-				scaling = (float) ((1 - timeElp / time) * 3);
+				scaling = ((1 - timeElp / time) * 3);
 
 			scaleRef.x = scaling;
 			scaleRef.y = scaling;

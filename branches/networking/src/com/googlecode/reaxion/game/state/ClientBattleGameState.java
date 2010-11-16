@@ -5,7 +5,6 @@ import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.input.KeyBindingManager;

@@ -3,8 +3,6 @@ package com.googlecode.reaxion.game.model.attackobject;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
 
 public class WheelLance extends AttackObject {
 	
@@ -35,7 +33,7 @@ public class WheelLance extends AttackObject {
 	@ Override
     public void act(StageGameState b) {
         // rotate proportional to life left
-    	yaw += (float)(lifespan - lifeCount) * angleInc;
+    	yaw += (lifespan - lifeCount) * angleInc;
     	rotate();
         
     	super.act(b);

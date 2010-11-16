@@ -1,9 +1,6 @@
 
 package com.googlecode.reaxion.test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -12,22 +9,15 @@ import java.util.logging.Logger;
 import com.jme.app.SimpleGame;
 import com.jme.bounding.BoundingBox;
 import com.jme.image.Texture;
-import com.jme.math.FastMath;
 import com.jme.math.Matrix4f;
 import com.jme.math.Vector3f;
-import com.jme.scene.Node;
-import com.jme.scene.shape.Box;
-import com.jme.scene.state.CullState;
 import com.jme.scene.state.TextureState;
 import com.jme.util.TextureManager;
-import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.effects.ProjectedTextureUtil;
-import com.jmex.model.converters.MilkToJme;
 import com.jmex.terrain.TerrainPage;
 import com.jmex.terrain.util.ImageBasedHeightMap;
-import com.jmex.terrain.util.ProceduralSplatTextureGenerator;
 
 /**
  * <code>TestProjectedTexture</code>
@@ -49,6 +39,7 @@ public class ProjectionTest extends SimpleGame {
 		app.start();
 	}
 
+	@Override
 	protected void simpleUpdate() {
 
 		projectorAim1.set(5*(timer.getTimeInSeconds()%10), 0.0f, 0);
@@ -56,6 +47,7 @@ public class ProjectionTest extends SimpleGame {
 		ProjectedTextureUtil.updateProjectedTexture( projectedTexture1, 30.0f, 1.5f, 1.0f, 1000.0f, new Vector3f(projectorAim1.x+1, 20, 0), projectorAim1, Vector3f.UNIT_Y );
 	}
 
+	@Override
 	protected void simpleInitGame() {
 		try {
             try {

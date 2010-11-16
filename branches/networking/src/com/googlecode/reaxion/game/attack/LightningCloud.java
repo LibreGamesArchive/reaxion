@@ -1,11 +1,9 @@
 package com.googlecode.reaxion.game.attack;
 
-import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Lightning;
 import com.googlecode.reaxion.game.model.attackobject.SeekingCloud;
-import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.Vector3f;

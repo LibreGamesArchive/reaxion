@@ -38,7 +38,7 @@ public class SpinningLance extends AttackObject {
 	@ Override
     public void act(StageGameState b) {
         // rotate proportional to life left
-    	angle += (float)(lifespan - lifeCount) * angleInc;
+    	angle += (lifespan - lifeCount) * angleInc;
     	rotate(new Vector3f(FastMath.sin(angle), 0, FastMath.cos(angle)));
     	
     	// get position

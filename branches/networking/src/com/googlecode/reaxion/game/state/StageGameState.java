@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
@@ -702,7 +701,7 @@ public class StageGameState extends CameraGameState {
     		Vector3f c = cam.getLocation();
     		Vector3f p = player.getTrackPoint();
     		//camRotY = (float)Math.asin((double)((c.y-p.y)/cameraDistance));
-    		camRotXZ = (float)Math.atan2((double)(c.x-p.x), (double)(c.z-p.z));
+    		camRotXZ = (float)Math.atan2((c.x-p.x), (c.z-p.z));
     	} else if (cameraMode == "free") {
     		// make sure there are trackable objects
     		boolean noTargets = true;
@@ -827,7 +826,8 @@ public class StageGameState extends CameraGameState {
     	hudNode.zPressed = b;
     }
     
-    public void stateRender(float tpf) {
+    @Override
+	public void stateRender(float tpf) {
     	
         // Render the rootNode
         DisplaySystem.getDisplaySystem().getRenderer().draw(rootNode);
@@ -852,6 +852,7 @@ public class StageGameState extends CameraGameState {
         pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
     }
 
-    public void cleanup() {
+    @Override
+	public void cleanup() {
     }
 }
