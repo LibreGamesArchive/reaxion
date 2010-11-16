@@ -86,7 +86,7 @@ public class CharacterSelectionState extends BasicGameState {
 	@Override
 	public void update(float _tpf) {
 		tpf = _tpf;
-
+		
 		// Update the InputHandler
 		if (input != null) {
 			input.update(tpf);
@@ -136,6 +136,13 @@ public class CharacterSelectionState extends BasicGameState {
 						"SimpleGameScreenShot");
 			}
 
+		}
+		
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
