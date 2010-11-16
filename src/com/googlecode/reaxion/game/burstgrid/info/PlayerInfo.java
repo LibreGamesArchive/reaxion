@@ -18,13 +18,14 @@ import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 
 public abstract class PlayerInfo{
 	
+	public String name;
+	
 	// default values
 	protected int baseHp = 60;
 	protected int baseStrength = 0;
 	protected int baseMinGauge = 8;
 	protected int baseMaxGauge = 16;
 	protected int baseRate = 0;
-	protected int baseExp = 0;
 	
 	//current values
 	protected int maxHp = 60;
@@ -32,7 +33,8 @@ public abstract class PlayerInfo{
 	protected int minGauge = 20;
 	protected int maxGauge = 30;
 	protected int rate = 1;
-	protected int exp = 0;
+	
+	public int exp = 0;
 	
 	protected BurstGrid grid;
 	protected String[] abilities = new String[2];
@@ -41,6 +43,10 @@ public abstract class PlayerInfo{
 	protected ArrayList<Attack> attackPool = new ArrayList<Attack>();
 	
 	protected HashMap<SoundEffectType, String> usableSfx = new HashMap<SoundEffectType, String>();
+	
+	public PlayerInfo(String name) {
+		this.name = name;
+	}
 	
 	/**
 	 * To be called at the program launch to create all player info.
@@ -55,7 +61,7 @@ public abstract class PlayerInfo{
 		minGauge = baseMinGauge = minG;
 		maxGauge = baseMaxGauge = maxG;
 		rate = baseRate = r;
-		exp = baseExp = 0;
+		exp = 0;
 	}
 
 	public int getBaseHp() {
@@ -115,6 +121,10 @@ public abstract class PlayerInfo{
 
 	public void setMaxGauge(int val) {
 		maxGauge = val;
+	}
+	
+	public int getGaugeRate() {
+		return rate;
 	}
 	
 	/**
@@ -194,10 +204,26 @@ public abstract class PlayerInfo{
 	}
 	
 	/**
+	 * Returns this player's BurstGrid.
+	 */
+	public BurstGrid getBurstGrid() {
+		return grid;
+	}
+	
+	/**
 	 * Reads the character's statistics from his/her burstgrid.
 	 */
 	public void readStatsFromGrid(){
-		ArrayList<BurstNode> bg = grid.getBurstGrid();
+		// reset values before reading
+		maxHp = baseHp;
+		strength = baseStrength;
+		minGauge = baseMinGauge;
+		maxGauge = baseMaxGauge;
+		rate = baseRate;
+		abilityPool = new ArrayList<Ability>();
+		attackPool = new ArrayList<Attack>();
+		
+		ArrayList<BurstNode> bg = grid.getNodes();
 		for(BurstNode b:bg){
 			if(b.activated){
 				if(b instanceof HPNode){
@@ -206,19 +232,19 @@ public abstract class PlayerInfo{
 				else if(b instanceof StrengthNode){
 					strength+=((StrengthNode)b).strengthPlus;
 				}
-				if(b instanceof MinGaugeNode){
+				else if(b instanceof MinGaugeNode){
 					minGauge+=((MinGaugeNode)b).minGPlus;
 				}
-				if(b instanceof MaxGaugeNode){
+				else if(b instanceof MaxGaugeNode){
 					maxGauge+=((MaxGaugeNode)b).maxGPlus;
 				}
-				if(b instanceof RateNode){
+				else if(b instanceof RateNode){
 					rate+=((RateNode)b).rate;
 				}
-				if(b instanceof AbilityNode){
+				else if(b instanceof AbilityNode){
 					abilityPool.add(((AbilityNode)b).ab);
 				}
-				if(b instanceof AttackNode){
+				else if(b instanceof AttackNode){
 					attackPool.add(((AttackNode)b).at);
 				}
 			}

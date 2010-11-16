@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
 import com.googlecode.reaxion.game.burstgrid.node.AttackNode;
 import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
+import com.googlecode.reaxion.game.burstgrid.node.HPNode;
 import com.googlecode.reaxion.game.burstgrid.node.MaxGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.RateNode;
@@ -37,10 +38,10 @@ public class BurstGrid
 	}
 
 	/**
-	 * Returns the Burst Grid
+	 * Returns an ArrayList of the nodes in BurstGrid
 	 * @return
 	 */
-	public ArrayList<BurstNode> getBurstGrid(){
+	public ArrayList<BurstNode> getNodes(){
 		return bg;
 	}
 
@@ -70,8 +71,8 @@ public class BurstGrid
 						if(node[1].contains("Max")){
 							b = new MaxGaugeNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
-						if(node[1].contains("HP")){
-							b = new MaxGaugeNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
+						else if(node[1].contains("HP")){
+							b = new HPNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
 						else if(node[1].contains("Min")){
 							b = new MinGaugeNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));

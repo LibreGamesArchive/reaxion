@@ -8,6 +8,10 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class NilayInfo extends PlayerInfo {
 	
+	public NilayInfo() {
+		super("Nilay");
+	}
+	
 	@Override
 	public void init(){
 		setStats(100, 1, 12, 18, 1);

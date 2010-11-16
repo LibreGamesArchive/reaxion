@@ -8,6 +8,10 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class KhoaInfo extends PlayerInfo {
 	
+	public KhoaInfo() {
+		super("Khoa");
+	}
+	
 	@Override
 	public void init(){
 		setStats(100,2,20,30,0);
