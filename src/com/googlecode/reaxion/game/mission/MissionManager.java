@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
+import com.googlecode.reaxion.game.mission.missions.MissionBurstGrid;
 import com.googlecode.reaxion.game.mission.missions.MissionHGS;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.jmex.game.state.GameStateManager;
@@ -31,6 +32,7 @@ public class MissionManager {
 		missions.put(MissionID.DEFEAT_LIGHT_USER, new Mission00());
 		missions.put(MissionID.OPEN_HUBGAMESTATE, new MissionHGS());
 		missions.put(MissionID.VS_TOYBOX, new VsToybox());
+		missions.put(MissionID.OPEN_BURSTGRID, new MissionBurstGrid());
 	}
 	
 	/**

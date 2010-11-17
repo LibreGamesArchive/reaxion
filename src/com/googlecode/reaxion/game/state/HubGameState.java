@@ -53,8 +53,6 @@ public class HubGameState extends StageGameState {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
-			System.out.println("####### Distance: " + playerLoc.distance(terminalLoc));
-			
 			if (playerLoc.distance(terminalLoc) <= 3) {
 				if (!rootNode.hasChild(missionOverlay)) {
 					pause = true;
