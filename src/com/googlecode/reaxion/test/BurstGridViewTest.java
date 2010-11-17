@@ -119,8 +119,7 @@ public class BurstGridViewTest extends SimpleGame {
 
 			// create connections
 			for(BurstNode c:b.nodes)
-				if(b.id<=2)
-					createConnector(b.activated && c.activated, b.vect, c.vect);
+				createConnector(b.activated && c.activated, b.vect, c.vect);
 		}
 	}
 

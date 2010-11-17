@@ -47,7 +47,7 @@ public class BurstGridGameState extends CameraGameState {
 	protected static final Logger logger = Logger.getLogger(StageGameState.class
             .getName());
 	
-	private final float scale = 16;
+	private final float scale = 4;
 	private final Vector3f camOffset = new Vector3f(7/3f, 0, -14);
 	private final Vector3f bgOffset = new Vector3f(0, 0, 725);
 	private final float camSpeed = 1f;
@@ -70,6 +70,8 @@ public class BurstGridGameState extends CameraGameState {
 	private Vector3f focus;
 	private Vector3f destination;
 	
+	private int currentCost;
+	
 	private Node gridNode;
 	private Node bgNode;
 	private Quad[] clouds = new Quad[2];
@@ -86,6 +88,7 @@ public class BurstGridGameState extends CameraGameState {
 		burstOverlay = new BurstGridOverlay();
 		burstOverlay.setStaticText(info);
 		burstOverlay.updateStats(info);
+		burstOverlay.updateCount(grid);
 		rootNode.attachChild(burstOverlay);
 		
         // create a blend state to handle transparency
@@ -286,7 +289,13 @@ public class BurstGridGameState extends CameraGameState {
     		else
     			clouds[i].getLocalTranslation().x += 1;
     	}
-
+    	
+    	// update node display info
+    	if (focus == destination) {
+    		findCost(currentNode);
+    		burstOverlay.updateDescriptors(info, currentNode, currentCost);
+    	}
+    	
     	rootNode.updateGeometricState(tpf, true);
     	rootNode.updateRenderState();
     }
@@ -357,24 +366,29 @@ public class BurstGridGameState extends CameraGameState {
 	}
     
 	/**
+	 * Determine the cost of the current node.
+	 */
+	private void findCost(BurstNode b) {
+		currentCost = Integer.MAX_VALUE;
+		// find the lowest cost from an activated node
+		for (int i=0; i<b.nodes.size(); i++) {
+			if (b.nodes.get(i).activated && b.costs.get(i) < currentCost)
+				currentCost = b.costs.get(i);
+		}
+	}
+	
+	/**
 	 * Attempt to purchase the current node.
 	 */
 	private void buyNode(BurstNode b) {
-		int cost = Integer.MAX_VALUE;
-		// find the lowest cost from an activated node
-		for (int i=0; i<b.nodes.size(); i++) {
-			if (b.nodes.get(i).activated && b.costs.get(i) < cost)
-				cost = b.costs.get(i);
-		}
-		
-		// affordable!
-		if (cost <= info.exp) {
+		if (!b.activated && currentCost <= info.exp) {
 			b.activated = true;
-			info.exp -= cost;
+			info.exp -= currentCost;
 			info.readStatsFromGrid();
 			
 			// update display
 			burstOverlay.updateStats(info);
+			burstOverlay.updateCount(grid);
 			
 			// redraw nodes
 			gridNode.detachAllChildren();

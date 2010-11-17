@@ -44,6 +44,29 @@ public class BurstGrid
 	public ArrayList<BurstNode> getNodes(){
 		return bg;
 	}
+	
+	/**
+	 * Counts the number of nodes that fit the specified parameters.
+	 * @param type HP, Max, Min, Attack, Strength, Ability, or Rate
+	 * @param active Whether node must be activated or not to count
+	 * @return Integer number of nodes that fit criteria
+	 */
+	public int getNodeCount(String type, boolean active) {
+		int count = 0;
+		
+		for(BurstNode a: bg) {
+			if ((type == "HP" && a instanceof HPNode) ||
+					(type == "Max" && a instanceof MaxGaugeNode) ||
+					(type == "Min" && a instanceof MinGaugeNode) ||
+					(type == "Attack" && a instanceof AttackNode) ||
+					(type == "Strength" && a instanceof StrengthNode) ||
+					(type == "Ability" && a instanceof AbilityNode) ||
+					(type == "Rate" && a instanceof RateNode))
+				count += ((active && a.activated) || !active)? 1 : 0;
+		}
+		
+		return count;
+	}
 
 	private void readGrid(String filePath){
 		String line;
@@ -114,34 +137,31 @@ public class BurstGrid
 					
 					if(a.id==1)
 						a.setVect(new Vector3f(0f,0f,0f));
+					
 					else if(a.id<=6)
 						a.setVect(new Vector3f(FastMath.cos(ang1*(a.id-2))*l1,FastMath.sin(ang1*(a.id-2))*l1,1));
+					
 					else if(a.id<=16){
-						if(a.id%2!=0)
-							a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/2f)-2).vect.getX()+FastMath.cos(ang1*(FastMath.ceil(a.id/2f)-4)-ang2)*l2, bg.get((int)FastMath.ceil(a.id/2f)-2).vect.getY()+FastMath.sin(ang1*(FastMath.ceil(a.id/2f)-4)-ang2)*l2,2));
-						else 
-							a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/2f)-2).vect.getX()+FastMath.cos(ang1*(FastMath.ceil(a.id/2f)-4)+ang2)*l2, bg.get((int)FastMath.ceil(a.id/2f)-2).vect.getY()+FastMath.sin(ang1*(FastMath.ceil(a.id/2f)-4)+ang2)*l2,2));
-						System.out.println(a.id + ": " + Math.toDegrees(Math.atan2(a.vect.y-bg.get((int)FastMath.ceil(a.id/2f)-2).vect.y, a.vect.x-bg.get((int)FastMath.ceil(a.id/2f)-2).vect.x)));
-						System.out.println(a.vect);
+						Vector3f prevVec = bg.get((int)FastMath.ceil(a.id/2f)-3).vect;
+						float prevAng = FastMath.atan2(prevVec.y, prevVec.x);
+						
+						if(a.id%2==1)
+							a.setVect(new Vector3f(prevVec.getX()+FastMath.cos(prevAng-ang2)*l2, prevVec.getY()+FastMath.sin(prevAng-ang2)*l2,3));
+						else
+							a.setVect(new Vector3f(prevVec.getX()+FastMath.cos(prevAng+ang2)*l2, prevVec.getY()+FastMath.sin(prevAng+ang2)*l2,3));
 					}
 					else{
+						Vector3f prevVec = bg.get((int)FastMath.ceil(a.id/3f-.5f)).vect;
+						float prevAng = FastMath.atan2(prevVec.y, prevVec.x);
+						
 						if(a.id%3==2){
-							if(((int)FastMath.ceil(a.id/3-.5f)+1)%2==1)
-								a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getX()+FastMath.cos(ang1-ang2-ang3)*l3, bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getY()+FastMath.sin(ang1-ang2-ang3)*l3,3));
-							else
-								a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getX()+FastMath.cos(ang1+ang2-ang3)*l3, bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getY()+FastMath.sin(ang1+ang2-ang3)*l3,3));
+							a.setVect(new Vector3f(prevVec.getX()+FastMath.cos(prevAng-ang3)*l3, prevVec.getY()+FastMath.sin(prevAng-ang3)*l3,3));
 						}
 						else if(a.id%3==0){
-							if(((int)FastMath.ceil(a.id/3-.5f)+1)%2==1)
-								a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getX()+FastMath.cos(ang1-ang2)*l3, bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getY()+FastMath.sin(ang1-ang2)*l3,3));
-							else
-								a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getX()+FastMath.cos(ang1+ang2)*l3, bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getY()+FastMath.sin(ang1+ang2)*l3,3));
+							a.setVect(new Vector3f(prevVec.getX()+FastMath.cos(prevAng)*l3, prevVec.getY()+FastMath.sin(prevAng)*l3,3));
 						}
 						else{
-							if(((int)FastMath.ceil(a.id/3-.5f)+1)%2==1)
-								a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getX()+FastMath.cos(ang1-ang2+ang3)*l3, bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getY()+FastMath.sin(ang1-ang2+ang3)*l3,3));
-							else
-								a.setVect(new Vector3f(bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getX()+FastMath.cos(ang1+ang2+ang3)*l3, bg.get((int)FastMath.ceil(a.id/3f-.5f)+1).vect.getY()+FastMath.sin(ang1+ang2+ang3)*l3,3));
+							a.setVect(new Vector3f(prevVec.getX()+FastMath.cos(prevAng+ang3)*l3, prevVec.getY()+FastMath.sin(prevAng+ang3)*l3,3));
 						}
 					}
 				}
