@@ -16,7 +16,7 @@ public class MonicaInfo extends PlayerInfo {
 	@Override
 	public void init(){
 		setStats(80, 1, 15, 25, 1);
-		exp = 1000; // testing value to buy nodes. go crazy.
+		exp = 10; // testing value to buy nodes. go crazy.
 		setAbilities(new String[] {"EvasiveStart"});
 		setAttacks(new String[] {"ShootBullet", "ShieldBarrier", "SpinLance", "SpikeLine"});
 		//createBurstGrid("");

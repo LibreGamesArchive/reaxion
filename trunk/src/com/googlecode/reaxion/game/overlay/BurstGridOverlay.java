@@ -1,9 +1,13 @@
 package com.googlecode.reaxion.game.overlay;
 
+import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
+import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
+import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
+import com.jme.scene.Spatial;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
@@ -17,7 +21,11 @@ import com.jmex.angelfont.BitmapText;
 public class BurstGridOverlay extends Overlay {
 	
 	private static final String baseURL = "../../resources/cosmos/";
-
+	
+	private final ColorRGBA plain = new ColorRGBA(1, 1, 1, 1);
+	private final ColorRGBA blocked = new ColorRGBA(2/3f, 2/3f, 2/3f, 1);
+	private final ColorRGBA buy = new ColorRGBA(1, 3/4f, 0, 1);
+	
 	private Quad panel;
 	
 	private BitmapText exp;
@@ -26,8 +34,17 @@ public class BurstGridOverlay extends Overlay {
 	private BitmapText g;
 	private BitmapText mi;
 	private BitmapText ma;
+	private BitmapText ph;
+	private BitmapText ps;
+	private BitmapText pg;
+	private BitmapText pmi;
+	private BitmapText pma;
+	private BitmapText pat;
+	private BitmapText pal;
+	private BitmapText c;
 	
 	private Node container;
+	private Node descriptors;
 	
 	public BurstGridOverlay() {
 		super();
@@ -40,6 +57,10 @@ public class BurstGridOverlay extends Overlay {
         panel = getImage(baseURL+"panels.png");
         panel.setLocalTranslation(new Vector3f(120, 300, 0));
         container.attachChild(panel);
+        
+        // create a container Node for the current descriptors
+        descriptors = new Node("descriptors");
+        container.attachChild(descriptors);
         
         // prepare dynamic text
         createDynamicText();
@@ -68,6 +89,45 @@ public class BurstGridOverlay extends Overlay {
 		
 		ma.setText(""+info.getMaxGauge());
 		ma.update();
+	}
+	
+	/**
+	 * Update the grid count info.
+	 */
+	public void updateCount(BurstGrid grid) {		
+		ph.setText(grid.getNodeCount("HP", true)+"/"+grid.getNodeCount("HP", false));
+		ph.update();
+		
+		ps.setText(grid.getNodeCount("Strength", true)+"/"+grid.getNodeCount("Strength", false));
+		ps.update();
+		
+		pg.setText(grid.getNodeCount("Rate", true)+"/"+grid.getNodeCount("Rate", false));
+		pg.update();
+		
+		pmi.setText(grid.getNodeCount("MinGauge", true)+"/"+grid.getNodeCount("MinGauge", false));
+		pmi.update();
+		
+		pma.setText(grid.getNodeCount("MaxGauge", true)+"/"+grid.getNodeCount("MaxGauge", false));
+		pma.update();
+		
+		pat.setText(grid.getNodeCount("MaxGauge", true)+"/"+grid.getNodeCount("MaxGauge", false));
+		pat.update();
+		
+		pal.setText(grid.getNodeCount("MaxGauge", true)+"/"+grid.getNodeCount("MaxGauge", false));
+		pal.update();
+	}
+	
+	/**
+	 * Update the node's descriptors.
+	 */
+	public void updateDescriptors(PlayerInfo info, BurstNode b, int cost) {
+		c.setText(""+ ((cost < Integer.MAX_VALUE)? cost : "--"));
+		c.update();
+		
+		// change colors accordingly
+		for (Spatial s : descriptors.getChildren())
+			if (s instanceof BitmapText)
+				((BitmapText) s).setDefaultColor((b.activated)? plain : ((cost <= info.exp)? buy : blocked));
 	}
 	
 	/**
@@ -157,6 +217,27 @@ public class BurstGridOverlay extends Overlay {
         pma.setText("MaxG %");
         pma.update();
         container.attachChild(pma);
+        
+        BitmapText pat = new BitmapText(FontUtils.eurostile, false);
+        pat.setSize(18);
+        pat.setLocalTranslation(new Vector3f(12, 600 - 398, 0));
+        pat.setText("Attack %");
+        pat.update();
+        container.attachChild(pat);
+        
+        BitmapText pal = new BitmapText(FontUtils.eurostile, false);
+        pal.setSize(18);
+        pal.setLocalTranslation(new Vector3f(12, 600 - 428, 0));
+        pal.setText("Ability %");
+        pal.update();
+        container.attachChild(pal);
+        
+        BitmapText c = new BitmapText(FontUtils.eurostile, false);
+        c.setSize(18);
+        c.setLocalTranslation(new Vector3f(12, 600 - 496, 0));
+        c.setText("Cost");
+        c.update();
+        descriptors.attachChild(c);
 	}
 	
 	/**
@@ -198,6 +279,54 @@ public class BurstGridOverlay extends Overlay {
         ma.setAlignment(BitmapFont.Align.Right);
         ma.setLocalTranslation(new Vector3f(240 - 12, 600 - 200, 0));
         container.attachChild(ma);
+        
+        ph = new BitmapText(FontUtils.eurostile, false);
+        ph.setSize(18);
+        ph.setAlignment(BitmapFont.Align.Right);
+        ph.setLocalTranslation(new Vector3f(240 - 12, 600 - 248, 0));
+        container.attachChild(ph);
+        
+        ps = new BitmapText(FontUtils.eurostile, false);
+        ps.setSize(18);
+        ps.setAlignment(BitmapFont.Align.Right);
+        ps.setLocalTranslation(new Vector3f(240 - 12, 600 - 278, 0));
+        container.attachChild(ps);
+        
+        pg = new BitmapText(FontUtils.eurostile, false);
+        pg.setSize(18);
+        pg.setAlignment(BitmapFont.Align.Right);
+        pg.setLocalTranslation(new Vector3f(240 - 12, 600 - 308, 0));
+        container.attachChild(pg);
+        
+        pmi = new BitmapText(FontUtils.eurostile, false);
+        pmi.setSize(18);
+        pmi.setAlignment(BitmapFont.Align.Right);
+        pmi.setLocalTranslation(new Vector3f(240 - 12, 600 - 338, 0));
+        container.attachChild(pmi);
+        
+        pma = new BitmapText(FontUtils.eurostile, false);
+        pma.setSize(18);
+        pma.setAlignment(BitmapFont.Align.Right);
+        pma.setLocalTranslation(new Vector3f(240 - 12, 600 - 368, 0));
+        container.attachChild(pma);
+        
+        pat = new BitmapText(FontUtils.eurostile, false);
+        pat.setSize(18);
+        pat.setAlignment(BitmapFont.Align.Right);
+        pat.setLocalTranslation(new Vector3f(240 - 12, 600 - 398, 0));
+        container.attachChild(pat);
+        
+        pal = new BitmapText(FontUtils.eurostile, false);
+        pal.setSize(18);
+        pal.setAlignment(BitmapFont.Align.Right);
+        pal.setLocalTranslation(new Vector3f(240 - 12, 600 - 428, 0));
+        container.attachChild(pal);
+        
+        c = new BitmapText(FontUtils.eurostile, false);
+        c.setSize(18);
+        c.setAlignment(BitmapFont.Align.Right);
+        c.setLocalTranslation(new Vector3f(240 - 12, 600 - 496, 0));
+        descriptors.attachChild(c);
 	}
 	
 }
