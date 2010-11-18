@@ -5,12 +5,16 @@ import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.state.BattleGameState;
+import com.googlecode.reaxion.game.state.ClientBattleGameState;
 import com.googlecode.reaxion.game.state.HubGameState;
+import com.googlecode.reaxion.game.state.ServerBattleGameState;
 import com.jme.math.Vector3f;
 
 /**
  * Contains all parameters needed to initiate a battle.
+ * 
  * @author Brian, Khoa
  */
 
@@ -24,7 +28,7 @@ public class Battle {
 	private static Battle currentBattle;
 	private static MajorCharacter nextP1, nextP2;
 	private static Stage nextStage;
-	
+
 	private MajorCharacter p1, p2;
 	private ArrayList<Character> op = new ArrayList<Character>();
 	private Class[] p1Attacks, p2Attacks;
@@ -38,9 +42,9 @@ public class Battle {
 
 	public Battle() {
 		loadSelection();
-		//testingInit();
+		// testingInit();
 	}
-	
+
 	/**
 	 * Sets players and stage to Battle's globals.
 	 */
@@ -56,41 +60,45 @@ public class Battle {
 	private void init() {
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
-		
+
 		try {
 			String[] b1 = p1.info.getAbilities();
 			p1Abilities = new Ability[b1.length];
-			for (int i=0; i<b1.length; i++)
-				p1Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b1[i]).getConstructors()[0].newInstance();
+			for (int i = 0; i < b1.length; i++)
+				p1Abilities[i] = (Ability) Class.forName(
+						abilityBaseLocation + b1[i]).getConstructors()[0]
+						.newInstance();
 			String[] t1 = p1.info.getAttacks();
-			for (int i=0; i<t1.length; i++)
+			for (int i = 0; i < t1.length; i++)
 				p1Attacks[i] = Class.forName(attackBaseLocation + t1[i]);
-			
+
 			String[] b2 = p2.info.getAbilities();
 			p2Abilities = new Ability[b2.length];
-			for (int i=0; i<b2.length; i++)
-				p2Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b2[i]).getConstructors()[0].newInstance();
+			for (int i = 0; i < b2.length; i++)
+				p2Abilities[i] = (Ability) Class.forName(
+						abilityBaseLocation + b2[i]).getConstructors()[0]
+						.newInstance();
 			String[] t2 = p2.info.getAttacks();
-			for (int i=0; i<t2.length; i++)
+			for (int i = 0; i < t2.length; i++)
 				p2Attacks[i] = Class.forName(attackBaseLocation + t2[i]);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		// set abilities
 		p1.setAbilities(p1Abilities);
 		p2.setAbilities(p2Abilities);
-		for (int i=0; i<op.size(); i++) {
+		for (int i = 0; i < op.size(); i++) {
 			if (opAbilities.size() > i)
 				op.get(i).setAbilities(opAbilities.get(i));
 		}
 	}
-	
+
 	private void testingInit() {
 		targetTime = 60;
 		expYield = 1000;
-		
+
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
 
@@ -115,7 +123,7 @@ public class Battle {
 		p1Position = new Vector3f(0, 0, 20);
 		p2Position = p1Position;
 		opPositions.add(new Vector3f(0, 0, -20));
-		
+
 		p1Abilities = new Ability[] { new Chivalry() };
 		p2Abilities = new Ability[] { new FinalHour() };
 		opAbilities.add(new Ability[] { new AfterImage() });
@@ -124,11 +132,11 @@ public class Battle {
 	public void addOponentPosition(Vector3f position) {
 		opPositions.add(position);
 	}
-	
+
 	public void assignPositions() {
 		p1.model.setLocalTranslation(p1Position);
 		p2.model.setLocalTranslation(p2Position);
-		
+
 		for (int i = 0; i < op.size(); i++) {
 			Vector3f pos = new Vector3f();
 			if (opPositions.size() > i && opPositions.get(i) != null)
@@ -136,7 +144,7 @@ public class Battle {
 			op.get(i).model.setLocalTranslation(pos);
 		}
 	}
-	
+
 	/**
 	 * Sets the default players for all {@code Battle} objects.
 	 */
@@ -144,42 +152,47 @@ public class Battle {
 		try {
 			Class temp1 = Class.forName(baseURL + dp1);
 			Class temp2 = Class.forName(baseURL + dp2);
-			
+
 			// set players
-			nextP1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1.getConstructors()[1].newInstance(false));
-			nextP2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2.getConstructors()[1].newInstance(false));
-			
+			nextP1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1
+					.getConstructors()[1].newInstance(false));
+			nextP2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2
+					.getConstructors()[1].newInstance(false));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setPlayers(String[] chars) {
 		try {
 			Class temp1 = Class.forName(baseURL + chars[0]);
 			Class temp2 = Class.forName(baseURL + chars[1]);
-			
+
 			// set players
-			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1.getConstructors()[1].newInstance(false));
+			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1
+					.getConstructors()[1].newInstance(false));
 			p1.setAbilities(p1Abilities);
-			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2.getConstructors()[1].newInstance(false));
+			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2
+					.getConstructors()[1].newInstance(false));
 			p2.setAbilities(p2Abilities);
-			
+
 			// set opponents
 			op = new ArrayList<Character>();
-			for (int i=2; i<chars.length; i++) {
+			for (int i = 2; i < chars.length; i++) {
 				Class tempO = Class.forName(baseURL + chars[i]);
-				op.add((MajorCharacter) LoadingQueue.push((Character) tempO.getConstructors()[0].newInstance()));
-				if (opAbilities.size() > i-2)
-					op.get(i-2).setAbilities(opAbilities.get(i-2));
+				op.add((MajorCharacter) LoadingQueue.push((Character) tempO
+						.getConstructors()[0].newInstance()));
+				if (opAbilities.size() > i - 2)
+					op.get(i - 2).setAbilities(opAbilities.get(i - 2));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		//op.hp = 5;
+		// op.hp = 5;
 	}
-	
+
 	/**
 	 * Sets the default stage for all {@code Battle} objects.
 	 */
@@ -206,7 +219,7 @@ public class Battle {
 	}
 
 	public static Battle getCurrentBattle() {
-		if(currentBattle == null)
+		if (currentBattle == null)
 			currentBattle = new Battle();
 		return currentBattle;
 	}
@@ -216,13 +229,26 @@ public class Battle {
 	}
 
 	public static BattleGameState createBattleGameState() {
-		//currentBattle.getOps()[0].assignAI(new TestAI(currentBattle.getOps()[0]));
+		// currentBattle.getOps()[0].assignAI(new
+		// TestAI(currentBattle.getOps()[0]));
 		Battle b = currentBattle;
 		b.init();
 		currentBattle = new Battle();
+
 		return new BattleGameState(b);
 	}
-	
+
+	public static BattleGameState createNetworkedBattleGameState() {
+		Battle b = currentBattle;
+		b.init();
+		currentBattle = new Battle();
+
+		if (NetworkingObjects.isServer)
+			return new ServerBattleGameState(b);
+		else
+			return new ClientBattleGameState(b);
+	}
+
 	public static HubGameState createHubGameState() {
 		Battle b = currentBattle;
 		b.init();
@@ -252,7 +278,7 @@ public class Battle {
 
 	public void setOps(Character[] o) {
 		op = new ArrayList<Character>();
-		for (int i=0; i<o.length; i++)
+		for (int i = 0; i < o.length; i++)
 			op.add(o[i]);
 	}
 
@@ -296,8 +322,8 @@ public class Battle {
 
 	public void setOpAbilities(ArrayList<Ability[]> oA) {
 		this.opAbilities = oA;
-		for (int i=0; i<opAbilities.size(); i++)
-		op.get(i).setAbilities(oA.get(i));
+		for (int i = 0; i < opAbilities.size(); i++)
+			op.get(i).setAbilities(oA.get(i));
 	}
 
 	public Vector3f getP1Position() {
@@ -319,7 +345,7 @@ public class Battle {
 	public Stage getStage() {
 		return stage;
 	}
-	
+
 	public int getTargetTime() {
 		return targetTime;
 	}

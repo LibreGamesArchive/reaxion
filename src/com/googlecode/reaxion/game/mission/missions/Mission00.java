@@ -64,6 +64,7 @@ public class Mission00 extends Mission {
 		b.setExpYield(1000);
 		Battle.setCurrentBattle(b);
 		
-		addState(Battle.createBattleGameState());
+//		addState(Battle.createBattleGameState());
+		addState(Battle.createNetworkedBattleGameState());
 	}
 }

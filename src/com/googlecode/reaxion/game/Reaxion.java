@@ -60,6 +60,8 @@ public class Reaxion {
 
 	// private StageSelectionState stageState;
 
+	public int type;
+	
 	/**
 	 * Initialize the system
 	 */
