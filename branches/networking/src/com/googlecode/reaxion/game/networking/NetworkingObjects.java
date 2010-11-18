@@ -111,18 +111,15 @@ public abstract class NetworkingObjects {
 
 				if (scm instanceof SynchronizeCreateModelMessage) {
 					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) scm;
-					LoadingQueue.quickLoad(scmm.getModel(), null);
-
-					return scmm.getModel();
+					return LoadingQueue.quickLoad(scmm.getModel(), null);
 				}
-
 				return null;
 			}
 
 			public boolean remove(SynchronizeRemoveMessage srm, Object object) {
-				// TODO (nwk) figure out how to reference list of models
+				// FIXME (nwk) figure out how to reference list of models
 				// and call .removeFromParent()
-
+				
 				return true;
 			}
 		});

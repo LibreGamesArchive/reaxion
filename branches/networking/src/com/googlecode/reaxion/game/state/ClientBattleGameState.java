@@ -251,6 +251,8 @@ public class ClientBattleGameState extends BattleGameState {
 	                    logger.info("Cursor Visibility set to " + MouseInput.get().isCursorVisible());
 	                }
         }
+        
+        rootNode.updateRenderState();
     }
     
     @Override
