@@ -18,7 +18,8 @@ import com.jme.math.Vector3f;
  */
 public class Attack {
 	
-	public static String name;
+	public String name;
+	public String description;
 	
 	public static int gaugeCost;
 	
@@ -38,7 +39,7 @@ public class Attack {
 	
 	// creating an Attack with these constructors is useless, as they only
 	// exist to facilitate backend stuff
-	public Attack() {}
+	public Attack() {name=""; description="";}
 	public Attack(AttackData ad) {}
 	
 	protected int sfxIndex = -1;

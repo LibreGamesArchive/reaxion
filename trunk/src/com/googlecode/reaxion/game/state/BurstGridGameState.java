@@ -316,7 +316,7 @@ public class BurstGridGameState extends CameraGameState {
      */
     private Texture createTexture(String str) { 	
         Texture tex = TextureManager.loadTexture(
-        		getClass().getResource("../../resources/cosmos/"+str+".png"),
+        		getClass().getResource("../../resources/icons/cosmos/"+str+".png"),
                   Texture.MinificationFilter.Trilinear, Texture.MagnificationFilter.Bilinear);  
         tex.setWrap(Texture.WrapMode.Repeat);
         tex.setTranslation(new Vector3f());
