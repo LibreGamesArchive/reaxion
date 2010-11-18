@@ -7,9 +7,12 @@ public class SynchronizeCreateModelMessage extends SynchronizeCreateMessage {
 
 	Model model;
 
+	public SynchronizeCreateModelMessage() {
+		super();
+	}
+
 	public SynchronizeCreateModelMessage(Model model) {
 		super();
-
 		this.model = model;
 	}
 

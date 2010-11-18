@@ -7,6 +7,10 @@ public class SynchronizeModelMessage extends Synchronize3DMessage {
 	
 	private String animation;
 
+	public SynchronizeModelMessage(){
+		super();
+	}
+	
 	public float getScaleX() {
 		return scaleX;
 	}
