@@ -101,21 +101,18 @@ public class Reaxion {
 		public Void call() throws Exception {
 			MouseInput.get().setCursorVisible(true);
 	    	AudioPlayer.prepare();
-//	    	SoundEffectManager.initialize();
 			FontUtils.loadFonts();
 			MissionManager.createMissions();
 			
 			PlayerInfoManager.init();
 			
-			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
-			GameStateManager.getInstance().attachChild(gridState);
-			gridState.setActive(true);
+//			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
+//			GameStateManager.getInstance().attachChild(gridState);
+//			gridState.setActive(true);
 			
-			/*
 			charState = new CharacterSelectionState();
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
-			*/
 			
 			return null;
 		}	

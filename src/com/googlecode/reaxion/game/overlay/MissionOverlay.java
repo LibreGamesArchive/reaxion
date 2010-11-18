@@ -62,7 +62,7 @@ public class MissionOverlay extends GridOverlay {
 	private Node createMissionListItem(Mission m) {
 		Node listItem = new Node("listItem_" + m.getTitle());
 		
-		Quad box = new Quad("box_" + m.getMissionID(), 300, 100);
+		Quad box = new Quad("box_" + m.getMissionID(), 300, 80);
 		box.setSolidColor(ColorRGBA.black);
 		
 		BitmapText id = new BitmapText(FontUtils.eurostile, false);
@@ -77,16 +77,22 @@ public class MissionOverlay extends GridOverlay {
 		title.setAlignment(BitmapFont.Align.Center);
 		title.update();
 		
-		Quad image = getImage(baseURL + "question_listitem.png");
+//		Quad image = getImage(baseURL + "question_listitem.png");
 		
-		image.setLocalTranslation((box.getHeight() - image.getHeight()) / 2 + image.getWidth() / 2 - 150, 0, 0);
-		id.setLocalTranslation(50, id.getLineHeight() / 2 + 15, 0);
-		title.setLocalTranslation(50, -(title.getLineHeight() / 2 + 5), 0);
+//		image.setLocalTranslation((box.getHeight() - image.getHeight()) / 2 + image.getWidth() / 2 - 150, 0, 0);
+		id.setLocalTranslation(-150 + id.getLineWidth() / 2 + 20, 30 - id.getLineHeight() / 2, 0);
+		title.setLocalTranslation(id.getLocalTranslation().x + 100, 25 - title.getLineHeight() / 2, 0);
 		
 		listItem.attachChild(box);
 		listItem.attachChild(id);
 		listItem.attachChild(title);
-		listItem.attachChild(image);
+//		listItem.attachChild(image);
+		
+		for (int i = 0; i < m.getDifficultyRating(); i++) {
+			Quad star = getImage(baseURL + "star_small.png");
+			star.setLocalTranslation(id.getLocalTranslation().x + id.getLineWidth() / 2 + 55 * i, -20, 0);
+			listItem.attachChild(star);
+		}
 		
 		return listItem;
 	}

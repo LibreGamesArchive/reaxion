@@ -47,10 +47,14 @@ public class BurstGridGameState extends CameraGameState {
 	protected static final Logger logger = Logger.getLogger(StageGameState.class
             .getName());
 	
+	private static final Vector3f cameraZoomedIn = new Vector3f(0, 0, -20);
+	private static final Vector3f cameraZoomedOut = new Vector3f(0, 0, -70);
+	
 	private final float scale = 4;
-	private final Vector3f camOffset = new Vector3f(7/3f, 0, -14);
+	private Vector3f camOffset = new Vector3f(7/3f, 0, cameraZoomedIn.z);
 	private final Vector3f bgOffset = new Vector3f(0, 0, 725);
 	private final float camSpeed = 1f;
+	private boolean zoomedIn = true;
 	
 	private InputHandler input;
 	private AbstractGame game = null;
@@ -144,6 +148,7 @@ public class BurstGridGameState extends CameraGameState {
                 KeyInput.KEY_UP);
         KeyBindingManager.getKeyBindingManager().set("traverse_back",
                 KeyInput.KEY_DOWN);
+        KeyBindingManager.getKeyBindingManager().set("zoom", KeyInput.KEY_TAB);
         KeyBindingManager.getKeyBindingManager().set("screen_shot",
                 KeyInput.KEY_F1);
         KeyBindingManager.getKeyBindingManager().set("buy_node",
@@ -175,6 +180,9 @@ public class BurstGridGameState extends CameraGameState {
             	/** If traversal controls are valid commands (via arrow keys), change camera movement. */
     			if (focus == destination) {
     				
+    				if (KeyBindingManager.getKeyBindingManager().isValidCommand("zoom", false)) {
+    					zoomedIn = !zoomedIn;
+    				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     						"traverse_ccw", false)) {
     					if (prevNode != currentNode) {
@@ -277,6 +285,12 @@ public class BurstGridGameState extends CameraGameState {
     		focus = focus.add(destination.subtract(focus).normalize().mult(camSpeed));
     	else
     		focus = destination;
+    	
+    	// change zoom
+    	if (!zoomedIn && camOffset.distance(cameraZoomedOut) > camSpeed)
+    		camOffset = camOffset.add(cameraZoomedOut.subtract(camOffset).normalize().mult(camSpeed));
+    	else if (zoomedIn && camOffset.distance(cameraZoomedIn) > camSpeed)
+    		camOffset = camOffset.add(cameraZoomedIn.subtract(camOffset).normalize().mult(camSpeed));
     	
     	// update the camera
     	cam.setLocation(focus.add(camOffset));
