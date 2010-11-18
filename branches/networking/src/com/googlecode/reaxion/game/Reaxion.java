@@ -5,8 +5,12 @@ import java.util.concurrent.Callable;
 
 import javax.swing.JOptionPane;
 
+import com.captiveimagination.jgn.JGN;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
@@ -112,9 +116,10 @@ public class Reaxion {
 			FontUtils.loadFonts();
 			MissionManager.createMissions();
 
+			JGN.register(SynchronizeModelMessage.class);
+			JGN.register(SynchronizeCreateModelMessage.class);
+			
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
-			
-			
 
 			switch (sv) {
 			case 0:

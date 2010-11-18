@@ -139,7 +139,8 @@ public class CharacterSelectionState extends BasicGameState {
 		}
 		
 		try {
-			Thread.sleep(10);
+	//		System.out.println("Sleeping herp derp");
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
