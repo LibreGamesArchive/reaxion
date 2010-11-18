@@ -2,7 +2,14 @@ package com.googlecode.reaxion.game.overlay;
 
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
+import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
+import com.googlecode.reaxion.game.burstgrid.node.AttackNode;
 import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
+import com.googlecode.reaxion.game.burstgrid.node.HPNode;
+import com.googlecode.reaxion.game.burstgrid.node.MaxGaugeNode;
+import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
+import com.googlecode.reaxion.game.burstgrid.node.RateNode;
+import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
@@ -41,7 +48,10 @@ public class BurstGridOverlay extends Overlay {
 	private BitmapText pma;
 	private BitmapText pat;
 	private BitmapText pal;
+	private BitmapText type;
+	private BitmapText detail;
 	private BitmapText c;
+	private BitmapText caption;
 	
 	private Node container;
 	private Node descriptors;
@@ -121,6 +131,28 @@ public class BurstGridOverlay extends Overlay {
 	 * Update the node's descriptors.
 	 */
 	public void updateDescriptors(PlayerInfo info, BurstNode b, int cost) {
+		String t = "";
+		if (b instanceof HPNode) {t = "HP Bonus";}
+		else if (b instanceof MaxGaugeNode) {t = "MaxGauge Bonus";}
+		else if (b instanceof MinGaugeNode) {t = "MinGauge Bonus";}
+		else if (b instanceof AttackNode) {t = "Attack";}
+		else if (b instanceof StrengthNode) {t = "Strength Bonus";}
+		else if (b instanceof AttackNode) {t = "Ability";}
+		else if (b instanceof RateNode) {t = "GaugeRate Bonus";}
+		type.setText(t);
+		type.update();
+		
+		String d = "";
+		if (b instanceof HPNode) {d = "+ "+((HPNode) b).hpPlus+"HP";}
+		else if (b instanceof MaxGaugeNode) {d = "+ "+((MaxGaugeNode) b).maxGPlus+"G";}
+		else if (b instanceof MinGaugeNode) {d = "+ "+((MinGaugeNode) b).minGPlus+"G";}
+		else if (b instanceof AttackNode) {d = ((AttackNode)b).at.name;}
+		else if (b instanceof StrengthNode) {d = "+ "+((StrengthNode) b).strengthPlus;}
+		else if (b instanceof AttackNode) {d = ((AbilityNode)b).ab.name;}
+		else if (b instanceof RateNode) {d = "+ "+((RateNode) b).rate;}
+		detail.setText(d);
+		detail.update();
+		
 		c.setText(""+ ((cost < Integer.MAX_VALUE)? cost : "--"));
 		c.update();
 		
@@ -321,6 +353,17 @@ public class BurstGridOverlay extends Overlay {
         pal.setAlignment(BitmapFont.Align.Right);
         pal.setLocalTranslation(new Vector3f(240 - 12, 600 - 428, 0));
         container.attachChild(pal);
+        
+        type = new BitmapText(FontUtils.eurostile, false);
+        type.setSize(20);
+        type.setLocalTranslation(new Vector3f(12, 600 - 466, 0));
+        descriptors.attachChild(type);
+        
+        detail = new BitmapText(FontUtils.eurostile, false);
+        detail.setSize(20);
+        detail.setAlignment(BitmapFont.Align.Right);
+        detail.setLocalTranslation(new Vector3f(240 - 12, 600 - 466, 0));
+        descriptors.attachChild(detail);
         
         c = new BitmapText(FontUtils.eurostile, false);
         c.setSize(18);

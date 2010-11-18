@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.burstgrid.node;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.attack.Attack;
@@ -26,10 +27,18 @@ public class AttackNode extends BurstNode
 	
 	public AttackNode(String s, int id){
 		super(id);
-		/**
-		 * Not yet implemented, but findAttack will return an Attack based on the name of the Attack
-		 */
-		//ab = findAttack(s);
+		at = findAttack(s);
+	}
+	
+	/**
+	 * Try to return an empty Attack with info loaded
+	 */
+	private Attack findAttack(String s) {
+		try {
+			return (Attack) Class.forName("com.googlecode.reaxion.game.attack."+s).getConstructors()[0].newInstance();
+		} catch (Exception e) {
+			return new Attack();
+		}
 	}
 	
 	public String toString(){
