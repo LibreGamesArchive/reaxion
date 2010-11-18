@@ -255,7 +255,11 @@ public class Battle {
 			
 		}
 		else {
-			return new ClientBattleGameState(b);
+			ClientBattleGameState QQQ = new ClientBattleGameState(b);
+			
+			NetworkingObjects.cbgs = QQQ;
+			
+			return QQQ;
 		}
 	}
 

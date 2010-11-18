@@ -16,8 +16,11 @@ import com.captiveimagination.jgn.synchronization.SyncObjectManager;
 import com.captiveimagination.jgn.synchronization.SynchronizationManager;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
+import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
+import com.googlecode.reaxion.game.state.ClientBattleGameState;
+import com.googlecode.reaxion.game.state.ServerBattleGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 
 public abstract class NetworkingObjects {
@@ -33,6 +36,8 @@ public abstract class NetworkingObjects {
 
 	public static JMEGraphicalController controller;
 
+	public static ClientBattleGameState cbgs;
+	
 	private static InetSocketAddress serverReliable, serverFast;
 	public static boolean isServer;
 	public static final long updateRate = 50;
@@ -111,7 +116,7 @@ public abstract class NetworkingObjects {
 
 				if (scm instanceof SynchronizeCreateModelMessage) {
 					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) scm;
-					return LoadingQueue.quickLoad(scmm.getModel(), null);
+					return LoadingQueue.quickLoad(scmm.getModel(), cbgs);
 				}
 				return null;
 			}
