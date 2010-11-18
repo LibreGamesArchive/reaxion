@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.util;
 import java.util.ArrayList;
 import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.model.character.Character;
+import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
@@ -243,10 +244,19 @@ public class Battle {
 		b.init();
 		currentBattle = new Battle();
 
-		if (NetworkingObjects.isServer)
-			return new ServerBattleGameState(b);
-		else
+		if (NetworkingObjects.isServer) {
+			ServerBattleGameState sbgs = new ServerBattleGameState(b);
+			
+			MajorCharacter temp = (MajorCharacter) LoadingQueue.quickLoad(new Khoa(), sbgs);
+			
+			sbgs.assignOpPlayer(temp, null);
+			
+			return sbgs;
+			
+		}
+		else {
 			return new ClientBattleGameState(b);
+		}
 	}
 
 	public static HubGameState createHubGameState() {

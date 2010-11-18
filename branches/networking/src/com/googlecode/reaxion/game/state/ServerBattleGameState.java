@@ -13,6 +13,8 @@ import com.googlecode.reaxion.game.util.Battle;
  */
 public class ServerBattleGameState extends BattleGameState {
 	
+	//deprectate EVERYTHING
+	
 	public static final String NAME = "serverBattleGameState";
     
     public double targetTime = Double.NaN;
