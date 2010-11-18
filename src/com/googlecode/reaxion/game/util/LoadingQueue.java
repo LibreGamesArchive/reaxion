@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.NetworkingObjects;
-import com.googlecode.reaxion.game.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;

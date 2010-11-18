@@ -39,6 +39,13 @@ public class ServerBattleGameState extends BattleGameState {
     
     @ Override
     protected void act() {
+    	try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	if (resultCount != 0)
     		timing = false;
     	

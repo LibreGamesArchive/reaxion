@@ -1,18 +1,22 @@
-package com.googlecode.reaxion.game;
+package com.googlecode.reaxion.game.networking;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+
 import com.captiveimagination.jgn.JGN;
 import com.captiveimagination.jgn.clientserver.JGNClient;
+import com.captiveimagination.jgn.clientserver.JGNConnection;
+import com.captiveimagination.jgn.clientserver.JGNConnectionListener;
 import com.captiveimagination.jgn.clientserver.JGNServer;
 import com.captiveimagination.jgn.synchronization.SyncObjectManager;
 import com.captiveimagination.jgn.synchronization.SynchronizationManager;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
-import com.googlecode.reaxion.game.networking.JMEGraphicalController;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 
@@ -41,7 +45,7 @@ public abstract class NetworkingObjects {
 
 	public static void setUpServer() throws IOException {
 		isServer = true;
-		setUpSharedThings();
+		setUpSharedThings(true);
 
 		// FIXME (nwk) cp'd from online example, needs to be fix'd for this
 
@@ -49,6 +53,19 @@ public abstract class NetworkingObjects {
 		serverSyncManager = new SynchronizationManager(server, controller);
 
 		JGN.createThread(server, serverSyncManager).start();
+		server.addClientConnectionListener(new JGNConnectionListener() {
+
+			@Override
+			public void disconnected(JGNConnection connection) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void connected(JGNConnection connection) {
+				System.out.println("Connectiked");
+			}
+		});
 
 		// Register our server object with the synchronization manager
 		// serverSyncManager.register(game.getServerPanel(), new
@@ -56,22 +73,35 @@ public abstract class NetworkingObjects {
 
 	}
 
-	private static void setUpSharedThings() throws UnknownHostException {
+	private static void setUpSharedThings(boolean serv)
+			throws UnknownHostException {
 		JGN.register(SynchronizeModelMessage.class);
 
 		// Instantiate an instance of a JMEGraphicalController
 		controller = new JMEGraphicalController();
 
-		// Start the server
-		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(), 9001);
-		serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
+		if (serv) {
+			// server IPs
+			serverReliable = new InetSocketAddress(InetAddress.getLocalHost(),
+					9001);
+			serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
+		} else {
+			String addr = JOptionPane
+					.showInputDialog("Enter server IPv4 address:");
+			serverReliable = new InetSocketAddress(addr,
+					9001);
+			serverFast = new InetSocketAddress(addr, 9002);
+		}
 	}
 
 	public static void setUpClient() throws IOException, InterruptedException {
 		isServer = false;
+		setUpSharedThings(false);
 
 		// Start the client
-		client = new JGNClient(new InetSocketAddress(InetAddress.getLocalHost(), 9001), new InetSocketAddress(InetAddress.getLocalHost(), 9002));
+		client = new JGNClient(new InetSocketAddress(
+				InetAddress.getLocalHost(), 9001), new InetSocketAddress(
+				InetAddress.getLocalHost(), 9002));
 		clientSyncManager = new SynchronizationManager(client, controller);
 		clientSyncManager.addSyncObjectManager(new SyncObjectManager() {
 			public Object create(SynchronizeCreateMessage scm) {
@@ -81,20 +111,18 @@ public abstract class NetworkingObjects {
 
 				if (scm instanceof SynchronizeCreateModelMessage) {
 					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) scm;
-					LoadingQueue.quickLoad(scmm.model, null);
-					
-					return scmm.model;
+					LoadingQueue.quickLoad(scmm.getModel(), null);
+
+					return scmm.getModel();
 				}
-				
+
 				return null;
 			}
 
 			public boolean remove(SynchronizeRemoveMessage srm, Object object) {
 				// TODO (nwk) figure out how to reference list of models
 				// and call .removeFromParent()
-				
-				
-				
+
 				return true;
 			}
 		});

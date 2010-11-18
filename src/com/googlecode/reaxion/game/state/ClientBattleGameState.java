@@ -42,6 +42,12 @@ public class ClientBattleGameState extends BattleGameState {
     
     @ Override
     public void stateUpdate(float _tpf) {
+    	try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
         // Update the InputHandler
     	if (input != null) {
