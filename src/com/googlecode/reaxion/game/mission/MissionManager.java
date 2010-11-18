@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
-import com.googlecode.reaxion.game.mission.missions.MissionBurstGrid;
 import com.googlecode.reaxion.game.mission.missions.MissionHGS;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.jmex.game.state.GameStateManager;
@@ -32,7 +31,6 @@ public class MissionManager {
 		missions.put(MissionID.DEFEAT_LIGHT_USER, new Mission00());
 		missions.put(MissionID.OPEN_HUBGAMESTATE, new MissionHGS());
 		missions.put(MissionID.VS_TOYBOX, new VsToybox());
-		missions.put(MissionID.OPEN_BURSTGRID, new MissionBurstGrid());
 	}
 	
 	/**
@@ -96,11 +94,17 @@ public class MissionManager {
 	public static ArrayList<Mission> getMissions() {
 		ArrayList<Mission> temp = new ArrayList<Mission>();
 		temp.addAll(missions.values());
-		Collections.sort(temp);
+		
+		ArrayList<Mission> testMissions = new ArrayList<Mission>();
 		
 		for (int i = 0; i < temp.size(); i++)
 			if (temp.get(i).getMissionID() <= 0)
-				temp.remove(i);
+				testMissions.add(temp.get(i));
+		
+		for (Mission m : testMissions)
+			temp.remove(m);
+		
+		Collections.sort(temp);
 		
 		return temp;
 	}

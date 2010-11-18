@@ -13,10 +13,16 @@ import java.awt.Point;
 
 public class GridOverlay extends Overlay {
 
-	public int screenHeight, screenWidth;
+	public int screenWidth, screenHeight;
+	
+	public boolean mainOverlay;
 
-	public GridOverlay() {
+	public GridOverlay(int screenWidth, int screenHeight, boolean mainOverlay) {
 		super();
+		
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
+		this.mainOverlay = mainOverlay;
 	}
 
 	/**
@@ -35,7 +41,8 @@ public class GridOverlay extends Overlay {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceY = rows * boxHeight + (rows - 1) * verticalSpacing;
-		int yDisp = screenHeight - (screenHeight - totalGridSpaceY) / 2;
+		int yDisp = screenHeight - (screenHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : screenHeight / 2);
+		xDisp -= (mainOverlay ? 0 : screenWidth / 2);
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
@@ -60,7 +67,8 @@ public class GridOverlay extends Overlay {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceX = columns * boxWidth + (columns - 1) * horizontalSpacing;
-		int xDisp = screenWidth - (screenWidth - totalGridSpaceX) / 2;
+		yDisp -= (mainOverlay ? 0 : screenHeight / 2);
+		int xDisp = screenWidth - (screenWidth - totalGridSpaceX) / 2 - (mainOverlay ? 0 : screenWidth / 2);
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
@@ -85,10 +93,10 @@ public class GridOverlay extends Overlay {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceX = columns * boxWidth + (columns - 1) * horizontalSpacing;
-		int xDisp = screenWidth - (screenWidth - totalGridSpaceX) / 2;
+		int xDisp = screenWidth - (screenWidth - totalGridSpaceX) / 2 - (mainOverlay ? 0 : screenWidth / 2);
 		
 		int totalGridSpaceY = rows * boxHeight + (rows - 1) * verticalSpacing;
-		int yDisp = screenHeight - (screenHeight - totalGridSpaceY) / 2;
+		int yDisp = screenHeight - (screenHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : screenHeight / 2);
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)

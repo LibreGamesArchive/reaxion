@@ -56,7 +56,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	private int stageGridRows, stageGridColumns;
 
 	public StageSelectionOverlay() {
-		super();
+		super(800, 600, true);
 		init();
 	}
 
@@ -70,9 +70,6 @@ public class StageSelectionOverlay extends GridOverlay {
 		currentRow = 0;
 		currentColumn = 0;
 		fontSize = 32;
-
-		screenWidth = 800;
-		screenHeight = 600;
 		
 		stageGridRows = 3;
 		stageGridColumns = 3;
@@ -85,7 +82,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		createStageTitles();
 		createStageGrid();
 		
-		cursor = getImage(baseIconURL + "stageselect.png");
+		cursor = getImage(baseIconURL + "stageselect_cursor.png");
 		cursor.setLocalTranslation(stageGridLayout[currentRow][currentColumn].x,
 				stageGridLayout[currentRow][currentColumn].y, 0);
 		

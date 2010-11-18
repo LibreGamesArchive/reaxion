@@ -46,7 +46,7 @@ public abstract class Mission implements Comparable<Mission> {
 	}
 	
 	public int compareTo(Mission m) {
-		return m.getMissionID() - missionID;
+		return missionID - m.getMissionID();
 	}
 
 	/**
