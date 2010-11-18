@@ -7,6 +7,7 @@ import com.googlecode.reaxion.game.ability.*;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.mission.Mission;
+import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.model.enemies.Toybox;
@@ -21,7 +22,7 @@ import com.jmex.game.state.GameState;
 public class VsToybox extends Mission {
 	
 	public VsToybox() {
-		super("The Toybox Attacks!", 1, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "");
+		super("The Toybox Attacks!", MissionID.VS_TOYBOX.id, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "");
 	}
 	
 	@Override

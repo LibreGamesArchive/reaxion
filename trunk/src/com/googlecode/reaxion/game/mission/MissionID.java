@@ -10,8 +10,7 @@ package com.googlecode.reaxion.game.mission;
  */
 
 public enum MissionID {
-
-	OPEN_BURSTGRID(-2),
+	
 	OPEN_HUBGAMESTATE(-1),
 	DEFEAT_LIGHT_USER(1),
 	VS_TOYBOX (2);

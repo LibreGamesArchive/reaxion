@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.overlay;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.mission.Mission;
@@ -9,6 +10,7 @@ import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
+import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
 public class MissionOverlay extends GridOverlay {
@@ -20,17 +22,16 @@ public class MissionOverlay extends GridOverlay {
 	private Node container;
 	private Node[] missionList;
 	
+	private Point[][] missionListGrid;
+	
 	public MissionOverlay() {
-		super();
+		super(800, 600, false);
 		init();
 	}                         
 	
 	private void init() {
 		container = new Node("container_missionSelect");
 		missions = MissionManager.getMissions();
-
-		screenWidth = 800;
-		screenHeight = 600;
 		
 		createMissionList();
 		
@@ -44,10 +45,16 @@ public class MissionOverlay extends GridOverlay {
 	}
 	
 	private void createMissionList() {
+		missionListGrid = createVerticallyCenteredGrid(missions.size(), 1, 750 - 150, 300, 100, 15, 15);
 		missionList = new Node[missions.size()];
+		
+//		for (Mission m : missions)
+//			System.out.println(m);
 		
 		for(int i = 0; i < missionList.length; i++) {
 			missionList[i] = createMissionListItem(missions.get(i));
+			Point pos = missionListGrid[i][0];
+			missionList[i].setLocalTranslation(pos.x, pos.y, 0);
 			container.attachChild(missionList[i]);
 		}
 	}
@@ -55,18 +62,28 @@ public class MissionOverlay extends GridOverlay {
 	private Node createMissionListItem(Mission m) {
 		Node listItem = new Node("listItem_" + m.getTitle());
 		
-		BitmapText id = new BitmapText(FontUtils.neuropol, false);
+		Quad box = new Quad("box_" + m.getMissionID(), 300, 100);
+		box.setSolidColor(ColorRGBA.black);
+		
+		BitmapText id = new BitmapText(FontUtils.eurostile, false);
 		id.setText("No. " + (m.getMissionID()));
-		id.setSize(16);
+		id.setSize(24);
+		id.setAlignment(BitmapFont.Align.Center);
 		id.update();
 		
-		BitmapText title = new BitmapText(FontUtils.neuropol, false);
+		BitmapText title = new BitmapText(FontUtils.eurostile, false);
 		title.setText(m.getTitle());
-		title.setSize(16);
+		title.setSize(18);
+		title.setAlignment(BitmapFont.Align.Center);
 		title.update();
 		
 		Quad image = getImage(baseURL + "question_listitem.png");
 		
+		image.setLocalTranslation((box.getHeight() - image.getHeight()) / 2 + image.getWidth() / 2 - 150, 0, 0);
+		id.setLocalTranslation(50, id.getLineHeight() / 2 + 15, 0);
+		title.setLocalTranslation(50, -(title.getLineHeight() / 2 + 5), 0);
+		
+		listItem.attachChild(box);
 		listItem.attachChild(id);
 		listItem.attachChild(title);
 		listItem.attachChild(image);

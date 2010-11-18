@@ -20,7 +20,7 @@ import com.jmex.angelfont.BitmapText;
  */
 public class BurstGridOverlay extends Overlay {
 	
-	private static final String baseURL = "../../resources/cosmos/";
+	private static final String baseURL = "../../resources/icons/cosmos/";
 	
 	private final ColorRGBA plain = new ColorRGBA(1, 1, 1, 1);
 	private final ColorRGBA blocked = new ColorRGBA(2/3f, 2/3f, 2/3f, 1);
