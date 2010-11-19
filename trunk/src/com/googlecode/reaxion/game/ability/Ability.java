@@ -19,9 +19,11 @@ import com.googlecode.reaxion.game.util.LoadingQueue;
 public class Ability {
 	
 	public String name;
+	public String description;
 	
 	public Ability(String n) {
 		name = n;
+		description = "";
 	}
 	
 	/**

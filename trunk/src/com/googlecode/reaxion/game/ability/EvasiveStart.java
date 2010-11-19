@@ -14,6 +14,7 @@ public class EvasiveStart extends Ability {
 	
 	public EvasiveStart() {
 		super("Evasive Start");
+		description = "Allows the User to escape lock-on tracking on occasion.";
 	}
 	
 	@Override

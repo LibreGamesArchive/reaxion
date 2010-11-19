@@ -35,7 +35,6 @@ public class DarkPit extends AttackObject {
 	public void hit(StageGameState b, Character other) {
 		// give hp to user
 		((Character)user).heal(b, damagePerFrame);
-		System.out.println(user+": "+b.getPlayer());
     }
 	
 	@ Override

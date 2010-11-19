@@ -47,14 +47,14 @@ public class BurstGridGameState extends CameraGameState {
 	protected static final Logger logger = Logger.getLogger(StageGameState.class
             .getName());
 	
-	private static final Vector3f cameraZoomedIn = new Vector3f(0, 0, -20);
-	private static final Vector3f cameraZoomedOut = new Vector3f(0, 0, -70);
+	private static final Vector3f[] cameraLevel = {new Vector3f(22/3f, 0, -48), new Vector3f(7/3f, 0, -16)};
 	
 	private final float scale = 4;
-	private Vector3f camOffset = new Vector3f(7/3f, 0, cameraZoomedIn.z);
+	private Vector3f camOffset = cameraLevel[0];
 	private final Vector3f bgOffset = new Vector3f(0, 0, 725);
 	private final float camSpeed = 1f;
-	private boolean zoomedIn = true;
+	private final float zoomSpeed = 3f;
+	private int zoom = 0;
 	
 	private InputHandler input;
 	private AbstractGame game = null;
@@ -181,7 +181,7 @@ public class BurstGridGameState extends CameraGameState {
     			if (focus == destination) {
     				
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand("zoom", false)) {
-    					zoomedIn = !zoomedIn;
+    					zoom = (zoom + 1) % 2;
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     						"traverse_ccw", false)) {
@@ -287,10 +287,10 @@ public class BurstGridGameState extends CameraGameState {
     		focus = destination;
     	
     	// change zoom
-    	if (!zoomedIn && camOffset.distance(cameraZoomedOut) > camSpeed)
-    		camOffset = camOffset.add(cameraZoomedOut.subtract(camOffset).normalize().mult(camSpeed));
-    	else if (zoomedIn && camOffset.distance(cameraZoomedIn) > camSpeed)
-    		camOffset = camOffset.add(cameraZoomedIn.subtract(camOffset).normalize().mult(camSpeed));
+    	if (camOffset.distance(cameraLevel[zoom]) > zoomSpeed)
+    		camOffset = camOffset.add(cameraLevel[zoom].subtract(camOffset).normalize().mult(zoomSpeed));
+    	else
+    		camOffset = cameraLevel[zoom];
     	
     	// update the camera
     	cam.setLocation(focus.add(camOffset));

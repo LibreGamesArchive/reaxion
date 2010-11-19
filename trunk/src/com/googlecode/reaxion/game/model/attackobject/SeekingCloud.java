@@ -73,6 +73,7 @@ public class SeekingCloud extends AttackObject {
 				Lightning l = (Lightning)LoadingQueue.quickLoad(new Lightning(users.toArray(new Model[0])), b);
 				l.model.setLocalTranslation(model.getLocalTranslation());
 				b.getRootNode().updateRenderState();
+				lifeCount = lifespan - sizeTime;
 			}
 			strikeDelay--;
 			
