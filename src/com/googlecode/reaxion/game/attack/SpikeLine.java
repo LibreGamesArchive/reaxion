@@ -45,7 +45,8 @@ public class SpikeLine extends Attack {
 		character.play("smite", b.tpf);
 		
 		rotation = character.rotationVector;
-		position = character.model.getWorldTranslation();
+		position = character.model.getWorldTranslation().clone();
+		position.y = 0;
 	}
 	
 	@Override
@@ -58,11 +59,11 @@ public class SpikeLine extends Attack {
 			phase++;
 			
 		} else if (phase == 1) {
-			if (frameCount % 10 == 0) {
+			if (frameCount % 6 == 0) {
 			// calculate transformations
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			
-			Vector3f translation = new Vector3f((float)8*(5-spikeCount)*FastMath.sin(angle), -4, (float)8*(5-spikeCount)*FastMath.cos(angle));
+			Vector3f translation = new Vector3f((float)8*(6-spikeCount)*FastMath.sin(angle), -4, (float)8*(6-spikeCount)*FastMath.cos(angle));
 			
 			DarkSpike ds = (DarkSpike)LoadingQueue.quickLoad(new DarkSpike(getUsers()), b);
 			ds.model.setLocalTranslation(position.add(translation));

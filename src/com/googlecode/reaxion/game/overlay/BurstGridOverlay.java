@@ -19,6 +19,7 @@ import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
+import com.jmex.angelfont.Rectangle;
 
 /**
  * Facilitates the display view in {@code BurstGridGameState}.
@@ -132,26 +133,45 @@ public class BurstGridOverlay extends Overlay {
 	 */
 	public void updateDescriptors(PlayerInfo info, BurstNode b, int cost) {
 		String t = "";
-		if (b instanceof HPNode) {t = "HP Bonus";}
-		else if (b instanceof MaxGaugeNode) {t = "MaxGauge Bonus";}
-		else if (b instanceof MinGaugeNode) {t = "MinGauge Bonus";}
-		else if (b instanceof AttackNode) {t = "Attack";}
-		else if (b instanceof StrengthNode) {t = "Strength Bonus";}
-		else if (b instanceof AttackNode) {t = "Ability";}
-		else if (b instanceof RateNode) {t = "GaugeRate Bonus";}
+		String d = "";
+		String cp = "";
+		
+		if (b instanceof HPNode) {
+			t = "HP Bonus";
+			d = "+ "+((HPNode) b).hpPlus+"HP";
+			cp = "Raises maximum HP.";
+		} else if (b instanceof MaxGaugeNode) {
+			t = "MaxGauge Bonus";
+			d = "+ "+((MaxGaugeNode) b).maxGPlus+"G";
+			cp = "Raises upper Gauge limit.";
+		} else if (b instanceof MinGaugeNode) {
+			t = "MinGauge Bonus";
+			d = "+ "+((MinGaugeNode) b).minGPlus+"G";
+			cp = "Raises lower Gauge limit.";
+		} else if (b instanceof AttackNode) {
+			t = "Attack";
+			d = ((AttackNode)b).at.name;
+			cp = ((AttackNode)b).at.description;
+		} else if (b instanceof StrengthNode) {
+			t = "Strength Bonus";
+			d = "+ "+((StrengthNode) b).strengthPlus;
+			cp = "Raises attack damage.";
+		} else if (b instanceof AbilityNode) {
+			t = "Ability";
+			d = ((AbilityNode)b).ab.name;
+			cp = ((AbilityNode)b).ab.description;
+		} else if (b instanceof RateNode) {
+			t = "GaugeRate Bonus";
+			d = "+ "+((RateNode) b).rate;
+			cp = "Raises Gauge refill rate.";
+		}
+		
 		type.setText(t);
 		type.update();
-		
-		String d = "";
-		if (b instanceof HPNode) {d = "+ "+((HPNode) b).hpPlus+"HP";}
-		else if (b instanceof MaxGaugeNode) {d = "+ "+((MaxGaugeNode) b).maxGPlus+"G";}
-		else if (b instanceof MinGaugeNode) {d = "+ "+((MinGaugeNode) b).minGPlus+"G";}
-		else if (b instanceof AttackNode) {d = ((AttackNode)b).at.name;}
-		else if (b instanceof StrengthNode) {d = "+ "+((StrengthNode) b).strengthPlus;}
-		else if (b instanceof AttackNode) {d = ((AbilityNode)b).ab.name;}
-		else if (b instanceof RateNode) {d = "+ "+((RateNode) b).rate;}
 		detail.setText(d);
 		detail.update();
+		caption.setText(cp);
+		caption.update();
 		
 		c.setText(""+ ((cost < Integer.MAX_VALUE)? cost : "--"));
 		c.update();
@@ -370,6 +390,11 @@ public class BurstGridOverlay extends Overlay {
         c.setAlignment(BitmapFont.Align.Right);
         c.setLocalTranslation(new Vector3f(240 - 12, 600 - 496, 0));
         descriptors.attachChild(c);
+        
+        caption = new BitmapText(FontUtils.eurostile, false);
+        caption.setSize(14);
+        caption.setBox(new Rectangle(12, 72, 216, 48));
+        descriptors.attachChild(caption);
 	}
 	
 }
