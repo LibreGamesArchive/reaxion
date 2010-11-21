@@ -8,11 +8,11 @@ import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
-import com.jme.scene.Node;
 
 /**
  * {@code HubGameState} extends {@code StageGameState} with functionality
  * dedicated to the hub system, such as portals and hub controllers.
+ * 
  * @author Khoa
  */
 public class HubGameState extends StageGameState {
@@ -22,6 +22,8 @@ public class HubGameState extends StageGameState {
 	private Model terminal;
 	
 	private MissionOverlay missionOverlay;
+	
+	private boolean missionOverlayShowing;
     
     public HubGameState() {
     	super();
@@ -37,6 +39,7 @@ public class HubGameState extends StageGameState {
     
     private void init() {    	
     	missionOverlay = new MissionOverlay();
+    	rootNode.attachChild(missionOverlay);
     	
     	initKeyBindings();
     }
@@ -53,14 +56,14 @@ public class HubGameState extends StageGameState {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
-			if (playerLoc.distance(terminalLoc) <= 3) {
-				if (!rootNode.hasChild(missionOverlay)) {
-					pause = true;
-					rootNode.attachChild(missionOverlay);
-				} else {
-					pause = false;
-					rootNode.detachChild(missionOverlay);
-				}
+			if (playerLoc.distance(terminalLoc) <= 3) {				
+				frozen = !frozen;
+				missionOverlayShowing = !missionOverlayShowing;
+
+				if (missionOverlayShowing)
+					missionOverlay.showMenu();
+				else
+					missionOverlay.hideMenu();
 			}
 		}
 	}

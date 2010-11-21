@@ -25,8 +25,6 @@ public class HudOverlay extends Overlay {
 	private Class[] attacks;
 	private int gaugeCap;
 	
-	private Node container;
-	
 	private Quad[] attackFill;
 	private Quad[] attackBar;
 	private BitmapText[] attackText;

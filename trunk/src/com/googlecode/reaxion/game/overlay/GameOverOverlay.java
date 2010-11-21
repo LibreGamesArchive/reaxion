@@ -25,11 +25,6 @@ import com.jmex.game.state.GameState;
  */
 public class GameOverOverlay extends Overlay {
 	
-	private static final File fontFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol-c.fnt");
-    private static final File glyphFile = new File("src/com/googlecode/reaxion/resources/fonts/neuropol-c_0.png");
-
-	private BitmapFont font = null;
-	
 	private static final String baseURL = "../../resources/gui/";
 	
 	private final ColorRGBA selectedText = new ColorRGBA(0, .7f, 1, 1);

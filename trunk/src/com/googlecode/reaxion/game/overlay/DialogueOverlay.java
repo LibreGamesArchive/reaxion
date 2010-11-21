@@ -50,8 +50,6 @@ public class DialogueOverlay extends Overlay {
 	private Node actorsContainer;
 	private Node bgContainer;
 	
-	private Node container;
-	
 	public DialogueOverlay() {
 		super();
         

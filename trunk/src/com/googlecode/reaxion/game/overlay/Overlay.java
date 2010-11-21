@@ -27,6 +27,8 @@ public class Overlay extends Node {
 	protected int width;
 	protected int height;
 	
+	protected Node container;
+	
 	public Overlay() {
 		super();
 		

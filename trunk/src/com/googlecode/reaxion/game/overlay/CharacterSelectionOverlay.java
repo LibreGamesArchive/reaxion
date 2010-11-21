@@ -14,8 +14,6 @@ public class CharacterSelectionOverlay extends Overlay {
 
 	private final int numchars = 8;
 	
-	private Node container;
-
 	private String[] charNames;
 	private Quad[] p1Fill;
 	private Quad[] p2Fill;

@@ -13,15 +13,15 @@ import java.awt.Point;
 
 public class GridOverlay extends Overlay {
 
-	public int screenWidth, screenHeight;
+	public int baseWidth, baseHeight;
 	
 	public boolean mainOverlay;
 
-	public GridOverlay(int screenWidth, int screenHeight, boolean mainOverlay) {
+	public GridOverlay(int baseWidth, int baseHeight, boolean mainOverlay) {
 		super();
 		
-		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;
+		this.baseWidth = baseWidth;
+		this.baseHeight = baseHeight;
 		this.mainOverlay = mainOverlay;
 	}
 
@@ -40,9 +40,10 @@ public class GridOverlay extends Overlay {
 	protected Point[][] createVerticallyCenteredGrid(int rows, int columns, int xDisp, int boxWidth, int boxHeight, int horizontalSpacing, int verticalSpacing) {
 		Point[][] positions = new Point[rows][columns];
 
+		xDisp -= (mainOverlay ? 0 : baseWidth / 2);
+
 		int totalGridSpaceY = rows * boxHeight + (rows - 1) * verticalSpacing;
-		int yDisp = screenHeight - (screenHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : screenHeight / 2);
-		xDisp -= (mainOverlay ? 0 : screenWidth / 2);
+		int yDisp = baseHeight - (baseHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : baseHeight / 2);
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
@@ -67,8 +68,9 @@ public class GridOverlay extends Overlay {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceX = columns * boxWidth + (columns - 1) * horizontalSpacing;
-		yDisp -= (mainOverlay ? 0 : screenHeight / 2);
-		int xDisp = screenWidth - (screenWidth - totalGridSpaceX) / 2 - (mainOverlay ? 0 : screenWidth / 2);
+		int xDisp = baseWidth - (baseWidth - totalGridSpaceX) / 2 - (mainOverlay ? 0 : baseWidth / 2);
+		
+		yDisp -= (mainOverlay ? 0 : baseHeight / 2);
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
@@ -93,10 +95,10 @@ public class GridOverlay extends Overlay {
 		Point[][] positions = new Point[rows][columns];
 
 		int totalGridSpaceX = columns * boxWidth + (columns - 1) * horizontalSpacing;
-		int xDisp = screenWidth - (screenWidth - totalGridSpaceX) / 2 - (mainOverlay ? 0 : screenWidth / 2);
+		int xDisp = baseWidth - (baseWidth - totalGridSpaceX) / 2 - (mainOverlay ? 0 : baseWidth / 2);
 		
 		int totalGridSpaceY = rows * boxHeight + (rows - 1) * verticalSpacing;
-		int yDisp = screenHeight - (screenHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : screenHeight / 2);
+		int yDisp = baseHeight - (baseHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : baseHeight / 2);
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)

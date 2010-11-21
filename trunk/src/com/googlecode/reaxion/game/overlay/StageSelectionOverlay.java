@@ -31,8 +31,6 @@ public class StageSelectionOverlay extends GridOverlay {
 	private String baseIconURL = "../../resources/icons/stageselect/";
 	private String baseGuiURL = "../../resources/gui/";
 
-	private Node container;
-
 	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
 			MikoLake.name, Flipside.name, TwilightKingdom.name,
 			SeasRepose.name, CityOfDreams.name, CloudNine.name,
@@ -74,7 +72,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		stageGridRows = 3;
 		stageGridColumns = 3;
 
-		stageGridLayout = createVerticallyCenteredGrid(stageGridRows, stageGridColumns, screenWidth - 250,
+		stageGridLayout = createVerticallyCenteredGrid(stageGridRows, stageGridColumns, baseWidth - 250,
 				64, 48, 10, 10);
 		
 		// Visual Element Initialization
@@ -111,7 +109,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight()
-				/ screenHeight);
+				/ baseHeight);
 
 		attachChild(container);
 	}
@@ -170,7 +168,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		previewBox.attachChild(border);
 		previewBox.attachChild(image);
 		previewBox.setLocalTranslation(border.getWidth() / 2 + 40,
-				screenHeight / 2 + 30, 0);
+				baseHeight / 2 + 30, 0);
 
 		return previewBox;
 	}
@@ -198,7 +196,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		stage.setDefaultColor(ColorRGBA.white);
 		stage.setSize(fontSize);
 		stage.update();
-		stage.setLocalTranslation(210 - stage.getLineWidth() / 2, screenHeight / 2 - 256 / 2, 0);
+		stage.setLocalTranslation(210 - stage.getLineWidth() / 2, baseHeight / 2 - 256 / 2, 0);
 		
 		return stage;
 	}

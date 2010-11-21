@@ -33,8 +33,6 @@ public class ResultsOverlay extends Overlay {
 	private double expYield;
 	private int numStars;
 	
-	private Node container;
-	
 	private Node bg;
 	
 	private Quad topFade;
