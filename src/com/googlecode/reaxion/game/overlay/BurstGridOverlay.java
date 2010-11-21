@@ -54,7 +54,6 @@ public class BurstGridOverlay extends Overlay {
 	private BitmapText c;
 	private BitmapText caption;
 	
-	private Node container;
 	private Node descriptors;
 	
 	public BurstGridOverlay() {

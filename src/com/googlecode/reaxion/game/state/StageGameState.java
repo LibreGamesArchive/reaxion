@@ -66,6 +66,7 @@ public class StageGameState extends CameraGameState {
     protected BasicPassManager pManager;
     
     protected boolean pause;
+    protected boolean frozen;
     protected boolean showBounds = false;
     protected boolean showDepth = false;
     protected boolean showNormals = false;
@@ -496,6 +497,7 @@ public class StageGameState extends CameraGameState {
     	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     	                "toggle_pause", false) && timing) {
     	        	pause = !pause;
+    	        	frozen = !frozen;
     	        	// toggle the overlay
     	        	if (pause) {
     	        		AudioPlayer.gamePaused();
@@ -510,7 +512,7 @@ public class StageGameState extends CameraGameState {
     	        	System.out.println("Paused: "+pause);
     	        }
     	    	
-    	        if (pause)
+    	        if (frozen)
     	            return;
     	        
         	}
