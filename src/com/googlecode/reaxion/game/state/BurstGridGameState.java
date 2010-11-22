@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
@@ -132,6 +133,10 @@ public class BurstGridGameState extends CameraGameState {
         // initialize input handler
         input = new InputHandler();
 	    initKeyBindings();
+	    
+	    // play music
+	    AudioPlayer.queueBGM("the_sunleth_waterscape.ogg");
+	    AudioPlayer.startBGM();
         
         System.out.println(grid);
     }

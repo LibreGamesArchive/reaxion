@@ -268,6 +268,14 @@ public class ResultsOverlay extends Overlay {
 		
 	}
 	
+	/**
+	 * Increment the participants' exp in their PlayerInfo.
+	 */
+	public void allotExp(MajorCharacter player, MajorCharacter partner) {
+		player.info.exp += (int)expYield;
+		partner.info.exp += (int)expYield;
+	}
+	
 	private void calculateExp(double targetTime, double clearTime, double totalHp, double remainingHp, int exp) {
 		// time score ranges from clearTime <= targetTime (1) to clearTime >= 3*targetTime (0)
 		double timeMultiplier = Math.min(Math.max(1 - (clearTime - targetTime)/(2*targetTime), 0), 1);
