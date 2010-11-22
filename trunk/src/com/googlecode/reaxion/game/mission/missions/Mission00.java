@@ -3,18 +3,18 @@ package com.googlecode.reaxion.game.mission.missions;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.ability.*;
+import com.googlecode.reaxion.game.ability.Ability;
+import com.googlecode.reaxion.game.ability.AfterImage;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.state.DialogueGameState;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jmex.game.state.GameState;
+import com.jme.math.Vector3f;
 
 public class Mission00 extends Mission {
 	
@@ -65,6 +65,8 @@ public class Mission00 extends Mission {
 		//b.setStage("TwilightKingdom");
 		b.setTargetTime(60);
 		b.setExpYield(1000);
+		b.setP1Position(new Vector3f(0, 0, -20));
+		b.addOponentPosition(new Vector3f(0, 0, 20));
 		Battle.setCurrentBattle(b);
 		
 		addState(Battle.createBattleGameState());
