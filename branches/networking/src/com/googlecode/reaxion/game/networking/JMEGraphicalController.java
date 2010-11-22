@@ -58,7 +58,7 @@ public class JMEGraphicalController implements GraphicalController<Model> {
         model.model.getLocalScale().x = m.getScaleX();
         model.model.getLocalScale().y = m.getScaleY();
         model.model.getLocalScale().z = m.getScaleZ();
-        ((MeshAnimationController) model.model.getController(0)).setAnimation(m.getAnimation());
+  //      ((MeshAnimationController) model.model.getController(0)).setAnimation(m.getAnimation());
     }
 
     public SynchronizeMessage createSynchronizationMessage(Model model) {
@@ -73,7 +73,7 @@ public class JMEGraphicalController implements GraphicalController<Model> {
         message.setScaleX(model.model.getLocalScale().x);
         message.setScaleY(model.model.getLocalScale().y);
         message.setScaleZ(model.model.getLocalScale().z);
-        message.setAnimation(((MeshAnimationController) model.model.getController(0)).getActiveAnimation());
+   //     message.setAnimation(((MeshAnimationController) model.model.getController(0)).getActiveAnimation());
         return message;
     }
 
