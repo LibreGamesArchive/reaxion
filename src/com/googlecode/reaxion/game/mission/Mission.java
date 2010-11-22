@@ -14,7 +14,7 @@ import com.jmex.game.state.GameState;
 public abstract class Mission implements Comparable<Mission> {
 	
 	private String title;
-	private int missionID;
+	private MissionID missionID;
 	private int difficultyRating;
 	private boolean required;
 	private String description;
@@ -26,7 +26,6 @@ public abstract class Mission implements Comparable<Mission> {
 	
 	public Mission() {
 		title = "???";
-		missionID = 0;
 		difficultyRating = 0;
 		required = false;
 		description = "";
@@ -34,7 +33,7 @@ public abstract class Mission implements Comparable<Mission> {
 		stateCount = 0;
 	}
 	
-	public Mission(String title, int missionID, int difficultyRating, boolean required, String description, String imageURL) {
+	public Mission(String title, MissionID missionID, int difficultyRating, boolean required, String description, String imageURL) {
 		this.title = title;
 		this.missionID = missionID;
 		this.difficultyRating = difficultyRating;
@@ -46,7 +45,7 @@ public abstract class Mission implements Comparable<Mission> {
 	}
 	
 	public int compareTo(Mission m) {
-		return missionID - m.getMissionID();
+		return getMissionIDNum() - m.getMissionIDNum();
 	}
 
 	/**
@@ -73,11 +72,15 @@ public abstract class Mission implements Comparable<Mission> {
 		this.title = title;
 	}
 
-	public int getMissionID() {
+	public int getMissionIDNum() {
+		return missionID.id;
+	}
+	
+	public MissionID getMissionID() {
 		return missionID;
 	}
 
-	public void setMissionID(int missionID) {
+	public void setMissionID(MissionID missionID) {
 		this.missionID = missionID;
 	}
 

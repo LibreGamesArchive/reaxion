@@ -8,7 +8,7 @@ import com.jme.math.Vector3f;
 public class MissionHGS extends Mission {
 	
 	public MissionHGS() {
-		super("Open HubGameState", MissionID.OPEN_HUBGAMESTATE.id, 0, false, "Opens HubGameState. For testing purposes.", "");
+		super("Open HubGameState", MissionID.OPEN_HUBGAMESTATE, 0, false, "Opens HubGameState. For testing purposes.", "");
 	}
 
 	@Override

@@ -54,6 +54,8 @@ public class MissionManager {
 	public static void startNext() {
 		if(currentIndex + 1 == currentMission.getStateCount()) {
 			endMission();
+			Reaxion.terminate();
+//			GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
 		} else {
 			currentMission.deactivateStateAt(currentIndex);
 			currentIndex++;
@@ -65,15 +67,12 @@ public class MissionManager {
 	/**
 	 * Ends mission in progress and returns control to {@code HubGameState}.
 	 */
-	private static void endMission() {
+	public static void endMission() {
 		for(int i = 0; i <= currentIndex; i++)
 			GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
 		
 		currentMission = null;
 		currentIndex = 0;
-		
-		Reaxion.terminate();
-//		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
 	}
 	
 	/**
@@ -98,7 +97,7 @@ public class MissionManager {
 		ArrayList<Mission> testMissions = new ArrayList<Mission>();
 		
 		for (int i = 0; i < temp.size(); i++)
-			if (temp.get(i).getMissionID() <= 0)
+			if (temp.get(i).getMissionIDNum() <= 0)
 				testMissions.add(temp.get(i));
 		
 		for (Mission m : testMissions)

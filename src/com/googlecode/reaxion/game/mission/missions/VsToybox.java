@@ -22,7 +22,7 @@ import com.jmex.game.state.GameState;
 public class VsToybox extends Mission {
 	
 	public VsToybox() {
-		super("The Toybox Attacks!", MissionID.VS_TOYBOX.id, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "");
+		super("The Toybox Attacks!", MissionID.VS_TOYBOX, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "");
 	}
 	
 	@Override

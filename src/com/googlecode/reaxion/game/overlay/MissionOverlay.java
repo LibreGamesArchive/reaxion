@@ -112,7 +112,7 @@ public class MissionOverlay extends GridOverlay {
 		box.setSolidColor(ColorRGBA.black);
 		
 		BitmapText id = new BitmapText(FontUtils.eurostile, false);
-		id.setText("No. " + (m.getMissionID()));
+		id.setText("No. " + m.getMissionIDNum());
 		id.setSize(24);
 		id.setAlignment(BitmapFont.Align.Center);
 		id.update();
@@ -214,6 +214,12 @@ public class MissionOverlay extends GridOverlay {
 //			System.out.print((currentIndex + i) % missionList.length + (i == numListItems - 1 ? "" : ","));
 		}
 		System.out.println();
+	}
+	
+	public void startSelectedMission() {
+		hideMenu();
+		MissionManager.endMission();
+		MissionManager.startMission(missions.get(currentIndex + numListItems / 2).getMissionID());
 	}
 
 }

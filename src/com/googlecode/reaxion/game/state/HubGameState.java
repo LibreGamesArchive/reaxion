@@ -63,7 +63,7 @@ public class HubGameState extends StageGameState {
 			
 			if (playerLoc.distance(terminalLoc) <= 3) {				
 				frozen = !frozen;
-				missionOverlayShowing = !missionOverlayShowing;
+				toggleMissionOverlay();
 
 				if (missionOverlayShowing)
 					missionOverlay.showMenu();
@@ -81,8 +81,29 @@ public class HubGameState extends StageGameState {
 			if (missionOverlayShowing)
 				missionOverlay.updateDisplay(KeyInput.KEY_DOWN);
 		}
+		
+		if (manager.isValidCommand("menu_select", false)) {
+//			missionOverlay.startSelectedMission();
+		}
 	}
 
+    private void toggleMissionOverlay() {
+    	missionOverlayShowing = !missionOverlayShowing;
+    	switchSpacebarFunction(missionOverlayShowing);
+    }
+    
+    private void switchSpacebarFunction(boolean showing) {
+    	KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+    	
+    	if (showing) {
+    		manager.remove("switch");
+    		manager.set("menu_select", KeyInput.KEY_SPACE);
+    	} else {
+    		manager.remove("menu_select");
+    		manager.set("switch", KeyInput.KEY_SPACE);
+    	}
+    }
+    
 	@Override
     protected void act() {
     	Vector3f p = player.model.getLocalTranslation();
