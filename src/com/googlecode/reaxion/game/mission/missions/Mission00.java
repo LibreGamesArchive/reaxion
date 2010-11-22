@@ -22,6 +22,7 @@ public class Mission00 extends Mission {
 	@Override
 	public void init() {
 		// dialogue code
+		/*
 		int[] times = new int[24];
 		for(int i = 0; i < times.length; i++)
 			times[i] = i * 20;
@@ -49,15 +50,15 @@ public class Mission00 extends Mission {
 		int[] durations = {0, 0, 0, 0, 0};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_twilight-kingdom.png");
-		addState(dialogueState);
+		addState(dialogueState);*/
 		
 		Battle b = new Battle();
-		Character khoa = (Character)LoadingQueue.push(new Khoa());
-		ArrayList<Ability[]> ab = new ArrayList<Ability[]>();
-		ab.add(new Ability[] {new AfterImage()});
-		khoa.assignAI(new TestAI(khoa));
-		b.setOps(new Character[] {khoa});
-		b.setOpAbilities(ab);
+	//	Character khoa = (Character)LoadingQueue.push(new Khoa());
+//		ArrayList<Ability[]> ab = new ArrayList<Ability[]>();
+	//	ab.add(new Ability[] {new AfterImage()});
+	//	khoa.assignAI(new TestAI(khoa));
+	//	b.setOps(new Character[] {khoa});
+	//	b.setOpAbilities(ab);
 		//b.setPlayers(new String[] {"Brian", "Cy", "Khoa"});
 		//b.setStage("TwilightKingdom");
 		b.setTargetTime(60);

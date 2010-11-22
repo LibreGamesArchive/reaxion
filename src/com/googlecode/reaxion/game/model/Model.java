@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -16,7 +17,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
  * models should extend this class.
  * @author Khoa
  */
-public class Model {
+public class Model implements Serializable {
 	
 	public String name;
     
