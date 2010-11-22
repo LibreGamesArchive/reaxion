@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionManager;
+import com.googlecode.reaxion.game.mission.missions.MissionHGS;
+import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.googlecode.reaxion.game.util.FontUtils;
-import com.jme.math.Vector3f;
+import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
@@ -14,6 +16,13 @@ import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
+/**
+ * {@code MissionOverlay} is the mission menu for {@code HubGameState}. It controls all of the visual elements
+ * of the menu and allows for the selection and initiation of missions.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public class MissionOverlay extends GridOverlay {
 
 	private static final String baseURL = "../../resources/icons/missionselect/";
@@ -40,18 +49,18 @@ public class MissionOverlay extends GridOverlay {
 		init();
 	}                         
 	
+	/**
+	 * Initializes the mission menu.
+	 */
 	private void init() {
-		System.out.println("initializing mission overlay");
-		numListItems = baseHeight / (missionListItemHeight + missionListItemSpacing);
-		
 		container = new Node("container_missionSelect");
 		missions = MissionManager.getMissions();
-		
-		System.out.println("##### " + container);
+		for (int i = 0; i < 4; i++)
+			missions.add(i % 2 == 0 ? new MissionHGS() : new VsToybox());
 		
 		createMissionList();
 		
-		currentIndex = 0;
+		currentIndex = missionList.length - numListItems / 2;
 		
 		cursor = getImage(baseURL + "missionselect_cursor.png");
 		Point cursorPos = missionListGrid[numListItems / 2][0];
@@ -66,7 +75,12 @@ public class MissionOverlay extends GridOverlay {
 		attachChild(container);
 	}
 	
+	/**
+	 * Generates an {@code Array} of {@code Node} objects which graphically display mission 
+	 * information.
+	 */
 	private void createMissionList() {
+		numListItems = Math.min(baseHeight / (missionListItemHeight + missionListItemSpacing) - 1, missions.size());
 		missionListGrid = createVerticallyCenteredGrid(numListItems, 1, 750 - 150,
 				missionListItemWidth, missionListItemHeight,
 				missionListItemSpacing, missionListItemSpacing);
@@ -77,13 +91,21 @@ public class MissionOverlay extends GridOverlay {
 //			System.out.println(m);
 		
 		for(int i = 0; i < missionList.length; i++) {
-			missionList[i] = createMissionListItem(missions.get(i));
-			Point pos = missionListGrid[(i + numListItems / 2) % numListItems][0];
-			missionList[i].setLocalTranslation(pos.x, pos.y, 0);
+			missionList[i] = createMissionListItem(missions.get(i), i);
+			missionList[i].setLocalTranslation(1000, 0, 0);
 		}
+		
+		rotateMissionList(0);
 	}
 
-	private Node createMissionListItem(Mission m) {
+	/**
+	 * Creates a single mission list item.
+	 * 
+	 * @param m
+	 * @param index
+	 * @return mission list item
+	 */
+	private Node createMissionListItem(Mission m, int index) {
 		Node listItem = new Node("listItem_" + m.getTitle());
 		
 		Quad box = new Quad("box_" + m.getMissionID(), 300, 80);
@@ -101,14 +123,22 @@ public class MissionOverlay extends GridOverlay {
 		title.setAlignment(BitmapFont.Align.Center);
 		title.update();
 		
+		BitmapText test = new BitmapText(FontUtils.eurostile, false);
+		test.setText("" + index);
+		test.setSize(24);
+		test.setAlignment(BitmapFont.Align.Center);
+		test.update();
+		
 		float titleX = (150 - 10 - id.getLineWidth() - 10) / 2;
 		
 		id.setLocalTranslation(-150 + id.getLineWidth() / 2 + 10, id.getLineHeight() / 2, 0);
 		title.setLocalTranslation(titleX, 30, 0);
+		test.setLocalTranslation(100, 0, 0);
 		
 		listItem.attachChild(box);
 		listItem.attachChild(id);
 		listItem.attachChild(title);
+		listItem.attachChild(test);
 		
 		for (int i = 0; i < m.getDifficultyRating(); i++) {
 			Quad star = getImage(baseGuiURL + "star_small.png");
@@ -119,6 +149,9 @@ public class MissionOverlay extends GridOverlay {
 		return listItem;
 	}
 
+	/**
+	 * Makes the overlay visible.
+	 */
 	public void showMenu() {
 		container.attachChild(cursor);
 		
@@ -128,6 +161,9 @@ public class MissionOverlay extends GridOverlay {
 		updateRenderState();
 	}
 
+	/**
+	 * Hides overlay menu.
+	 */
 	public void hideMenu() {
 		container.detachChild(cursor);
 		
@@ -137,12 +173,47 @@ public class MissionOverlay extends GridOverlay {
 		updateRenderState();
 	}
 	
+	/**
+	 * Updates the overlay based on key input.
+	 * @param key
+	 */
 	public void updateDisplay(int key) {
+		switch (key) {
+		case KeyInput.KEY_DOWN:
+			currentIndex = (currentIndex + 1) % missionList.length;
+			break;
+		case KeyInput.KEY_UP:
+			currentIndex -= 1;
+			if (currentIndex < 0)
+				currentIndex += missionList.length;
+			break;
+		}
 		
+		rotateMissionList(key);
+		
+		container.updateRenderState();
 	}
 	
-	private void rotateMissionList() {
+	/**
+	 * Updates the locations of each of the mission list items based on key input.
+	 * @param key
+	 */
+	private void rotateMissionList(int key) {
+		if (key == KeyInput.KEY_DOWN) {
+			int index = currentIndex - 1;
+			if (index < 0)
+				index += missionList.length;
+			missionList[index].setLocalTranslation(1000, 0, 0);
+		} else if (key == KeyInput.KEY_UP) {
+			missionList[(currentIndex + numListItems) % missionList.length].setLocalTranslation(1000, 0, 0);
+		}
 		
+		for (int i = 0; i < numListItems; i++) {
+			Point pos = missionListGrid[i][0];
+			missionList[(currentIndex + i) % missionList.length].setLocalTranslation(pos.x, pos.y, 0);
+//			System.out.print((currentIndex + i) % missionList.length + (i == numListItems - 1 ? "" : ","));
+		}
+		System.out.println();
 	}
 
 }

@@ -11,7 +11,7 @@ import java.awt.Point;
  *
  */
 
-public class GridOverlay extends Overlay {
+public abstract class GridOverlay extends Overlay {
 
 	public int baseWidth, baseHeight;
 	
