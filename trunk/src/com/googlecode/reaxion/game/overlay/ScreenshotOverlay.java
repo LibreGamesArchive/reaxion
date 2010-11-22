@@ -14,6 +14,13 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jme.util.geom.BufferUtils;
 
+/**
+ * This class should be extended if an overlay involves the use of a screenshot as a
+ * background image.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public abstract class ScreenshotOverlay extends GridOverlay {
 
 	protected Quad screenshot;
@@ -33,7 +40,6 @@ public abstract class ScreenshotOverlay extends GridOverlay {
 		screenshot = getScreenshot();
 		screenshot.setLocalTranslation(new Vector3f(width/2, height/2, 0));
 		screenshot.setZOrder(Integer.MAX_VALUE);
-		System.out.println("##### " + screenshot + "\n##### " + container);
 		container.attachChild(screenshot);
 	}
 	

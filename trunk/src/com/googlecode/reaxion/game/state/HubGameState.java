@@ -45,14 +45,19 @@ public class HubGameState extends StageGameState {
     }
     
     private void initKeyBindings() {
-    	KeyBindingManager.getKeyBindingManager().set("access_terminal", KeyInput.KEY_RETURN);
+    	KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+    	manager.set("access_terminal", KeyInput.KEY_RETURN);
+    	manager.set("menu_up", KeyInput.KEY_UP);
+    	manager.set("menu_down", KeyInput.KEY_DOWN);
     }
     
     @Override
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("access_terminal", false)) {
+		
+		if (manager.isValidCommand("access_terminal", false)) {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
@@ -65,6 +70,16 @@ public class HubGameState extends StageGameState {
 				else
 					missionOverlay.hideMenu();
 			}
+		}
+		
+		if (manager.isValidCommand("menu_up", false)) {
+			if (missionOverlayShowing)
+				missionOverlay.updateDisplay(KeyInput.KEY_UP);
+		}
+		
+		if (manager.isValidCommand("menu_down", false)) {
+			if (missionOverlayShowing)
+				missionOverlay.updateDisplay(KeyInput.KEY_DOWN);
 		}
 	}
 
