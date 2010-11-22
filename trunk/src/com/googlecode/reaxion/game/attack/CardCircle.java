@@ -12,7 +12,7 @@ import com.jme.math.Vector3f;
  */
 public class CardCircle extends Attack {	
 	private static final String n = "Card Circle";
-	private static final int gc = 12;
+	private static final int gc = 21;
 	
 	private CircleCard[] card = new CircleCard[6];
 	

@@ -83,6 +83,7 @@ public class ResultsGameState extends CameraGameState {
 		initKeyBindings();
 
 		// Setup software mouse
+		/*
 		mouse = new AbsoluteMouse("Mouse Input", DisplaySystem
 				.getDisplaySystem().getWidth(), DisplaySystem
 				.getDisplaySystem().getHeight());
@@ -105,6 +106,10 @@ public class ResultsGameState extends CameraGameState {
 		as1.setTestFunction(BlendState.TestFunction.GreaterThan);
 		mouse.setRenderState(as1);
 		rootNode.attachChild(mouse);
+		*/
+		
+		// increment exp
+		resultsNode.allotExp(battle.getPlayer(), battle.getPartner());
 
 		// Finish up
 		rootNode.updateRenderState();
