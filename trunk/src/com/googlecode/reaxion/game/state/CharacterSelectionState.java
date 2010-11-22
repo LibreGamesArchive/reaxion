@@ -169,12 +169,4 @@ public class CharacterSelectionState extends BasicGameState {
 		setActive(false);
 	}
 
-	public boolean charSelected() {
-		return true;
-	}
-
-	public int[] selectedChars() {
-		return new int[3];
-	}
-
 }

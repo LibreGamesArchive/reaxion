@@ -19,7 +19,7 @@ import com.jme.math.Vector3f;
 public class Mission00 extends Mission {
 	
 	public Mission00() {
-		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER.id, 1, false, "(Test scenario.)", "");
+		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER, 1, false, "(Test scenario.)", "");
 	}
 	
 	@Override
