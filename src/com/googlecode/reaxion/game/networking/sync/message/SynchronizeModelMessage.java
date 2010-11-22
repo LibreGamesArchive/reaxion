@@ -7,6 +7,8 @@ public class SynchronizeModelMessage extends Synchronize3DMessage {
 	
 	private String animation;
 
+	//TODO: synchronize animation frame
+	
 	public SynchronizeModelMessage(){
 		super();
 	}
