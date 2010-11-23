@@ -199,9 +199,7 @@ public class Battle {
 	}
 	
 	public static HubGameState createHubGameState() {
-		if(currentBattle == null)
-			currentBattle = new Battle();
-		Battle b = currentBattle;
+		Battle b = getCurrentBattle();
 		b.loadDefaults();
 		b.init();
 		currentBattle = new Battle();
@@ -212,18 +210,10 @@ public class Battle {
 		return p1;
 	}
 
-	public void setP1(MajorCharacter p1) {
-		this.p1 = p1;
-	}
-
 	public MajorCharacter getP2() {
 		return p2;
 	}
-
-	public void setP2(MajorCharacter p2) {
-		this.p2 = p2;
-	}
-
+	
 	public Character[] getOps() {
 		return op.toArray(new Character[0]);
 	}
@@ -275,7 +265,7 @@ public class Battle {
 	public void setOpAbilities(ArrayList<Ability[]> oA) {
 		this.opAbilities = oA;
 		for (int i=0; i<opAbilities.size(); i++)
-		op.get(i).setAbilities(oA.get(i));
+			op.get(i).setAbilities(oA.get(i));
 	}
 
 	public Vector3f getP1Position() {

@@ -61,8 +61,7 @@ public class HubGameState extends StageGameState {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
-			if (playerLoc.distance(terminalLoc) <= 3) {				
-				frozen = !frozen;
+			if (playerLoc.distance(terminalLoc) <= 3) {
 				toggleMissionOverlay();
 
 				if (missionOverlayShowing)
@@ -83,11 +82,13 @@ public class HubGameState extends StageGameState {
 		}
 		
 		if (manager.isValidCommand("menu_select", false)) {
-//			missionOverlay.startSelectedMission();
+			toggleMissionOverlay();
+			missionOverlay.startSelectedMission();
 		}
 	}
 
-    private void toggleMissionOverlay() {
+    private void toggleMissionOverlay() {				
+		frozen = !frozen;
     	missionOverlayShowing = !missionOverlayShowing;
     	switchSpacebarFunction(missionOverlayShowing);
     }

@@ -14,7 +14,7 @@ import com.jme.math.Vector3f;
 /**
  * Controls all audio of the game.
  * 
- * @author Brian
+ * @author Brian Clanton
  *
  */
 
@@ -39,7 +39,6 @@ public class AudioPlayer {
 			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
 			SoundSystemConfig.setCodec("wav", CodecWav.class);
 			SoundSystemConfig.setSoundFilesPackage(baseURL);
-			
 		} catch (SoundSystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +72,7 @@ public class AudioPlayer {
 	 */
 	public static void startBGM() {
 		sound.play(currentBGM);
-		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 1);
+		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 0);
 	}
 	
 	/**

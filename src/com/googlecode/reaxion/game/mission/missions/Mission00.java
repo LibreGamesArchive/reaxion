@@ -54,7 +54,7 @@ public class Mission00 extends Mission {
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_twilight-kingdom.png");
 		addState(dialogueState);
 		
-		Battle b = new Battle();
+		Battle b = Battle.getCurrentBattle();
 		Character khoa = (Character)LoadingQueue.push(new Khoa());
 		ArrayList<Ability[]> ab = new ArrayList<Ability[]>();
 		ab.add(new Ability[] {new AfterImage()});
