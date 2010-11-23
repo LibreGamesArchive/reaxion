@@ -59,9 +59,10 @@ public class VsToybox extends Mission {
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_cloud-nine.png");
 		addState(dialogueState);
 		
-		Battle b = new Battle();
+		Battle b = Battle.getCurrentBattle();
 		b.music = false;
 		b.setP1Position(new Vector3f(0, 0, 50));
+		b.setP2Position(b.getP1Position());
 		Character tb = (Character)LoadingQueue.push(new Toybox());
 		b.setOps(new Character[] {tb});
 		b.setStage("CloudNine");

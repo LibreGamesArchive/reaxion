@@ -189,6 +189,8 @@ public class MissionOverlay extends GridOverlay {
 			break;
 		}
 		
+		System.out.println(currentIndex);
+		
 		rotateMissionList(key);
 		
 		container.updateRenderState();
@@ -213,13 +215,14 @@ public class MissionOverlay extends GridOverlay {
 			missionList[(currentIndex + i) % missionList.length].setLocalTranslation(pos.x, pos.y, 0);
 //			System.out.print((currentIndex + i) % missionList.length + (i == numListItems - 1 ? "" : ","));
 		}
-		System.out.println();
 	}
 	
 	public void startSelectedMission() {
 		hideMenu();
 		MissionManager.endMission();
-		MissionManager.startMission(missions.get(currentIndex + numListItems / 2).getMissionID());
+		int index = (currentIndex + numListItems / 2) % missions.size();
+		System.out.println(index);
+		MissionManager.startMission(missions.get(index).getMissionID());
 	}
 
 }
