@@ -26,7 +26,7 @@ public class AndrewInfo extends PlayerInfo {
 
 	@Override
 	protected void setUsableSfx() {
-		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_CLOUD, "lightning bolt.wav");
+		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_CLOUD, "lightning bolt.ogg");
 	}
 	
 }
