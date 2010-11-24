@@ -5,7 +5,6 @@ import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 import paulscode.sound.SoundSystemLogger;
 import paulscode.sound.codecs.CodecJOrbis;
-import paulscode.sound.codecs.CodecWav;
 import paulscode.sound.libraries.LibraryJavaSound;
 
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -37,7 +36,6 @@ public class AudioPlayer {
 		try {
 			SoundSystemConfig.addLibrary(LibraryJavaSound.class);
 			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
-			SoundSystemConfig.setCodec("wav", CodecWav.class);
 			SoundSystemConfig.setSoundFilesPackage(baseURL);
 		} catch (SoundSystemException e) {
 			// TODO Auto-generated catch block

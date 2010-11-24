@@ -25,8 +25,8 @@ public class BrianInfo extends PlayerInfo {
 
 	@Override
 	protected void setUsableSfx() {
-		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_CLOUD, "m&lss_l-thunder.wav");
-		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_STORM, "sm64_thank_you.wav");
+		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_CLOUD, "m&lss_l-thunder.ogg");
+		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_STORM, "sm64_thank_you.ogg");
 	}
 	
 }

@@ -27,7 +27,7 @@ public class AustinInfo extends PlayerInfo {
 
 	@Override
 	protected void setUsableSfx() {
-		usableSfx.put(SoundEffectType.ATTACK_FIREBALL, "test3.wav");
+		usableSfx.put(SoundEffectType.ATTACK_FIREBALL, "test3.ogg");
 	}
 	
 }
