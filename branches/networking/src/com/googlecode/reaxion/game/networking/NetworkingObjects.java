@@ -126,7 +126,12 @@ public abstract class NetworkingObjects {
 				// FIXME (nwk) figure out how to reference list of models
 				// and call .removeFromParent()
 				
-				return true;
+				if(object instanceof Model) {
+					cbgs.removeModel((Model)object);
+					return true;
+				}
+				
+				return false;
 			}
 		});
 		JGN.createThread(client, clientSyncManager).start();
