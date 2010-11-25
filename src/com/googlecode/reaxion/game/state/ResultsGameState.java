@@ -200,14 +200,7 @@ public class ResultsGameState extends CameraGameState {
 			GameStateManager.getInstance().detachChild(this);
 		}
 	}
-
-	/**
-	 * Sets the backdrop image for the {@code ResultsOverlay}.
-	 */
-	public void setBackground(Quad q) {
-		resultsNode.setBackground(q);
-	}
-
+	
 	public void cleanup() {
 	}
 }

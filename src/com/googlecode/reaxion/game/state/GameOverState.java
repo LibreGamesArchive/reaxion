@@ -234,13 +234,6 @@ public class GameOverState extends CameraGameState {
 		}
 	}
 
-	/**
-	 * Sets the backdrop image for the {@code ResultsOverlay}.
-	 */
-	public void setBackground(Quad q) {
-		overNode.setBackground(q);
-	}
-
 	public void cleanup() {
 	}
 }
