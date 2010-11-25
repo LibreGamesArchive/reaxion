@@ -55,8 +55,11 @@ public class MissionOverlay extends GridOverlay {
 	private void init() {
 		container = new Node("container_missionSelect");
 		missions = MissionManager.getMissions();
-		for (int i = 0; i < 4; i++)
-			missions.add(i % 2 == 0 ? new MissionHGS() : new VsToybox());
+		for (int i = 0; i < 4; i++) {
+			Mission m = i % 2 == 0 ? new MissionHGS() : new VsToybox();
+			m.setCompleted(i % 2 == 1);
+			missions.add(m);
+		}
 		
 		createMissionList();
 		
@@ -129,16 +132,18 @@ public class MissionOverlay extends GridOverlay {
 		test.setAlignment(BitmapFont.Align.Center);
 		test.update();
 		
-		float titleX = (150 - 10 - id.getLineWidth() - 10) / 2;
+		Quad checkbox = getImage(baseURL + "checkbox-" + (m.isCompleted() ? "1" : "0") + ".png");
 		
 		id.setLocalTranslation(-150 + id.getLineWidth() / 2 + 10, id.getLineHeight() / 2, 0);
-		title.setLocalTranslation(titleX, 30, 0);
+		title.setLocalTranslation(20, 30, 0);
 		test.setLocalTranslation(100, 0, 0);
+		checkbox.setLocalTranslation(-60 + 5 * (32 + 5), -17, 0);
 		
 		listItem.attachChild(box);
 		listItem.attachChild(id);
 		listItem.attachChild(title);
-		listItem.attachChild(test);
+//		listItem.attachChild(test);
+		listItem.attachChild(checkbox);
 		
 		for (int i = 0; i < m.getDifficultyRating(); i++) {
 			Quad star = getImage(baseGuiURL + "star_small.png");

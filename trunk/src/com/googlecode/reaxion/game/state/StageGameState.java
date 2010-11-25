@@ -496,8 +496,7 @@ public class StageGameState extends CameraGameState {
         		/** If toggle_pause is a valid command (via key P), change pause. */
     	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     	                "toggle_pause", false) && timing) {
-    	        	pause = !pause;
-    	        	frozen = !frozen;
+    	        	togglePaused();
     	        	// toggle the overlay
     	        	if (pause) {
     	        		AudioPlayer.gamePaused();
@@ -829,6 +828,11 @@ public class StageGameState extends CameraGameState {
     
     public void toggleZPressed(boolean b) {
     	hudNode.zPressed = b;
+    }
+    
+    public void togglePaused() {
+    	pause = !pause;
+    	frozen = !frozen;
     }
     
     public void stateRender(float tpf) {

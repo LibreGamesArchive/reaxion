@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
 import com.googlecode.reaxion.game.mission.missions.MissionHGS;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
@@ -73,6 +74,8 @@ public class MissionManager {
 		
 		currentMission = null;
 		currentIndex = 0;
+		
+		AudioPlayer.clearBGM();
 	}
 	
 	/**

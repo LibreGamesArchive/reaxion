@@ -91,8 +91,6 @@ public class BattleGameState extends StageGameState {
      */
     public void goToGameOver() {
     	GameOverState overState = new GameOverState(this);
-    	
-		overState.setBackground(pauseNode.getScreenshot());
 		
 		GameStateManager.getInstance().attachChild(overState);
 		overState.setActive(true);
@@ -105,8 +103,6 @@ public class BattleGameState extends StageGameState {
      */
     public void goToResults() {
     	ResultsGameState resultsState = new ResultsGameState(this);
-    	
-		resultsState.setBackground(pauseNode.getScreenshot());
 		
 		GameStateManager.getInstance().attachChild(resultsState);
 		resultsState.setActive(true);

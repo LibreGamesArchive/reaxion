@@ -1,12 +1,7 @@
 package com.googlecode.reaxion.game.overlay;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
@@ -14,7 +9,6 @@ import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
-import com.jmex.angelfont.BitmapFontLoader;
 import com.jmex.angelfont.BitmapText;
 import com.jmex.game.state.GameState;
 
@@ -23,7 +17,7 @@ import com.jmex.game.state.GameState;
  * @author Khoa Ha
  *
  */
-public class ResultsOverlay extends Overlay {
+public class ResultsOverlay extends ScreenshotOverlay {
 	
 	private static final String baseURL = "../../resources/gui/";
 	
@@ -33,7 +27,7 @@ public class ResultsOverlay extends Overlay {
 	private double expYield;
 	private int numStars;
 	
-	private Node bg;
+	private Quad bg;
 	
 	private Quad topFade;
 	private Quad botFade;
@@ -68,7 +62,7 @@ public class ResultsOverlay extends Overlay {
         expBonus = new Node("expBonus");
         
         // create a bg container
-        bg = new Node("bg");
+        bg = getScreenshot();
         bg.setLocalTranslation(new Vector3f(width/2, height/2, 0));
         
         // create topFade
@@ -136,11 +130,6 @@ public class ResultsOverlay extends Overlay {
 		}
 		
 		frame++;
-	}
-	
-	public void setBackground(Quad q) {
-		bg.attachChild(q);
-		bg.updateRenderState();
 	}
 	
 	public void setCombatants(MajorCharacter player, MajorCharacter partner, Character[] opponents) {
