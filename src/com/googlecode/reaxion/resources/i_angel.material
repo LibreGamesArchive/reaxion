@@ -1,0 +1,87 @@
+
+material i_angeli_angeleyeTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture textures/angelEye.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_angeli_angelwing
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/wing.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_angeli_angeli_shine5mainTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/i_shine-UV-5.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material i_angeli_angelskin
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/angel_UV.png
+			}
+		}
+
+	}
+
+}
+
+

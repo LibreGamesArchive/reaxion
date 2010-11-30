@@ -1,0 +1,149 @@
+
+material crystal_hall_castleice
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/crystal_hall-statue_UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material crystal_hall_statue3orb
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/crystal_hall-statue-orb_UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material crystal_hall_statue3ice
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/crystal_hall-statue_UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material crystal_hall_statue3onyx
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/crystal_hall-statue-pillar_UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material board
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/crystal-hall_boardUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material stairs
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+			scene_blend alpha_blend		
+
+			texture_unit
+			{
+				texture stages/crystal-hall_stairsUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material pasted__ice
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/crystal_hall-statue_UV.png
+			}
+		}
+
+	}
+
+}
+
+

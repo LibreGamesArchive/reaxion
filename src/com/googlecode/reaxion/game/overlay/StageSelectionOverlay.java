@@ -34,7 +34,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
 			MikoLake.name, Flipside.name, TwilightKingdom.name,
 			SeasRepose.name, CityOfDreams.name, CloudNine.name,
-			Checkerboard.name };
+			LavaValley.name, CrystalPalace.name };
 	
 	private Quad bg;
 	private Quad back;
@@ -69,7 +69,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		currentColumn = 0;
 		fontSize = 32;
 		
-		stageGridRows = 3;
+		stageGridRows = 4;
 		stageGridColumns = 3;
 
 		stageGridLayout = createVerticallyCenteredGrid(stageGridRows, stageGridColumns, baseWidth - 250,
@@ -207,9 +207,9 @@ public class StageSelectionOverlay extends GridOverlay {
 	private void createStageGrid() {
 		stageGrid = new Quad[stageGridRows][stageGridColumns];
 		for (int i = 0; i < stageNames.length; i++) {
-			int r = i / stageGridRows;
+			int r = i / stageGridColumns;
 			int c = i % stageGridColumns;
-
+			
 			stageGrid[r][c] = getImage(getImageURL(stageNames[i], false));
 			stageGrid[r][c].setName("stageGridItem_" + stageNames[i]);
 
@@ -238,10 +238,10 @@ public class StageSelectionOverlay extends GridOverlay {
 		 * is in a column that does not exits on the last row, then the last item in the last row is selected.
 		 * Wrap around on the last row is also handled correctly.
 		 */
-		int lastItem = 	stageNames.length - (stageGridRows * (stageGridColumns - 1)) - 1;
+		int lastItem = 	(stageNames.length - 1) % stageGridColumns;
 		
-		boolean uneven = lastItem != stageGridRows - 1;
-		boolean onLastRow = currentRow == stageGridRows - 1;
+		boolean uneven = lastItem != (stageGridColumns - 1);
+		boolean onLastRow = currentRow == (stageGridRows - 1);
 		
 		//Key Input Checking
 		switch(key) {

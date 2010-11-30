@@ -35,6 +35,10 @@ public class PlayerInput extends InputHandler {
 	private Boolean leftOn = false;
 	private Boolean jumpOn = false;
 	
+	private float prevAngle = Float.NaN;
+	private float prevUnitX = Float.NaN;
+	private float prevUnitZ = Float.NaN;
+	
 	protected Class[] attacks;
 	
     /**
@@ -79,7 +83,8 @@ public class PlayerInput extends InputHandler {
      */
     public void checkKeys() {
     	// switch players
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false) &&
+    			!player.tagLock)
     		state.tagSwitch();
     	
     	// reassign player
@@ -187,6 +192,13 @@ public class PlayerInput extends InputHandler {
     	}
     	float angle = FastMath.atan2(p1.x-p2.x, p1.z-p2.z);
     	
+    	// avoid point-blank lock problem
+    	if (state.cameraMode != "free" && (unitX == prevUnitX && unitZ == prevUnitZ) && Math.abs(((angle + Math.PI*2) % Math.PI) - ((prevAngle + Math.PI*2) % Math.PI)) < .001)
+    		angle = prevAngle;
+    	else
+    		prevAngle = angle;
+    	prevUnitX = unitX;
+    	prevUnitZ = unitZ;
     	
     	// rotate XZ components
     	float nUnitX = unitX*FastMath.sin(angle) + unitZ*FastMath.cos(angle);

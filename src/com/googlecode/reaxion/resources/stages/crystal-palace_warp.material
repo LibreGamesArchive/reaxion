@@ -1,0 +1,22 @@
+
+material warp
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/crystal-hall_warpUV.png
+			}
+		}
+
+	}
+
+}
+
+
