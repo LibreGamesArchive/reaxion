@@ -297,6 +297,7 @@ public class ClientBattleGameState extends BattleGameState {
 			containerNode.detachChild(m.model);
 			return models.remove(m);
 		}
+		System.out.println("Not removed, not in the model list");
 		return false;
 	}
 

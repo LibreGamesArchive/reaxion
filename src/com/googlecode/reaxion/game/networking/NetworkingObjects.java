@@ -117,6 +117,8 @@ public abstract class NetworkingObjects {
 
 				if (scm instanceof SynchronizeCreateModelMessage) {
 					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) scm;
+					if(scmm.isForPreload())
+						return LoadingQueue.push(new Model(scmm.getFilename()));
 					return LoadingQueue.quickLoad(new Model(scmm.getFilename()), cbgs);
 				}
 				return null;
