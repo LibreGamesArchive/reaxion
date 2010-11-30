@@ -14,9 +14,9 @@ public class KhoaInfo extends PlayerInfo {
 	
 	@Override
 	public void init(){
-		setStats(100,2,20,30,0);
+		setStats(100,2,20,42,0);
 		setAbilities(new String[] {"AfterImage", "FinalHour"});
-		setAttacks(new String[] {"ShootBullet", "Beacon", "AngelRain", "ShieldMediguard", "TriLance"});
+		setAttacks(new String[] {"ShootBullet", "Beacon", "AngelRain", "Oblivion", "Stopga", "Teleport"});
 		createBurstGrid("");
 	}
 	

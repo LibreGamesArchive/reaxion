@@ -17,8 +17,8 @@ public class MonicaInfo extends PlayerInfo {
 	public void init(){
 		setStats(80, 1, 15, 25, 1);
 		exp = 10; // testing value to buy nodes. go crazy.
-		setAbilities(new String[] {"EvasiveStart"});
-		setAttacks(new String[] {"ShootBullet", "ShieldBarrier", "SpinLance", "SpikeLine"});
+		setAbilities(new String[] {"TriggerFingers", "Inheritor"});
+		setAttacks(new String[] {"ShootBullet", "BulletWave", "BulletStorm", "SlideDash", "OmegaShot", "ShieldBarrier"});
 		//createBurstGrid("");
 		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
 	}

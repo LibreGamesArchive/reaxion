@@ -71,6 +71,11 @@ public class Character extends Model {
 	 * Whether jumping is being locked
 	 */
 	public boolean jumpLock = false;
+	
+	/**
+	 * Whether switching is being locked
+	 */
+	public boolean tagLock = false;
 
 	/**
 	 * Whether flinching or not

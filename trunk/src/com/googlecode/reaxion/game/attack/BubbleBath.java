@@ -16,7 +16,7 @@ public class BubbleBath extends Attack {
 	private static final String n = "Bubble Bath";
 	private static final int gc = 14;
 	
-	private static final float speed = .25f;
+	private static final float speed = .75f;
 	private Bubble[] bubble = new Bubble[16];
 	
 	public BubbleBath() {
@@ -58,7 +58,7 @@ public class BubbleBath extends Attack {
 				Vector3f translation = new Vector3f(3f*FastMath.sin(angle), 3.7f, 3f*FastMath.cos(angle));			
 				bubble[i] = (Bubble)LoadingQueue.quickLoad(new Bubble(getUsers()), b);
 				bubble[i].amplitude = 8;
-				bubble[i].setVelocity(new Vector3f(3f*FastMath.sin(angle), 0, 3f*FastMath.cos(angle)).mult(speed));
+				bubble[i].setVelocity(new Vector3f(FastMath.sin(angle), 0, FastMath.cos(angle)).mult(speed));
 				bubble[i].model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			}
 			
