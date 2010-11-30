@@ -60,8 +60,6 @@ public class LoadingQueue {
 	public static void execute(StageGameState b) {
 		
 		//TODO (nwk) make it send stuff to the server.
-		
-		
 		state = b;
 		System.out.println("Loading queue executed.");
 		if (locator == null)
@@ -72,7 +70,7 @@ public class LoadingQueue {
 			if(NetworkingObjects.isServer) {
 				// khoa was biscuiting about efficiency here. w/e.
 				try {
-					NetworkingObjects.serverSyncManager.register(m, new SynchronizeCreateModelMessage(m), NetworkingObjects.updateRate);
+					NetworkingObjects.serverSyncManager.register(m, new SynchronizeCreateModelMessage(m, b == null), NetworkingObjects.updateRate);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

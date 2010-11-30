@@ -4,18 +4,28 @@ import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessa
 import com.googlecode.reaxion.game.model.Model;
 
 public class SynchronizeCreateModelMessage extends SynchronizeCreateMessage {
-	
+
 	// FIXME CANNOT SERIALIZE WTFAIL
 
 	String filename;
-	
+	boolean forPreload;
+
 	public SynchronizeCreateModelMessage() {
 		super();
 	}
 
-	public SynchronizeCreateModelMessage(Model model) {
+	public SynchronizeCreateModelMessage(Model model, boolean forPreload) {
 		super();
 		this.filename = model.filename;
+		this.forPreload = forPreload;
+	}
+
+	public boolean isForPreload() {
+		return forPreload;
+	}
+
+	public void setForPreload(boolean forPreload) {
+		this.forPreload = forPreload;
 	}
 
 	public String getFilename() {
