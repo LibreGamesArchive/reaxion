@@ -256,6 +256,14 @@ public class StageGameState extends CameraGameState {
     }
     
     /**
+     * Displays the mouse and HUD.
+     */
+    protected void showOverlays() {
+    	rootNode.attachChild(hudNode);
+    	rootNode.attachChild(mouse);
+    }
+    
+    /**
      * Returns the {@code BasicPassManager}.
      * @author Khoa
      *

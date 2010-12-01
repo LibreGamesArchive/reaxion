@@ -87,6 +87,7 @@ public class Reaxion {
 	 */
 	public static void terminate() {
 		AudioPlayer.cleanup();
+		GameStateManager.getInstance().detachAllChildren();
 		System.exit(0);
 	}
 
