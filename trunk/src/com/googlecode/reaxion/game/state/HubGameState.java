@@ -102,9 +102,9 @@ public class HubGameState extends StageGameState {
     	missionOverlayShowing = !missionOverlayShowing;
     	
     	if (missionOverlayShowing)
-    		rootNode.detachChild(hudNode);
+    		hideOverlays();
     	else
-    		rootNode.attachChild(hudNode);
+    		showOverlays();
     	
     	switchSpacebarFunction(missionOverlayShowing);
     }

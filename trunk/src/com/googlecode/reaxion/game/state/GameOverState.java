@@ -205,33 +205,25 @@ public class GameOverState extends CameraGameState {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
-		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
-				.setActive(true);
+		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
+		
 		setActive(false);
-		//BgmPlayer.stopAndReset();
-		AudioPlayer.clearBGM();
 		GameStateManager.getInstance().detachChild(this);
-		setActive(false);
 	}
 
 	private void returnToMenu() {
 		// TODO: Link to the main menu
 		
 		// flush LoadingQueue
-		LoadingQueue.resetQueue();
-		
-//		BgmPlayer.stopAndReset();
-		AudioPlayer.clearBGM();
+		LoadingQueue.resetQueue();		
+
+		setActive(false);
+		GameStateManager.getInstance().detachChild(this);
 		
 		if (MissionManager.hasCurrentMission())
 			MissionManager.startNext();
-		else {
-			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
-					.setActive(true);
-			setActive(false);
-			GameStateManager.getInstance().detachChild(this);
-			setActive(false);
-		}
+		else
+			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
 	}
 
 	public void cleanup() {

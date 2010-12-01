@@ -189,15 +189,13 @@ public class ResultsGameState extends CameraGameState {
 	}
 
 	private void returnToCharSelectState() {
-//		BgmPlayer.stopAndReset();
-		AudioPlayer.clearBGM();
+		setActive(false);
+		GameStateManager.getInstance().detachChild(this);
+		
 		if (MissionManager.hasCurrentMission())
 			MissionManager.startNext();
-		else {
+		else
 			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
-			setActive(false);
-			GameStateManager.getInstance().detachChild(this);
-		}
 	}
 	
 	public void cleanup() {

@@ -61,6 +61,7 @@ public class MissionManager {
 			endMission();
 		} else {			
 			currentMission.deactivateStateAt(currentIndex);
+			GameStateManager.getInstance().detachChild(currentMission.getStateAt(currentIndex));
 			currentIndex++;
 			GameStateManager.getInstance().attachChild(currentMission.getStateAt(currentIndex));
 			currentMission.activateStateAt(currentIndex);
@@ -73,11 +74,14 @@ public class MissionManager {
 	public static void endMission() {
 		AudioPlayer.clearBGM();
 		
-		for(int i = 0; i <= currentIndex; i++)
-			GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
+		// Ensures that all states added by the current mission are cleared from the GameStateManager
+		for (int i = 0; i < currentMission.getStateCount(); i++)
+			if (GameStateManager.getInstance().hasChild(currentMission.getStateAt(i)))
+				GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
+		
+		GameStateManager manager = GameStateManager.getInstance();
 		
 		currentMission = null;
-		currentIndex = 0;
 		
 		if (currentHGS != null)
 			GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);

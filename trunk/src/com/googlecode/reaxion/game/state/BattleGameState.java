@@ -84,7 +84,7 @@ public class BattleGameState extends StageGameState {
     		timing = false;
     	
     	// Check winning/losing conditions
-    	if (player.hp <= 0 && (partner == null || partner.hp <=0)) {
+    	if (player.hp <= 0 && (partner == null || partner.hp <= 0)) {
     		System.out.println("You lose!");
 			if (resultCount >= defeatTime)
 				goToGameOver();
@@ -94,7 +94,7 @@ public class BattleGameState extends StageGameState {
 			}
     	} else if (opponents != null) {
     		int sumHp = 0;
-    		for (int i=0; i<opponents.length; i++)
+    		for (int i = 0; i<opponents.length; i++)
     			sumHp += Math.max(opponents[i].hp, 0);
     		if (sumHp <= 0) {
     			System.out.println("You win!");
