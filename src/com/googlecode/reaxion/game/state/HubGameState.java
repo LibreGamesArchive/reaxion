@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.overlay.MissionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
@@ -37,7 +38,9 @@ public class HubGameState extends StageGameState {
     	createTerminal(b.getStage().getTerminalPosition());
     }
     
-    private void init() {    	
+    private void init() {    
+    	setName(NAME);
+    	
     	missionOverlay = new MissionOverlay();
     	rootNode.attachChild(missionOverlay);
     	
@@ -49,6 +52,13 @@ public class HubGameState extends StageGameState {
     	manager.set("access_terminal", KeyInput.KEY_RETURN);
     	manager.set("menu_up", KeyInput.KEY_UP);
     	manager.set("menu_down", KeyInput.KEY_DOWN);
+    }
+    
+    private void removeKeyBindings() {
+    	KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+    	manager.remove("access_terminal");
+    	manager.remove("menu_up");
+    	manager.remove("menu_down");
     }
     
     @Override
@@ -90,6 +100,12 @@ public class HubGameState extends StageGameState {
     private void toggleMissionOverlay() {				
 		frozen = !frozen;
     	missionOverlayShowing = !missionOverlayShowing;
+    	
+    	if (missionOverlayShowing)
+    		rootNode.detachChild(hudNode);
+    	else
+    		rootNode.attachChild(hudNode);
+    	
     	switchSpacebarFunction(missionOverlayShowing);
     }
     
@@ -119,5 +135,19 @@ public class HubGameState extends StageGameState {
     	terminal.model.setLocalTranslation(pos);
     	rootNode.updateRenderState();
     }
+
+	@Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		
+		if (active) {
+			startBGM();
+			initKeyBindings();
+		}
+		else {
+			endBGM();
+			removeKeyBindings();
+		}
+	}
     
 }

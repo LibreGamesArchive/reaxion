@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jmex.game.state.GameState;
 
@@ -160,7 +161,7 @@ public abstract class Mission implements Comparable<Mission> {
 	 */
 	public void activateStateAt(int index) {
 		states.get(index).setActive(true);
-		if(states.get(index) instanceof StageGameState)
+		if(states.get(index) instanceof StageGameState && !AudioPlayer.hasCurrentBGM())
 			((StageGameState) states.get(index)).startBGM();
 	}
 	

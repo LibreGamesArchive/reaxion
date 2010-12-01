@@ -26,6 +26,8 @@ public class AudioPlayer {
 	
 	private static String currentBGM;
 	
+	private static boolean playingBGM;
+	
 	private static SoundSystem sound;
 	private static SoundSystemLogger logger;
 	
@@ -69,6 +71,7 @@ public class AudioPlayer {
 	 * Starts background music.
 	 */
 	public static void startBGM() {
+		playingBGM = true;
 		sound.play(currentBGM);
 		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 0);
 	}
@@ -142,8 +145,13 @@ public class AudioPlayer {
 	 * Stops background music.
 	 */
 	public static void clearBGM() {
+		playingBGM = false;
 		sound.stop(currentBGM);
 		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
+	}
+	
+	public static boolean hasCurrentBGM() {
+		return playingBGM;
 	}
 	
 	/**

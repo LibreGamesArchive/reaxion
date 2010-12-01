@@ -194,8 +194,7 @@ public class ResultsGameState extends CameraGameState {
 		if (MissionManager.hasCurrentMission())
 			MissionManager.startNext();
 		else {
-			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)
-			.setActive(true);
+			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
 			setActive(false);
 			GameStateManager.getInstance().detachChild(this);
 		}
