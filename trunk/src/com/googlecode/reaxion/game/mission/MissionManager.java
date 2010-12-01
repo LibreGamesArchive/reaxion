@@ -7,8 +7,10 @@ import java.util.HashMap;
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
-import com.googlecode.reaxion.game.mission.missions.MissionHGS;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
+import com.googlecode.reaxion.game.state.HubGameState;
+import com.googlecode.reaxion.game.util.Battle;
+import com.jme.math.Vector3f;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -24,13 +26,13 @@ public class MissionManager {
 	private static HashMap<MissionID, Mission> missions = new HashMap<MissionID, Mission>();
 	private static Mission currentMission = null;
 	private static int currentIndex;
+	private static HubGameState currentHGS;
 	
 	/**
 	 * Fills the missions list. Should be called at startup.
 	 */
 	public static void createMissions() {
 		missions.put(MissionID.DEFEAT_LIGHT_USER, new Mission00());
-		missions.put(MissionID.OPEN_HUBGAMESTATE, new MissionHGS());
 		missions.put(MissionID.VS_TOYBOX, new VsToybox());
 	}
 	
@@ -40,6 +42,8 @@ public class MissionManager {
 	 * @param missionID
 	 */
 	public static void startMission(MissionID missionID) {
+		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(false);
+		
 		currentMission = missions.get(missionID);
 		currentIndex = 0;
 		
@@ -55,9 +59,7 @@ public class MissionManager {
 	public static void startNext() {
 		if(currentIndex + 1 == currentMission.getStateCount()) {
 			endMission();
-			Reaxion.terminate();
-//			GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
-		} else {
+		} else {			
 			currentMission.deactivateStateAt(currentIndex);
 			currentIndex++;
 			GameStateManager.getInstance().attachChild(currentMission.getStateAt(currentIndex));
@@ -69,13 +71,18 @@ public class MissionManager {
 	 * Ends mission in progress and returns control to {@code HubGameState}.
 	 */
 	public static void endMission() {
+		AudioPlayer.clearBGM();
+		
 		for(int i = 0; i <= currentIndex; i++)
 			GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
 		
 		currentMission = null;
 		currentIndex = 0;
 		
-		AudioPlayer.clearBGM();
+		if (currentHGS != null)
+			GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
+		else
+			Reaxion.terminate();
 	}
 	
 	/**
@@ -109,6 +116,22 @@ public class MissionManager {
 		Collections.sort(temp);
 		
 		return temp;
+	}
+	
+	public static void startHubGameState() {
+		Battle temp = Battle.getCurrentBattle();
+		temp.setP1Position(new Vector3f(0, 0, 10));
+		Battle.setCurrentBattle(temp);
+		
+		currentHGS = Battle.createHubGameState();
+		GameStateManager.getInstance().attachChild(currentHGS);
+		currentHGS.setActive(true);
+	}
+	
+	public static void endHubGameState() {
+		currentHGS.setActive(false);
+		GameStateManager.getInstance().detachChild(currentHGS);
+		currentHGS = null;
 	}
 	
 }

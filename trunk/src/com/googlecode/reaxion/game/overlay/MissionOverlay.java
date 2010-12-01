@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionManager;
-import com.googlecode.reaxion.game.mission.missions.MissionHGS;
+import com.googlecode.reaxion.game.mission.missions.Mission00;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyInput;
@@ -56,7 +56,7 @@ public class MissionOverlay extends GridOverlay {
 		container = new Node("container_missionSelect");
 		missions = MissionManager.getMissions();
 		for (int i = 0; i < 4; i++) {
-			Mission m = i % 2 == 0 ? new MissionHGS() : new VsToybox();
+			Mission m = i % 2 == 0 ? new Mission00() : new VsToybox();
 			m.setCompleted(i % 2 == 1);
 			missions.add(m);
 		}
@@ -224,9 +224,8 @@ public class MissionOverlay extends GridOverlay {
 	
 	public void startSelectedMission() {
 		hideMenu();
-		MissionManager.endMission();
+		
 		int index = (currentIndex + numListItems / 2) % missions.size();
-		System.out.println(index);
 		MissionManager.startMission(missions.get(index).getMissionID());
 	}
 

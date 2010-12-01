@@ -53,6 +53,7 @@ public class StageGameState extends CameraGameState {
     public float tpf;
     protected double totalTime = 0;
     protected boolean timing = true;
+    protected boolean hasBGM;
     
     protected HudOverlay hudNode;
     protected PauseOverlay pauseNode;
@@ -116,10 +117,7 @@ public class StageGameState extends CameraGameState {
     	
     	LoadingQueue.execute(this);
     	
-//    	BgmPlayer.prepare();
-    	if (b.music)
-    		AudioPlayer.queueBGM(getStage().getBgm(-1));
-
+    	hasBGM = b.music;
     	b.assignPositions();
     	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
     	nextTarget(0);
@@ -130,14 +128,14 @@ public class StageGameState extends CameraGameState {
     }
     
     public void startBGM() {
-//    	try {
-//    		String str = getStage().getBgm(-1);
-//    		BgmPlayer.play(str);
-//    		System.out.println("BGM loaded: "+str);
-//    	} catch (NullPointerException e) {
-//    		System.out.println("No BGM for " + getStage().name);
-//    	}
-    	AudioPlayer.startBGM();
+    	if (hasBGM) {
+    		AudioPlayer.queueBGM(getStage().getBgm(-1));
+    		AudioPlayer.startBGM();
+    	}
+    }
+    
+    public void endBGM() {
+    	AudioPlayer.clearBGM();
     }
     
     private void init() {
@@ -834,8 +832,8 @@ public class StageGameState extends CameraGameState {
     	pause = !pause;
     	frozen = !frozen;
     }
-    
-    public void stateRender(float tpf) {
+
+	public void stateRender(float tpf) {
     	
         // Render the rootNode
         DisplaySystem.getDisplaySystem().getRenderer().draw(rootNode);

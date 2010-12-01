@@ -1,7 +1,10 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.util.Battle;
+import com.jme.input.KeyBindingManager;
+import com.jme.input.KeyInput;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -25,15 +28,25 @@ public class BattleGameState extends StageGameState {
     
     public BattleGameState() {
     	super();
+    	
+    	setName(NAME);
     }
     
     public BattleGameState(Battle b) {
     	super(b);   	
     	
+    	setName(NAME);
+    	
+    	initKeyBindings();
+    	
     	targetTime = b.getTargetTime();
     	expYield = b.getExpYield();
     	
     	assignOpponents(b.getOps());
+    }
+    
+    private void initKeyBindings() {
+    	KeyBindingManager.getKeyBindingManager().set("return_to_hgs", KeyInput.KEY_DELETE);
     }
     
     /**
@@ -55,7 +68,17 @@ public class BattleGameState extends StageGameState {
     	return opponents;
     }
 
-    @ Override
+    @Override
+	public void stateUpdate(float tpf) {
+		super.stateUpdate(tpf);
+		
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand("return_to_hgs", false)) {
+			endBGM();
+			MissionManager.endMission();
+		}
+	}
+
+	@ Override
     protected void act() {
     	if (resultCount != 0)
     		timing = false;
