@@ -58,15 +58,13 @@ public class CharacterSelectionState extends BasicGameState {
 				KeyInput.KEY_ESCAPE);
 		KeyBindingManager.getKeyBindingManager().set("mem_report",
 				KeyInput.KEY_R);
-		KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-				KeyInput.KEY_M);
 
 		KeyBindingManager.getKeyBindingManager().set("go", KeyInput.KEY_RETURN);
 
-		KeyBindingManager.getKeyBindingManager().set("arrow_up",
+/*		KeyBindingManager.getKeyBindingManager().set("arrow_up",
 				KeyInput.KEY_UP);
 		KeyBindingManager.getKeyBindingManager().set("arrow_down",
-				KeyInput.KEY_DOWN);
+				KeyInput.KEY_DOWN);*/
 		KeyBindingManager.getKeyBindingManager().set("arrow_left",
 				KeyInput.KEY_LEFT);
 		KeyBindingManager.getKeyBindingManager().set("arrow_right",
@@ -142,7 +140,6 @@ public class CharacterSelectionState extends BasicGameState {
 	//		System.out.println("Sleeping herp derp");
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -177,6 +174,10 @@ public class CharacterSelectionState extends BasicGameState {
 
 	public int[] selectedChars() {
 		return new int[3];
+	}
+	
+	public String[] getSelectedChars() {
+		return charSelectNode.getSelectedChars();
 	}
 
 }

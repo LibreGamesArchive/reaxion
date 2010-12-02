@@ -70,9 +70,8 @@ public class LoadingQueue {
 			if(NetworkingObjects.isServer) {
 				// khoa was biscuiting about efficiency here. w/e.
 				try {
-					NetworkingObjects.serverSyncManager.register(m, new SynchronizeCreateModelMessage(m, b == null), NetworkingObjects.updateRate);
+					NetworkingObjects.serverSyncManager.register(m, new SynchronizeCreateModelMessage(m, state == null), NetworkingObjects.updateRate);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

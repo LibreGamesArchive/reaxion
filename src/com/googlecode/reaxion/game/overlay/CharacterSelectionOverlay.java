@@ -250,5 +250,9 @@ public class CharacterSelectionOverlay extends Overlay {
 			temp[i] = charNames[selectedChars[i]];
 		return temp;
 	}
+	
+	public int[] getSelectedCharsIndex() {
+		return new int[]{currentIndex[0],currentIndex[1]};
+	}
 
 }
