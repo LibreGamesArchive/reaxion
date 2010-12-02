@@ -37,61 +37,76 @@ import com.captiveimagination.jgn.synchronization.*;
 import com.captiveimagination.jgn.synchronization.message.*;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
+import com.googlecode.reaxion.game.overlay.Overlay;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 /**
- * This is a basic implementation of the GraphicalControler for the
- * jME project.
+ * This is a basic implementation of the GraphicalControler for the jME project.
  * 
  * @author Matthew D. Hicks
  */
-public class JMEGraphicalController implements GraphicalController<Model> {
-    public void applySynchronizationMessage(SynchronizeMessage message, Model model) {
-    	SynchronizeModelMessage m = (SynchronizeModelMessage)message;
-    	model.model.getLocalTranslation().x = m.getPositionX();
-    	model.model.getLocalTranslation().y = m.getPositionY();
-    	model.model.getLocalTranslation().z = m.getPositionZ();
-    	model.model.getLocalRotation().x = m.getRotationX();
-    	model.model.getLocalRotation().y = m.getRotationY();
-        model.model.getLocalRotation().z = m.getRotationZ();
-        model.model.getLocalRotation().w = m.getRotationW();
-        model.model.getLocalScale().x = m.getScaleX();
-        model.model.getLocalScale().y = m.getScaleY();
-        model.model.getLocalScale().z = m.getScaleZ();
-  //      ((MeshAnimationController) model.model.getController(0)).setAnimation(m.getAnimation());
-    }
+public class JMEGraphicalController implements GraphicalController {
 
-    public SynchronizeMessage createSynchronizationMessage(Model model) {
-    	SynchronizeModelMessage message = new SynchronizeModelMessage();
-        message.setPositionX(model.model.getLocalTranslation().x);
-        message.setPositionY(model.model.getLocalTranslation().y);
-        message.setPositionZ(model.model.getLocalTranslation().z);
-        message.setRotationX(model.model.getLocalRotation().x);
-        message.setRotationY(model.model.getLocalRotation().y);
-        message.setRotationZ(model.model.getLocalRotation().z);
-        message.setRotationW(model.model.getLocalRotation().w);
-        message.setScaleX(model.model.getLocalScale().x);
-        message.setScaleY(model.model.getLocalScale().y);
-        message.setScaleZ(model.model.getLocalScale().z);
-   //     message.setAnimation(((MeshAnimationController) model.model.getController(0)).getActiveAnimation());
-        return message;
-    }
+	// TODO create StateController
 
-    /**
-     * This method will always return 1.0f. It is recommended to override this method
-     * in games to provide better efficiency to synchronization.
-     */
-    public float proximity(Model model, short playerId) {
-        return 1.0f;
-    }
+	// TODO consider swtiching back to GraphicalController<Model>
+	
+	public void applySynchronizationMessage(SynchronizeMessage message,
+			Object obj) {
+		if (obj instanceof Model) {
+			Model model = (Model) obj;
+			SynchronizeModelMessage m = (SynchronizeModelMessage) message;
+			model.model.getLocalTranslation().x = m.getPositionX();
+			model.model.getLocalTranslation().y = m.getPositionY();
+			model.model.getLocalTranslation().z = m.getPositionZ();
+			model.model.getLocalRotation().x = m.getRotationX();
+			model.model.getLocalRotation().y = m.getRotationY();
+			model.model.getLocalRotation().z = m.getRotationZ();
+			model.model.getLocalRotation().w = m.getRotationW();
+			model.model.getLocalScale().x = m.getScaleX();
+			model.model.getLocalScale().y = m.getScaleY();
+			model.model.getLocalScale().z = m.getScaleZ();
+			// ((MeshAnimationController)
+			// model.model.getController(0)).setAnimation(m.getAnimation());
+		}
+	}
 
-    /**
-     * This method will always return true. It is recommended to override this method
-     * in games to provide a layer of security.
-     */
-    public boolean validateMessage(SynchronizeMessage message, Model model) {
-        return true;
-    }
+	public SynchronizeMessage createSynchronizationMessage(Object obj) {
+		if (obj instanceof Model) {
+			Model model = (Model) obj;
+			SynchronizeModelMessage message = new SynchronizeModelMessage();
+			message.setPositionX(model.model.getLocalTranslation().x);
+			message.setPositionY(model.model.getLocalTranslation().y);
+			message.setPositionZ(model.model.getLocalTranslation().z);
+			message.setRotationX(model.model.getLocalRotation().x);
+			message.setRotationY(model.model.getLocalRotation().y);
+			message.setRotationZ(model.model.getLocalRotation().z);
+			message.setRotationW(model.model.getLocalRotation().w);
+			message.setScaleX(model.model.getLocalScale().x);
+			message.setScaleY(model.model.getLocalScale().y);
+			message.setScaleZ(model.model.getLocalScale().z);
+			// message.setAnimation(((MeshAnimationController)
+			// model.model.getController(0)).getActiveAnimation());
+			return message;
+		}
+		return null;
+	}
+
+	/**
+	 * This method will always return 1.0f. It is recommended to override this
+	 * method in games to provide better efficiency to synchronization.
+	 */
+	public float proximity(Object obj, short playerId) {
+		return 1.0f;
+	}
+
+	/**
+	 * This method will always return true. It is recommended to override this
+	 * method in games to provide a layer of security.
+	 */
+	public boolean validateMessage(SynchronizeMessage message, Object obj) {
+		return true;
+	}
 
 	public boolean validateCreate(SynchronizeCreateMessage message) {
 		return true;

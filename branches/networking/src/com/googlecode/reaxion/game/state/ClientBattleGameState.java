@@ -45,7 +45,6 @@ public class ClientBattleGameState extends BattleGameState {
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -297,7 +296,7 @@ public class ClientBattleGameState extends BattleGameState {
 			containerNode.detachChild(m.model);
 			return models.remove(m);
 		}
-		System.out.println("Not removed, not in the model list");
+		System.out.println("Not removed, not in the model list, not a good comic");
 		return false;
 	}
 

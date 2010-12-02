@@ -1,8 +1,13 @@
 package com.googlecode.reaxion.game.state;
 
+import java.io.IOException;
+
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.mission.MissionManager;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateBattleMessage;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.app.AbstractGame;
@@ -184,11 +189,21 @@ public class StageSelectionState extends BasicGameState {
 		hubState.setActive(true);
 		*/
 		
-		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
-		MissionManager.startMission(MissionID.DEFEAT_LIGHT_USER);
+		
+	//	Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
+	//	MissionManager.startMission(MissionID.DEFEAT_LIGHT_USER);
+		
+		//TODO move class names to an enum so you don't have to send them...? what
+		
+		String[] chars = ((CharacterSelectionState)GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)).getSelectedChars();
+		String stage = stageSelectionNode.getSelectedStageClass();
+		
+		NetworkingObjects.client.sendToServer(new SynchronizeCreateBattleMessage(chars, stage));
+		
 		
 		
 		setActive(false);
+		
 	}
 
 	@Override
