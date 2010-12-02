@@ -43,7 +43,7 @@ import com.jmex.game.state.StatisticsGameState;
  * added functionality built around {@code Models}, movement, and the camera system.
  * @author Khoa
  */
-public class StageGameState extends CameraGameState {
+public class StageGameState extends BaseGameState {
 	
 	public static final String NAME = "stageGameState";
 	
@@ -53,7 +53,6 @@ public class StageGameState extends CameraGameState {
     public float tpf;
     protected double totalTime = 0;
     protected boolean timing = true;
-    protected boolean hasBGM;
     
     protected HudOverlay hudNode;
     protected PauseOverlay pauseNode;
@@ -107,17 +106,16 @@ public class StageGameState extends CameraGameState {
     protected Class[] partnerAttacks;
     
     public StageGameState() {
-    	super(NAME);
-    	init();
+    	super(true);
     }
     
     public StageGameState(Battle b) {
-    	super(NAME);
-    	init();    	
+    	super(true);  	
     	
     	LoadingQueue.execute(this);
     	
-    	hasBGM = b.music;
+    	bgm = getStage().getBgm(-1);
+    	
     	b.assignPositions();
     	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
     	nextTarget(0);
@@ -127,18 +125,9 @@ public class StageGameState extends CameraGameState {
     	rootNode.updateRenderState();
     }
     
-    public void startBGM() {
-    	if (hasBGM) {
-    		AudioPlayer.queueBGM(getStage().getBgm(-1));
-    		AudioPlayer.startBGM();
-    	}
-    }
-    
-    public void endBGM() {
-    	AudioPlayer.clearBGM();
-    }
-    
-    private void init() {
+    protected void init() {
+    	setName(NAME);
+    	
         rootNode = new Node("RootNode");
         models = new ArrayList<Model>();
         
@@ -182,11 +171,7 @@ public class StageGameState extends CameraGameState {
 
         // Initial InputHandler
 	    //input = new FirstPersonHandler(cam, 15.0f, 0.5f);
-        input = new InputHandler();
-	    initKeyBindings();
-	    
-	    
-	    
+        input = new InputHandler();	    
 	    
 	    //Setup software mouse
 	    // Commented out to get rid of that annoying bs where it would nom the mouse
@@ -222,6 +207,64 @@ public class StageGameState extends CameraGameState {
         rootNode.updateRenderState();
         rootNode.updateWorldBound();
         rootNode.updateGeometricState(0.0f, true);
+    }
+    
+    // duplicate the functionality of DebugGameState
+    // Most of this can be commented out during finalization
+    protected void initKeyBindings() {
+    	/** Assign key TAB to action "camera_mode". */
+        KeyBindingManager.getKeyBindingManager().set("camera_mode",
+                KeyInput.KEY_TAB);
+    	/** Assign key 1 to action "target_near". */
+        KeyBindingManager.getKeyBindingManager().set("target_near",
+                KeyInput.KEY_1);
+        /** Assign key 2 to action "target_far". */
+        KeyBindingManager.getKeyBindingManager().set("target_far",
+                KeyInput.KEY_2);
+        /** Assign WASD keys to free camera controls. */
+        KeyBindingManager.getKeyBindingManager().set("cam_left",
+                KeyInput.KEY_A);
+        KeyBindingManager.getKeyBindingManager().set("cam_right",
+                KeyInput.KEY_D);
+        KeyBindingManager.getKeyBindingManager().set("cam_up",
+                KeyInput.KEY_W);
+        KeyBindingManager.getKeyBindingManager().set("cam_down",
+                KeyInput.KEY_S);
+        /** Assign key P to action "toggle_pause". */
+        KeyBindingManager.getKeyBindingManager().set("toggle_pause",
+                KeyInput.KEY_P);
+        // These actions are holdovers from DebugGameState and are not fully "supported"
+        /** Assign key T to action "toggle_wire". */
+        KeyBindingManager.getKeyBindingManager().set("toggle_wire",
+                KeyInput.KEY_T);
+        /** Assign key L to action "toggle_lights". */
+        KeyBindingManager.getKeyBindingManager().set("toggle_lights",
+                KeyInput.KEY_L);
+        /** Assign key B to action "toggle_bounds". */
+        KeyBindingManager.getKeyBindingManager().set("toggle_bounds",
+                KeyInput.KEY_B);
+        /** Assign key N to action "toggle_normals". */
+        KeyBindingManager.getKeyBindingManager().set("toggle_normals",
+                KeyInput.KEY_N);
+        /** Assign key O to action "camera_out". */
+        KeyBindingManager.getKeyBindingManager().set("camera_out",
+                KeyInput.KEY_O);
+        KeyBindingManager.getKeyBindingManager().set("screen_shot",
+                KeyInput.KEY_F1);
+        KeyBindingManager.getKeyBindingManager().set("exit",
+                KeyInput.KEY_ESCAPE);
+        KeyBindingManager.getKeyBindingManager().set("toggle_depth",
+                KeyInput.KEY_F3);
+        KeyBindingManager.getKeyBindingManager().set("toggle_stats",
+                KeyInput.KEY_F4);
+        KeyBindingManager.getKeyBindingManager().set("mem_report",
+                KeyInput.KEY_R);
+        KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
+                        KeyInput.KEY_M);
+    }
+
+    protected void removeKeyBindings() {
+    	
     }
     
     /**
@@ -263,7 +306,7 @@ public class StageGameState extends CameraGameState {
     	rootNode.attachChild(mouse);
     }
     
-    /**
+	/**
      * Returns the {@code BasicPassManager}.
      * @author Khoa
      *
@@ -424,60 +467,6 @@ public class StageGameState extends CameraGameState {
     
     public LightState getLightState() {
     	return lightState;
-    }
-
-	// duplicate the functionality of DebugGameState
-    // Most of this can be commented out during finalization
-    private void initKeyBindings() {
-    	/** Assign key TAB to action "camera_mode". */
-        KeyBindingManager.getKeyBindingManager().set("camera_mode",
-                KeyInput.KEY_TAB);
-    	/** Assign key 1 to action "target_near". */
-        KeyBindingManager.getKeyBindingManager().set("target_near",
-                KeyInput.KEY_1);
-        /** Assign key 2 to action "target_far". */
-        KeyBindingManager.getKeyBindingManager().set("target_far",
-                KeyInput.KEY_2);
-        /** Assign WASD keys to free camera controls. */
-        KeyBindingManager.getKeyBindingManager().set("cam_left",
-                KeyInput.KEY_A);
-        KeyBindingManager.getKeyBindingManager().set("cam_right",
-                KeyInput.KEY_D);
-        KeyBindingManager.getKeyBindingManager().set("cam_up",
-                KeyInput.KEY_W);
-        KeyBindingManager.getKeyBindingManager().set("cam_down",
-                KeyInput.KEY_S);
-        /** Assign key P to action "toggle_pause". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_pause",
-                KeyInput.KEY_P);
-        // These actions are holdovers from DebugGameState and are not fully "supported"
-        /** Assign key T to action "toggle_wire". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_wire",
-                KeyInput.KEY_T);
-        /** Assign key L to action "toggle_lights". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_lights",
-                KeyInput.KEY_L);
-        /** Assign key B to action "toggle_bounds". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_bounds",
-                KeyInput.KEY_B);
-        /** Assign key N to action "toggle_normals". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_normals",
-                KeyInput.KEY_N);
-        /** Assign key O to action "camera_out". */
-        KeyBindingManager.getKeyBindingManager().set("camera_out",
-                KeyInput.KEY_O);
-        KeyBindingManager.getKeyBindingManager().set("screen_shot",
-                KeyInput.KEY_F1);
-        KeyBindingManager.getKeyBindingManager().set("exit",
-                KeyInput.KEY_ESCAPE);
-        KeyBindingManager.getKeyBindingManager().set("toggle_depth",
-                KeyInput.KEY_F3);
-        KeyBindingManager.getKeyBindingManager().set("toggle_stats",
-                KeyInput.KEY_F4);
-        KeyBindingManager.getKeyBindingManager().set("mem_report",
-                KeyInput.KEY_R);
-        KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-                        KeyInput.KEY_M);
     }
 
     @ Override
@@ -694,7 +683,7 @@ public class StageGameState extends CameraGameState {
         act();
     }
     
-    /**
+	/**
      * Called by {@code stateUpdate()}. Override to add extra functionality.
      */
     protected void act() {
@@ -868,4 +857,5 @@ public class StageGameState extends CameraGameState {
 
     public void cleanup() {
     }
+    
 }

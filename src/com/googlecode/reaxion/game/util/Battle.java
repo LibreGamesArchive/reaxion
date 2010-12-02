@@ -32,8 +32,7 @@ public class Battle {
 	private ArrayList<Character> op = new ArrayList<Character>();
 	private Class[] p1Attacks, p2Attacks;
 	private Ability[] p1Abilities, p2Abilities;
-	private Vector3f p1Position = new Vector3f(0, 0, 0);
-	private Vector3f p2Position = new Vector3f(0, 0, 0);
+	private Vector3f playerPosition;
 	private ArrayList<Vector3f> opPositions = new ArrayList<Vector3f>();
 	private ArrayList<Ability[]> opAbilities = new ArrayList<Ability[]>();
 	private Stage stage;
@@ -102,8 +101,8 @@ public class Battle {
 	}
 	
 	public void assignPositions() {
-		p1.model.setLocalTranslation(p1Position);
-		p2.model.setLocalTranslation(p2Position);
+		p1.model.setLocalTranslation(playerPosition);
+		p2.model.setLocalTranslation(playerPosition);
 		
 		for (int i = 0; i < op.size(); i++) {
 			Vector3f pos = new Vector3f();
@@ -268,20 +267,12 @@ public class Battle {
 			op.get(i).setAbilities(oA.get(i));
 	}
 
-	public Vector3f getP1Position() {
-		return p1Position;
+	public Vector3f getPlayerPosition() {
+		return playerPosition;
 	}
 
-	public void setP1Position(Vector3f p1Position) {
-		this.p1Position = p1Position;
-	}
-
-	public Vector3f getP2Position() {
-		return p2Position;
-	}
-
-	public void setP2Position(Vector3f p2Position) {
-		this.p2Position = p2Position;
+	public void setPlayerPosition(Vector3f playerPosition) {
+		this.playerPosition = playerPosition;
 	}
 
 	public Stage getStage() {

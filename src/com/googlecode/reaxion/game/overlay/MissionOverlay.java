@@ -54,6 +54,7 @@ public class MissionOverlay extends GridOverlay {
 	 */
 	private void init() {
 		container = new Node("container_missionSelect");
+		
 		missions = MissionManager.getMissions();
 		for (int i = 0; i < 4; i++) {
 			Mission m = i % 2 == 0 ? new Mission00() : new VsToybox();
@@ -126,17 +127,17 @@ public class MissionOverlay extends GridOverlay {
 		title.setAlignment(BitmapFont.Align.Center);
 		title.update();
 		
-		BitmapText test = new BitmapText(FontUtils.eurostile, false);
-		test.setText("" + index);
-		test.setSize(24);
-		test.setAlignment(BitmapFont.Align.Center);
-		test.update();
+//		BitmapText test = new BitmapText(FontUtils.eurostile, false);
+//		test.setText("" + index);
+//		test.setSize(24);
+//		test.setAlignment(BitmapFont.Align.Center);
+//		test.update();
 		
 		Quad checkbox = getImage(baseURL + "checkbox-" + (m.isCompleted() ? "1" : "0") + ".png");
 		
 		id.setLocalTranslation(-150 + id.getLineWidth() / 2 + 10, id.getLineHeight() / 2, 0);
 		title.setLocalTranslation(20, 30, 0);
-		test.setLocalTranslation(100, 0, 0);
+//		test.setLocalTranslation(100, 0, 0);
 		checkbox.setLocalTranslation(-60 + 5 * (32 + 5), -17, 0);
 		
 		listItem.attachChild(box);

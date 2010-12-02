@@ -1,23 +1,16 @@
 package com.googlecode.reaxion.game.mission.missions;
 
 import java.awt.Point;
-import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.ability.*;
-import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
-import com.googlecode.reaxion.game.model.character.Khoa;
 import com.googlecode.reaxion.game.model.enemies.Toybox;
 import com.googlecode.reaxion.game.state.DialogueGameState;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.Vector3f;
-import com.jmex.game.state.GameState;
 
 public class VsToybox extends Mission {
 	
@@ -25,7 +18,6 @@ public class VsToybox extends Mission {
 		super("The Toybox Attacks!", MissionID.VS_TOYBOX, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "");
 	}
 	
-	@Override
 	public void init() {
 		Actor[] a = {new Actor(), new Actor(), new Actor()};
 		a[0].setPortraits(0, new int[]{0}, new String[]{"toybox.png"});
@@ -57,12 +49,13 @@ public class VsToybox extends Mission {
 		int[] durations = {32, 32, 0, 0, 0, 0, 0, 48, 0, 48};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_cloud-nine.png");
+		dialogueState.setBgm("unversed_boss.ogg");
+		dialogueState.setStartsBGM(true);
+		dialogueState.setEndsBGM(false);
 		addState(dialogueState);
 		
 		Battle b = Battle.getCurrentBattle();
-		b.music = false;
-		b.setP1Position(new Vector3f(0, 0, 50));
-		b.setP2Position(b.getP1Position());
+		b.setPlayerPosition(new Vector3f(0, 0, 50));
 		Character tb = (Character)LoadingQueue.push(new Toybox());
 		b.setOps(new Character[] {tb});
 		b.setStage("CloudNine");
@@ -71,9 +64,10 @@ public class VsToybox extends Mission {
 		Battle.setCurrentBattle(b);
 		
 		addState(Battle.createBattleGameState());
-		
-		// play music
-		AudioPlayer.queueBGM("unversed_boss.ogg");
-		AudioPlayer.startBGM();
 	}
+	
+	public VsToybox clone() {
+		return new VsToybox();
+	}
+	
 }

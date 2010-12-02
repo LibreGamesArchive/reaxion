@@ -1,32 +1,22 @@
 package com.googlecode.reaxion.game.state;
 
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.DialogueOverlay;
-import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.googlecode.reaxion.game.util.Actor;
 import com.jme.app.AbstractGame;
-import com.jme.image.Texture;
-import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
-import com.jme.scene.shape.Quad;
-import com.jme.scene.state.BlendState;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
-import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -35,7 +25,7 @@ import com.jmex.game.state.GameStateManager;
  * 
  * @author Khoa
  */
-public class DialogueGameState extends CameraGameState {
+public class DialogueGameState extends BaseGameState {
 
 	public static final String NAME = "dialogueGameState";
 
@@ -86,15 +76,19 @@ public class DialogueGameState extends CameraGameState {
 	
 
 	public DialogueGameState(String[] s, int[] d, Actor[] a, String b) {
-		super(NAME);
+		super(false);
+		
 		parseInput(s);
 		durations = d;
 		actors = a;
 		bg = b;
+		
 		init();
 	}
 
-	private void init() {
+	protected void init() {
+		setName(NAME);
+		
 		rootNode = new Node("RootNode");
 
 		// Prepare dialogue node
@@ -115,7 +109,6 @@ public class DialogueGameState extends CameraGameState {
 		// Initial InputHandler
 		// input = new FirstPersonHandler(cam, 15.0f, 0.5f);
 		input = new InputHandler();
-		initKeyBindings();
 
 		// Make the mouse visible
 		MouseInput.get().setCursorVisible(true);
@@ -138,7 +131,7 @@ public class DialogueGameState extends CameraGameState {
 
 	// duplicate the functionality of DebugGameState
 	// Most of this can be commented out during finalization
-	private void initKeyBindings() {
+	protected void initKeyBindings() {
 		KeyBindingManager.getKeyBindingManager().set("screen_shot",
 				KeyInput.KEY_F1);
 		KeyBindingManager.getKeyBindingManager().set("exit",
@@ -149,6 +142,16 @@ public class DialogueGameState extends CameraGameState {
 				KeyInput.KEY_M);
 		KeyBindingManager.getKeyBindingManager().set("return",
 				KeyInput.KEY_RETURN);
+	}
+	
+	protected void removeKeyBindings() {
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.remove("screen_shot");
+		manager.remove("exit");
+		manager.remove("mem_report");
+		manager.remove("toggle_mouse");
+		manager.remove("return");
 	}
 
 	@Override
@@ -230,6 +233,18 @@ public class DialogueGameState extends CameraGameState {
 		count++;
 	}
 	
+	@Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		
+		if (active && startsBGM) {
+			AudioPlayer.startBGM();
+			AudioPlayer.queueBGM(bgm);
+		} else if (!active && endsBGM) {
+			AudioPlayer.clearBGM();
+		}
+	}
+
 	/**
 	 * Parses input array for name labels and text, separated by "::".
 	 * @param str
@@ -305,6 +320,30 @@ public class DialogueGameState extends CameraGameState {
 				}
 			}
 		}
+	}
+
+	public boolean isStartsBGM() {
+		return startsBGM;
+	}
+
+	public void setStartsBGM(boolean startsBGM) {
+		this.startsBGM = startsBGM;
+	}
+
+	public boolean isEndsBGM() {
+		return endsBGM;
+	}
+
+	public void setEndsBGM(boolean endsBGM) {
+		this.endsBGM = endsBGM;
+	}
+
+	public String getBgm() {
+		return bgm;
+	}
+
+	public void setBgm(String bgm) {
+		this.bgm = bgm;
 	}
 
 	private void returnToCharSelectState() {

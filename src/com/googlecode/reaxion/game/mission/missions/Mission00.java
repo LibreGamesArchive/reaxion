@@ -22,7 +22,6 @@ public class Mission00 extends Mission {
 		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER, 1, false, "(Test scenario.)", "");
 	}
 	
-	@Override
 	public void init() {
 		// dialogue code
 		int[] times = new int[24];
@@ -52,6 +51,9 @@ public class Mission00 extends Mission {
 		int[] durations = {0, 0, 0, 0, 0};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_twilight-kingdom.png");
+		dialogueState.setBgm("mitsu_no_yoake.ogg");
+		dialogueState.setStartsBGM(true);
+		dialogueState.setEndsBGM(true);
 		addState(dialogueState);
 		
 		Battle b = Battle.getCurrentBattle();
@@ -65,10 +67,15 @@ public class Mission00 extends Mission {
 		//b.setStage("TwilightKingdom");
 		b.setTargetTime(60);
 		b.setExpYield(1000);
-		b.setP1Position(new Vector3f(0, 0, -20));
+		b.setPlayerPosition(new Vector3f(0, 0, -20));
 		b.addOponentPosition(new Vector3f(0, 0, 20));
 		Battle.setCurrentBattle(b);
 		
 		addState(Battle.createBattleGameState());
 	}
+
+	public Mission00 clone() {
+		return new Mission00();
+	}	
+	
 }

@@ -44,7 +44,7 @@ public class MissionManager {
 	public static void startMission(MissionID missionID) {
 		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(false);
 		
-		currentMission = missions.get(missionID);
+		currentMission = missions.get(missionID).clone();
 		currentIndex = 0;
 		
 		currentMission.init();
@@ -71,15 +71,13 @@ public class MissionManager {
 	/**
 	 * Ends mission in progress and returns control to {@code HubGameState}.
 	 */
-	public static void endMission() {
-		AudioPlayer.clearBGM();
-		
+	public static void endMission() {		
 		// Ensures that all states added by the current mission are cleared from the GameStateManager
 		for (int i = 0; i < currentMission.getStateCount(); i++)
-			if (GameStateManager.getInstance().hasChild(currentMission.getStateAt(i)))
+			if (GameStateManager.getInstance().hasChild(currentMission.getStateAt(i))) {
+				currentMission.deactivateStateAt(i);
 				GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
-		
-		GameStateManager manager = GameStateManager.getInstance();
+			}
 		
 		currentMission = null;
 		
@@ -124,7 +122,7 @@ public class MissionManager {
 	
 	public static void startHubGameState() {
 		Battle temp = Battle.getCurrentBattle();
-		temp.setP1Position(new Vector3f(0, 0, 10));
+		temp.setPlayerPosition(new Vector3f(0, 0, 10));
 		Battle.setCurrentBattle(temp);
 		
 		currentHGS = Battle.createHubGameState();
