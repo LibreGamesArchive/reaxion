@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Point;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.model.stage.*;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyInput;
@@ -107,9 +108,7 @@ public class StageSelectionOverlay extends GridOverlay {
 		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
 
 		container.updateRenderState();
-		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
-				.getHeight()
-				/ baseHeight);
+		container.setLocalScale((float) Reaxion.getScreenHeight() / baseHeight);
 
 		attachChild(container);
 	}

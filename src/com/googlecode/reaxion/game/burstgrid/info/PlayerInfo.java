@@ -100,7 +100,7 @@ public abstract class PlayerInfo{
 	 * Returns the damage multiplier for this character's attacks as a function of {@code strength}.
 	 */
 	public double getAttackMultiplier() {
-		return 1.5/12*strength + 1;
+		return 2.25/12*strength + 1;
 	}
 
 	public void setStrength(int val) {
@@ -131,7 +131,7 @@ public abstract class PlayerInfo{
 	 * Returns the gauge rate scaled by a factor of 10.
 	 */
 	public double getScaledGauge() {
-		return rate/10+.05;
+		return rate*.15+.05;
 	}
 	
 	/**

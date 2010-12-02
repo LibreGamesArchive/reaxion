@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.overlay;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
@@ -71,10 +72,8 @@ public class MissionOverlay extends GridOverlay {
 		cursor.setLocalTranslation(cursorPos.x, cursorPos.y, 0);
 		
 		container.updateRenderState();
-		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
-				.getHeight()
-				/ baseHeight);
-		container.setLocalTranslation(baseWidth / 2, baseHeight / 2, 0);
+		container.setLocalScale((float) Reaxion.getScreenHeight() / baseHeight);
+		container.setLocalTranslation(Reaxion.getScreenWidth() / 2, Reaxion.getScreenHeight() / 2, 0);
 		
 		attachChild(container);
 	}

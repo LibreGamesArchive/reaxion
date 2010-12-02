@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
+import javax.swing.JOptionPane;
+
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.jmex.game.state.CameraGameState;
 
@@ -36,7 +38,7 @@ public abstract class BaseGameState extends CameraGameState {
 	 */
 	protected abstract void initKeyBindings();
 	/**
-	 * Removes all key bidings initalized by the current {@code BaseGameState};
+	 * Removes all key bindings initialized by the current {@code BaseGameState};
 	 */
 	protected abstract void removeKeyBindings();
 	
@@ -53,6 +55,8 @@ public abstract class BaseGameState extends CameraGameState {
 			}
 		} else {
 			removeKeyBindings();
+			
+			JOptionPane.showMessageDialog(null, name + " has been set active false and endsBGM is : " + endsBGM);
 			
 			if (endsBGM)
 				AudioPlayer.clearBGM();
