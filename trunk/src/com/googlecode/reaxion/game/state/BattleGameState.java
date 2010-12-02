@@ -28,16 +28,10 @@ public class BattleGameState extends StageGameState {
     
     public BattleGameState() {
     	super();
-    	
-    	setName(NAME);
     }
     
     public BattleGameState(Battle b) {
     	super(b);   	
-    	
-    	setName(NAME);
-    	
-    	initKeyBindings();
     	
     	targetTime = b.getTargetTime();
     	expYield = b.getExpYield();
@@ -45,8 +39,28 @@ public class BattleGameState extends StageGameState {
     	assignOpponents(b.getOps());
     }
     
-    private void initKeyBindings() {
+    @Override
+	protected void init() {
+		super.init();
+		
+		setName(NAME);
+		
+		startsBGM = true;
+		endsBGM = false;
+	}
+
+    @Override
+	protected void initKeyBindings() {
+    	super.initKeyBindings();
+    	
     	KeyBindingManager.getKeyBindingManager().set("return_to_hgs", KeyInput.KEY_DELETE);
+    }
+    
+    @Override
+    protected void removeKeyBindings() {
+    	super.removeKeyBindings();
+    	
+    	KeyBindingManager.getKeyBindingManager().remove("return_to_hgs");
     }
     
     /**
@@ -73,7 +87,7 @@ public class BattleGameState extends StageGameState {
 		super.stateUpdate(tpf);
 		
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("return_to_hgs", false)) {
-			endBGM();
+			setActive(false);
 			MissionManager.endMission();
 		}
 	}

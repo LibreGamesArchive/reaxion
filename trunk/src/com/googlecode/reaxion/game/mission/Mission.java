@@ -2,8 +2,6 @@ package com.googlecode.reaxion.game.mission;
 
 import java.util.ArrayList;
 
-import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.state.StageGameState;
 import com.jmex.game.state.GameState;
 
 /**
@@ -56,16 +54,22 @@ public abstract class Mission implements Comparable<Mission> {
 	/**
 	 * Set up all states for this mission. Override to add content.
 	 */
-	public void init() {
-		
-	}
+	public abstract void init();
+	/**
+	 * Returns a copy of a {@code Mission}.
+	 */
+	public abstract Mission clone();
 	
 	public String toString() {
 		String s = "Mission No. " + missionID + " : " + title + "\n";
 		s += "\t" + description + "\n";
 		s += "\tDifficulty: " + difficultyRating + "\n";
 		s += "\t" + (required ? "Required" : "Not Required") + "\n";
-		s += "\tImage URL: " + imageURL;
+		s += "\tImage URL: " + imageURL + "\n";
+		
+		for (int i = 0; i < states.size(); i++)
+			s += states.get(i).getName() + (i == states.size() - 1 ? "" : ",");
+		
 		return s;
 	}
 
@@ -161,8 +165,6 @@ public abstract class Mission implements Comparable<Mission> {
 	 */
 	public void activateStateAt(int index) {
 		states.get(index).setActive(true);
-		if(states.get(index) instanceof StageGameState && !AudioPlayer.hasCurrentBGM())
-			((StageGameState) states.get(index)).startBGM();
 	}
 	
 	/**
