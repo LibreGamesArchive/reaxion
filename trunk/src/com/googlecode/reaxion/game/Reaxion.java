@@ -3,6 +3,8 @@ package com.googlecode.reaxion.game;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
+import javax.swing.JOptionPane;
+
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
@@ -12,6 +14,7 @@ import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.input.MouseInput;
+import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
@@ -26,6 +29,9 @@ public class Reaxion {
 
 	private static final String GAME_VERSION = "0.6a";
 
+	private static int screenWidth;
+	private static int screenHeight;
+	
 	/**
 	 * Multithreaded game system that shows the state of GameStates
 	 */
@@ -80,6 +86,10 @@ public class Reaxion {
 			game.start();
 		GameTaskQueueManager.getManager().update(new GameInit());
         
+		screenWidth = DisplaySystem.getDisplaySystem().getWidth();
+		screenHeight = DisplaySystem.getDisplaySystem().getHeight();
+		
+		JOptionPane.showMessageDialog(null, "" + screenWidth + " || " + screenHeight);
 	}
 	
 	/**
@@ -89,6 +99,14 @@ public class Reaxion {
 		AudioPlayer.cleanup();
 		GameStateManager.getInstance().detachAllChildren();
 		System.exit(0);
+	}
+	
+	public static int getScreenWidth() {
+		return screenWidth;
+	}
+
+	public static int getScreenHeight() {
+		return screenHeight;
 	}
 
 	/**

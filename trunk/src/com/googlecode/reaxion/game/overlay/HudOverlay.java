@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.overlay;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -191,7 +192,7 @@ public class HudOverlay extends Overlay {
         
         attachChild(container);
         
-        container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalScale((float) Reaxion.getScreenHeight() / 600);
     }
 	
 	/**
