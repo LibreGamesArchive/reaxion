@@ -51,6 +51,8 @@ public abstract class BaseGameState extends CameraGameState {
 				AudioPlayer.queueBGM(bgm);
 				AudioPlayer.startBGM();
 			}
+			
+			rootNode.updateRenderState();
 		} else {
 			removeKeyBindings();
 			

@@ -42,6 +42,8 @@ public class MissionManager {
 	 */
 	public static void startMission(MissionID missionID) {
 		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(false);
+		GameStateManager.getInstance().detachChild(currentHGS);
+		currentHGS = null;
 		
 		currentMission = missions.get(missionID).clone();
 		currentIndex = 0;
@@ -78,12 +80,7 @@ public class MissionManager {
 				GameStateManager.getInstance().detachChild(currentMission.getStateAt(i));
 			}
 		
-		currentMission = null;
-		
-		if (currentHGS != null)
-			GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(true);
-		else
-			Reaxion.terminate();
+		startHubGameState();
 	}
 	
 	/**

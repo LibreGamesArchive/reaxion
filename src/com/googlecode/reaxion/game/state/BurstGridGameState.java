@@ -16,7 +16,6 @@ import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.RateNode;
 import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 import com.googlecode.reaxion.game.overlay.BurstGridOverlay;
-import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.InputHandler;
@@ -33,7 +32,6 @@ import com.jme.scene.state.BlendState;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
-import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.StatisticsGameState;
 
@@ -42,7 +40,7 @@ import com.jmex.game.state.StatisticsGameState;
  * @author Khoa Ha
  *
  */
-public class BurstGridGameState extends CameraGameState {
+public class BurstGridGameState extends BaseGameState {
 	
 	public static final String NAME = "burstGridGameState";
 	protected static final Logger logger = Logger.getLogger(StageGameState.class
@@ -82,13 +80,18 @@ public class BurstGridGameState extends CameraGameState {
 	private Quad[] clouds = new Quad[2];
 	
 	public BurstGridGameState(PlayerInfo info) {
-    	super(NAME);
+    	super(false);
     	this.info = info;
     	this.grid = info.getBurstGrid();
     	init();
     }
 	
-	private void init() {
+	protected void init() {
+		setName(NAME);
+		
+		startsBGM = false;
+		endsBGM = false;
+		
 		// Prepare results node
 		burstOverlay = new BurstGridOverlay();
 		burstOverlay.setStaticText(info);
@@ -141,10 +144,7 @@ public class BurstGridGameState extends CameraGameState {
         System.out.println(grid);
     }
 	
-	/**
-	 * Create the key bindings for this state.
-	 */
-	private void initKeyBindings() {
+	protected void initKeyBindings() {
         KeyBindingManager.getKeyBindingManager().set("traverse_ccw",
                 KeyInput.KEY_LEFT);
         KeyBindingManager.getKeyBindingManager().set("traverse_cw",
@@ -166,6 +166,22 @@ public class BurstGridGameState extends CameraGameState {
                 KeyInput.KEY_R);
     }
 	
+	@Override
+	protected void removeKeyBindings() {
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.remove("traverse_ccw");
+		manager.remove("traverse_cw");
+		manager.remove("traverse_next");
+		manager.remove("traverse_back");
+		manager.remove("zoom");
+		manager.remove("screen_shot");
+		manager.remove("buy_node");
+		manager.remove("exit");
+		manager.remove("toggle_stats");
+		manager.remove("mem_report");
+	}
+
 	@Override
 	protected void stateUpdate(float tpf) {
 		// Update the InputHandler

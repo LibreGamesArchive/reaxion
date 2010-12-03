@@ -73,8 +73,8 @@ public class HubGameState extends StageGameState {
     @Override
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
 		if (manager.isValidCommand("access_terminal", false)) {
 			Vector3f playerLoc = player.getXZTranslation();
