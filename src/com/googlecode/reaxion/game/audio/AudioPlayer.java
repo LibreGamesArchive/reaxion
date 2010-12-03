@@ -28,6 +28,8 @@ public class AudioPlayer {
 	
 	private static boolean playingBGM;
 	
+	private static float volume = 1f;
+	
 	private static SoundSystem sound;
 	private static SoundSystemLogger logger;
 	
@@ -40,7 +42,6 @@ public class AudioPlayer {
 			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
 			SoundSystemConfig.setSoundFilesPackage(baseURL);
 		} catch (SoundSystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -53,7 +54,7 @@ public class AudioPlayer {
 	/**
 	 * Places background music in the audio queue.
 	 * 
-	 * @param filename
+	 * @param filename Filename of background music to be queued
 	 */
 	public static void queueBGM(String filename) {
 		String bgmName = filename.substring(0, filename.indexOf("."));
@@ -75,11 +76,20 @@ public class AudioPlayer {
 		sound.play(currentBGM);
 		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 0);
 	}
+
+	/**
+	 * Stops background music.
+	 */
+	public static void clearBGM() {
+		playingBGM = false;
+		sound.stop(currentBGM);
+		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
+	}
 	
 	/**
 	 * Updates the listener position and orientation.
 	 * 
-	 * @param b
+	 * @param b {@code StageGameState} object that is currently active
 	 */
 	public static void update(StageGameState b) {
 		Vector3f loc = b.getPlayer().model.getLocalTranslation();
@@ -89,12 +99,12 @@ public class AudioPlayer {
 	}
 
 	/**
-	 * Plays a sound effect at a given position with rolloff attenuation.
+	 * Plays a sound effect at a given position with roll-off attenuation.
 	 * 
-	 * @param filename
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param filename Filename of the sound effect to be played
+	 * @param x X position of sound effect to be played
+	 * @param y Y position of sound effect to be played
+	 * @param z Z position of sound effect to be played
 	 */
 	public static void playSoundEffect(String filename, float x, float y, float z) {
 		sound.quickPlay(true, sfxDir + filename, false, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
@@ -102,12 +112,12 @@ public class AudioPlayer {
 	}
 	
 	/**
-	 * Plays a repeating sound effect at a given position with rolloff attenuation.
+	 * Plays a repeating sound effect at a given position with roll-off attenuation.
 	 * 
-	 * @param filename
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param filename Filename of the sound effect to be played
+	 * @param x X position of sound effect to be played
+	 * @param y Y position of sound effect to be played
+	 * @param z Z position of sound effect to be played
 	 */
 	public static void playRepeatingSoundEffect(String filename, float x, float y, float z) {
 		sound.newStreamingSource(true, filename, sfxDir + filename, true, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
@@ -118,7 +128,7 @@ public class AudioPlayer {
 	/**
 	 * Stops a repeating sound effect.
 	 * 
-	 * @param filename
+	 * @param filename Filename of the sound effect to be stopped
 	 */
 	public static void stopRepeatingSoundEffect(String filename) {
 		sound.stop(filename);
@@ -129,7 +139,7 @@ public class AudioPlayer {
 	 * Lowers master volume due to game pause.
 	 */
 	public static void gamePaused() {
-		sound.setMasterVolume(.5f);
+		sound.setMasterVolume(volume * .5f);
 		logger.message(loggerHeader + "Master Volume lowered.", 0);
 	}
 	
@@ -137,25 +147,21 @@ public class AudioPlayer {
 	 * Returns master volume to normal due to game unpause.
 	 */
 	public static void gameUnpaused() {
-		sound.setMasterVolume(1f);
+		sound.setMasterVolume(volume);
 		logger.message(loggerHeader + "Master Volume returned to normal.", 0);
 	}
 	
 	/**
-	 * Stops background music.
+	 * Checks for currently playing background music.
+	 * 
+	 * @return {@code true} if background music, {@code false} if no background music
 	 */
-	public static void clearBGM() {
-		playingBGM = false;
-		sound.stop(currentBGM);
-		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
-	}
-	
 	public static boolean hasCurrentBGM() {
 		return playingBGM;
 	}
 	
 	/**
-	 * Calls cleanup method of SoundSystem.
+	 * Calls cleanup method of {@code SoundSystem}.
 	 */
 	public static void cleanup() {
 		sound.cleanup();

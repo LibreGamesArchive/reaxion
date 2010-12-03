@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.googlecode.reaxion.game.state.HubGameState;
@@ -39,7 +38,7 @@ public class MissionManager {
 	/**
 	 * Starts a mission by ID number.
 	 * 
-	 * @param missionID
+	 * @param missionID {@code MissionID} object that denotes which mission to initiate
 	 */
 	public static void startMission(MissionID missionID) {
 		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(false);
@@ -100,7 +99,7 @@ public class MissionManager {
 	 * Returns an {@code ArrayList} of type {@code Mission} containing all of the non-test missions in 
 	 * {@code MissionManager}.
 	 * 
-	 * @return missions
+	 * @return An {@code ArrayList} of all non-test missions
 	 */
 	public static ArrayList<Mission> getMissions() {
 		ArrayList<Mission> temp = new ArrayList<Mission>();
@@ -120,6 +119,9 @@ public class MissionManager {
 		return temp;
 	}
 	
+	/**
+	 * Initializes and activates the {@code HubGameState} object of {@code MissionManager}.
+	 */
 	public static void startHubGameState() {
 		Battle temp = Battle.getCurrentBattle();
 		temp.setPlayerPosition(new Vector3f(0, 0, 10));
@@ -130,6 +132,9 @@ public class MissionManager {
 		currentHGS.setActive(true);
 	}
 	
+	/**
+	 * Ends and resets the {@code HubGameState} object of {@code MissionManager}.
+	 */
 	public static void endHubGameState() {
 		currentHGS.setActive(false);
 		GameStateManager.getInstance().detachChild(currentHGS);

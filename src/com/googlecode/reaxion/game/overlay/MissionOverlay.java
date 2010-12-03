@@ -13,7 +13,6 @@ import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
-import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
@@ -104,9 +103,9 @@ public class MissionOverlay extends GridOverlay {
 	/**
 	 * Creates a single mission list item.
 	 * 
-	 * @param m
-	 * @param index
-	 * @return mission list item
+	 * @param m {@code Mission} object that contains information for the mission list item
+	 * @param index Current index
+	 * @return A mission list item
 	 */
 	private Node createMissionListItem(Mission m, int index) {
 		Node listItem = new Node("listItem_" + m.getTitle());
@@ -180,7 +179,7 @@ public class MissionOverlay extends GridOverlay {
 	
 	/**
 	 * Updates the overlay based on key input.
-	 * @param key
+	 * @param key The keycode for the key that was pressed
 	 */
 	public void updateDisplay(int key) {
 		switch (key) {
@@ -203,7 +202,7 @@ public class MissionOverlay extends GridOverlay {
 	
 	/**
 	 * Updates the locations of each of the mission list items based on key input.
-	 * @param key
+	 * @param key The keycode for the key that was pressed
 	 */
 	private void rotateMissionList(int key) {
 		if (key == KeyInput.KEY_DOWN) {

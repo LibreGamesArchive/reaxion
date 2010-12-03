@@ -190,9 +190,9 @@ public class HudOverlay extends Overlay {
         gaugeCount.setLocalTranslation(new Vector3f(210, 34, 0));
         container.attachChild(gaugeCount);
         
-        attachChild(container);
-        
         container.setLocalScale((float) Reaxion.getScreenHeight() / 600);
+
+        attachChild(container);
     }
 	
 	/**

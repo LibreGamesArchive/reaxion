@@ -131,6 +131,16 @@ public class HubGameState extends StageGameState {
     }
     
 	@Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		
+		if (active) {
+			player.renew();
+			partner.renew();
+		}
+	}
+
+	@Override
     protected void act() {
     	Vector3f p = player.model.getLocalTranslation();
     	Vector3f t = terminal.model.getLocalTranslation();

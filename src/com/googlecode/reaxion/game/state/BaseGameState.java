@@ -1,14 +1,12 @@
 package com.googlecode.reaxion.game.state;
 
-import javax.swing.JOptionPane;
-
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.jmex.game.state.CameraGameState;
 
 /**
  * The base {@code GameState} class for most of Reaxion. Integrates the addition and removal of key bindings
  * and the beginning and ending of background music with the {@code setActive} method. Also contains methods
- * used in most Reaxion {@code GameState} classes.
+ * used in most of the Reaxion {@code GameState} classes.
  * 
  * @author Brian Clanton
  *
@@ -38,7 +36,7 @@ public abstract class BaseGameState extends CameraGameState {
 	 */
 	protected abstract void initKeyBindings();
 	/**
-	 * Removes all key bindings initialized by the current {@code BaseGameState};
+	 * Removes all key bindings initialized by the current {@code BaseGameState}.
 	 */
 	protected abstract void removeKeyBindings();
 	
@@ -55,8 +53,6 @@ public abstract class BaseGameState extends CameraGameState {
 			}
 		} else {
 			removeKeyBindings();
-			
-			JOptionPane.showMessageDialog(null, name + " has been set active false and endsBGM is : " + endsBGM);
 			
 			if (endsBGM)
 				AudioPlayer.clearBGM();
@@ -77,6 +73,14 @@ public abstract class BaseGameState extends CameraGameState {
 
 	public void setEndsBGM(boolean endsBGM) {
 		this.endsBGM = endsBGM;
+	}
+
+	public String getBgm() {
+		return bgm;
+	}
+
+	public void setBgm(String bgm) {
+		this.bgm = bgm;
 	}
 	
 }

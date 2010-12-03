@@ -87,6 +87,7 @@ public class BattleGameState extends StageGameState {
 		super.stateUpdate(tpf);
 		
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("return_to_hgs", false)) {
+			endsBGM = true;
 			setActive(false);
 			MissionManager.endMission();
 		}
