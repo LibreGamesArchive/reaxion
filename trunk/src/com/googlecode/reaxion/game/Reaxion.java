@@ -88,8 +88,6 @@ public class Reaxion {
         
 		screenWidth = DisplaySystem.getDisplaySystem().getWidth();
 		screenHeight = DisplaySystem.getDisplaySystem().getHeight();
-		
-		JOptionPane.showMessageDialog(null, "" + screenWidth + " || " + screenHeight);
 	}
 	
 	/**

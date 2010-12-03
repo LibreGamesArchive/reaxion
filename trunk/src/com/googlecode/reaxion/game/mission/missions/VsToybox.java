@@ -6,6 +6,7 @@ import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.enemies.Toybox;
+import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.DialogueGameState;
 import com.googlecode.reaxion.game.util.Actor;
 import com.googlecode.reaxion.game.util.Battle;
@@ -63,7 +64,9 @@ public class VsToybox extends Mission {
 		b.setExpYield(4000);
 		Battle.setCurrentBattle(b);
 		
-		addState(Battle.createBattleGameState());
+		BattleGameState bgs = Battle.createBattleGameState();
+		bgs.setStartsBGM(false);
+		addState(bgs);
 	}
 	
 	public VsToybox clone() {

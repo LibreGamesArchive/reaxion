@@ -3,7 +3,16 @@ package com.googlecode.reaxion.game.overlay;
 import java.awt.Point;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.model.stage.*;
+import com.googlecode.reaxion.game.model.stage.CityOfDreams;
+import com.googlecode.reaxion.game.model.stage.CloudNine;
+import com.googlecode.reaxion.game.model.stage.CrystalPalace;
+import com.googlecode.reaxion.game.model.stage.Flipside;
+import com.googlecode.reaxion.game.model.stage.FlowerField;
+import com.googlecode.reaxion.game.model.stage.LavaValley;
+import com.googlecode.reaxion.game.model.stage.MikoLake;
+import com.googlecode.reaxion.game.model.stage.SeasRepose;
+import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
+import com.googlecode.reaxion.game.model.stage.WorldsEdge;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
@@ -12,8 +21,6 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
-import com.jme.system.DisplaySystem;
-import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 import com.jmex.game.state.GameState;
 
@@ -127,9 +134,10 @@ public class StageSelectionOverlay extends GridOverlay {
 	 * Returns the file URL of a stage image. The {@code isPreview} parameter is used to discern between
 	 * preview images and grid item images.
 	 * 
-	 * @param stageName
-	 * @param isPreview
-	 * @return File URL
+	 * @param stageName Name of the stage
+	 * @param isPreview Indicates whether or not the image will be used as a preview image or as part
+	 * of the stage grid
+	 * @return A {@code String} containing the requested filename
 	 */
 	private String getImageURL(String stageName, boolean isPreview) {
 		String str = stageName.replace("'", "").replace(" ", "-").toLowerCase();
@@ -152,7 +160,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	/**
 	 * Creates an individual preview box.
 	 * 
-	 * @param name
+	 * @param name Name of the stage
 	 * @return Preview box for the stage specified by the {@code name} parameter
 	 */
 	private Node createPreviewBox(String name) {
@@ -185,7 +193,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	/**
 	 * Creates an individual stage title. Text, name, color, size, and local translation are defined.
 	 * 
-	 * @param name
+	 * @param name Name of the stage
 	 * @return {@code BitmapText} object with text set to {@code name}
 	 */
 	private BitmapText createStageTitle(String name) {
@@ -223,7 +231,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	 * Handles arrow key input caught by {@code StageSelectionState}. The arrow key input is interpreted and displayed
 	 * as a change in the selected stage grid item.
 	 * 
-	 * @param key
+	 * @param key The keycode for the key that was pressed
 	 */
 	public void updateDisplay(int key) {
 		int lastRow = currentRow;
@@ -298,7 +306,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	 * Removes apostrophes and spaces in the currently selected stage name in order to generate a
 	 * {@code String} corresponding to its class name. 
 	 * 
-	 * @return className
+	 * @return Class name of the currently selected stage
 	 */
 	public String getSelectedStageClass() {
 		String str = stageNames[currentRow * stageGridColumns + currentColumn].replace("'", "");
@@ -308,7 +316,7 @@ public class StageSelectionOverlay extends GridOverlay {
 	/**
 	 * Returns the selected stage name.
 	 * 
-	 * @return stageName
+	 * @return Name of the currently selected stage
 	 */
 	public String getSelectedStageName() {
 		return stageNames[currentRow * stageGridColumns + currentColumn];

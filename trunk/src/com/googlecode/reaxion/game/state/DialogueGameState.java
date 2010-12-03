@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.DialogueOverlay;
@@ -232,18 +231,6 @@ public class DialogueGameState extends BaseGameState {
 		//System.out.println(count+" "+durations[current]);
 		count++;
 	}
-	
-	@Override
-	public void setActive(boolean active) {
-		super.setActive(active);
-		
-		if (active && startsBGM) {
-			AudioPlayer.startBGM();
-			AudioPlayer.queueBGM(bgm);
-		} else if (!active && endsBGM) {
-			AudioPlayer.clearBGM();
-		}
-	}
 
 	/**
 	 * Parses input array for name labels and text, separated by "::".
@@ -320,30 +307,6 @@ public class DialogueGameState extends BaseGameState {
 				}
 			}
 		}
-	}
-
-	public boolean isStartsBGM() {
-		return startsBGM;
-	}
-
-	public void setStartsBGM(boolean startsBGM) {
-		this.startsBGM = startsBGM;
-	}
-
-	public boolean isEndsBGM() {
-		return endsBGM;
-	}
-
-	public void setEndsBGM(boolean endsBGM) {
-		this.endsBGM = endsBGM;
-	}
-
-	public String getBgm() {
-		return bgm;
-	}
-
-	public void setBgm(String bgm) {
-		this.bgm = bgm;
 	}
 
 	private void returnToCharSelectState() {
