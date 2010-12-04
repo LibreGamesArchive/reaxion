@@ -10,6 +10,14 @@ import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapText;
 
+/**
+ * {@code CharacterSelectionOverlay} extends the functionality of {@code GridOverlay} in
+ * order to create a character selection menu with grid elements. Images of the characters
+ * are arranged in a grid format, with cursors to select and choose the characters.
+ * 
+ * @author Austin Hou
+ */
+
 public class CharacterSelectionOverlay extends GridOverlay {
 
 	private static final String baseURL = "../../resources/icons/characterselect/";
@@ -19,23 +27,21 @@ public class CharacterSelectionOverlay extends GridOverlay {
 	
 	private String[] charNames;
 	private Quad[] p1Fill;
-	private Quad[] p2Fill;
-	private Quad[] opFill;
 	private Quad p1c;
 	private Quad p2c;
 	private BitmapText[] p1Display;
-	private BitmapText[] p2Display;
-	private BitmapText[] opDisplay;
 	private BitmapText menu;
+	private BitmapText menu2;
 
+	//table dimensions
 	private int tblL = 6;
 	private int tblW = 4;
+	
+	//round number (see method updateSel)
 	private int round = 0;
 	
 	private ColorRGBA textColor;
-	private ColorRGBA boxColor;
 	private ColorRGBA selTextColor;
-	private ColorRGBA selBoxColor;
 
 	private int[] currentIndex = new int[2];
 	private int[] selectedChars = new int[3];
@@ -43,27 +49,22 @@ public class CharacterSelectionOverlay extends GridOverlay {
 	private int[][] takenPos = new int[tblL][tblW];
 
 
-
+	/**
+	 * This method initializes both visible and background elements of {@code CharacterSelectionOverlay}.
+	 */
 	public CharacterSelectionOverlay() {
 		super(800, 600, true);
-
-
-		
 		// create a container Node for scaling
 		container = new Node("container");
 		attachChild(container);
 
-		// White
+		// Colors
 		textColor = new ColorRGBA(1, 1, 1, 1);
-		// Dark Gray
-		boxColor = new ColorRGBA(.25f, .25f, .25f, 1);
 		selTextColor = new ColorRGBA(0, 1, 0, 1);
-		selBoxColor = textColor ;//new ColorRGBA(0, .67f, .67f, 1);
-
+		
 		p1Fill = new Quad[numchars];
-		p2Fill = new Quad[numchars];
-		opFill = new Quad[numchars];
 
+		//Character List initiation
 		charNames = new String[numchars];
 		charNames[0] = "Khoa";
 		charNames[1] = "Cy";
@@ -74,31 +75,30 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		charNames[6] = "Andrew";
 		charNames[7] = "Shine";
 		p1Display = new BitmapText[numchars];
-		p2Display = new BitmapText[numchars];
-		opDisplay = new BitmapText[numchars];
 		for (int i = 0; i < numchars; i++) {
 			p1Display[i] = new BitmapText(FontUtils.neuropol, false);
-			p2Display[i] = new BitmapText(FontUtils.neuropol, false);
-			opDisplay[i] = new BitmapText(FontUtils.neuropol, false);
 			p1Display[i].setText(charNames[i]);
-			p2Display[i].setText(charNames[i]);
-			opDisplay[i].setText(charNames[i]);
 		}
+		
 		menu = new BitmapText(FontUtils.neuropol, false);
 		menu.setText("Character Select. Use arrow keys to move, space to choose, and enter to play.");
-
+		menu2 = new BitmapText(FontUtils.neuropol, false);
+		menu2.setText("Press backspace to undo.");
+		
 		for (int i = 0; i < 3; i++)
 			selectedChars[i] = 0;
 
+		//initiates display
 		initGUI();
 
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight() / 600);
-		
-
-		
 	}
 
+	/**
+	 * Function to be called during each movement by the player.
+	 * @param dir direction of movement
+	 */
 	public void updateDisplay(int dir) {
 		int[] lastIndex = new int[2];
 		lastIndex[0] = currentIndex[0];
@@ -130,14 +130,6 @@ public class CharacterSelectionOverlay extends GridOverlay {
 
 			}
 		}
-		/*
-		 * System.out.println(lastIndex[0] + " " + lastIndex[1]);
-		 * System.out.println(currentIndex[0] + " " + currentIndex[1]);
-		 */
-
-		//p1Display[selectedChars[0]].setDefaultColor(selBoxColor);
-		//p2Display[selectedChars[1]].setDefaultColor(selBoxColor);
-		//opDisplay[selectedChars[2]].setDefaultColor(selBoxColor);
 
 		int selCur = takenPos[currentIndex[1]][currentIndex[0]];
 		
@@ -146,51 +138,20 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		int selBef = takenPos[lastIndex[1]][lastIndex[0]];
 		
 		p1Display[selBef].setDefaultColor(textColor);
-		
-		/*
-		if (currentIndex[0] == 0) {
-			p1Display[currentIndex[1]].setDefaultColor(selTextColor);
-			p1Display[currentIndex[1]].update();
-		} else if (currentIndex[0] == 1) {
-			p2Display[currentIndex[1]].setDefaultColor(selTextColor);
-			p2Display[currentIndex[1]].update();
-		} else if (currentIndex[0] == 2) {
-			opDisplay[currentIndex[1]].setDefaultColor(selTextColor);
-			opDisplay[currentIndex[1]].update();
-		}
-		if (lastIndex[0] == 0) {
-			p1Display[lastIndex[1]].setDefaultColor(textColor);
-			if (lastIndex[1] == selectedChars[0])
-				p1Display[lastIndex[1]].setDefaultColor(selBoxColor);
-			p1Display[lastIndex[1]].update();
-		} else if (lastIndex[0] == 1) {
-			p2Display[lastIndex[1]].setDefaultColor(textColor);
-			if (lastIndex[1] == selectedChars[1])
-				p2Display[lastIndex[1]].setDefaultColor(selBoxColor);
-			p2Display[lastIndex[1]].update();
-		} else if (lastIndex[0] == 2) {
-			opDisplay[lastIndex[1]].setDefaultColor(textColor);
-			if (lastIndex[1] == selectedChars[2])
-				opDisplay[lastIndex[1]].setDefaultColor(selBoxColor);
-			opDisplay[lastIndex[1]].update();
-		}*/
 
 	}
 
+	/**
+	 * Function to be called during each selection by the player.
+	 * 
+	 */
 	public void updateSel() {
+		
 		int picked = 0;
-		int ctr = 0;
-
-		/*for(int i = 0; i < tblL; i++)
-			for(int j = 0; j < tblW; j++)
-			{
-				if(i == currentIndex[0] && j == currentIndex[1])
-					picked = ctr;
-				else
-					ctr++;
-			}*/
 		picked = takenPos[currentIndex[1]][currentIndex[0]];
 		System.out.println(picked);
+		
+		//round of selection - 0 = player 1, 1 = player 2, 2 (optional) = opponent
 			switch(round)
 			{
 				case 0:
@@ -214,24 +175,15 @@ public class CharacterSelectionOverlay extends GridOverlay {
 				default:
 					break;
 		}
-		
-		
-		/*int last = selectedChars[currentIndex[0]];
-		selectedChars[currentIndex[0]] = currentIndex[1];
-		if (currentIndex[0] == 0) {
-			p1Display[last].setDefaultColor(textColor);
-			p1Display[last].update();
-		} else if (currentIndex[0] == 1) {
-			p2Display[last].setDefaultColor(textColor);
-			p2Display[last].update();
-		} else if (currentIndex[0] == 2) {
-			opDisplay[last].setDefaultColor(textColor);
-			opDisplay[last].update();
-		}*/
 	}
 
+	/**
+	 * Function to be called at Overlay initiation
+	 * 
+	 */
 	public void initGUI() {
 
+		//initiates table values to set bounds on cursor movement
 		for(int i = 0; i < tblL; i++)
 			for(int j = 0; j < tblW; j++)
 				takenPos[i][j] = 123;
@@ -241,31 +193,21 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		s = cursorURL + "p2.png";
 		p2c = getImage(s);
 		
+		//retrieves character images
     	String [] charLoc = new String[numchars];
-    	Quad [] pix = new Quad[numchars];
     	for(int j = 0; j<numchars; j++)
     	{
     		charLoc[j] = baseURL+charNames[j].toLowerCase()+".png";
     		p1Fill[j] = getImage(charLoc[j]);
     		p1Fill[j].setLocalScale(35f/64f);
-    		p2Fill[j] = getImage(charLoc[j]);
-    		p2Fill[j].setLocalScale(35f/64f);
-    		opFill[j] = getImage(charLoc[j]);
-    		opFill[j].setLocalScale(35f/64f);
     	}
     	
-    	
+    	//grid creation
     	Point[][] pos = createHorizontallyCenteredGrid(tblW, tblL, 400, 70, 70, 10, 40);
 		
     	int cntr = 0;
 		for (int i = 0; i < tblW; i++) 
 			for (int j = 0; j < tblL; j++){
-			
-				
-				
-			//p1Fill[i] = pix[i];
-			//p1Fill[i].setLocalTranslation(new Vector3f(pos[i][j].y,
-				//	pos[i][j].x, 0));
 				if(cntr >= p1Fill.length)
 					break;
 				p1Fill[cntr].setLocalTranslation(new Vector3f(-425 + pos[i][j].x,
@@ -275,78 +217,61 @@ public class CharacterSelectionOverlay extends GridOverlay {
 				takenPos[j][i] = cntr;
 				container.attachChild(p1Fill[cntr]);
 				cntr++;
-
-			
-
-			/*//p2Fill[i] = pix[i];
-			p2Fill[i].setLocalTranslation(new Vector3f(-100 + 185 + 90 * i,
-					280 -10, 0));
-			container.attachChild(p2Fill[i]);
-
-			//opFill[i] = pix[i];
-			opFill[i].setLocalTranslation(new Vector3f(-100 + 185 + 90 * i,
-					150 -  10, 0));
-			container.attachChild(opFill[i]);*/
 		}
 
+		//instructions
 		menu.setLocalTranslation(new Vector3f(-22 + 38, 550, 0));
 		menu.setSize(18);
 		menu.update();
+		menu2.setLocalTranslation(new Vector3f(-22 + 38, 535, 0));
+		menu2.setSize(18);
+		menu2.update();
 		container.attachChild(menu);
+		container.attachChild(menu2);
 
-		// the following lines can be removed when brian is created.
-		/*
-		BitmapText warning = new BitmapText(FontUtils.neuropol, false);
-		warning.setSize(18);
-		warning.setDefaultColor(textColor);
-		warning.setLocalTranslation(-22 + 78, 410, 0);
-		warning
-				.setText("Note: do not choose brian until his model has been created.");
-		warning.update();
-		container.attachChild(warning);
-		*/
-
-		BitmapText[] labels = new BitmapText[3];
-		String[] temp = { "Player 1", "Player 2", "Opponent" };
-		for (int i = 0; i < 3; i++) {
-			labels[i] = new BitmapText(FontUtils.neuropol, false);
-			labels[i].setSize(17);
-			labels[i].setDefaultColor(textColor);
-			labels[i].setLocalTranslation(-62 + 112, 405 + 50 - 130*i, 0);
-			labels[i].setText(temp[i]);
-			labels[i].update();
-			//container.attachChild(labels[i]);
-		}
-
+		//player name list 
 		for (int i = 0; i < p1Display.length; i++) {
 			p1Display[i].setSize(16);
 			p1Display[i].setDefaultColor(i == 0? selTextColor : textColor);
 			p1Display[i].setText(charNames[i]);
-			//p1Display[i].setLocalTranslation(new Vector3f(-130 + 185 + 90 * i,
-				//	360, 0));
 			p1Display[i].update();
 			container.attachChild(p1Display[i]);
-
-			p2Display[i].setSize(16);
-			p2Display[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
-			p2Display[i].setText(charNames[i]);
-			//p2Display[i].setLocalTranslation(new Vector3f(-130 + 185 + 90 * i,
-			//		230, 0));
-			p2Display[i].update();
-			container.attachChild(p2Display[i]);
-
-			opDisplay[i].setSize(16);
-			opDisplay[i].setDefaultColor(i == 0 ? selBoxColor : textColor);
-			opDisplay[i].setText(charNames[i]);
-			//opDisplay[i].setLocalTranslation(new Vector3f(-130 + 185 + 90 * i,
-					//100, 0));
-			opDisplay[i].update();
-			container.attachChild(opDisplay[i]);
-
 		}
 		this.updateRenderState();
 	}
 
+	public void undo() {
+		if(round == 0)
+			return;
+		else
+			if(round == 1)
+			{
+				container.detachChild(p1c);
+				round = 0;
+				this.updateRenderState();
+				return;
+			}
+			else
+				if(round == 2)
+				{
+					container.detachChild(p2c);
+					round = 1;
+					this.updateRenderState();
+					return;
+				}
+				else
+					if(round > 2)
+					{
+						round = 2;
+						//this.updateRenderState();
+						return;
+					}
+	}
+	
+	/**
+	 * Function to be called at the conclusion of character selection.
+	 * 
+	 */
 	public String[] getSelectedChars() {
 		String[] temp = new String[selectedChars.length];
 		for (int i = 0; i < selectedChars.length; i++)

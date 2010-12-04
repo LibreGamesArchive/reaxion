@@ -79,6 +79,8 @@ public class CharacterSelectionState extends BasicGameState {
 				KeyInput.KEY_RIGHT);
 		KeyBindingManager.getKeyBindingManager().set("select",
 				KeyInput.KEY_SPACE);
+		KeyBindingManager.getKeyBindingManager().set("back",
+				KeyInput.KEY_BACK);
 
 	}
 
@@ -128,6 +130,11 @@ public class CharacterSelectionState extends BasicGameState {
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("select",
 				false)) {
 			charSelectNode.updateSel();
+		}
+		
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand("back",
+				false)) {
+			charSelectNode.undo();
 		}
 
 		if (KeyBindingManager.getKeyBindingManager()
