@@ -17,6 +17,8 @@ public class ShieldMediguard extends Attack {
 	
 	private MediShield medishield;
 	
+	private Vector3f initPos;
+	
 	public ShieldMediguard() {
 		name = "Mediguard";
 		gaugeCost = 8;
@@ -51,12 +53,14 @@ public class ShieldMediguard extends Attack {
 		medishield.rotate(rotation);
 		medishield.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 		
+		initPos = character.model.getLocalTranslation().clone();
+		
 		b.getRootNode().updateRenderState();
 	}
 	
 	@Override
 	public void nextFrame(StageGameState b) {
-		if (frameCount >= duration) {
+		if (frameCount >= duration || !character.model.getLocalTranslation().equals(initPos)) {
 			finish();
 		}
 	}

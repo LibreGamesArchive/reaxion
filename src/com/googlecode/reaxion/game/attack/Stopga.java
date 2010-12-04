@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.Bubble;
 import com.googlecode.reaxion.game.model.attackobject.Chain;
 import com.googlecode.reaxion.game.model.attackobject.Starlight;
@@ -73,6 +74,10 @@ public class Stopga extends Attack {
 	public void interrupt(StageGameState b, Model other) {
 		// negate flinch, this attack cannot be interrupted
         character.hp -= other.getDamage()/2;
+        
+        // reciprocate the hit
+		if (other instanceof AttackObject)
+			((AttackObject)other).hit(b, character);
 	}
 	
 	@Override

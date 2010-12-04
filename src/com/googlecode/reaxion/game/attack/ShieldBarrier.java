@@ -15,6 +15,8 @@ public class ShieldBarrier extends Attack {
 	private static final int duration = 180;
 	private Barrier barrier;
 	
+	private Vector3f initPos;
+	
 	public ShieldBarrier() {
 		name = "Barrier";
 		gaugeCost = 2;
@@ -49,12 +51,14 @@ public class ShieldBarrier extends Attack {
 		barrier.rotate(rotation);
 		barrier.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 		
+		initPos = character.model.getLocalTranslation().clone();
+		
 		b.getRootNode().updateRenderState();
 	}
 	
 	@Override
 	public void nextFrame(StageGameState b) {
-		if (frameCount >= duration) {
+		if (frameCount >= duration || !character.model.getLocalTranslation().equals(initPos)) {
 			finish();
 		}
 	}

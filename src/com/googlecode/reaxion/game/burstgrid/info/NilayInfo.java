@@ -16,7 +16,7 @@ public class NilayInfo extends PlayerInfo {
 	public void init(){
 		setStats(100, 1, 14, 22, 1);
 		setAbilities(new String[] {"RapidGauge"});
-		setAttacks(new String[] {"SpinLance", "LanceWheel", "TriLance", "LanceArc", "LanceGuard"});
+		setAttacks(new String[] {"CrossCut", "SpinLance", "LanceWheel", "TriLance", "LanceArc", "LanceGuard"});
 		createBurstGrid("");
 	}
 	

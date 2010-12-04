@@ -45,17 +45,17 @@ public class Angel extends AttackObject {
 		play("jump");
 		
 		// move between player and target
-		Vector3f midpoint = b.getTarget().model.getWorldTranslation().add(user.model.getWorldTranslation()).divide(2);
+		Vector3f midpoint = b.getTarget().model.getWorldTranslation().add(b.getPlayer().model.getWorldTranslation()).divide(2);
 		velocity = midpoint.subtract(model.getWorldTranslation());
 		if (velocity.length() > speed) {
 			velocity = velocity.normalize().mult(speed);
 			rotate(velocity);
 		} else {
-			rotate(user.rotationVector.mult(new Vector3f(1, 0, 1)));
+			rotate(b.getPlayer().rotationVector.mult(new Vector3f(1, 0, 1)));
 		}
 		
 		// heal user
-		user.heal(b, hpf);
+		b.getPlayer().heal(b, hpf);
 		
 		// check if a hit by another attack with linear approximation
     	Model[] collisions = getLinearModelCollisions(b, velocity, .5f);

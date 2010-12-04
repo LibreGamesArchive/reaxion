@@ -39,11 +39,6 @@ public class Starlight extends AttackObject {
 		b.getRootNode().updateRenderState();
 	}
 	
-	@Override
-	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
-    }
-	
 	@ Override
     public void act(StageGameState b) {
 		// check if underground

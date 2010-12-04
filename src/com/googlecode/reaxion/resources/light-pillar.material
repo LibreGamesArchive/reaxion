@@ -1,0 +1,44 @@
+
+material pillar
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/light-pillar.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material force
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/light-force.png
+			}
+		}
+
+	}
+
+}
+
+
