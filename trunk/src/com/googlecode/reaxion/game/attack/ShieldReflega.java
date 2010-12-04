@@ -18,6 +18,8 @@ public class ShieldReflega extends Attack {
 	private static final int duration = 100;
 	private Reflector reflector;
 	
+	private Vector3f initPos;
+	
 	public ShieldReflega() {
 		name = "Reflega";
 		gaugeCost = 12;
@@ -52,12 +54,14 @@ public class ShieldReflega extends Attack {
 		reflector.rotate(rotation);
 		reflector.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 		
+		initPos = character.model.getLocalTranslation().clone();
+		
 		b.getRootNode().updateRenderState();
 	}
 	
 	@Override
 	public void nextFrame(StageGameState b) {
-		if (frameCount >= duration) {
+		if (frameCount >= duration || !character.model.getLocalTranslation().equals(initPos)) {
 			finish();
 		}
 	}

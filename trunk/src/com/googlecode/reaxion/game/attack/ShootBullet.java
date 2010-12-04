@@ -18,7 +18,7 @@ public class ShootBullet extends Attack {
 	public ShootBullet() {
 		name = "Shoot";
 		description="Fires an energy bullet towards the target.";
-		gaugeCost = 2;
+		gaugeCost = 3;
 	}
 	
 	public ShootBullet(AttackData ad) {

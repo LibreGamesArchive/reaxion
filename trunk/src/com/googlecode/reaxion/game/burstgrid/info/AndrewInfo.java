@@ -17,9 +17,9 @@ public class AndrewInfo extends PlayerInfo {
 	
 	@Override
 	public void init() {
-		setStats(125,0,12,18,1);
+		setStats(125,0,12,38,1);
 		setAbilities(new String[] { "RandomInstantGauge", "HighJump" });
-		setAttacks(new String[] { "CardScreen", "CardCircle", "SlideIce", "TriLance", "LightningCloud" });
+		setAttacks(new String[] { "CardScreen", "CardCircle", "IcyWind", "SheerCold", "Psywave", "LightningCloud" });
 		createBurstGrid("");
 		setUsableSfx();
 	}

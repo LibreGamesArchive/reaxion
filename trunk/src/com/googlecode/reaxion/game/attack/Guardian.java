@@ -34,13 +34,22 @@ public class Guardian extends Attack {
 	
 	@Override
 	public void firstFrame(StageGameState b) {
-		// create the angel
-		
-		float angle = FastMath.nextRandomFloat()*FastMath.PI*2;
-		Angel angel = (Angel)LoadingQueue.quickLoad(new Angel(getUsers()), b);
-		angel.model.setLocalTranslation(b.getPlayer().model.getLocalTranslation().add(radius*FastMath.sin(angle), 0, radius*FastMath.cos(angle)));
-		b.getRootNode().updateRenderState();
-		
+		// make sure there isn't already an angel
+		boolean flag = false;
+		for (int i=0; i< b.getModels().size(); i++)
+			if (b.getModels().get(i) instanceof Angel) {
+				flag = true;
+				break;
+			}
+		if (flag) {
+			character.gauge += gaugeCost;
+		} else {
+			// create the angel
+			float angle = FastMath.nextRandomFloat()*FastMath.PI*2;
+			Angel angel = (Angel)LoadingQueue.quickLoad(new Angel(getUsers()), b);
+			angel.model.setLocalTranslation(b.getPlayer().model.getLocalTranslation().add(radius*FastMath.sin(angle), 0, radius*FastMath.cos(angle)));
+			b.getRootNode().updateRenderState();
+		}
 		finish();
 	}
 	
