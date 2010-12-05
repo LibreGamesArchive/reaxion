@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionManager;
-import com.googlecode.reaxion.game.mission.missions.Mission00;
-import com.googlecode.reaxion.game.mission.missions.VsToybox;
+import com.googlecode.reaxion.game.mission.missions.*;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
@@ -56,8 +55,8 @@ public class MissionOverlay extends GridOverlay {
 		container = new Node("container_missionSelect");
 		
 		missions = MissionManager.getMissions();
-		for (int i = 0; i < 4; i++) {
-			Mission m = i % 2 == 0 ? new Mission00() : new VsToybox();
+		for (int i = 0; i < 3; i++) {
+			Mission m = i == 0 ? new Mission00() : (i == 1 ? new VsToybox() : new VsDoriruzu());
 			m.setCompleted(i % 2 == 1);
 			missions.add(m);
 		}

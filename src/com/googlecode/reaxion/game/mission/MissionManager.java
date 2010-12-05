@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.mission.missions.Mission00;
-import com.googlecode.reaxion.game.mission.missions.VsToybox;
+import com.googlecode.reaxion.game.mission.missions.*;
 import com.googlecode.reaxion.game.state.HubGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.math.Vector3f;
@@ -33,6 +31,7 @@ public class MissionManager {
 	public static void createMissions() {
 		missions.put(MissionID.DEFEAT_LIGHT_USER, new Mission00());
 		missions.put(MissionID.VS_TOYBOX, new VsToybox());
+		missions.put(MissionID.VS_DORIRUZU, new VsDoriruzu());
 	}
 	
 	/**

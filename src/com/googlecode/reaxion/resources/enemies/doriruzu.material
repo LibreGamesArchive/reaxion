@@ -1,0 +1,41 @@
+
+material treads
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture enemies/doriruzu_treads-UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material body
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture enemies/doriruzu-UV.png
+			}
+		}
+
+	}
+
+}
+
+

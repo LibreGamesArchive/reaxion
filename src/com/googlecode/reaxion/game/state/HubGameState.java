@@ -23,6 +23,8 @@ public class HubGameState extends StageGameState {
 	
 	private MissionOverlay missionOverlay;
 	
+	private final float activationDistance = 8f;
+	
 	private boolean missionOverlayShowing;
     
     public HubGameState() {
@@ -80,7 +82,7 @@ public class HubGameState extends StageGameState {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
-			if (playerLoc.distance(terminalLoc) <= 3) {
+			if (playerLoc.distance(terminalLoc) <= activationDistance) {
 				toggleMissionOverlay();
 
 				if (missionOverlayShowing)
