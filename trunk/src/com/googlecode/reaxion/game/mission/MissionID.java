@@ -13,7 +13,8 @@ public enum MissionID {
 	
 	OPEN_HUBGAMESTATE(-1),
 	DEFEAT_LIGHT_USER(1),
-	VS_TOYBOX (2);
+	VS_TOYBOX (2),
+	VS_DORIRUZU (3);
 	
 	public int id;
 	

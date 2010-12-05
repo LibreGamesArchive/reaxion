@@ -128,10 +128,10 @@ public abstract class PlayerInfo{
 	}
 	
 	/**
-	 * Returns the gauge rate scaled by a factor of 10.
+	 * Returns the gauge rate scaled by an exponential formula.
 	 */
 	public double getScaledGauge() {
-		return rate*.15+.05;
+		return (Math.pow(rate, 2/3)*2/Math.pow(7, 2/3)+1)*.025;
 	}
 	
 	/**

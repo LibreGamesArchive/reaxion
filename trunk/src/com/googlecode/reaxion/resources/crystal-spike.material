@@ -1,0 +1,21 @@
+
+material lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture textures/pink-crystal.png
+			}
+		}
+
+	}
+
+}
+
+
