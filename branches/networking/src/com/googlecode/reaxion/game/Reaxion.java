@@ -119,14 +119,16 @@ public class Reaxion {
 		JGN.register(SynchronizeModelMessage.class);
 		JGN.register(SynchronizeCreateModelMessage.class);
 
+		AudioPlayer.prepare();
+		
 		switch(purposeInLife) {
 		case INITIAL_INITIALIZATION:
+	
+			FontUtils.loadFonts();
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
 			switch (sv) {
 			case 0:
 				try {
-					AudioPlayer.prepare();
-					FontUtils.loadFonts();
 					Reaxion bgServer = new Reaxion(Purpose.BACKGROUND_SERVER);
 					bgServer.start();
 					Thread.sleep(20);
