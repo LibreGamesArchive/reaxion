@@ -6,7 +6,7 @@ import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
-import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateBattleMessage;
+import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
@@ -198,9 +198,11 @@ public class StageSelectionState extends BasicGameState {
 		String[] chars = ((CharacterSelectionState)GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)).getSelectedChars();
 		String stage = stageSelectionNode.getSelectedStageClass();
 		
-		NetworkingObjects.client.sendToServer(new SynchronizeCreateBattleMessage(chars, stage));
+		GameStateManager.getInstance().attachChild(
+				Battle.createNetworkedBattleGameState());
 		
-		
+		NetworkingObjects.client.sendToServer(new CharacterAndStageSelectionsMessage(chars, stage));
+
 		
 		setActive(false);
 		

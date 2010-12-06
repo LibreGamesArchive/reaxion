@@ -16,10 +16,9 @@ import com.captiveimagination.jgn.synchronization.SynchronizationManager;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
-import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateBattleMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
-import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.ClientBattleGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -44,6 +43,8 @@ public abstract class NetworkingObjects {
 	public static boolean isServer;
 	public static final long updateRate = 50;
 
+	private static int creationMessagesRecieved = 0;
+
 	// TODO (nwk) Make a StageCreateMessage that tells the client which
 	// stage was picked (pass an Enum or something) and then have client do
 	// that locally.
@@ -61,46 +62,56 @@ public abstract class NetworkingObjects {
 		serverSyncManager = new SynchronizationManager(server, controller);
 
 		server.addMessageListener(new MessageListener() {
-			@Override
+			private String[] chars = new String[4];
+			private String stage1, stage2, stageChoice;
+
 			public void messageCertified(Message message) {
-				// TODO Auto-generated method stub
-
 			}
 
-			@Override
 			public void messageFailed(Message message) {
-				// TODO Auto-generated method stub
-
 			}
 
-			@Override
 			public void messageReceived(Message message) {
-				if (message instanceof SynchronizeCreateBattleMessage) {
-					SynchronizeCreateBattleMessage scbm = (SynchronizeCreateBattleMessage) scm;
+				if (message instanceof CharacterAndStageSelectionsMessage) {
+					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// TODO handle creation properly
 
-					Battle c = Battle.getCurrentBattle();
-					c.setPlayers(scbm.getCharacters());
-					c.setStage(scbm.getStage());
-					Battle.setCurrentBattle(c);
+					if (creationMessagesRecieved == 0) {
+						chars[0] = cassm.getCharacters()[0];
+						chars[1] = cassm.getCharacters()[1];
+						stage1 = cassm.getStage();
+						creationMessagesRecieved++;
+					} else if (creationMessagesRecieved == 1) {
+						chars[2] = cassm.getCharacters()[0];
+						chars[3] = cassm.getCharacters()[1];
+						stage2 = cassm.getStage();
+						stageChoice = Math.random() > 5 ? stage1 : stage2;
+						Battle c = Battle.getCurrentBattle();
+						c.setPlayers(chars);
+						c.setStage(stageChoice);
+						Battle.setCurrentBattle(c);
 
-					Battle.createNetworkedBattleGameState();
+						// for the lulz, since nothing happens
+						server
+								.sendToAll(new CharacterAndStageSelectionsMessage(
+										chars, stageChoice));
+
+						// I'm not sure this is how you do it
+						GameStateManager.getInstance().attachChild(
+								Battle.createNetworkedBattleGameState());
+						// Creation of objects when the server makes objects
+						// will make clients load the right things. it's not the
+						// most elegant way, but that's okay.
+					}
 
 					// FIXME cause this to send info to clients when all choices
 					// have been recieved, and make clients create it, and make
 					// sure the server will update the game without displaying
 					// it, and fix up all the bs you did to othe things
-
-					// I'm not sure this is how you do it
-					GameStateManager.getInstance().attachChild(
-							Battle.createNetworkedBattleGameState());
 				}
 			}
 
-			@Override
 			public void messageSent(Message message) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -131,6 +142,23 @@ public abstract class NetworkingObjects {
 		client = new JGNClient(new InetSocketAddress(
 				InetAddress.getLocalHost(), 9001), new InetSocketAddress(
 				InetAddress.getLocalHost(), 9002));
+		client.addMessageListener(new MessageListener() {
+			public void messageCertified(Message message) {
+			}
+
+			public void messageFailed(Message message) {
+			}
+
+			public void messageReceived(Message message) {
+				if (message instanceof CharacterAndStageSelectionsMessage) {
+					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
+					// Do absolutely nothing because this isn't necessary
+				}
+			}
+
+			public void messageSent(Message message) {
+			}
+		});
 		clientSyncManager = new SynchronizationManager(client, controller);
 		clientSyncManager.addSyncObjectManager(new SyncObjectManager() {
 			public Object create(SynchronizeCreateMessage scm) {
@@ -141,19 +169,16 @@ public abstract class NetworkingObjects {
 					return LoadingQueue.quickLoad(
 							new Model(scmm.getFilename()), cbgs);
 				}
-
 				return null;
 			}
 
 			public boolean remove(SynchronizeRemoveMessage srm, Object object) {
 				// FIXME (nwk) figure out how to reference list of models
 				// and call .removeFromParent()
-
 				if (object instanceof Model) {
 					cbgs.removeModel((Model) object);
 					return true;
 				}
-
 				return false;
 			}
 		});
