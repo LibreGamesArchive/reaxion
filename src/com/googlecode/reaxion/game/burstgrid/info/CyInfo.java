@@ -10,6 +10,8 @@ import com.googlecode.reaxion.game.audio.SoundEffectType;
  */
 public class CyInfo extends PlayerInfo {
 	
+	boolean unlocked = false;
+
 	public CyInfo() {
 		super("Cy");
 	}

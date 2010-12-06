@@ -11,6 +11,8 @@ import com.googlecode.reaxion.game.audio.SoundEffectType;
  */
 public class AustinInfo extends PlayerInfo {
 
+	boolean unlocked = false;
+
 	public AustinInfo() {
 		super("Austin");
 	}
