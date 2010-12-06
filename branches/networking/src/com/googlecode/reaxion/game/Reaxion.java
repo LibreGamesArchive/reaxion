@@ -80,6 +80,7 @@ public class Reaxion {
 		case BACKGROUND_SERVER:
 			// Make one that's invisible
 			game = new StandardGame("Reaxion v" + GAME_VERSION, GameType.HEADLESS);
+			game.setConfigShowMode(ConfigShowMode.NeverShow);
 		}
 		
 	}
@@ -141,6 +142,9 @@ public class Reaxion {
 			default:
 				terminate();
 			}
+			charState = new CharacterSelectionState();
+			GameStateManager.getInstance().attachChild(charState);
+			charState.setActive(true);
 			break;
 		case BACKGROUND_SERVER:
 		
