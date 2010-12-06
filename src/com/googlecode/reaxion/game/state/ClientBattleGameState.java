@@ -24,6 +24,9 @@ import com.jmex.game.state.StatisticsGameState;
  */
 public class ClientBattleGameState extends BattleGameState {
 
+	// FIXME future bug: Tell client which one it is so it knows whose HUD to
+	// display
+
 	public static final String NAME = "clientBattleGameState";
 
 	protected PlayerInput opPlayerInput;
@@ -296,7 +299,8 @@ public class ClientBattleGameState extends BattleGameState {
 			containerNode.detachChild(m.model);
 			return models.remove(m);
 		}
-		System.out.println("Not removed, not in the model list, not a good comic");
+		System.out
+				.println("Not removed, not in the model list, not a good comic");
 		return false;
 	}
 

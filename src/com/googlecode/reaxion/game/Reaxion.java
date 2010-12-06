@@ -11,7 +11,7 @@ import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.networking.sync.message.States;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
-import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateBattleMessage;
+import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
@@ -132,8 +132,8 @@ public class Reaxion {
 				terminate();
 			}
 		} else if (purposeInLife == BACKGROUND_SERVER) {
-			charState = new CharacterSelectionState();
-			NetworkingObjects.serverSyncManager.register(charState, new SynchronizeCreateBattleMessage(States.CHARACTER), NetworkingObjects.updateRate);
+//			charState = new CharacterSelectionState();
+//			NetworkingObjects.serverSyncManager.register(charState, new CharacterAndStageSelectionsMessage(States.CHARACTER), NetworkingObjects.updateRate);
 		}
 // move to client that recieves the creation message
 
@@ -145,6 +145,7 @@ public class Reaxion {
 	 * Performs necessary cleanup, then closes application.
 	 */
 	public static void terminate() {
+		System.out.println("terminate called");
 		AudioPlayer.cleanup();
 		System.exit(0);
 	}

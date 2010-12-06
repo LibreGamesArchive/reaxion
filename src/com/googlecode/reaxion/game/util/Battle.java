@@ -247,14 +247,13 @@ public class Battle {
 		if (NetworkingObjects.isServer) {
 			ServerBattleGameState sbgs = new ServerBattleGameState(b);
 			
-			MajorCharacter temp = (MajorCharacter) LoadingQueue.quickLoad(new Khoa(), sbgs);
-			
-			sbgs.assignOpPlayer(temp, null);
+	//		MajorCharacter temp = (MajorCharacter) LoadingQueue.quickLoad(new Khoa(), sbgs);
 			
 			return sbgs;
 			
 		}
 		else {
+			//FIXME all of this need to be rewritten to actually work
 			ClientBattleGameState QQQ = new ClientBattleGameState(b);
 			
 			NetworkingObjects.cbgs = QQQ;
