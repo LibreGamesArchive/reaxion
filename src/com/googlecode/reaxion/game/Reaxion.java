@@ -9,19 +9,18 @@ import com.captiveimagination.jgn.JGN;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
-import com.googlecode.reaxion.game.networking.sync.message.States;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
-import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
+import com.jme.app.AbstractGame.ConfigShowMode;
 import com.jme.input.MouseInput;
-import com.jme.util.GameTaskQueueManager;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
+import com.jmex.game.StandardGame.GameType;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.load.LoadingGameState;
 
@@ -32,12 +31,11 @@ import com.jmex.game.state.load.LoadingGameState;
  * @author Nilay, Khoa
  */
 public class Reaxion {
-	public static final long BACKGROUND_SERVER = 1;
-	public static final long INITIAL_INITIALIZATION = 2;
+	private enum Purpose { INITIAL_INITIALIZATION, BACKGROUND_SERVER }
 
 	private static final String GAME_VERSION = "0.5a";
 
-	private long purposeInLife;
+	private Purpose purposeInLife;
 
 	/**
 	 * Multithreaded game system that shows the state of GameStates
@@ -69,17 +67,26 @@ public class Reaxion {
 	/**
 	 * Initialize the system
 	 */
-	public Reaxion(long why) {
-		purposeInLife = why;
+	public Reaxion(Purpose p) {
+		purposeInLife = p;
 		/* Allow collection and viewing of scene statistics */
 		System.setProperty("jme.stats", "set");
-		/* Create a new StandardGame object with the given title in the window */
-		game = new StandardGame("Reaxion v" + GAME_VERSION);
+		
+		switch(purposeInLife) {
+		case INITIAL_INITIALIZATION:
+			/* Create a new StandardGame object with the given title in the window */
+			game = new StandardGame("Reaxion v" + GAME_VERSION, GameType.GRAPHICAL);
+			break;
+		case BACKGROUND_SERVER:
+			// Make one that's invisible
+			game = new StandardGame("Reaxion v" + GAME_VERSION, GameType.HEADLESS);
+		}
+		
 	}
 
 	public static void main(String[] args) {
 		try {
-			Reaxion main = new Reaxion(INITIAL_INITIALIZATION);
+			Reaxion main = new Reaxion(Purpose.INITIAL_INITIALIZATION);
 			main.start();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -101,22 +108,25 @@ public class Reaxion {
 		// GameTaskQueueManager.getManager().update(new
 		// GameInit(INITIAL_INITIALIZATION));
 
-	//	MouseInput.get().setCursorVisible(true);
-	//	AudioPlayer.prepare();
+		MouseInput.get().setCursorVisible(true);
+		// AudioPlayer.prepare();
 		// SoundEffectManager.initialize();
-		FontUtils.loadFonts();
-	//	MissionManager.createMissions();
+		// FontUtils.loadFonts();
+		// MissionManager.createMissions();
 		PlayerInfoManager.init();
 
 		JGN.register(SynchronizeModelMessage.class);
 		JGN.register(SynchronizeCreateModelMessage.class);
 
-		if (purposeInLife == INITIAL_INITIALIZATION) {
+		switch(purposeInLife) {
+		case INITIAL_INITIALIZATION:
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
 			switch (sv) {
 			case 0:
 				try {
-					Reaxion bgServer = new Reaxion(Reaxion.BACKGROUND_SERVER);
+					AudioPlayer.prepare();
+					FontUtils.loadFonts();
+					Reaxion bgServer = new Reaxion(Purpose.BACKGROUND_SERVER);
 					bgServer.start();
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
@@ -131,14 +141,16 @@ public class Reaxion {
 			default:
 				terminate();
 			}
-		} else if (purposeInLife == BACKGROUND_SERVER) {
-//			charState = new CharacterSelectionState();
-//			NetworkingObjects.serverSyncManager.register(charState, new CharacterAndStageSelectionsMessage(States.CHARACTER), NetworkingObjects.updateRate);
+			break;
+		case BACKGROUND_SERVER:
+		
+			// charState = new CharacterSelectionState();
+			// NetworkingObjects.serverSyncManager.register(charState, new
+			// CharacterAndStageSelectionsMessage(States.CHARACTER),
+			// NetworkingObjects.updateRate);
+		break;
+		// move to client that recieves the creation message
 		}
-// move to client that recieves the creation message
-
-		
-		
 	}
 
 	/**
@@ -176,7 +188,7 @@ public class Reaxion {
 				NetworkingObjects.setUpServer();
 				break;
 			case 1:
-	//			NetworkingObjects.setUpClient();
+				// NetworkingObjects.setUpClient();
 				break;
 			case 2:
 			default:
