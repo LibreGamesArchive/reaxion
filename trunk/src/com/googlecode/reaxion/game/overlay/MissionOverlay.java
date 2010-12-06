@@ -62,9 +62,7 @@ public class MissionOverlay extends GridOverlay {
 		}
 		
 		createMissionList();
-		
-		currentIndex = missionList.length - numListItems / 2;
-		
+	
 		cursor = getImage(baseURL + "missionselect_cursor.png");
 		Point cursorPos = missionListGrid[numListItems / 2][0];
 		cursor.setLocalTranslation(cursorPos.x, cursorPos.y, 0);
@@ -88,15 +86,13 @@ public class MissionOverlay extends GridOverlay {
 		
 		missionList = new Node[missions.size()];
 		
-//		for (Mission m : missions)
-//			System.out.println(m);
-		
 		for(int i = 0; i < missionList.length; i++) {
 			missionList[i] = createMissionListItem(missions.get(i), i);
 			missionList[i].setLocalTranslation(1000, 0, 0);
-		}
+		}	
 		
-		rotateMissionList(0);
+		currentIndex = missionList.length - numListItems / 2;
+		rotateMissionList(currentIndex);
 	}
 
 	/**

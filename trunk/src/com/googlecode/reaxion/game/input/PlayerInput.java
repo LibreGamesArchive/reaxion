@@ -4,6 +4,7 @@ import com.googlecode.reaxion.game.attack.AttackData;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.KeyBindingUtils;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -61,6 +62,18 @@ public class PlayerInput extends InputHandler {
      * @author Khoa
      */
     private void setKeyBindings() {
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.FORWARD, KeyInput.KEY_NUMPAD8);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.BACKWARD, KeyInput.KEY_NUMPAD2);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.LEFT, KeyInput.KEY_NUMPAD4);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.RIGHT, KeyInput.KEY_NUMPAD6);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.JUMP, KeyInput.KEY_NUMPAD0);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.SWITCH, KeyInput.KEY_SPACE);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.ATTACK_1, KeyInput.KEY_X);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.ATTACK_2, KeyInput.KEY_C);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.ATTACK_3, KeyInput.KEY_V);
+//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.HOLD_ATTACK, KeyInput.KEY_Z);
+    	
+    	
         KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
 
         keyboard.set("forth", KeyInput.KEY_NUMPAD8);
