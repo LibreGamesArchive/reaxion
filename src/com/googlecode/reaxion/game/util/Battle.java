@@ -240,7 +240,7 @@ public class Battle {
 	}
 
 	public static BattleGameState createNetworkedBattleGameState() {
-		Battle b = currentBattle;
+		Battle b = getCurrentBattle();
 		b.init();
 		currentBattle = new Battle();
 
