@@ -5,6 +5,7 @@ import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
+import com.googlecode.reaxion.game.util.KeyBindingUtils;
 import com.jme.app.AbstractGame;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
@@ -64,6 +65,13 @@ public class StageSelectionState extends BasicGameState {
 	 * Key binding initialization.
 	 */
 	private void initKeyBindings() {
+//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.UP, KeyInput.KEY_UP);
+//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.DOWN, KeyInput.KEY_DOWN);
+//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.LEFT, KeyInput.KEY_LEFT);
+//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.RIGHT, KeyInput.KEY_RIGHT);
+//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.SELECT_FINAL, KeyInput.KEY_RETURN);
+//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.BACK, KeyInput.KEY_BACK);
+		
 		manager = KeyBindingManager.getKeyBindingManager();
 		manager.set("arrow_up", KeyInput.KEY_UP);
 		manager.set("arrow_down", KeyInput.KEY_DOWN);
