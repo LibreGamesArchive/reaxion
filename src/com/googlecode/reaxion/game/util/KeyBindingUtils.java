@@ -1,10 +1,28 @@
 package com.googlecode.reaxion.game.util;
 
+import java.util.HashMap;
+
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 
 public class KeyBindingUtils {
 
+	private static KeyBindingUtils currentBindings;
+	
+	private HashMap<String, HashMap<KeyBindings, Integer>> keyBindings;
+	
+	public KeyBindingUtils() {
+		keyBindings = new HashMap<String, HashMap<KeyBindings, Integer>>();
+	}
+	
+	public static KeyBindingUtils getCurrentBindings() {
+		return currentBindings;
+	}
+	
+	public static void setCurrentBindings(KeyBindingUtils k) {
+		currentBindings = k;
+	}
+	
 	public static void addKeyBinding(KeyBindings kb, int keycode) {
 		KeyBindingManager.getKeyBindingManager().set(kb.toString(), keycode);
 	}
