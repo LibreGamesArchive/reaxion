@@ -10,6 +10,8 @@ import com.googlecode.reaxion.game.audio.SoundEffectType;
  */
 public class BrianInfo extends PlayerInfo {
 	
+	boolean unlocked = false;
+
 	public BrianInfo() {
 		super("Brian");
 	}

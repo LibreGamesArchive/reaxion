@@ -8,6 +8,8 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class KhoaInfo extends PlayerInfo {
 	
+	boolean unlocked = false;
+
 	public KhoaInfo() {
 		super("Khoa");
 	}

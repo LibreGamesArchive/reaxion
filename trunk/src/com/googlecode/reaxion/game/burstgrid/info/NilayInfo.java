@@ -8,6 +8,8 @@ package com.googlecode.reaxion.game.burstgrid.info;
  */
 public class NilayInfo extends PlayerInfo {
 	
+	boolean unlocked = false;
+
 	public NilayInfo() {
 		super("Nilay");
 	}

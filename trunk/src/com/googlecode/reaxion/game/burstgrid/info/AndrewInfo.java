@@ -11,6 +11,8 @@ import com.googlecode.reaxion.game.audio.SoundEffectType;
  */
 public class AndrewInfo extends PlayerInfo {
 
+	boolean unlocked = false;
+	
 	public AndrewInfo() {
 		super("Andrew");
 	}
