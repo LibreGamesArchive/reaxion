@@ -96,12 +96,16 @@ public abstract class NetworkingObjects {
 								.sendToAll(new CharacterAndStageSelectionsMessage(
 										chars, stageChoice));
 
+						System.out.println("Making a battle");
+						
 						// I'm not sure this is how you do it
 						GameStateManager.getInstance().attachChild(
 								Battle.createNetworkedBattleGameState());
 						// Creation of objects when the server makes objects
 						// will make clients load the right things. it's not the
-						// most elegant way, but that's okay.
+					 	// most elegant way, but that's okay.
+						
+						
 					}
 
 					// FIXME cause this to send info to clients when all choices
