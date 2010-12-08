@@ -24,6 +24,7 @@ public class SlideIce extends Attack {
 	public SlideIce() {
 		name = n;
 		gaugeCost = gc;
+		description = "Slides an ice cube forward.";
 	}
 	
 	public SlideIce(AttackData ad) {

@@ -26,6 +26,7 @@ public class LanceGuard extends Attack {
 	public LanceGuard() {
 		name = n;
 		gaugeCost = gc;
+		description = "Surrounds the user with protective lances.";
 	}
 	
 	public LanceGuard(AttackData ad) {

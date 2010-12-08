@@ -22,6 +22,7 @@ public class ShieldMediguard extends Attack {
 	public ShieldMediguard() {
 		name = "Mediguard";
 		gaugeCost = 8;
+		description = "Raises a barrier that protects from attacks and heals the user";
 	}
 	
 	public ShieldMediguard(AttackData ad) {

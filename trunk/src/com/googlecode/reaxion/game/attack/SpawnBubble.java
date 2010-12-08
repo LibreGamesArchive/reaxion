@@ -21,6 +21,7 @@ public class SpawnBubble extends Attack {
 	public SpawnBubble() {
 		name = n;
 		gaugeCost = gc;
+		description = "Blows forth a bubble that swells in size.";
 	}
 	
 	public SpawnBubble(AttackData ad) {

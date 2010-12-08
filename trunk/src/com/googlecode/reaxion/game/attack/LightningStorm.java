@@ -23,6 +23,7 @@ public class LightningStorm extends Attack {
 	public LightningStorm() {
 		name = n;
 		gaugeCost = gc;
+		description = "Summons multiple storm clouds that roam the area.";
 	}
 	
 	public LightningStorm(AttackData ad) {

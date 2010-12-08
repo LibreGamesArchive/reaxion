@@ -24,6 +24,7 @@ public class ShieldHoly extends Attack {
 	public ShieldHoly() {
 		name = n;
 		gaugeCost = gc;
+		description = "Fires an energy bullet towards the target";
 	}
 	
 	public ShieldHoly(AttackData ad) {

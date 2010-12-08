@@ -20,11 +20,13 @@ public class LanceWheel extends Attack {
 	public LanceWheel() {
 		name = "Lance Wheel";
 		gaugeCost = 9;
+		description = "Launches two rolling lances directly forward.";
 	}
 	
 	public LanceWheel(AttackData ad) {
 		super(ad, 9);
 		name = "Lance Wheel";
+
 	}
 	
 	public static void load() {

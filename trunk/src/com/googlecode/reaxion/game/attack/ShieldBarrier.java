@@ -20,6 +20,7 @@ public class ShieldBarrier extends Attack {
 	public ShieldBarrier() {
 		name = "Barrier";
 		gaugeCost = 2;
+		description = "Raises a barrier that cuts down damage";
 	}
 	
 	public ShieldBarrier(AttackData ad) {

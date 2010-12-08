@@ -23,6 +23,7 @@ public class ShieldReflega extends Attack {
 	public ShieldReflega() {
 		name = "Reflega";
 		gaugeCost = 12;
+		description = "Raises a barrier that reflects projectiles";
 	}
 	
 	public ShieldReflega(AttackData ad) {
