@@ -58,6 +58,11 @@ public abstract class NetworkingObjects {
 	public static void setUpServer() throws IOException {
 		isServer = true;
 
+		// do weird things w/ same computer
+		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(),
+				9001);
+		serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
+		
 		server = new JGNServer(serverReliable, serverFast);
 		serverSyncManager = new SynchronizationManager(server, controller);
 
@@ -77,15 +82,17 @@ public abstract class NetworkingObjects {
 					// TODO handle creation properly
 
 					if (creationMessagesRecieved == 0) {
+						System.out.println("1 message recieved!");
 						chars[0] = cassm.getCharacters()[0];
 						chars[1] = cassm.getCharacters()[1];
 						stage1 = cassm.getStage();
 						creationMessagesRecieved++;
 					} else if (creationMessagesRecieved == 1) {
+						System.out.println("2 message recieved!");
 						chars[2] = cassm.getCharacters()[0];
 						chars[3] = cassm.getCharacters()[1];
 						stage2 = cassm.getStage();
-						stageChoice = Math.random() > 5 ? stage1 : stage2;
+						stageChoice = Math.random() > .5 ? stage1 : stage2;
 						Battle c = Battle.getCurrentBattle();
 						c.setPlayers(chars);
 						c.setStage(stageChoice);
@@ -144,8 +151,8 @@ public abstract class NetworkingObjects {
 
 		// Start the client
 		client = new JGNClient(new InetSocketAddress(
-				InetAddress.getLocalHost(), 9001), new InetSocketAddress(
-				InetAddress.getLocalHost(), 9002));
+				InetAddress.getLocalHost(), 9003), new InetSocketAddress(
+				InetAddress.getLocalHost(), 9004));
 		client.addMessageListener(new MessageListener() {
 			public void messageCertified(Message message) {
 			}
@@ -157,6 +164,7 @@ public abstract class NetworkingObjects {
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// Do absolutely nothing because this isn't necessary
+					System.out.println("Server is starting to create the stuff!");
 				}
 			}
 
