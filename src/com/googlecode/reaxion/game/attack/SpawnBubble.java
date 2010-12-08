@@ -13,7 +13,7 @@ import com.jme.math.Vector3f;
 public class SpawnBubble extends Attack {
 	
 	private static final String n = "Bubble";
-	private static final int gc = 4;
+	private static final int gc = 1;
 	
 	private static final float speed = .25f;
 	private Bubble bubble;
