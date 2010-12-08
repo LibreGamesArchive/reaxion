@@ -174,10 +174,10 @@ public class Battle {
 			// set players
 			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1
 					.getConstructors()[1].newInstance(false));
-			p1.setAbilities(p1.abilities);
+		//	p1.setAbilities(p1.abilities);
 			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2
 					.getConstructors()[1].newInstance(false));
-			p2.setAbilities(p2.abilities);
+		//	p2.setAbilities(p2.abilities);
 
 			// set opponents
 			op = new ArrayList<Character>();
