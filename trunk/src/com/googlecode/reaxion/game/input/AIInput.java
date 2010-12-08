@@ -11,7 +11,7 @@ import com.jme.math.Vector3f;
  * @author Khoa
  *
  */
-public class AIInput {
+public abstract class AIInput {
 	
 	/**
 	 * Min and max levels of jump strength, as fractions of character's jump,
@@ -52,6 +52,13 @@ public class AIInput {
     		jumpCount = Math.max(Math.min(jumpCount, jumpLevels[1]), jumpLevels[0]);
     		character.gravVel = character.jump * jumpLevels[0]/jumpLevels[1];
 		}
+    }
+    
+    /**
+     * Convenience method to check whether a vector is non-null and non-zero.
+     */
+    protected boolean checkVector(Vector3f v) {
+    	return v != null && !v.equals(new Vector3f());
     }
     
     /**

@@ -55,11 +55,13 @@ public class MissionOverlay extends GridOverlay {
 		container = new Node("container_missionSelect");
 		
 		missions = MissionManager.getMissions();
+		/*
 		for (int i = 0; i < 3; i++) {
 			Mission m = i == 0 ? new Mission00() : (i == 1 ? new VsToybox() : new VsDoriruzu());
 			m.setCompleted(i % 2 == 1);
 			missions.add(m);
 		}
+		*/
 		
 		createMissionList();
 	
