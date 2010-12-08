@@ -23,6 +23,7 @@ public class ShootFireball extends Attack {
 	public ShootFireball() {
 		name = n;
 		gaugeCost = gc;
+		description = "Spits out a fireball that flies toward the target";
 	}
 	
 	public ShootFireball(AttackData ad) {

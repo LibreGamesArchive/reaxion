@@ -26,6 +26,7 @@ public class BlackHole extends Attack {
 	public BlackHole() {
 		name = n;
 		gaugeCost = gc;
+		description = "Creates a black hole under the target's feet that robs HP.";
 	}
 	
 	public BlackHole(AttackData ad) {

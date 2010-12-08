@@ -21,6 +21,7 @@ public class LanceArc extends Attack {
 	public LanceArc() {
 		name = "Lance Arc";
 		gaugeCost = 13;
+		description = "Fires a vertical barrage of lances - upwards if on ground, downward if in the air.";
 	}
 	
 	public LanceArc(AttackData ad) {

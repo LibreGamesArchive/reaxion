@@ -22,6 +22,7 @@ public class BombingMagnet extends Attack {
 	public BombingMagnet() {
 		name = n;
 		gaugeCost = gc;
+		description = "Fires an magnetic particle forward";
 	}
 	
 	public BombingMagnet(AttackData ad) {

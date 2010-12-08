@@ -22,6 +22,7 @@ public class BubbleBath extends Attack {
 	public BubbleBath() {
 		name = n;
 		gaugeCost = gc;
+		description = "Splashes up several bubbles.";
 	}
 	
 	public BubbleBath(AttackData ad) {

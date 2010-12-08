@@ -22,6 +22,7 @@ public class ShadowTag extends Attack {
 	public ShadowTag() {
 		name = n;
 		gaugeCost = gc;
+		description = "Summon a shadow clone to pursue the target.";
 	}
 	
 	public ShadowTag(AttackData ad) {

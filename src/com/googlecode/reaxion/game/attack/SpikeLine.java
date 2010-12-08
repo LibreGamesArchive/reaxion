@@ -25,6 +25,7 @@ public class SpikeLine extends Attack {
 	public SpikeLine() {
 		name = n;
 		gaugeCost = gc;
+		description = "Summon five spikes that line up in front of the user.";
 	}
 	
 	public SpikeLine(AttackData ad) {

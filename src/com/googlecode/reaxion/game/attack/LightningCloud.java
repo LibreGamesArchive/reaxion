@@ -24,6 +24,7 @@ public class LightningCloud extends Attack {
 	public LightningCloud() {
 		name = n;
 		gaugeCost = gc;
+		description = "Spawns a cloud of lightning that seeks the opponent.";
 	}
 	
 	public LightningCloud(AttackData ad) {

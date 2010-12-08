@@ -21,6 +21,7 @@ public class TriLance extends Attack {
 	public TriLance() {
 		name = "Lance Cross";
 		gaugeCost = 13;
+		description = "Fires three lances that cross at the opponent's location.";
 	}
 	
 	public TriLance(AttackData ad) {

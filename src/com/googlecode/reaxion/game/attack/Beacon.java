@@ -21,6 +21,7 @@ public class Beacon extends Attack {
 	public Beacon() {
 		name = n;
 		gaugeCost = gc;
+		description = "Flags the enemy to be targeted by light orbs.";
 	}
 	
 	public Beacon(AttackData ad) {
