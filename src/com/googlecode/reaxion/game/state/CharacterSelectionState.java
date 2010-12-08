@@ -20,6 +20,18 @@ import com.jme.util.TextureManager;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
+/**
+ * {@code CharacterSelectionState} is designated to the stage selection menu. It
+ * contains a instance of {@code CharacterSelectionOverlay}. This state adds key
+ * functionality to the character selection menu. The arrow keys are used to select
+ * a character from the table of displayed characters. The number keys are used to 
+ * change between Player 1 and Player 2, and the enter key passes the selections and
+ * creates a new {@code StageSelectionState}
+ * 
+ * @author Austin Hou
+ * 
+ */
+
 public class CharacterSelectionState extends BasicGameState {
 
 	public static final String NAME = "characterSelectionState";
@@ -38,6 +50,9 @@ public class CharacterSelectionState extends BasicGameState {
 		init();
 	}
 
+	/**
+	 * Initializes visual and non-visual elements of {@code CharacterSelectionState}.
+	 */
 	private void init() {
 		// Initial charSelect
 		rootNode = new Node("RootNode");
@@ -55,8 +70,9 @@ public class CharacterSelectionState extends BasicGameState {
 
 	}
 
-	// duplicate the functionality of DebugGameState
-	// Most of this can be commented out during finalization
+	/**
+	 * Key binding initialization.
+	 */
 	private void initKeyBindings() {
 		KeyBindingManager.getKeyBindingManager().set("screen_shot",
 				KeyInput.KEY_F1);
@@ -81,6 +97,10 @@ public class CharacterSelectionState extends BasicGameState {
 				KeyInput.KEY_SPACE);
 		KeyBindingManager.getKeyBindingManager().set("back",
 				KeyInput.KEY_BACK);
+		KeyBindingManager.getKeyBindingManager().set("choose1",
+				KeyInput.KEY_1);
+		KeyBindingManager.getKeyBindingManager().set("choose2",
+				KeyInput.KEY_2);
 
 	}
 
@@ -137,6 +157,16 @@ public class CharacterSelectionState extends BasicGameState {
 			charSelectNode.undo();
 		}
 
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand("choose1",
+				false)) {
+			charSelectNode.choose1();
+		}
+		
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand("choose2",
+				false)) {
+			charSelectNode.choose2();
+		}
+		
 		if (KeyBindingManager.getKeyBindingManager()
 				.isValidCommand("go", false)) {
 			goToStageSelectState();
@@ -152,6 +182,9 @@ public class CharacterSelectionState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Switches from character selection menu to stage selection menu.
+	 */
 	private void goToStageSelectState() {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
