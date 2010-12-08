@@ -9,6 +9,8 @@ import com.captiveimagination.jgn.JGN;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
+import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
+import com.googlecode.reaxion.game.networking.sync.message.StartBattleMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
@@ -118,6 +120,8 @@ public class Reaxion {
 
 		JGN.register(SynchronizeModelMessage.class);
 		JGN.register(SynchronizeCreateModelMessage.class);
+		JGN.register(CharacterAndStageSelectionsMessage.class);
+		JGN.register(StartBattleMessage.class);
 
 		AudioPlayer.prepare();
 		
