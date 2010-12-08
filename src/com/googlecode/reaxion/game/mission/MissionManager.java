@@ -32,6 +32,7 @@ public class MissionManager {
 		missions.put(MissionID.DEFEAT_LIGHT_USER, new Mission00());
 		missions.put(MissionID.VS_TOYBOX, new VsToybox());
 		missions.put(MissionID.VS_DORIRUZU, new VsDoriruzu());
+		missions.put(MissionID.VS_MONICA_1, new VsMonica1());
 	}
 	
 	/**
