@@ -58,6 +58,8 @@ public abstract class NetworkingObjects {
 	public static void setUpServer() throws IOException {
 		isServer = true;
 
+		System.out.println("RELIABLE SERVER:" + serverReliable);
+		
 		// do weird things w/ same computer
 		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(),
 				9001);
