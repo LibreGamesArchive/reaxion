@@ -153,7 +153,7 @@ public class Reaxion {
 			charState.setActive(true);
 			break;
 		case BACKGROUND_SERVER:
-		
+			NetworkingObjects.setUpServer();
 			// charState = new CharacterSelectionState();
 			// NetworkingObjects.serverSyncManager.register(charState, new
 			// CharacterAndStageSelectionsMessage(States.CHARACTER),

@@ -165,6 +165,7 @@ public class Battle {
 		}
 	}
 
+	
 	public void setPlayers(String[] chars) {
 		try {
 			Class temp1 = Class.forName(baseURL + chars[0]);
@@ -173,10 +174,10 @@ public class Battle {
 			// set players
 			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1
 					.getConstructors()[1].newInstance(false));
-			p1.setAbilities(p1Abilities);
+			p1.setAbilities(p1.abilities);
 			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2
 					.getConstructors()[1].newInstance(false));
-			p2.setAbilities(p2Abilities);
+			p2.setAbilities(p2.abilities);
 
 			// set opponents
 			op = new ArrayList<Character>();
@@ -184,8 +185,9 @@ public class Battle {
 				Class tempO = Class.forName(baseURL + chars[i]);
 				op.add((MajorCharacter) LoadingQueue.push((Character) tempO
 						.getConstructors()[0].newInstance()));
-				if (opAbilities.size() > i - 2)
-					op.get(i - 2).setAbilities(opAbilities.get(i - 2));
+		//		if (opAbilities.size() > i - 2)
+		//			op.get(i - 2).setAbilities(opAbilities.get(i - 2));
+				op.get(i-2).setAbilities(op.get(i-2).abilities);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
