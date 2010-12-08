@@ -83,7 +83,7 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		menu = new BitmapText(FontUtils.neuropol, false);
 		menu.setText("Character Select. Use arrow keys to move, space to choose, and enter to play.");
 		menu2 = new BitmapText(FontUtils.neuropol, false);
-		menu2.setText("Press backspace to undo.");
+		menu2.setText("Press 1 to choose player 1 and 2 to choose player 2.");
 		
 		for (int i = 0; i < 3; i++)
 			selectedChars[i] = 0;
@@ -118,7 +118,18 @@ public class CharacterSelectionOverlay extends GridOverlay {
 
 			} else if (dir == 3) {
 				if (currentIndex[0] == tblW-1 || takenPos[currentIndex[1]][currentIndex[0]+1] == 123)
-					return;
+				{
+					if(takenPos[0][currentIndex[0]+1] != 123){
+						int a = 0;
+						while(takenPos[a][currentIndex[0]+1] != 123)
+							a++;
+						a--;
+						currentIndex[0]++;
+						currentIndex[1] = a;
+					}
+					else
+						return;
+				}
 				else
 					currentIndex[0]++;
 
@@ -138,6 +149,12 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		int selBef = takenPos[lastIndex[1]][lastIndex[0]];
 		
 		p1Display[selBef].setDefaultColor(textColor);
+		
+		/*int picked = 0;
+		picked = takenPos[currentIndex[1]][currentIndex[0]];
+		p1c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
+		container.detachChild(p1c);
+		container.attachChild(p1c);*/
 
 	}
 
@@ -156,21 +173,23 @@ public class CharacterSelectionOverlay extends GridOverlay {
 			{
 				case 0:
 					selectedChars[0] = picked;
-					round ++;
+					//round ++;
 					p1c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
+					container.detachChild(p1c);
 					container.attachChild(p1c);
 					this.updateRenderState();
 					break;
 				case 1:
 					selectedChars[1] = picked;
-					round ++;
+					//round ++;
 					p2c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
+					container.detachChild(p2c);
 					container.attachChild(p2c);
 					this.updateRenderState();
 					break;
 				case 2:
 					selectedChars[2] = picked;
-					round ++;
+					//round ++;
 					break;
 				default:
 					break;
@@ -240,6 +259,10 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		this.updateRenderState();
 	}
 
+	/**
+	 * Function to be called at when the player presses 'backspace' to undo a selection
+	 * 
+	 */
 	public void undo() {
 		if(round == 0)
 			return;
@@ -267,6 +290,32 @@ public class CharacterSelectionOverlay extends GridOverlay {
 						return;
 					}
 	}
+	
+	
+	/**
+	 * Function to be called to choose Player 1
+	 * 
+	 */
+	public void choose1() {
+		container.detachChild(p1c);
+		round = 0;
+		this.updateRenderState();
+		return;
+		
+	}
+	
+	
+	/**
+	 * Function to be called to choose Player 2
+	 * 
+	 */
+	public void choose2() {
+		container.detachChild(p2c);
+		round = 1;
+		this.updateRenderState();
+		return;
+	}
+	
 	
 	/**
 	 * Function to be called at the conclusion of character selection.
