@@ -37,16 +37,17 @@ public class VsDoriruzu extends Mission {
 		a[0].setPositions(9, new int[]{48}, new Point[]{new Point(580, 383)});
 		a[2].setPositions(9, new int[]{0, 32}, new Point[]{new Point(620, 327), new Point(960, 327)});
 		
-		String[] lines = {"Cy:: Alright, fiend! Where is she!",
-				"Andrew:: Fufufufu... Do you really think you've won?",
-				"Cy:: Wait, what? You're not supposed to be here!",
-				"Andrew:: How very observant of you.",
-				"Andrew:: Yeah, Khoa was too lazy to write this part yet, so he decided to reuse dialog!",
-				"Cy:: Seriously? That's lame.",
-				"Andrew:: Observe!",
-				"Cy:: What-! Why is THAT here!?",
-				"Andrew:: Trust me, It's really a drill in disguise.",
-				"Cy:: Alright! You're going down!"};
+		String[] lines = {"Cy:: Alright, fiend! Where is MY PUDDIPUDDIPUDDIPUDDIPUDDI?",
+				"Andrew:: PUDDIPUDDIPUDDIPUDDIPUDDI... Do you really think PUDDIPUDDIPUDDIPUDDIPUDDI?",
+				"Cy:: Wait, what? ....PUDDIPUDDIPUDDIPUDDIPUDDI",
+				"Andrew:: How PUDDIPUDDIPUDDIPUDDIPUDDI.",
+				"Andrew:: Yeah, Khoa is a PUDDIPUDDIPUDDIPUDDIPUDDI!",
+				"Cy:: PUDDIPUDDIPUDDIPUDDIPUDDI, Khoa really can't write dialog.",
+				"Andrew:: NO ME",
+				"Cy:: PUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDI",
+				"Andrew:: nani?",
+				"Cy:: GIGA PUDDIPUDDIPUDDIPUDDIPUDDI" +
+				""};
 		int[] durations = {32, 32, 0, 0, 0, 0, 0, 48, 0, 48};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_miko-lake.png");
