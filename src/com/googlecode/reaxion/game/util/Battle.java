@@ -244,7 +244,7 @@ public class Battle {
 	public static BattleGameState createNetworkedBattleGameState() {
 		Battle b = getCurrentBattle();
 		b.init();
-		currentBattle = new Battle();
+	//	currentBattle = new Battle();
 
 		if (NetworkingObjects.isServer) {
 			ServerBattleGameState sbgs = new ServerBattleGameState(b);

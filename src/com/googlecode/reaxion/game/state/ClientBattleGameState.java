@@ -103,8 +103,9 @@ public class ClientBattleGameState extends BattleGameState {
 		if (timing)
 			totalTime += tpf;
 
+		
 		// Make the stage act
-		stage.act(this);
+		if(stage!=null) stage.act(this);
 
 		// Update the camera
 		if (cameraMode == "lock" && player != null && models.size() > 0

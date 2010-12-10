@@ -137,6 +137,8 @@ public class StageGameState extends CameraGameState {
 
 		load();
 
+		LoadingQueue.execute(this);
+		
 		rootNode.updateRenderState();
 	}
 
@@ -256,6 +258,8 @@ public class StageGameState extends CameraGameState {
 			// try to preload common resources
 			LoadingQueue.push(new Model("glow-ring"));
 
+			// why is this line here...? it makes the state null. that is rather odd.
+			// possibly because it preloads into memory? hmm
 			LoadingQueue.execute(null);
 		} catch (Exception e) {
 			System.out.println("Error occured during preloading.");
