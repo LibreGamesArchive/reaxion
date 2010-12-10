@@ -47,7 +47,6 @@ public class HubGameState extends StageGameState {
     	endsBGM = true;
     	
     	missionOverlay = new MissionOverlay();
-    	rootNode.attachChild(missionOverlay);
     }
     
     @Override
@@ -86,9 +85,9 @@ public class HubGameState extends StageGameState {
 				toggleMissionOverlay();
 
 				if (missionOverlayShowing)
-					missionOverlay.showMenu();
+					rootNode.attachChild(missionOverlay);
 				else
-					missionOverlay.hideMenu();
+					rootNode.detachChild(missionOverlay);
 			}
 		}
 		
@@ -104,6 +103,7 @@ public class HubGameState extends StageGameState {
 		
 		if (manager.isValidCommand("menu_select", false)) {
 			toggleMissionOverlay();
+			rootNode.detachChild(missionOverlay);
 			missionOverlay.startSelectedMission();
 		}
 	}

@@ -68,6 +68,7 @@ public class MissionOverlay extends GridOverlay {
 		cursor = getImage(baseURL + "missionselect_cursor.png");
 		Point cursorPos = missionListGrid[numListItems / 2][0];
 		cursor.setLocalTranslation(cursorPos.x, cursorPos.y, 0);
+		container.attachChild(cursor);		
 		
 		container.updateRenderState();
 		container.setLocalScale((float) Reaxion.getScreenHeight() / baseHeight);
@@ -91,6 +92,7 @@ public class MissionOverlay extends GridOverlay {
 		for(int i = 0; i < missionList.length; i++) {
 			missionList[i] = createMissionListItem(missions.get(i), i);
 			missionList[i].setLocalTranslation(1000, 0, 0);
+			container.attachChild(missionList[i]);
 		}	
 		
 		currentIndex = missionList.length - numListItems / 2;
@@ -219,8 +221,6 @@ public class MissionOverlay extends GridOverlay {
 	}
 	
 	public void startSelectedMission() {
-		hideMenu();
-		
 		int index = (currentIndex + numListItems / 2) % missions.size();
 		MissionManager.startMission(missions.get(index).getMissionID());
 	}

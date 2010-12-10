@@ -106,5 +106,19 @@ public abstract class GridOverlay extends Overlay {
 
 		return positions;
 	}
+	
+	protected Point[] createCenteredTextList(int rows, int fontSize, int verticalSpacing) {
+		Point[] positions = new Point[rows];
+		
+		int xDisp = (mainOverlay ? 0 : baseWidth / 2);
+		
+		int totalGridSpaceY = fontSize * rows + verticalSpacing * (rows - 1);
+		int yDisp = baseHeight - (baseHeight - totalGridSpaceY) / 2 - (mainOverlay ? 0 : baseHeight / 2);
+		
+		for (int i = 0; i < rows; i++)
+			positions[i] = new Point(xDisp, yDisp - (fontSize + verticalSpacing) * i);
+		
+		return positions;
+	}
 
 }

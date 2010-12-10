@@ -36,10 +36,10 @@ import com.jmex.game.state.GameState;
 
 public class StageSelectionOverlay extends GridOverlay {
 
-	private String baseIconURL = "../../resources/icons/stageselect/";
-	private String baseGuiURL = "../../resources/gui/";
+	private static final String baseIconURL = "../../resources/icons/stageselect/";
+	private static final String baseGuiURL = "../../resources/gui/";
 
-	private String[] stageNames = { FlowerField.name, WorldsEdge.name,
+	private static final String[] stageNames = { FlowerField.name, WorldsEdge.name,
 			MikoLake.name, Flipside.name, TwilightKingdom.name,
 			SeasRepose.name, CityOfDreams.name, CloudNine.name,
 			LavaValley.name, CrystalPalace.name };

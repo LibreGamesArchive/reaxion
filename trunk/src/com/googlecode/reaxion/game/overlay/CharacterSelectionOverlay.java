@@ -91,8 +91,11 @@ public class CharacterSelectionOverlay extends GridOverlay {
 		//initiates display
 		initGUI();
 
+		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight() / 600);
+		
+		attachChild(container);
 	}
 
 	/**
