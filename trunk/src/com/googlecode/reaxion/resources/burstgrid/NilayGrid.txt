@@ -1,0 +1,15 @@
+| The syntax for writing nodes into the BurstGrid is as follows:
+| [Node ID#] [Node Type] [Ability | Attack | MinGauge Increase#| MaxGauge Increase#| Custom | HP Increase#] *[LinkedNodeA ID#_LinkedNodeB ID#_...]
+| Example:
+| 1 Ability BasicAttack *2 3 4 5
+| A "!" indicates that more information is needed before I can add in what should belong there
+| The Node Types and their functionality in the grid are as follows:
+|  » Ability	Grants the character a passive ability
+|  » Attack		Adds an attack to the character's repertoire
+|  » MinGauge	Increases the low gauge limit
+|  » MaxGauge	Increases the max gauge limit
+|  » Rate		Increases the rate at which the gauge refills
+|  » Strength	Increases the character's strength
+|  » HP			Increases the character's max HP
+Nilay
+
