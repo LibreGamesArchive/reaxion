@@ -19,9 +19,11 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
+import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.ClientBattleGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
+import com.jme.util.GameTaskQueueManager;
 import com.jmex.game.state.GameStateManager;
 
 public abstract class NetworkingObjects {
@@ -107,9 +109,17 @@ public abstract class NetworkingObjects {
 
 						System.out.println("Making a battle");
 						
+
+						BattleGameState nbgs = Battle.createNetworkedBattleGameState();
+
+						
 						// I'm not sure this is how you do it
-						GameStateManager.getInstance().attachChild(
-								Battle.createNetworkedBattleGameState());
+						GameStateManager.getInstance().attachChild(nbgs);
+						try {
+							nbgs.setActive(true);
+						} catch(NullPointerException e) {
+							System.out.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
+						}
 						// Creation of objects when the server makes objects
 						// will make clients load the right things. it's not the
 					 	// most elegant way, but that's okay.
