@@ -198,8 +198,10 @@ public class StageSelectionState extends BasicGameState {
 		String[] chars = ((CharacterSelectionState)GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)).getSelectedChars();
 		String stage = stageSelectionNode.getSelectedStageClass();
 		
-		GameStateManager.getInstance().attachChild(
-				Battle.createNetworkedBattleGameState());
+		BattleGameState nbgs = Battle.createNetworkedBattleGameState();
+		
+		GameStateManager.getInstance().attachChild(nbgs);
+		nbgs.setActive(true);
 		
 		NetworkingObjects.client.sendToServer(new CharacterAndStageSelectionsMessage(chars, stage));
 
