@@ -139,7 +139,7 @@ public class StageGameState extends CameraGameState {
 
 		LoadingQueue.execute(this);
 		
-		rootNode.updateRenderState();
+		if(!NetworkingObjects.isServer) rootNode.updateRenderState();
 	}
 
 	public void startBGM() {

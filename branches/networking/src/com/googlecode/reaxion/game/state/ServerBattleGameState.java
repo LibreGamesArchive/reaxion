@@ -5,6 +5,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.util.Battle;
+import com.jmex.model.collada.schema.renderType;
 
 /**
  * {@code ServerGameState} extends {@code BattleGameState} with functionality
@@ -38,7 +39,9 @@ public class ServerBattleGameState extends BattleGameState {
     public ServerBattleGameState(Battle b) {
     	super(b);
     }
-    
+   
+
+       
     @ Override
     protected void act() {
     	try {
@@ -71,6 +74,10 @@ public class ServerBattleGameState extends BattleGameState {
     	}
     	
     }
+    
+    
+    
+    
     
     @Override
     public void addModel(Model m) {
