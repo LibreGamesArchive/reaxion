@@ -4,11 +4,13 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jme.renderer.ColorRGBA;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapFontLoader;
 
 public class FontUtils {
 
+	// Fonts
 	public static BitmapFont neuropol;
 	private static final File neuropolFile = new File(
 			"src/com/googlecode/reaxion/resources/fonts/neuropol-c.fnt");
@@ -20,6 +22,11 @@ public class FontUtils {
 		"src/com/googlecode/reaxion/resources/fonts/eurostile.fnt");
 	private static final File eurostileGlyph = new File(
 		"src/com/googlecode/reaxion/resources/fonts/eurostile_0.png");
+	
+	// Font Colors
+	public static ColorRGBA blueSelected = new ColorRGBA(0, .7f, 1, 1);
+	public static ColorRGBA greenSelected = ColorRGBA.green;
+	public static ColorRGBA unselected = ColorRGBA.white;
 	
 	public static void loadFonts() {
 		try {

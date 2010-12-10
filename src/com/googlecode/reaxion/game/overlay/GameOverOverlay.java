@@ -19,8 +19,8 @@ public class GameOverOverlay extends ScreenshotOverlay {
 	
 	private static final String baseURL = "../../resources/gui/";
 	
-	private final ColorRGBA selectedText = new ColorRGBA(0, .7f, 1, 1);
-	private final ColorRGBA unselectedText = ColorRGBA.white;
+	private final ColorRGBA selectedText = FontUtils.blueSelected;
+	private final ColorRGBA unselectedText = FontUtils.unselected;
 	
 	private final int[] point = {80, 132, 138, 182, 188, 200};
 	private int frame = 0;
