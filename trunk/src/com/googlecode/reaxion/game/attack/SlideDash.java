@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.Barrier;
 import com.googlecode.reaxion.game.model.attackobject.DashForce;
 import com.googlecode.reaxion.game.model.attackobject.Starlight;
@@ -64,6 +65,16 @@ public class SlideDash extends Attack {
 		} else if (phase == 2) {	
 			finish();
 		}
+	}
+	
+	@Override
+	public void interrupt(StageGameState b, Model other) {
+		// negate flinch, this attack cannot be interrupted
+        character.hp -= other.getDamage()/2;
+        
+        // reciprocate the hit
+		if (other instanceof AttackObject)
+			((AttackObject)other).hit(b, character);
 	}
 	
 	@Override

@@ -50,7 +50,10 @@ public class ScreenCard extends AttackObject {
         			((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
         			b.removeModel(this);
         		}
-        	}
+        		
+        	// check for character hits
+        	} else if (c instanceof Character && !users.contains(c))
+        		((Character)c).hit(b, this);
         }
         
         // actually move

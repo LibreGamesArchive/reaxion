@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.attackobject.Bullet;
 import com.googlecode.reaxion.game.model.prop.LightFade;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -19,6 +20,9 @@ public class BulletStorm extends Attack {
 	
 	private Bullet[] bullet = new Bullet[12];
 	
+	private Character user;
+	private Model target;
+	
 	public BulletStorm() {
 		name = n;
 		gaugeCost = gc;
@@ -28,6 +32,8 @@ public class BulletStorm extends Attack {
 	public BulletStorm(AttackData ad) {
 		super(ad, gc);
 		name = n;
+		user = ad.character;
+		target = ad.target;
 	}
 
 	public static void load() {
@@ -52,8 +58,8 @@ public class BulletStorm extends Attack {
 			phase++;
 			
 			// average center of convergence
-			Vector3f opPos = b.getTarget().model.getWorldTranslation();
-			Vector3f center = b.getPlayer().model.getWorldTranslation().add(opPos).divide(2);
+			Vector3f opPos = target.model.getWorldTranslation();
+			Vector3f center = user.model.getWorldTranslation().add(opPos).divide(2);
 			center.y = opPos.y;
 			
 			// make the bullets fly

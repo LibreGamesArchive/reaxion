@@ -56,6 +56,7 @@ public abstract class AIInput {
     
     /**
      * Convenience method to check whether a vector is non-null and non-zero.
+     * Returns true if this is the case.
      */
     protected boolean checkVector(Vector3f v) {
     	return v != null && !v.equals(new Vector3f());

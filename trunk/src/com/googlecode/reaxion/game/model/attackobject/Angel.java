@@ -49,7 +49,7 @@ public class Angel extends AttackObject {
 		velocity = midpoint.subtract(model.getWorldTranslation());
 		if (velocity.length() > speed) {
 			velocity = velocity.normalize().mult(speed);
-			rotate(velocity);
+			rotate(velocity.mult(new Vector3f(1, 0, 1)));
 		} else {
 			rotate(b.getPlayer().rotationVector.mult(new Vector3f(1, 0, 1)));
 		}
