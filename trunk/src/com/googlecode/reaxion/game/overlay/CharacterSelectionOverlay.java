@@ -3,6 +3,8 @@ package com.googlecode.reaxion.game.overlay;
 import java.awt.Point;
 
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.input.KeyBindingManager;
+import com.jme.input.KeyInput;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -18,11 +20,15 @@ import com.jmex.angelfont.BitmapText;
  * @author Austin Hou
  */
 
-public class CharacterSelectionOverlay extends GridOverlay {
+public class CharacterSelectionOverlay extends MenuOverlay {
 
 	private static final String baseURL = "../../resources/icons/characterselect/";
 	private static final String cursorURL = "../../resources/cursors/";
 
+	public static final String CHOOSE_1 = "characterSelect_choose_1";
+	public static final String CHOOSE_2 = "characterSelect_choose_2";
+	public static final String UNDO_CHOICE = "characterSelect_undo_choice";
+	
 	private final int numchars = 8;
 	
 	private String[] charNames;
@@ -48,16 +54,14 @@ public class CharacterSelectionOverlay extends GridOverlay {
 	
 	private int[][] takenPos = new int[tblL][tblW];
 
-
 	/**
 	 * This method initializes both visible and background elements of {@code CharacterSelectionOverlay}.
 	 */
 	public CharacterSelectionOverlay() {
 		super(800, 600, true);
 		// create a container Node for scaling
-		container = new Node("container");
-		attachChild(container);
-
+		container = new Node("container_characterSelect");
+		
 		// Colors
 		textColor = new ColorRGBA(1, 1, 1, 1);
 		selTextColor = new ColorRGBA(0, 1, 0, 1);
@@ -96,69 +100,6 @@ public class CharacterSelectionOverlay extends GridOverlay {
 				.getHeight() / 600);
 		
 		attachChild(container);
-	}
-
-	/**
-	 * Function to be called during each movement by the player.
-	 * @param dir direction of movement
-	 */
-	public void updateDisplay(int dir) {
-		int[] lastIndex = new int[2];
-		lastIndex[0] = currentIndex[0];
-		lastIndex[1] = currentIndex[1];
-		if (dir == 1) {
-
-			if (currentIndex[0] == 0)
-				return;
-			else
-				currentIndex[0]--;
-		} else {
-			if (dir == 2) {
-				if (currentIndex[1] == tblL-1 || takenPos[currentIndex[1]+1][currentIndex[0]] == 123)
-					return;
-				else
-					currentIndex[1]++;
-
-			} else if (dir == 3) {
-				if (currentIndex[0] == tblW-1 || takenPos[currentIndex[1]][currentIndex[0]+1] == 123)
-				{
-					if(takenPos[0][currentIndex[0]+1] != 123){
-						int a = 0;
-						while(takenPos[a][currentIndex[0]+1] != 123)
-							a++;
-						a--;
-						currentIndex[0]++;
-						currentIndex[1] = a;
-					}
-					else
-						return;
-				}
-				else
-					currentIndex[0]++;
-
-			} else {
-				if (currentIndex[1] == 0)
-					return;
-				else
-					currentIndex[1]--;
-
-			}
-		}
-
-		int selCur = takenPos[currentIndex[1]][currentIndex[0]];
-		
-		p1Display[selCur].setDefaultColor(selTextColor);
-		
-		int selBef = takenPos[lastIndex[1]][lastIndex[0]];
-		
-		p1Display[selBef].setDefaultColor(textColor);
-		
-		/*int picked = 0;
-		picked = takenPos[currentIndex[1]][currentIndex[0]];
-		p1c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
-		container.detachChild(p1c);
-		container.attachChild(p1c);*/
-
 	}
 
 	/**
@@ -323,12 +264,110 @@ public class CharacterSelectionOverlay extends GridOverlay {
 	/**
 	 * Function to be called at the conclusion of character selection.
 	 * 
+	 * @param closingOverlay {@code boolean} indicating if menu will be disposed of after getting
+	 * the selected stage class name.
 	 */
-	public String[] getSelectedChars() {
+	public String[] getSelectedChars(boolean closingOverlay) {
+		if (closingOverlay)
+			deactivate();
+		
 		String[] temp = new String[selectedChars.length];
 		for (int i = 0; i < selectedChars.length; i++)
 			temp[i] = charNames[selectedChars[i]];
 		return temp;
 	}
+	
+	@Override
+	public void updateDisplay(int key) {
+		int[] lastIndex = currentIndex.clone();
+		
+		if (key == KeyInput.KEY_1)
+			choose1();
+		else if (key == KeyInput.KEY_2)
+			choose2();
+		else if (key == KeyInput.KEY_BACK)
+			undo();
+		else if (key == KeyInput.KEY_SPACE)
+			updateSel();
+		
+		if (key == KeyInput.KEY_UP) {
+
+			if (currentIndex[0] == 0)
+				return;
+			else
+				currentIndex[0]--;
+		} else if (key == KeyInput.KEY_RIGHT) {
+				if (currentIndex[1] == tblL-1 || takenPos[currentIndex[1]+1][currentIndex[0]] == 123)
+					return;
+				else
+					currentIndex[1]++;
+
+		} else if (key == KeyInput.KEY_DOWN) {
+				if (currentIndex[0] == tblW-1 || takenPos[currentIndex[1]][currentIndex[0]+1] == 123)
+				{
+					if(takenPos[0][currentIndex[0]+1] != 123){
+						int a = 0;
+						while(takenPos[a][currentIndex[0]+1] != 123)
+							a++;
+						a--;
+						currentIndex[0]++;
+						currentIndex[1] = a;
+					}
+					else
+						return;
+				}
+				else
+					currentIndex[0]++;
+
+		} else if (key == KeyInput.KEY_LEFT) {
+				if (currentIndex[1] == 0)
+					return;
+				else
+					currentIndex[1]--;
+
+		}
+
+		int selCur = takenPos[currentIndex[1]][currentIndex[0]];
+		
+		p1Display[selCur].setDefaultColor(selTextColor);
+		
+		int selBef = takenPos[lastIndex[1]][lastIndex[0]];
+		
+		p1Display[selBef].setDefaultColor(textColor);
+		
+		/*int picked = 0;
+		picked = takenPos[currentIndex[1]][currentIndex[0]];
+		p1c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
+		container.detachChild(p1c);
+		container.attachChild(p1c);*/
+
+	}
+
+	@Override
+	protected void initKeyBindings() {
+		super.initKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.set(SELECT, KeyInput.KEY_SPACE);
+		manager.set(SELECT_FINAL, KeyInput.KEY_RETURN);
+		manager.set(CHOOSE_1, KeyInput.KEY_1);
+		manager.set(CHOOSE_2, KeyInput.KEY_2);
+		manager.set(UNDO_CHOICE, KeyInput.KEY_DELETE);
+	}
+
+	@Override
+	protected void removeKeyBindings() {
+		super.removeKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.remove(SELECT);
+		manager.remove(SELECT_FINAL);
+		manager.remove(CHOOSE_1);
+		manager.remove(CHOOSE_2);
+		manager.remove(UNDO_CHOICE);
+	}
+
 
 }

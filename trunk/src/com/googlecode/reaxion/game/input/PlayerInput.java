@@ -53,7 +53,7 @@ public class PlayerInput extends InputHandler {
     	player = state.getPlayer();
     	partner = state.getPartner();
     	camera = state.getCamera();
-        setKeyBindings();
+        initKeyBindings();
     }
 
     /**
@@ -61,7 +61,7 @@ public class PlayerInput extends InputHandler {
      * pressed. It then sets the actions to be triggered based on if certain keys are pressed (numpad).
      * @author Khoa
      */
-    private void setKeyBindings() {
+    private void initKeyBindings() {
 //    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.FORWARD, KeyInput.KEY_NUMPAD8);
 //    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.BACKWARD, KeyInput.KEY_NUMPAD2);
 //    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.LEFT, KeyInput.KEY_NUMPAD4);
