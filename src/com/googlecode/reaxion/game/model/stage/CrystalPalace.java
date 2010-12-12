@@ -19,7 +19,7 @@ import com.jme.system.DisplaySystem;
  */
 public class CrystalPalace extends Stage {
 
-	public static final String name = "Crystal Palace";
+	public static final String NAME = "Crystal Palace";
 
 	private static final String filename = "stages/crystal-palace";
 
@@ -30,7 +30,7 @@ public class CrystalPalace extends Stage {
 	private Model warp;
 
 	public CrystalPalace() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] { "forgotten_challenge.ogg" };
 		bgmOdds = new float[] { 1 };
 	}

@@ -205,8 +205,6 @@ public class HubGameState extends StageGameState {
     		currentMenu.deactivate();
     		showOverlays();
     	}
-    	
-//    	switchSpacebarFunction(menuShowing);
     }
     
     private void changeCurrentMenu(MenuOverlay m) {
@@ -214,19 +212,11 @@ public class HubGameState extends StageGameState {
     		currentMenu.deactivate();
     	
     	m.activate();
-    	currentMenu = m;
-    }
-    
-    private void switchSpacebarFunction(boolean showing) {
-    	KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
     	
-    	if (showing) {
-    		manager.remove("switch");
-    		manager.set(MenuOverlay.SELECT, KeyInput.KEY_SPACE);
-    	} else {
-    		manager.remove("menu_select");
-    		manager.set("switch", KeyInput.KEY_SPACE);
-    	}
+    	if (m instanceof StageSelectionOverlay)
+    		((StageSelectionOverlay) m).setSelectedStage(getStage().name);
+    	
+    	currentMenu = m;
     }
     
 	@Override

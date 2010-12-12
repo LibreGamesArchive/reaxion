@@ -15,12 +15,12 @@ import com.jme.system.DisplaySystem;
  */
 public class Checkerboard extends Stage {
     
-	public static final String name = "Checkerboard";
+	public static final String NAME = "Checkerboard";
 	
 	private static final String filename = "checkerPlane";
 	
     public Checkerboard() {
-    	super(filename);
+    	super(filename, NAME);
     	bgm = new String[] {"olive.ogg"};
     	bgmOdds = new float[] {1};
     }

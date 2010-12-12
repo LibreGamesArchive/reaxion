@@ -24,7 +24,7 @@ import com.jmex.effects.water.WaterRenderPass;
  */
 public class SeasRepose extends Stage {
 
-	public static final String name = "Sea's Repose";
+	public static final String NAME = "Sea's Repose";
 
 	private static final String filename = "stages/seas_repose-islands";
 	
@@ -65,7 +65,7 @@ public class SeasRepose extends Stage {
     private ProjectedGrid projectedGrid;
 	
 	public SeasRepose() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] {"dj_got_us_fallin_in_love.ogg" };
 		bgmOdds = new float[] {1};
 	}

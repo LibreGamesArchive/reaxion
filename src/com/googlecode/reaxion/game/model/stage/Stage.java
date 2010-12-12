@@ -25,8 +25,9 @@ public class Stage extends Model {
     	init();
     }
     
-    public Stage(String fn) {
+    public Stage(String fn, String n) {
     	filename = fn;
+    	name = n;
     	init();
     }
     

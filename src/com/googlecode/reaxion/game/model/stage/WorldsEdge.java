@@ -19,7 +19,7 @@ import com.jme.system.DisplaySystem;
  */
 public class WorldsEdge extends Stage {
 
-	public static final String name = "World's Edge";
+	public static final String NAME = "World's Edge";
 
 	private static final String filename = "stages/worlds_edge-ground";
 
@@ -33,7 +33,7 @@ public class WorldsEdge extends Stage {
 	private float shadowPos = 0;
 
 	public WorldsEdge() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] { "no_thank_you_mix2.ogg", "13th_anthology.ogg" };
 		bgmOdds = new float[] {1, 1};
 	}

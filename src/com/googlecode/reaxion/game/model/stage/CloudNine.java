@@ -20,7 +20,7 @@ import com.jme.system.DisplaySystem;
  */
 public class CloudNine extends Stage {
 
-	public static final String name = "Cloud Nine";
+	public static final String NAME = "Cloud Nine";
 
 	private static final String filename = "stages/cloud-nine";
 
@@ -29,7 +29,7 @@ public class CloudNine extends Stage {
 	private Model sky;
 
 	public CloudNine() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] { "attack.ogg" };
 		bgmOdds = new float[] {1};
 	}

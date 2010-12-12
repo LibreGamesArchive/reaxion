@@ -20,7 +20,7 @@ import com.jme.system.DisplaySystem;
  */
 public class FlowerField extends Stage {
 
-	public static final String name = "Flower Field";
+	public static final String NAME = "Flower Field";
 
 	private static final String filename = "stages/flower-field_field";
 
@@ -31,7 +31,7 @@ public class FlowerField extends Stage {
 	private int count = 0;
 
 	public FlowerField() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] { "packaged.ogg" };
 		bgmOdds = new float[] {1};
 	}
