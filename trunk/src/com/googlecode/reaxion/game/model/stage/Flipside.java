@@ -19,7 +19,7 @@ import com.jme.system.DisplaySystem;
  */
 public class Flipside extends Stage {
 
-	public static final String name = "Flipside";
+	public static final String NAME = "Flipside";
 
 	private static final String filename = "stages/flipside_city-city";
 
@@ -30,7 +30,7 @@ public class Flipside extends Stage {
 
 
 	public Flipside() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] {"stairway_to_solstice.ogg"};
 		bgmOdds = new float[] {1};
 	}

@@ -19,7 +19,7 @@ import com.jme.system.DisplaySystem;
  */
 public class LavaValley extends Stage {
 
-	public static final String name = "Lava Valley";
+	public static final String NAME = "Lava Valley";
 
 	private static final String filename = "stages/lava-valley";
 
@@ -31,7 +31,7 @@ public class LavaValley extends Stage {
 	private Model lava;
 
 	public LavaValley() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] { "firing_preparation.ogg" };
 		bgmOdds = new float[] { 1 };
 	}

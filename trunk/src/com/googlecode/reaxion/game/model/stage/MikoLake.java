@@ -23,7 +23,7 @@ import com.jmex.effects.water.WaterRenderPass;
  */
 public class MikoLake extends Stage {
 
-	public static final String name = "Miko Lake";
+	public static final String NAME = "Miko Lake";
 
 	private static final String filename = "stages/miko_lake-4_world";
 
@@ -35,7 +35,7 @@ public class MikoLake extends Stage {
     private Quad waterQuad;
 	
 	public MikoLake() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] {"japanize_dream.ogg", "551 Depression (Legend of Hourai).ogg" };
 		bgmOdds = new float[] {1, 1};
 	}

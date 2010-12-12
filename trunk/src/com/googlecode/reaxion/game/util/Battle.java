@@ -53,7 +53,7 @@ public class Battle {
 		if (p2 == null)
 			p2 = nextP2;
 		if (stage == null)
-		stage = nextStage;
+			stage = nextStage;
 	}
 
 	/**

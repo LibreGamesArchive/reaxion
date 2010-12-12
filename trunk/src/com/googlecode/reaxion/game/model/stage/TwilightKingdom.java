@@ -20,7 +20,7 @@ import com.jme.system.DisplaySystem;
  */
 public class TwilightKingdom extends Stage {
 
-	public static final String name = "Twilight Kingdom";
+	public static final String NAME = "Twilight Kingdom";
 
 	private static final String filename = "stages/twilight_kingdom-ground";
 
@@ -29,7 +29,7 @@ public class TwilightKingdom extends Stage {
 	private Model sky;
 
 	public TwilightKingdom() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] { "mitsu_no_yoake.ogg" };
 		bgmOdds = new float[] {1};
 	}

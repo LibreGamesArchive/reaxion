@@ -13,6 +13,7 @@ import com.googlecode.reaxion.game.model.stage.MikoLake;
 import com.googlecode.reaxion.game.model.stage.SeasRepose;
 import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
+import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -40,10 +41,10 @@ public class StageSelectionOverlay extends MenuOverlay {
 	private static final String baseIconURL = "../../resources/icons/stageselect/";
 	private static final String baseGuiURL = "../../resources/gui/";
 
-	private static final String[] stageNames = { FlowerField.name, WorldsEdge.name,
-			MikoLake.name, Flipside.name, TwilightKingdom.name,
-			SeasRepose.name, CityOfDreams.name, CloudNine.name,
-			LavaValley.name, CrystalPalace.name };
+	private static final String[] stageNames = { FlowerField.NAME, WorldsEdge.NAME,
+			MikoLake.NAME, Flipside.NAME, TwilightKingdom.NAME,
+			SeasRepose.NAME, CityOfDreams.NAME, CloudNine.NAME,
+			LavaValley.NAME, CrystalPalace.NAME };
 	
 	private Quad bg;
 	private Quad back;
@@ -252,6 +253,39 @@ public class StageSelectionOverlay extends MenuOverlay {
 	public String getSelectedStageName() {
 		return stageNames[currentRow * stageGridColumns + currentColumn];
 	}
+	
+	/**
+	 * Changes the selected stage.
+	 * 
+	 * @param name Name of the stage to be set selected
+	 */
+	public void setSelectedStage(String name) {
+		System.out.println("# Changing Selected Stage To: " + name);
+		
+		int index = -1;
+		int lastRow = currentRow;
+		int lastColumn = currentColumn;
+		
+		for (int i = 0; i < stageNames.length; i++) {
+			if (stageNames[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		
+		if (index != -1) {
+			currentColumn = index % stageGridColumns;
+			index -= currentColumn;
+			currentRow = index / (stageGridRows - 1);
+			
+			System.out.println("# Current Row: " + currentRow + " || Max Row: " + stageGridRows);
+			System.out.println("# Current Column: " + currentColumn + " || Max Column: " + stageGridColumns);
+			
+			updateMenuElements(lastRow, lastColumn);
+		} else {
+			System.out.println("# Name not found.");
+		}
+	}
 
 	public void updateDisplay(int key) {
 		int lastRow = currentRow;
@@ -307,6 +341,13 @@ public class StageSelectionOverlay extends MenuOverlay {
 			break;
 		}
 		
+		if (!(lastRow == currentRow && lastColumn == currentColumn)) {
+			updateMenuElements(lastRow, lastColumn);
+			container.updateRenderState();
+		}
+	}
+
+	private void updateMenuElements(int lastRow, int lastColumn) {
 		// Cursor location changed
 		cursor.setLocalTranslation(stageGridLayout[currentRow][currentColumn].x,
 				stageGridLayout[currentRow][currentColumn].y, 0);
@@ -318,8 +359,6 @@ public class StageSelectionOverlay extends MenuOverlay {
 		// Changes current displayed stage title
 		container.detachChild(stageTitles[lastRow * stageGridColumns + lastColumn]);
 		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
-
-		container.updateRenderState();
 	}
 
 	@Override

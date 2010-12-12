@@ -25,7 +25,7 @@ import com.jmex.effects.water.WaterRenderPass;
  */
 public class CityOfDreams extends Stage {
 
-	public static final String name = "City Of Dreams";
+	public static final String NAME = "City Of Dreams";
 
 	private static final String filename = "stages/dream_port";
 	
@@ -37,7 +37,7 @@ public class CityOfDreams extends Stage {
     private ProjectedGrid projectedGrid;
 	
 	public CityOfDreams() {
-		super(filename);
+		super(filename, NAME);
 		bgm = new String[] {"gateway_colosseum.ogg" };
 		bgmOdds = new float[] {1};
 	}
