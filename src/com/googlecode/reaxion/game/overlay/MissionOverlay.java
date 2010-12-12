@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionManager;
-import com.googlecode.reaxion.game.mission.missions.*;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -22,7 +22,7 @@ import com.jmex.angelfont.BitmapText;
  * @author Brian Clanton
  *
  */
-public class MissionOverlay extends GridOverlay {
+public class MissionOverlay extends MenuOverlay {
 
 	private static final String baseURL = "../../resources/icons/missionselect/";
 	private static final String baseGuiURL = "../../resources/gui/";
@@ -151,53 +151,6 @@ public class MissionOverlay extends GridOverlay {
 		
 		return listItem;
 	}
-
-	/**
-	 * Makes the overlay visible.
-	 */
-	public void showMenu() {
-		container.attachChild(cursor);
-		
-		for (Node n : missionList)
-			container.attachChild(n);
-		
-		updateRenderState();
-	}
-
-	/**
-	 * Hides overlay menu.
-	 */
-	public void hideMenu() {
-		container.detachChild(cursor);
-		
-		for (Node n : missionList)
-			container.detachChild(n);
-		
-		updateRenderState();
-	}
-	
-	/**
-	 * Updates the overlay based on key input.
-	 * @param key The keycode for the key that was pressed
-	 */
-	public void updateDisplay(int key) {
-		switch (key) {
-		case KeyInput.KEY_DOWN:
-			currentIndex = (currentIndex + 1) % missionList.length;
-			break;
-		case KeyInput.KEY_UP:
-			currentIndex -= 1;
-			if (currentIndex < 0)
-				currentIndex += missionList.length;
-			break;
-		}
-		
-		System.out.println(currentIndex);
-		
-		rotateMissionList(key);
-		
-		container.updateRenderState();
-	}
 	
 	/**
 	 * Updates the locations of each of the mission list items based on key input.
@@ -221,8 +174,49 @@ public class MissionOverlay extends GridOverlay {
 	}
 	
 	public void startSelectedMission() {
+		deactivate();
+		
 		int index = (currentIndex + numListItems / 2) % missions.size();
 		MissionManager.startMission(missions.get(index).getMissionID());
+	}
+	
+	@Override
+	public void updateDisplay(int key) {
+		switch (key) {
+		case KeyInput.KEY_DOWN:
+			currentIndex = (currentIndex + 1) % missionList.length;
+			break;
+		case KeyInput.KEY_UP:
+			currentIndex -= 1;
+			if (currentIndex < 0)
+				currentIndex += missionList.length;
+			break;
+		}
+		
+		System.out.println(currentIndex);
+		
+		rotateMissionList(key);
+		
+		container.updateRenderState();
+	}
+	
+	@Override
+	protected void initKeyBindings() {
+		super.initKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.set(MenuOverlay.SELECT_FINAL, KeyInput.KEY_SPACE);
+	}
+
+	@Override
+	protected void removeKeyBindings() {
+		super.removeKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.remove(MenuOverlay.SELECT_FINAL);
+		
 	}
 
 }

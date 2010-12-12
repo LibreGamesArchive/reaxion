@@ -14,6 +14,7 @@ import com.googlecode.reaxion.game.model.stage.SeasRepose;
 import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Matrix3f;
@@ -34,7 +35,7 @@ import com.jmex.game.state.GameState;
  * @author Brian Clanton
  */
 
-public class StageSelectionOverlay extends GridOverlay {
+public class StageSelectionOverlay extends MenuOverlay {
 
 	private static final String baseIconURL = "../../resources/icons/stageselect/";
 	private static final String baseGuiURL = "../../resources/gui/";
@@ -226,13 +227,32 @@ public class StageSelectionOverlay extends GridOverlay {
 			container.attachChild(stageGrid[r][c]);
 		}
 	}
+	
+	/**
+	 * Removes apostrophes and spaces in the currently selected stage name in order to generate a
+	 * {@code String} corresponding to its class name. 
+	 * 
+	 * @param closingOverlay {@code boolean} indicating if menu will be disposed of after getting
+	 * the selected stage class name.
+	 * @return Class name of the currently selected stage
+	 */
+	public String getSelectedStageClass(boolean closingOverlay) {
+		if (closingOverlay)
+			deactivate();
+		
+		String str = stageNames[currentRow * stageGridColumns + currentColumn].replace("'", "");
+		return str.replace(" ", "");
+	}
 
 	/**
-	 * Handles arrow key input caught by {@code StageSelectionState}. The arrow key input is interpreted and displayed
-	 * as a change in the selected stage grid item.
+	 * Returns the selected stage name.
 	 * 
-	 * @param key The keycode for the key that was pressed
+	 * @return Name of the currently selected stage
 	 */
+	public String getSelectedStageName() {
+		return stageNames[currentRow * stageGridColumns + currentColumn];
+	}
+
 	public void updateDisplay(int key) {
 		int lastRow = currentRow;
 		int lastColumn = currentColumn;
@@ -302,24 +322,24 @@ public class StageSelectionOverlay extends GridOverlay {
 		container.updateRenderState();
 	}
 
-	/**
-	 * Removes apostrophes and spaces in the currently selected stage name in order to generate a
-	 * {@code String} corresponding to its class name. 
-	 * 
-	 * @return Class name of the currently selected stage
-	 */
-	public String getSelectedStageClass() {
-		String str = stageNames[currentRow * stageGridColumns + currentColumn].replace("'", "");
-		return str.replace(" ", "");
+	@Override
+	protected void initKeyBindings() {
+		super.initKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.set(GO_BACK, KeyInput.KEY_BACK);
+		manager.set(SELECT_FINAL, KeyInput.KEY_RETURN);
 	}
 
-	/**
-	 * Returns the selected stage name.
-	 * 
-	 * @return Name of the currently selected stage
-	 */
-	public String getSelectedStageName() {
-		return stageNames[currentRow * stageGridColumns + currentColumn];
+	@Override
+	protected void removeKeyBindings() {
+		super.removeKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.remove(GO_BACK);
+		manager.remove(SELECT_FINAL);
 	}
 
 }

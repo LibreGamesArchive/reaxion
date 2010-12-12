@@ -4,13 +4,14 @@ import java.awt.Point;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
-public class TerminalOverlay extends GridOverlay {
+public class TerminalOverlay extends MenuOverlay {
 	
 	private static final String[] menuItemNames = {"Character Select", "Stage Select", "Mission Select"};
 	
@@ -45,7 +46,7 @@ public class TerminalOverlay extends GridOverlay {
 	}
 	
 	private void createMenuList() {
-		fontSize = 24;
+		fontSize = 36;
 		menuGrid = createCenteredTextList(menuItemNames.length, fontSize, 10);
 		
 		menuItems = new BitmapText[menuItemNames.length];
@@ -68,11 +69,53 @@ public class TerminalOverlay extends GridOverlay {
 		menuItems[currentIndex].update();
 	}
 	
-	private void updateDisplay(int key) {
+	public int getCurrentIndex(boolean closingOverlay) {
+		if (closingOverlay)
+			deactivate();
+		
+		return currentIndex;
+	}
+	
+	public void updateDisplay(int key) {
+		int lastIndex = currentIndex;
+		
 		switch(key) {
 		case KeyInput.KEY_UP:
-			
+			currentIndex--;
+			if (currentIndex == -1)
+				currentIndex += menuItems.length;
+			break;
+		case KeyInput.KEY_DOWN:
+			currentIndex = (currentIndex + 1) % menuItems.length;
+			break;
 		}
+		
+		menuItems[lastIndex].setDefaultColor(unselectedColor);
+		menuItems[lastIndex].update();
+		
+		menuItems[currentIndex].setDefaultColor(selectedColor);
+		menuItems[currentIndex].update();
+		
+		updateRenderState();
+	}
+
+	@Override
+	public void initKeyBindings() {
+		super.initKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.set(SELECT_FINAL, KeyInput.KEY_SPACE);
+	}
+
+	@Override
+	public void removeKeyBindings() {
+		super.removeKeyBindings();
+		
+		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
+		
+		manager.remove(SELECT_FINAL);
+		
 	}
 	
 }

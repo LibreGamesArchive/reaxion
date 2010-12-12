@@ -1,11 +1,10 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.mission.MissionManager;
+import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
-import com.googlecode.reaxion.game.util.KeyBindingUtils;
 import com.jme.app.AbstractGame;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
@@ -54,39 +53,12 @@ public class StageSelectionState extends BasicGameState {
 		rootNode.attachChild(stageSelectionNode);
 
 		input = new InputHandler();
-		initKeyBindings();
 
+		manager = KeyBindingManager.getKeyBindingManager();
+		
 		rootNode.updateRenderState();
 		rootNode.updateWorldBound();
 		rootNode.updateGeometricState(0.0f, true);
-	}
-
-	/**
-	 * Key binding initialization.
-	 */
-	private void initKeyBindings() {
-//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.UP, KeyInput.KEY_UP);
-//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.DOWN, KeyInput.KEY_DOWN);
-//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.LEFT, KeyInput.KEY_LEFT);
-//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.RIGHT, KeyInput.KEY_RIGHT);
-//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.SELECT_FINAL, KeyInput.KEY_RETURN);
-//		KeyBindingUtils.addKeyBinding(KeyBindingUtils.MenuBindings.BACK, KeyInput.KEY_BACK);
-		
-		manager = KeyBindingManager.getKeyBindingManager();
-		manager.set("arrow_up", KeyInput.KEY_UP);
-		manager.set("arrow_down", KeyInput.KEY_DOWN);
-		manager.set("arrow_left", KeyInput.KEY_LEFT);
-		manager.set("arrow_right", KeyInput.KEY_RIGHT);
-		manager.set("select", KeyInput.KEY_RETURN);
-		manager.set("exit", KeyInput.KEY_ESCAPE);
-		manager.set("go_back", KeyInput.KEY_BACK);
-	}
-
-	@Override
-	public void setActive(boolean active) {
-		super.setActive(active);
-		if(active)
-			initKeyBindings();
 	}
 
 	@Override
@@ -115,19 +87,19 @@ public class StageSelectionState extends BasicGameState {
 	 */
 	private void checkKeyInput() {
 		if (input != null) {
-			if (manager.isValidCommand("arrow_up", false))
+			if (manager.isValidCommand(MenuOverlay.UP, false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_UP);
-			if (manager.isValidCommand("arrow_down", false))
+			if (manager.isValidCommand(MenuOverlay.DOWN, false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_DOWN);
-			if (manager.isValidCommand("arrow_left", false))
+			if (manager.isValidCommand(MenuOverlay.LEFT, false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_LEFT);
-			if (manager.isValidCommand("arrow_right", false))
+			if (manager.isValidCommand(MenuOverlay.RIGHT, false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_RIGHT);
-			if (manager.isValidCommand("select", false)) {
+			if (manager.isValidCommand(MenuOverlay.SELECT_FINAL, false)) {
 //				switchToLoadingOverlay();
 				goToBattleGameState();
 			}
-			if(manager.isValidCommand("go_back", false)) {
+			if(manager.isValidCommand(MenuOverlay.GO_BACK, false)) {
 				returnToCharSelectState();
 			}
 		}
@@ -193,7 +165,7 @@ public class StageSelectionState extends BasicGameState {
 		hubState.setActive(true);
 		*/
 		
-		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
+		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass(true));
 //		MissionManager.startMission(MissionID.OPEN_HUBGAMESTATE);
 		MissionManager.startHubGameState();
 		

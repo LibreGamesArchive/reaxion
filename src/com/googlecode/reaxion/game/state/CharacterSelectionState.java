@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.state;
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
+import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
@@ -62,7 +63,7 @@ public class CharacterSelectionState extends BasicGameState {
 		// Initial InputHandler
 		input = new InputHandler();
 		initKeyBindings();
-
+		
 		// Finish up
 		rootNode.updateRenderState();
 		rootNode.updateWorldBound();
@@ -82,28 +83,8 @@ public class CharacterSelectionState extends BasicGameState {
 				KeyInput.KEY_R);
 		KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
 				KeyInput.KEY_M);
-
-		KeyBindingManager.getKeyBindingManager().set("go", KeyInput.KEY_RETURN);
-
-		KeyBindingManager.getKeyBindingManager().set("arrow_up",
-				KeyInput.KEY_UP);
-		KeyBindingManager.getKeyBindingManager().set("arrow_down",
-				KeyInput.KEY_DOWN);
-		KeyBindingManager.getKeyBindingManager().set("arrow_left",
-				KeyInput.KEY_LEFT);
-		KeyBindingManager.getKeyBindingManager().set("arrow_right",
-				KeyInput.KEY_RIGHT);
-		KeyBindingManager.getKeyBindingManager().set("select",
-				KeyInput.KEY_SPACE);
-		KeyBindingManager.getKeyBindingManager().set("back",
-				KeyInput.KEY_BACK);
-		KeyBindingManager.getKeyBindingManager().set("choose1",
-				KeyInput.KEY_1);
-		KeyBindingManager.getKeyBindingManager().set("choose2",
-				KeyInput.KEY_2);
-
 	}
-
+	
 	@Override
 	public void setActive(boolean active) {
 		super.setActive(active);
@@ -130,45 +111,45 @@ public class CharacterSelectionState extends BasicGameState {
 			}
 		}
 
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("arrow_up",
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuOverlay.UP,
 				false)) {
-			charSelectNode.updateDisplay(1);
+			charSelectNode.updateDisplay(KeyInput.KEY_UP);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				"arrow_right", false)) {
-			charSelectNode.updateDisplay(2);
+				MenuOverlay.RIGHT, false)) {
+			charSelectNode.updateDisplay(KeyInput.KEY_RIGHT);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				"arrow_down", false)) {
-			charSelectNode.updateDisplay(3);
+				MenuOverlay.DOWN, false)) {
+			charSelectNode.updateDisplay(KeyInput.KEY_DOWN);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				"arrow_left", false)) {
-			charSelectNode.updateDisplay(4);
+				MenuOverlay.LEFT, false)) {
+			charSelectNode.updateDisplay(KeyInput.KEY_LEFT);
 		}
 
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("select",
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuOverlay.SELECT,
 				false)) {
-			charSelectNode.updateSel();
+			charSelectNode.updateDisplay(KeyInput.KEY_SPACE);
 		}
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("back",
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlay.UNDO_CHOICE,
 				false)) {
-			charSelectNode.undo();
-		}
-
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("choose1",
-				false)) {
-			charSelectNode.choose1();
+			charSelectNode.updateDisplay(KeyInput.KEY_BACK);
 		}
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("choose2",
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlay.CHOOSE_1,
 				false)) {
-			charSelectNode.choose2();
+			charSelectNode.updateDisplay(KeyInput.KEY_1);
+		}
+		
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlay.CHOOSE_2,
+				false)) {
+			charSelectNode.updateDisplay(KeyInput.KEY_2);
 		}
 		
 		if (KeyBindingManager.getKeyBindingManager()
-				.isValidCommand("go", false)) {
+				.isValidCommand(MenuOverlay.SELECT_FINAL, false)) {
 			goToStageSelectState();
 		}
 
@@ -189,7 +170,7 @@ public class CharacterSelectionState extends BasicGameState {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
-		String[] chars = charSelectNode.getSelectedChars();
+		String[] chars = charSelectNode.getSelectedChars(true);
 		Battle.setDefaultPlayers(chars[0], chars[1]);
 		
 		/*
