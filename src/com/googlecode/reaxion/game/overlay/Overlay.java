@@ -29,8 +29,8 @@ public class Overlay extends Node {
 	
 	protected Node container;
 	
-	public Overlay() {
-		super();
+	public Overlay(String name) {
+		super(name);
 		
 		width = DisplaySystem.getDisplaySystem().getWidth();
 		height = DisplaySystem.getDisplaySystem().getHeight();

@@ -24,6 +24,8 @@ import com.jmex.angelfont.BitmapText;
  */
 public class MissionOverlay extends MenuOverlay {
 
+	public static final String NAME = "missionOverlay";
+	
 	private static final String baseURL = "../../resources/icons/missionselect/";
 	private static final String baseGuiURL = "../../resources/gui/";
 	
@@ -44,7 +46,7 @@ public class MissionOverlay extends MenuOverlay {
 	private Point[][] missionListGrid;
 	
 	public MissionOverlay() {
-		super(800, 600, false);
+		super(NAME, 800, 600, false);
 		init();
 	}                         
 	

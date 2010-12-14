@@ -25,12 +25,12 @@ public abstract class ScreenshotOverlay extends GridOverlay {
 
 	protected Quad screenshot;
 	
-	public ScreenshotOverlay() {
-		super(0, 0, false);
+	public ScreenshotOverlay(String name) {
+		super(name, 0, 0, false);
 	}
 	
-	public ScreenshotOverlay(int baseWidth, int baseHeight, boolean mainOverlay) {
-		super(baseWidth, baseHeight, mainOverlay);
+	public ScreenshotOverlay(String name, int baseWidth, int baseHeight, boolean mainOverlay) {
+		super(name, baseWidth, baseHeight, mainOverlay);
 	}
 	
 	/**

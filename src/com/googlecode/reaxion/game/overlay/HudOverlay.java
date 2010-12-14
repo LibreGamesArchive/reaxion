@@ -21,6 +21,8 @@ import com.jmex.angelfont.BitmapText;
  */
 public class HudOverlay extends Overlay {
 	
+	public static final String NAME = "hudOverlay";
+	
 	private static final String baseURL = "../../resources/gui/";
     
 	private Class[] attacks;
@@ -57,7 +59,7 @@ public class HudOverlay extends Overlay {
 	public boolean zPressed;
 	
 	public HudOverlay() {
-		super();
+		super(NAME);
 		
         // create a container Node for scaling
         container = new Node("container");

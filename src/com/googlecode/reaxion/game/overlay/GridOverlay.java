@@ -17,8 +17,8 @@ public abstract class GridOverlay extends Overlay {
 	
 	public boolean mainOverlay;
 
-	public GridOverlay(int baseWidth, int baseHeight, boolean mainOverlay) {
-		super();
+	public GridOverlay(String name, int baseWidth, int baseHeight, boolean mainOverlay) {
+		super(name);
 		
 		this.baseWidth = baseWidth;
 		this.baseHeight = baseHeight;

@@ -17,6 +17,8 @@ import com.jmex.game.state.GameState;
  */
 public class GameOverOverlay extends ScreenshotOverlay {
 	
+	public static final String NAME = "gameOverOverlay";
+	
 	private static final String baseURL = "../../resources/gui/";
 	
 	private final ColorRGBA selectedText = FontUtils.blueSelected;
@@ -40,7 +42,7 @@ public class GameOverOverlay extends ScreenshotOverlay {
 	private BitmapText exitText;
 	
 	public GameOverOverlay() {
-		super();
+		super(NAME);
         
         // create a container Node for scaling
         container = new Node("container");

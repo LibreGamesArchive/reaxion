@@ -19,6 +19,8 @@ import com.jmex.game.state.GameState;
  */
 public class ResultsOverlay extends ScreenshotOverlay {
 	
+	public static final String NAME = "resultsOverlay";
+	
 	private static final String baseURL = "../../resources/gui/";
 	
 	private final int[] point = {32, 96, 104, 110, 116, 122, 128, 134, 140};
@@ -43,7 +45,7 @@ public class ResultsOverlay extends ScreenshotOverlay {
 	private Node expBonus;
 	
 	public ResultsOverlay() {
-		super();
+		super(NAME);
 		
         // create a container Node for scaling
         container = new Node("container");
