@@ -127,10 +127,9 @@ public class StageGameState extends CameraGameState {
 
 		if (!NetworkingObjects.isServer) {
 			BgmPlayer.prepare();
-			AudioPlayer.queueBGM(getStage().getBgm(-1));
-			// FIXME client apparently crashes whenever it tries to do
-			// sound-related things since we never init the thing?
-			// wtf
+			if(getStage() != null)
+				AudioPlayer.queueBGM(getStage().getBgm(-1));
+			// fixed, problem was getStage() returned null since it starts w/o a stage
 		}
 
 		b.assignPositions();

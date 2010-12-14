@@ -121,8 +121,6 @@ public class Reaxion {
 		JGN.register(SynchronizeCreateModelMessage.class);
 		JGN.register(CharacterAndStageSelectionsMessage.class);
 		JGN.register(StartBattleMessage.class);
-
-		AudioPlayer.prepare();
 		
 		switch(purposeInLife) {
 		case INITIAL_INITIALIZATION:
