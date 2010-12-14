@@ -113,8 +113,6 @@ public class Reaxion {
 		// GameInit(INITIAL_INITIALIZATION));
 
 		MouseInput.get().setCursorVisible(true);
-		// AudioPlayer.prepare();
-		// SoundEffectManager.initialize();
 		// FontUtils.loadFonts();
 		// MissionManager.createMissions();
 		PlayerInfoManager.init();
@@ -128,7 +126,8 @@ public class Reaxion {
 		
 		switch(purposeInLife) {
 		case INITIAL_INITIALIZATION:
-	
+			AudioPlayer.prepare();
+		//	SoundEffectManager.initialize();
 			FontUtils.loadFonts();
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
 			switch (sv) {
