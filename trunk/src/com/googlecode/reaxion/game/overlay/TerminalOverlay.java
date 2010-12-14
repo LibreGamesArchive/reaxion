@@ -13,6 +13,8 @@ import com.jmex.angelfont.BitmapText;
 
 public class TerminalOverlay extends MenuOverlay {
 	
+	public static final String NAME = "terminalOverlay";
+	
 	private static final String[] menuItemNames = {"Character Select", "Stage Select", "Mission Select"};
 	
 	private BitmapText[] menuItems;
@@ -27,7 +29,7 @@ public class TerminalOverlay extends MenuOverlay {
 	private ColorRGBA unselectedColor;
 	
 	public TerminalOverlay() {
-		super(800, 600, false);
+		super(NAME, 800, 600, false);
 		
 		container = new Node("terminalOverlay");
 		

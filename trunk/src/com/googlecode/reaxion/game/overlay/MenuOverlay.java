@@ -15,8 +15,8 @@ public abstract class MenuOverlay extends GridOverlay {
 	LEFT = "menu_left", RIGHT = "menu_right", SELECT = "menu_select", 
 	SELECT_FINAL = "menu_select_final", GO_BACK = "menu_go_back";
 	
-	public MenuOverlay(int baseWidth, int baseHeight, boolean mainOverlay) {
-		super(baseWidth, baseHeight, mainOverlay);
+	public MenuOverlay(String name, int baseWidth, int baseHeight, boolean mainOverlay) {
+		super(name, baseWidth, baseHeight, mainOverlay);
 		
 		activate();
 	}

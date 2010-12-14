@@ -12,12 +12,14 @@ import com.jme.system.DisplaySystem;
  */
 public class PauseOverlay extends Overlay {
 	
+	public static final String NAME = "pauseOverlay";
+	
 	private static final String baseURL = "../../resources/gui/";
 	
 	private Quad pauseText;
 	
 	public PauseOverlay() {
-		super();
+		super(NAME);
         
         // create a container Node for scaling
         container = new Node("container");

@@ -38,6 +38,8 @@ import com.jmex.game.state.GameState;
 
 public class StageSelectionOverlay extends MenuOverlay {
 
+	public static final String NAME = "stageSelectionOverlay";
+	
 	private static final String baseIconURL = "../../resources/icons/stageselect/";
 	private static final String baseGuiURL = "../../resources/gui/";
 
@@ -64,7 +66,7 @@ public class StageSelectionOverlay extends MenuOverlay {
 	private int stageGridRows, stageGridColumns;
 
 	public StageSelectionOverlay() {
-		super(800, 600, true);
+		super(NAME, 800, 600, true);
 		init();
 	}
 

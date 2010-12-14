@@ -12,7 +12,9 @@ import com.googlecode.reaxion.game.state.BurstGridGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.googlecode.reaxion.game.util.KeyBindingUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
+import com.jme.input.KeyBindingManager;
 import com.jme.input.MouseInput;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
@@ -119,6 +121,7 @@ public class Reaxion {
 			MouseInput.get().setCursorVisible(true);
 	    	AudioPlayer.prepare();
 			FontUtils.loadFonts();
+			KeyBindingUtils.initKeyBindings();
 			MissionManager.createMissions();
 			
 			PlayerInfoManager.init();

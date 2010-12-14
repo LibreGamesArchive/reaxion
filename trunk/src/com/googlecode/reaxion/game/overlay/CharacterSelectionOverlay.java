@@ -22,6 +22,8 @@ import com.jmex.angelfont.BitmapText;
 
 public class CharacterSelectionOverlay extends MenuOverlay {
 
+	public static final String NAME = "characterSelectionOverlay";
+	
 	private static final String baseURL = "../../resources/icons/characterselect/";
 	private static final String cursorURL = "../../resources/cursors/";
 
@@ -58,7 +60,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	 * This method initializes both visible and background elements of {@code CharacterSelectionOverlay}.
 	 */
 	public CharacterSelectionOverlay() {
-		super(800, 600, true);
+		super(NAME, 800, 600, true);
 		// create a container Node for scaling
 		container = new Node("container_characterSelect");
 		

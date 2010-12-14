@@ -28,6 +28,8 @@ import com.jmex.angelfont.Rectangle;
  */
 public class BurstGridOverlay extends Overlay {
 	
+	public static final String NAME = "burstGridOverlay";
+	
 	private static final String baseURL = "../../resources/icons/cosmos/";
 	
 	private final ColorRGBA plain = new ColorRGBA(1, 1, 1, 1);
@@ -57,7 +59,7 @@ public class BurstGridOverlay extends Overlay {
 	private Node descriptors;
 	
 	public BurstGridOverlay() {
-		super();
+		super(NAME);
         
         // create a container Node for scaling
         container = new Node("container");

@@ -35,6 +35,8 @@ import com.jmex.angelfont.BitmapText;
  */
 public class DialogueOverlay extends Overlay {
 	
+	public static final String NAME = "dialogueOverlay";
+	
 	private static final String baseURL = "../../resources/gui/";
 	private static final String resourceURL = "../../resources/cutscene/";
 
@@ -51,7 +53,7 @@ public class DialogueOverlay extends Overlay {
 	private Node bgContainer;
 	
 	public DialogueOverlay() {
-		super();
+		super(NAME);
         
         // create test text
         testText = new BitmapText(FontUtils.eurostile, false);
