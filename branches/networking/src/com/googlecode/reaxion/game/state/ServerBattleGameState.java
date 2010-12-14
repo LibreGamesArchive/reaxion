@@ -41,7 +41,17 @@ public class ServerBattleGameState extends BattleGameState {
     }
    
 
-       
+	@Override
+	protected void onActivate() {
+		// do nothing at friggin all
+	}
+     
+	@Override
+	public void setActive(boolean arg0) {
+		// TODO Auto-generated method stub
+		super.setActive(arg0);
+	}
+	
     @ Override
     protected void act() {
     	try {

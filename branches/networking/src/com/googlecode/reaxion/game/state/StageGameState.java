@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
+import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
@@ -93,15 +94,15 @@ public class StageGameState extends CameraGameState {
 	protected float camRotY;
 	protected final static float camRotYSpd = (float) Math.PI / 24;
 	protected final static float[] camRotXZLimit = { -0.5236f, 0.5236f }; // -pi/6
-																			// and
-																			// pi/6
+	// and
+	// pi/6
 	protected final static float[] camRotYLimit = { -0.1325f, 1.5394f, 0.5236f }; // arctan(2/15),
-																					// 49pi/100
-																					// (close
-																					// to
-																					// pi/2)
-																					// and
-																					// pi/6
+	// 49pi/100
+	// (close
+	// to
+	// pi/2)
+	// and
+	// pi/6
 
 	/*
 	 * // test axes converge at point private Cylinder[] cyl = new Cylinder[3];
@@ -125,9 +126,10 @@ public class StageGameState extends CameraGameState {
 		LoadingQueue.execute(this);
 
 		if (!NetworkingObjects.isServer) {
-			// BgmPlayer.prepare();
-	//		AudioPlayer.queueBGM(getStage().getBgm(-1));
-			//FIXME client apparently crashes whenever it tries to do sound-related things since we never init the thing?
+			BgmPlayer.prepare();
+			AudioPlayer.queueBGM(getStage().getBgm(-1));
+			// FIXME client apparently crashes whenever it tries to do
+			// sound-related things since we never init the thing?
 			// wtf
 		}
 
@@ -138,8 +140,9 @@ public class StageGameState extends CameraGameState {
 		load();
 
 		LoadingQueue.execute(this);
-		
-		if(!NetworkingObjects.isServer) rootNode.updateRenderState();
+
+		if (!NetworkingObjects.isServer)
+			rootNode.updateRenderState();
 	}
 
 	public void startBGM() {
@@ -172,74 +175,80 @@ public class StageGameState extends CameraGameState {
 		// Prepare the pass manager
 		pManager = new BasicPassManager();
 
-		// Create a wirestate to toggle on and off. Starts disabled with default
-		// width of 1 pixel.
-		wireState = DisplaySystem.getDisplaySystem().getRenderer()
-				.createWireframeState();
-		wireState.setEnabled(false);
-		rootNode.setRenderState(wireState);
+		if (!NetworkingObjects.isServer) {
+			// Create a wirestate to toggle on and off. Starts disabled with
+			// default
+			// width of 1 pixel.
+			wireState = DisplaySystem.getDisplaySystem().getRenderer()
+					.createWireframeState();
+			wireState.setEnabled(false);
+			rootNode.setRenderState(wireState);
 
-		// Create ZBuffer for depth
-		ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer()
-				.createZBufferState();
-		zbs.setEnabled(true);
-		zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
-		rootNode.setRenderState(zbs);
+			// Create ZBuffer for depth
+			ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer()
+					.createZBufferState();
+			zbs.setEnabled(true);
+			zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
+			rootNode.setRenderState(zbs);
 
-		// Fix up the camera, will not be needed for final camera controls
-		Vector3f loc = new Vector3f(0.0f, 2.5f, 10.0f);
-		Vector3f left = new Vector3f(-1.0f, 0.0f, 0.0f);
-		Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
-		Vector3f dir = new Vector3f(0.0f, 0f, -1.0f);
-		cam.setFrame(loc, left, up, dir);
-		cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem()
-				.getWidth()
-				/ DisplaySystem.getDisplaySystem().getHeight(), .01f, 1500);
-		cam.update();
+			// Fix up the camera, will not be needed for final camera controls
+			Vector3f loc = new Vector3f(0.0f, 2.5f, 10.0f);
+			Vector3f left = new Vector3f(-1.0f, 0.0f, 0.0f);
+			Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
+			Vector3f dir = new Vector3f(0.0f, 0f, -1.0f);
+			cam.setFrame(loc, left, up, dir);
+			cam.setFrustumPerspective(45f, (float) DisplaySystem
+					.getDisplaySystem().getWidth()
+					/ DisplaySystem.getDisplaySystem().getHeight(), .01f, 1500);
+			cam.update();
 
-		// Initial InputHandler
-		// input = new FirstPersonHandler(cam, 15.0f, 0.5f);
-		input = new InputHandler();
-		initKeyBindings();
+			// Initial InputHandler
+			// input = new FirstPersonHandler(cam, 15.0f, 0.5f);
+			input = new InputHandler();
+			initKeyBindings();
 
-		// Setup software mouse
-		// Commented out to get rid of that annoying bs where it would nom the
-		// mouse
-		MouseInput.get().setCursorVisible(true);
-		/*
-		 * mouse = new AbsoluteMouse("Mouse Input",
-		 * DisplaySystem.getDisplaySystem().getWidth(),
-		 * DisplaySystem.getDisplaySystem().getHeight());
-		 * mouse.registerWithInputHandler(input); TextureState cursor =
-		 * DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
-		 * cursor.setTexture(TextureManager.loadTexture(
-		 * Reaxion.class.getClassLoader
-		 * ().getResource("com/googlecode/reaxion/resources/cursors/cursor.png"
-		 * ), Texture.MinificationFilter.NearestNeighborNoMipMaps,
-		 * Texture.MagnificationFilter.NearestNeighbor));
-		 * mouse.setRenderState(cursor); BlendState as1 =
-		 * DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
-		 * as1.setBlendEnabled(true);
-		 * as1.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
-		 * as1.setDestinationFunction
-		 * (BlendState.DestinationFunction.OneMinusSourceAlpha);
-		 * as1.setTestEnabled(true);
-		 * as1.setTestFunction(BlendState.TestFunction.GreaterThan);
-		 * mouse.setRenderState(as1); rootNode.attachChild(mouse);
-		 */
+			// Setup software mouse
+			// Commented out to get rid of that annoying bs where it would nom
+			// the
+			// mouse
+			MouseInput.get().setCursorVisible(true);
+			/*
+			 * mouse = new AbsoluteMouse("Mouse Input",
+			 * DisplaySystem.getDisplaySystem().getWidth(),
+			 * DisplaySystem.getDisplaySystem().getHeight());
+			 * mouse.registerWithInputHandler(input); TextureState cursor =
+			 * DisplaySystem
+			 * .getDisplaySystem().getRenderer().createTextureState();
+			 * cursor.setTexture(TextureManager.loadTexture(
+			 * Reaxion.class.getClassLoader
+			 * ().getResource("com/googlecode/reaxion/resources/cursors/cursor.png"
+			 * ), Texture.MinificationFilter.NearestNeighborNoMipMaps,
+			 * Texture.MagnificationFilter.NearestNeighbor));
+			 * mouse.setRenderState(cursor); BlendState as1 =
+			 * DisplaySystem.getDisplaySystem
+			 * ().getRenderer().createBlendState(); as1.setBlendEnabled(true);
+			 * as1.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
+			 * as1.setDestinationFunction
+			 * (BlendState.DestinationFunction.OneMinusSourceAlpha);
+			 * as1.setTestEnabled(true);
+			 * as1.setTestFunction(BlendState.TestFunction.GreaterThan);
+			 * mouse.setRenderState(as1); rootNode.attachChild(mouse);
+			 */
 
-		/*
-		 * // make test cylinders for (int i=0; i<cyl.length; i++) { cyl[i] =
-		 * new Cylinder("cyl"+i, 3, 3, .025f, 100f);
-		 * rootNode.attachChild(cyl[i]); cyl[i].setLocalRotation(new
-		 * Quaternion().fromAngleAxis((float)Math.PI/2, new
-		 * Vector3f((i==0)?1:0,(i==1)?1:0,(i==2)?1:0))); }
-		 */
+			/*
+			 * // make test cylinders for (int i=0; i<cyl.length; i++) { cyl[i]
+			 * = new Cylinder("cyl"+i, 3, 3, .025f, 100f);
+			 * rootNode.attachChild(cyl[i]); cyl[i].setLocalRotation(new
+			 * Quaternion().fromAngleAxis((float)Math.PI/2, new
+			 * Vector3f((i==0)?1:0,(i==1)?1:0,(i==2)?1:0))); }
+			 */
 
-		// Finish up
-		rootNode.updateRenderState();
+			// Finish up
+			rootNode.updateRenderState();
+		}
 		rootNode.updateWorldBound();
 		rootNode.updateGeometricState(0.0f, true);
+
 	}
 
 	/**
@@ -258,7 +267,8 @@ public class StageGameState extends CameraGameState {
 			// try to preload common resources
 			LoadingQueue.push(new Model("glow-ring"));
 
-			// why is this line here...? it makes the state null. that is rather odd.
+			// why is this line here...? it makes the state null. that is rather
+			// odd.
 			// possibly because it preloads into memory? hmm
 			LoadingQueue.execute(null);
 		} catch (Exception e) {
@@ -452,7 +462,9 @@ public class StageGameState extends CameraGameState {
 
 	@Override
 	protected void onActivate() {
-		super.onActivate();
+		if (!NetworkingObjects.isServer) {
+			super.onActivate();
+		}
 	}
 
 	public LightState getLightState() {
@@ -575,37 +587,40 @@ public class StageGameState extends CameraGameState {
 		for (int i = 0; i < models.size(); i++)
 			models.get(i).act(this);
 
-		// Update the camera
-		if (cameraMode == "lock" && player != null && models.size() > 0
-				&& models.indexOf(currentTarget) != -1) {
-			Vector3f p = player.getTrackPoint();
-			// System.out.println(models+" "+currentTarget);
-			Vector3f t = currentTarget.getTrackPoint();
-			if (!p.equals(t)) {
-				// Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.z-p.z);
-				float angle = FastMath.atan2(p.z - t.z, p.x - t.x);
-				// camOffset = camOffset.normalize().mult(cameraDistance);
-				// System.out.println((p.x-camOffset.x)+", "+(p.y-camOffset.y)+", "+(p.z-camOffset.z));
-				cam.setLocation(new Vector3f(p.x + cameraDistance
-						* FastMath.cos(angle - camRotXZ), p.y + cameraDistance
-						* FastMath.sin(camRotY), p.z + cameraDistance
-						* FastMath.sin(angle - camRotXZ)));
-				cam.lookAt(t, new Vector3f(0, 1, 0));
+		if (!NetworkingObjects.isServer) {
+			// Update the camera
+			if (cameraMode == "lock" && player != null && models.size() > 0
+					&& models.indexOf(currentTarget) != -1) {
+				Vector3f p = player.getTrackPoint();
+				// System.out.println(models+" "+currentTarget);
+				Vector3f t = currentTarget.getTrackPoint();
+				if (!p.equals(t)) {
+					// Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y,
+					// t.z-p.z);
+					float angle = FastMath.atan2(p.z - t.z, p.x - t.x);
+					// camOffset = camOffset.normalize().mult(cameraDistance);
+					// System.out.println((p.x-camOffset.x)+", "+(p.y-camOffset.y)+", "+(p.z-camOffset.z));
+					cam.setLocation(new Vector3f(p.x + cameraDistance
+							* FastMath.cos(angle - camRotXZ), p.y
+							+ cameraDistance * FastMath.sin(camRotY), p.z
+							+ cameraDistance * FastMath.sin(angle - camRotXZ)));
+					cam.lookAt(t, new Vector3f(0, 1, 0));
+				}
+			} else if (cameraMode == "free" && player != null) {
+				Vector3f p = player.getTrackPoint();
+				float x, y, z, minor;
+				y = cameraDistance * (float) Math.sin(camRotY);
+				minor = cameraDistance * (float) Math.cos(camRotY);
+				x = minor * (float) Math.sin(camRotXZ);
+				z = minor * (float) Math.cos(camRotXZ);
+				cam.setLocation(new Vector3f(p.x + x, p.y + y, p.z + z));
+				cam.lookAt(p, new Vector3f(0, 1, 0));
 			}
-		} else if (cameraMode == "free" && player != null) {
-			Vector3f p = player.getTrackPoint();
-			float x, y, z, minor;
-			y = cameraDistance * (float) Math.sin(camRotY);
-			minor = cameraDistance * (float) Math.cos(camRotY);
-			x = minor * (float) Math.sin(camRotXZ);
-			z = minor * (float) Math.cos(camRotXZ);
-			cam.setLocation(new Vector3f(p.x + x, p.y + y, p.z + z));
-			cam.lookAt(p, new Vector3f(0, 1, 0));
-		}
 
-		// Update the audio system
-		AudioSystem.getSystem().update();
-		SfxPlayer.update(this);
+			// Update the audio system
+			AudioSystem.getSystem().update();
+			SfxPlayer.update(this);
+		}
 
 		// Update the HUD
 		hudNode.update(this);
@@ -910,29 +925,31 @@ public class StageGameState extends CameraGameState {
 
 	@Override
 	public void stateRender(float tpf) {
+		if (!NetworkingObjects.isServer) {
+			// Render the rootNode
+			DisplaySystem.getDisplaySystem().getRenderer().draw(rootNode);
 
-		// Render the rootNode
-		DisplaySystem.getDisplaySystem().getRenderer().draw(rootNode);
+			if (showBounds) {
+				Debugger.drawBounds(rootNode, DisplaySystem.getDisplaySystem()
+						.getRenderer(), true);
+			}
 
-		if (showBounds) {
-			Debugger.drawBounds(rootNode, DisplaySystem.getDisplaySystem()
-					.getRenderer(), true);
-		}
+			if (showNormals) {
+				Debugger.drawNormals(rootNode, DisplaySystem.getDisplaySystem()
+						.getRenderer());
+			}
 
-		if (showNormals) {
-			Debugger.drawNormals(rootNode, DisplaySystem.getDisplaySystem()
+			if (showDepth) {
+				DisplaySystem.getDisplaySystem().getRenderer().renderQueue();
+				Debugger.drawBuffer(Texture.RenderToTextureType.Depth,
+						Debugger.NORTHEAST, DisplaySystem.getDisplaySystem()
+								.getRenderer());
+			}
+
+			// Have the PassManager render
+			pManager.renderPasses(DisplaySystem.getDisplaySystem()
 					.getRenderer());
 		}
-
-		if (showDepth) {
-			DisplaySystem.getDisplaySystem().getRenderer().renderQueue();
-			Debugger.drawBuffer(Texture.RenderToTextureType.Depth,
-					Debugger.NORTHEAST, DisplaySystem.getDisplaySystem()
-							.getRenderer());
-		}
-
-		// Have the PassManager render
-		pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
 	}
 
 	@Override
