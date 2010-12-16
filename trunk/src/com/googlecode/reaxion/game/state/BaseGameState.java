@@ -31,34 +31,20 @@ public abstract class BaseGameState extends CameraGameState {
 	 * Initializes the {@code BaseGameState}.
 	 */
 	protected abstract void init();
-	/**
-	 * Initializes key bindings.
-	 */
-	protected abstract void initKeyBindings();
-	/**
-	 * Removes all key bindings initialized by the current {@code BaseGameState}.
-	 */
-	protected abstract void removeKeyBindings();
 	
 	@Override
 	public void setActive(boolean active) {
 		super.setActive(active);
 		
 		if (active) {
-			initKeyBindings();
-			
 			if (startsBGM) {
 				AudioPlayer.queueBGM(bgm);
 				AudioPlayer.startBGM();
 			}
 			
 			rootNode.updateRenderState();
-		} else {
-			removeKeyBindings();
-			
-			if (endsBGM)
-				AudioPlayer.clearBGM();
-		}
+		} else if (!active && endsBGM)
+			AudioPlayer.clearBGM();
 	}
 	
     public boolean isStartsBGM() {

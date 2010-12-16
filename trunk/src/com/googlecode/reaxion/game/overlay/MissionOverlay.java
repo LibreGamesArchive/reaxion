@@ -176,8 +176,6 @@ public class MissionOverlay extends MenuOverlay {
 	}
 	
 	public void startSelectedMission() {
-		deactivate();
-		
 		int index = (currentIndex + numListItems / 2) % missions.size();
 		MissionManager.startMission(missions.get(index).getMissionID());
 	}
@@ -200,25 +198,6 @@ public class MissionOverlay extends MenuOverlay {
 		rotateMissionList(key);
 		
 		container.updateRenderState();
-	}
-	
-	@Override
-	protected void initKeyBindings() {
-		super.initKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.set(MenuOverlay.SELECT_FINAL, KeyInput.KEY_SPACE);
-	}
-
-	@Override
-	protected void removeKeyBindings() {
-		super.removeKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.remove(MenuOverlay.SELECT_FINAL);
-		
 	}
 
 }

@@ -2,6 +2,8 @@ package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Point;
 
+import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -26,10 +28,6 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	
 	private static final String baseURL = "../../resources/icons/characterselect/";
 	private static final String cursorURL = "../../resources/cursors/";
-
-	public static final String CHOOSE_1 = "characterSelect_choose_1";
-	public static final String CHOOSE_2 = "characterSelect_choose_2";
-	public static final String UNDO_CHOICE = "characterSelect_undo_choice";
 	
 	private final int numchars = 12;
 	
@@ -276,10 +274,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	 * @param closingOverlay {@code boolean} indicating if menu will be disposed of after getting
 	 * the selected stage class name.
 	 */
-	public String[] getSelectedChars(boolean closingOverlay) {
-		if (closingOverlay)
-			deactivate();
-		
+	public String[] getSelectedChars(boolean closingOverlay) {		
 		String[] temp = new String[selectedChars.length];
 		for (int i = 0; i < selectedChars.length; i++)
 			temp[i] = charNames[selectedChars[i]];
@@ -351,32 +346,5 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		container.attachChild(p1c);*/
 
 	}
-
-	@Override
-	protected void initKeyBindings() {
-		super.initKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.set(SELECT, KeyInput.KEY_SPACE);
-		manager.set(SELECT_FINAL, KeyInput.KEY_RETURN);
-		manager.set(CHOOSE_1, KeyInput.KEY_1);
-		manager.set(CHOOSE_2, KeyInput.KEY_2);
-		manager.set(UNDO_CHOICE, KeyInput.KEY_DELETE);
-	}
-
-	@Override
-	protected void removeKeyBindings() {
-		super.removeKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.remove(SELECT);
-		manager.remove(SELECT_FINAL);
-		manager.remove(CHOOSE_1);
-		manager.remove(CHOOSE_2);
-		manager.remove(UNDO_CHOICE);
-	}
-
 
 }

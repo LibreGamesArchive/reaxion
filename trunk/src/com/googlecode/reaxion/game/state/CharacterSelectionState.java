@@ -1,23 +1,20 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.mission.MissionManager;
+import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
-import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
-import com.jme.input.MouseInput;
 import com.jme.scene.Node;
-import com.jme.scene.state.BlendState;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
@@ -62,34 +59,12 @@ public class CharacterSelectionState extends BasicGameState {
 
 		// Initial InputHandler
 		input = new InputHandler();
-		initKeyBindings();
 		
 		// Finish up
 		rootNode.updateRenderState();
 		rootNode.updateWorldBound();
 		rootNode.updateGeometricState(0.0f, true);
 
-	}
-
-	/**
-	 * Key binding initialization.
-	 */
-	private void initKeyBindings() {
-		KeyBindingManager.getKeyBindingManager().set("screen_shot",
-				KeyInput.KEY_F1);
-		KeyBindingManager.getKeyBindingManager().set("exit",
-				KeyInput.KEY_ESCAPE);
-		KeyBindingManager.getKeyBindingManager().set("mem_report",
-				KeyInput.KEY_R);
-		KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-				KeyInput.KEY_M);
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		super.setActive(active);
-		if(active)
-			initKeyBindings();
 	}
 
 	@Override
@@ -101,7 +76,7 @@ public class CharacterSelectionState extends BasicGameState {
 			input.update(tpf);
 
 			/** If exit is a valid command (via key Esc), exit game */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
 					false)) {
 				if (game != null) {
 					game.finish();
@@ -111,51 +86,48 @@ public class CharacterSelectionState extends BasicGameState {
 			}
 		}
 
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuOverlay.UP,
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.UP.toString(),
 				false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_UP);
 		}
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				MenuOverlay.RIGHT, false)) {
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.RIGHT.toString(), false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_RIGHT);
 		}
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				MenuOverlay.DOWN, false)) {
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.DOWN.toString(), false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_DOWN);
 		}
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				MenuOverlay.LEFT, false)) {
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.LEFT.toString(), false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_LEFT);
 		}
 
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuOverlay.SELECT,
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.SELECT_ITEM.toString(),
 				false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_SPACE);
 		}
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlay.UNDO_CHOICE,
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlayBindings.UNDO_CHOICE.toString(),
 				false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_BACK);
 		}
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlay.CHOOSE_1,
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_1.toString(),
 				false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_1);
 		}
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlay.CHOOSE_2,
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_2.toString(),
 				false)) {
 			charSelectNode.updateDisplay(KeyInput.KEY_2);
 		}
 		
 		if (KeyBindingManager.getKeyBindingManager()
-				.isValidCommand(MenuOverlay.SELECT_FINAL, false)) {
+				.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false)) {
 			goToStageSelectState();
 		}
 
 		if (input != null) {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"screen_shot", false)) {
+					GlobalBindings.SCREENSHOT.toString(), false)) {
 				DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
 						"SimpleGameScreenShot");
 			}

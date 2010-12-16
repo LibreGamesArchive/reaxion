@@ -1,8 +1,9 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
-import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.app.AbstractGame;
@@ -69,7 +70,7 @@ public class StageSelectionState extends BasicGameState {
 		if (input != null) {
 			input.update(tpf);
 
-			if (manager.isValidCommand("exit", false)) {
+			if (manager.isValidCommand(GlobalBindings.EXIT.toString(), false)) {
 				if (game != null)
 					game.finish();
 				else
@@ -87,19 +88,19 @@ public class StageSelectionState extends BasicGameState {
 	 */
 	private void checkKeyInput() {
 		if (input != null) {
-			if (manager.isValidCommand(MenuOverlay.UP, false))
+			if (manager.isValidCommand(MenuBindings.UP.toString(), false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_UP);
-			if (manager.isValidCommand(MenuOverlay.DOWN, false))
+			if (manager.isValidCommand(MenuBindings.DOWN.toString(), false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_DOWN);
-			if (manager.isValidCommand(MenuOverlay.LEFT, false))
+			if (manager.isValidCommand(MenuBindings.LEFT.toString(), false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_LEFT);
-			if (manager.isValidCommand(MenuOverlay.RIGHT, false))
+			if (manager.isValidCommand(MenuBindings.RIGHT.toString(), false))
 				stageSelectionNode.updateDisplay(KeyInput.KEY_RIGHT);
-			if (manager.isValidCommand(MenuOverlay.SELECT_FINAL, false)) {
+			if (manager.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false)) {
 //				switchToLoadingOverlay();
 				goToBattleGameState();
 			}
-			if(manager.isValidCommand(MenuOverlay.GO_BACK, false)) {
+			if(manager.isValidCommand(MenuBindings.BACK.toString(), false)) {
 				returnToCharSelectState();
 			}
 		}
@@ -165,7 +166,7 @@ public class StageSelectionState extends BasicGameState {
 		hubState.setActive(true);
 		*/
 		
-		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass(true));
+		Battle.setDefaultStage(stageSelectionNode.getSelectedStageClass());
 //		MissionManager.startMission(MissionID.OPEN_HUBGAMESTATE);
 		MissionManager.startHubGameState();
 		

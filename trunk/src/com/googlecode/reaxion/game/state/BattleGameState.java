@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.input.bindings.BattleGameStateBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.util.Battle;
@@ -48,20 +49,6 @@ public class BattleGameState extends StageGameState {
 		startsBGM = true;
 		endsBGM = false;
 	}
-
-    @Override
-	protected void initKeyBindings() {
-    	super.initKeyBindings();
-    	
-    	KeyBindingManager.getKeyBindingManager().set("return_to_hgs", KeyInput.KEY_DELETE);
-    }
-    
-    @Override
-    protected void removeKeyBindings() {
-    	super.removeKeyBindings();
-    	
-    	KeyBindingManager.getKeyBindingManager().remove("return_to_hgs");
-    }
     
     /**
      * Specifies the characters that must be defeated to win.
@@ -86,7 +73,7 @@ public class BattleGameState extends StageGameState {
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("return_to_hgs", false)) {
+		if (KeyBindingManager.getKeyBindingManager().isValidCommand(BattleGameStateBindings.RETURN_TO_HGS.toString(), false)) {
 			endsBGM = true;
 			setActive(false);
 			MissionManager.endMission();
