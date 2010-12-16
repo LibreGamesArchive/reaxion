@@ -187,7 +187,7 @@ public class Battle {
 						.getConstructors()[0].newInstance()));
 		//		if (opAbilities.size() > i - 2)
 		//			op.get(i - 2).setAbilities(opAbilities.get(i - 2));
-				op.get(i-2).setAbilities(op.get(i-2).abilities);
+			//	op.get(i-2).setAbilities(op.get(i-2).abilities);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
