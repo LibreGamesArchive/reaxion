@@ -213,7 +213,7 @@ public abstract class NetworkingObjects {
 			}
 		});
 		JGN.createThread(client, clientSyncManager).start();
-		client.connectAndWait(serverReliable, serverFast, 5000);
+		client.connectAndWait(serverReliable, serverFast, 20000);
 
 		// Register our client object with the synchronization manager
 		// / clientSyncManager.register( new SynchronizeCreateMessage(), 50);
