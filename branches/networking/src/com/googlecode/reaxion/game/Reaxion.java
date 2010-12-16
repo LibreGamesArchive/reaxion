@@ -1,6 +1,8 @@
 package com.googlecode.reaxion.game;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Properties;
 import java.util.concurrent.Callable;
 
 import javax.swing.JOptionPane;
@@ -95,6 +97,16 @@ public class Reaxion {
 	}
 
 	public static void main(String[] args) {
+
+	/*	Properties p=System.getProperties();
+		for(Object o: Collections.list(p.keys())) {
+			System.err.println(o.toString()+"\t"+p.getProperty(o.toString()));
+		}
+		
+		System.out.println(System.getProperty("java.home")+"/bin/java -Xms32m -Xmx256m \"-D"+p.getProperty("java.library.path")+"\" -Dfile.encoding="+p.getProperty("file.encoding") + " -classpath \""+p.getProperty("java.class.path") + "\" com.googlecode.reaxion.game.Reaxion BACKGROUND_SERVER");
+		
+		if(true) return;*/
+		
 		try {
 			Reaxion main = new Reaxion(Purpose.valueOf(args[0]));
 			main.start();
@@ -118,7 +130,7 @@ public class Reaxion {
 		// GameTaskQueueManager.getManager().update(new
 		// GameInit(INITIAL_INITIALIZATION));
 
-		MouseInput.get().setCursorVisible(true);
+//		MouseInput.get().setCursorVisible(true);
 		// FontUtils.loadFonts();
 		// MissionManager.createMissions();
 		PlayerInfoManager.init();
@@ -137,9 +149,14 @@ public class Reaxion {
 			switch (sv) {
 			case 0:
 				try {
-			//		Reaxion bgServer = new Reaxion(Purpose.BACKGROUND_SERVER);
-					Runtime.getRuntime().exec("java -Xms32m -Xmx256m -jar Reaxion.jar BAKGROUND_SERVER");
-			//		bgServer.start();
+					// Reaxion bgServer = new
+					// Reaxion(Purpose.BACKGROUND_SERVER);
+					Properties p=System.getProperties();
+					String cmdLine = System.getProperty("java.home")+"/bin/java -Xms32m -Xmx256m \"-D"+p.getProperty("java.library.path")+"\" -Dfile.encoding="+p.getProperty("file.encoding") + " -classpath \""+p.getProperty("java.class.path") + "\" com.googlecode.reaxion.game.Reaxion BACKGROUND_SERVER";
+					System.out.println(cmdLine);
+					Runtime.getRuntime().exec(cmdLine);
+					// bgServer.start();
+					System.out.println("Started?");
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -187,7 +204,7 @@ public class Reaxion {
 
 		// @Override
 		public Void call() throws Exception {
-			MouseInput.get().setCursorVisible(true);
+		//	MouseInput.get().setCursorVisible(true);
 			AudioPlayer.prepare();
 			// SoundEffectManager.initialize();
 			FontUtils.loadFonts();
