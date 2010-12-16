@@ -7,9 +7,10 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
-import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
+import com.googlecode.reaxion.game.input.bindings.DebugBindings;
+import com.googlecode.reaxion.game.input.bindings.GameBindings;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
@@ -22,7 +23,6 @@ import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -33,8 +33,6 @@ import com.jme.scene.state.WireframeState;
 import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.geom.Debugger;
-import com.jmex.audio.AudioSystem;
-import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.StatisticsGameState;
 
@@ -207,64 +205,6 @@ public class StageGameState extends BaseGameState {
         rootNode.updateRenderState();
         rootNode.updateWorldBound();
         rootNode.updateGeometricState(0.0f, true);
-    }
-    
-    // duplicate the functionality of DebugGameState
-    // Most of this can be commented out during finalization
-    protected void initKeyBindings() {
-    	/** Assign key TAB to action "camera_mode". */
-        KeyBindingManager.getKeyBindingManager().set("camera_mode",
-                KeyInput.KEY_TAB);
-    	/** Assign key 1 to action "target_near". */
-        KeyBindingManager.getKeyBindingManager().set("target_near",
-                KeyInput.KEY_1);
-        /** Assign key 2 to action "target_far". */
-        KeyBindingManager.getKeyBindingManager().set("target_far",
-                KeyInput.KEY_2);
-        /** Assign WASD keys to free camera controls. */
-        KeyBindingManager.getKeyBindingManager().set("cam_left",
-                KeyInput.KEY_A);
-        KeyBindingManager.getKeyBindingManager().set("cam_right",
-                KeyInput.KEY_D);
-        KeyBindingManager.getKeyBindingManager().set("cam_up",
-                KeyInput.KEY_W);
-        KeyBindingManager.getKeyBindingManager().set("cam_down",
-                KeyInput.KEY_S);
-        /** Assign key P to action "toggle_pause". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_pause",
-                KeyInput.KEY_P);
-        // These actions are holdovers from DebugGameState and are not fully "supported"
-        /** Assign key T to action "toggle_wire". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_wire",
-                KeyInput.KEY_T);
-        /** Assign key L to action "toggle_lights". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_lights",
-                KeyInput.KEY_L);
-        /** Assign key B to action "toggle_bounds". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_bounds",
-                KeyInput.KEY_B);
-        /** Assign key N to action "toggle_normals". */
-        KeyBindingManager.getKeyBindingManager().set("toggle_normals",
-                KeyInput.KEY_N);
-        /** Assign key O to action "camera_out". */
-        KeyBindingManager.getKeyBindingManager().set("camera_out",
-                KeyInput.KEY_O);
-        KeyBindingManager.getKeyBindingManager().set("screen_shot",
-                KeyInput.KEY_F1);
-        KeyBindingManager.getKeyBindingManager().set("exit",
-                KeyInput.KEY_ESCAPE);
-        KeyBindingManager.getKeyBindingManager().set("toggle_depth",
-                KeyInput.KEY_F3);
-        KeyBindingManager.getKeyBindingManager().set("toggle_stats",
-                KeyInput.KEY_F4);
-        KeyBindingManager.getKeyBindingManager().set("mem_report",
-                KeyInput.KEY_R);
-        KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-                        KeyInput.KEY_M);
-    }
-
-    protected void removeKeyBindings() {
-    	
     }
     
     /**
@@ -477,7 +417,7 @@ public class StageGameState extends BaseGameState {
     		input.update(tpf);
     		
     		/** If exit is a valid command (via key Esc), exit game */
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
 	                false)) {
 	        	if (game != null) {
 	        		game.finish();
@@ -490,7 +430,7 @@ public class StageGameState extends BaseGameState {
         	if (input != null) {
         		/** If toggle_pause is a valid command (via key P), change pause. */
     	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "toggle_pause", false) && timing) {
+    	                GameBindings.TOGGLE_PAUSE.toString(), false) && timing) {
     	        	togglePaused();
     	        	// toggle the overlay
     	        	if (pause) {
@@ -572,70 +512,70 @@ public class StageGameState extends BaseGameState {
         if (input != null) {
         	/** If camera_mode is a valid command (via key TAB), switch camera modes. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "camera_mode", false)) {
+	                GameBindings.CAM_MODE.toString(), false)) {
 	            swapCameraMode();
 	        }
         	/** If camera controls are valid commands (via WASD keys), change camera angle. */
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_left", true)) {
+	                GameBindings.CAM_LEFT.toString(), true)) {
         		camRotXZ -= camRotXZSpd;
         		if (cameraMode != "free")
         			camRotXZ = Math.max(camRotXZ, camRotXZLimit[0]);
 	        }
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_right", true)) {
+	                GameBindings.CAM_RIGHT.toString(), true)) {
 	            camRotXZ += camRotXZSpd;
 	            if (cameraMode != "free")
         			camRotXZ = Math.min(camRotXZ, camRotXZLimit[1]);
 	        }
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_up", true)) {
+	                GameBindings.CAM_UP.toString(), true)) {
         		if (cameraMode == "free")
         			camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[1]);
         		else
         			camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[2]);
 	        }
         	if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "cam_down", true)) {
+	                GameBindings.CAM_DOWN.toString(), true)) {
         		camRotY = Math.max(camRotY - camRotYSpd, camRotYLimit[0]);
 	        }
         	/** If target_near is a valid command (via key 1), switch to next closest target. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "target_near", false) && cameraMode == "lock") {
+	                GameBindings.TARGET_NEAR.toString(), false) && cameraMode == "lock") {
 	            nextTarget(-1);
 	            rootNode.updateRenderState();
 	        }
 	        /** If target_far is a valid command (via key 2), switch to next furthest target. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "target_far", false) && cameraMode == "lock") {
+	                GameBindings.TARGET_FAR.toString(), false) && cameraMode == "lock") {
 	            nextTarget(1);
 	            rootNode.updateRenderState();
 	        }
 	        /** If toggle_wire is a valid command (via key T), change wirestates. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "toggle_wire", false)) {
+	                DebugBindings.TOGGLE_WIRE.toString(), false)) {
 	            wireState.setEnabled(!wireState.isEnabled());
 	            rootNode.updateRenderState();
 	        }
 	        /** If toggle_lights is a valid command (via key L), change lightstate. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "toggle_lights", false)) {
+	                DebugBindings.TOGGLE_LIGHTS.toString(), false)) {
 	            lightState.setEnabled(!lightState.isEnabled());
 	            rootNode.updateRenderState();
 	        }
 	        /** If toggle_bounds is a valid command (via key B), change bounds. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "toggle_bounds", false)) {
+	                DebugBindings.TOGGLE_BOUNDS.toString(), false)) {
 	            showBounds = !showBounds;
 	        }
 	        /** If toggle_depth is a valid command (via key F3), change depth. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "toggle_depth", false)) {
+	                DebugBindings.TOGGLE_DEPTH.toString(), false)) {
 	            showDepth = !showDepth;
 	        }
 	        /** If toggle_stats is a valid command (via key F4), change depth. */
             if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-                    "toggle_stats", false)) {
+                    DebugBindings.TOGGLE_STATS.toString(), false)) {
             	if (statisticsCreated == false) {
 	                // create a statistics game state
 	                GameStateManager.getInstance().attachChild(
@@ -647,23 +587,16 @@ public class StageGameState extends BaseGameState {
             }
             
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "toggle_normals", false)) {
+	                DebugBindings.TOGGLE_NORMALS.toString(), false)) {
 	            showNormals = !showNormals;
 	        }
-	        /** If camera_out is a valid command (via key O), show camera location. */
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "camera_out", false)) {
-                logger.info("Camera at: "
-	                    + DisplaySystem.getDisplaySystem().getRenderer()
-	                            .getCamera().getLocation());
-	        }
-	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "screen_shot", false)) {
+	                GlobalBindings.SCREENSHOT.toString(), false)) {
 	            DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
 	                    "SimpleGameScreenShot");
 	        }
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                "mem_report", false)) {
+	                GlobalBindings.MEM_REPORT.toString(), false)) {
 	            long totMem = Runtime.getRuntime().totalMemory();
 	            long freeMem = Runtime.getRuntime().freeMemory();
 	            long maxMem = Runtime.getRuntime().maxMemory();
@@ -674,7 +607,7 @@ public class StageGameState extends BaseGameState {
                 logger.info("Max memory: " + (maxMem >> 10) + " kb");
 	        }
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-	                        "toggle_mouse", false)) {
+	                        GlobalBindings.TOGGLE_MOUSE.toString(), false)) {
 	                    MouseInput.get().setCursorVisible(!MouseInput.get().isCursorVisible());
 	                    logger.info("Cursor Visibility set to " + MouseInput.get().isCursorVisible());
 	                }

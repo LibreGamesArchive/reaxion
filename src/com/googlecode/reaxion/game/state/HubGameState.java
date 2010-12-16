@@ -1,5 +1,8 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
+import com.googlecode.reaxion.game.input.bindings.HubGameStateBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
@@ -24,9 +27,6 @@ import com.jme.math.Vector3f;
 public class HubGameState extends StageGameState {
 	
 	public static final String NAME = "hubGameState";
-    
-	public static final String ACCESS_TERMINAL = NAME + "_access_terminal";
-	public static final String CLOSE_TERMINAL = NAME + "_close_terminal";
 	
 	private Model terminal;
 	
@@ -68,32 +68,12 @@ public class HubGameState extends StageGameState {
     }
     
     @Override
-    protected void initKeyBindings() {
-    	super.initKeyBindings();
-    	
-    	KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-    	
-    	manager.set(ACCESS_TERMINAL, KeyInput.KEY_RETURN);
-    	manager.set(CLOSE_TERMINAL, KeyInput.KEY_BACK);
-    }
-    
-    @Override
-    protected void removeKeyBindings() {
-    	super.removeKeyBindings();
-    	
-    	KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-    	
-    	manager.remove(ACCESS_TERMINAL);
-    	manager.remove(CLOSE_TERMINAL);
-    }
-    
-    @Override
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		
 		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
-		if (manager.isValidCommand(ACCESS_TERMINAL, false)) {
+		if (manager.isValidCommand(HubGameStateBindings.ACCESS_TERMINAL.toString(), false) && !menuShowing) {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
@@ -104,7 +84,7 @@ public class HubGameState extends StageGameState {
 			}
 		}
 		
-		if (manager.isValidCommand(CLOSE_TERMINAL, false)) {
+		if (manager.isValidCommand(HubGameStateBindings.CLOSE_TERMINAL.toString(), false) && menuShowing) {
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
@@ -114,38 +94,38 @@ public class HubGameState extends StageGameState {
 			}
 		}
 		
-		if (manager.isValidCommand(MenuOverlay.UP, false)) {
+		if (manager.isValidCommand(MenuBindings.UP.toString(), false)) {
 			if (menuShowing)
 				currentMenu.updateDisplay(KeyInput.KEY_UP);
 		}
 		
-		if (manager.isValidCommand(MenuOverlay.DOWN, false)) {
+		if (manager.isValidCommand(MenuBindings.DOWN.toString(), false)) {
 			if (menuShowing)
 				currentMenu.updateDisplay(KeyInput.KEY_DOWN);
 		}
 		
-		if (manager.isValidCommand(MenuOverlay.LEFT, false)) {
+		if (manager.isValidCommand(MenuBindings.LEFT.toString(), false)) {
 			if (menuShowing)
 				currentMenu.updateDisplay(KeyInput.KEY_LEFT);
 		}
 		
-		if (manager.isValidCommand(MenuOverlay.RIGHT, false)) {
+		if (manager.isValidCommand(MenuBindings.RIGHT.toString(), false)) {
 			if (menuShowing)
 				currentMenu.updateDisplay(KeyInput.KEY_RIGHT);
 		}
 		
-		if (manager.isValidCommand(MenuOverlay.SELECT, false)) {
+		if (manager.isValidCommand(MenuBindings.SELECT_ITEM.toString(), false)) {
 			if (menuShowing)
 				currentMenu.updateDisplay(KeyInput.KEY_SPACE);
 		}
 		
-		if (manager.isValidCommand(MenuOverlay.SELECT_FINAL, false)) {
+		if (manager.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false)) {
 			if (currentMenu instanceof MissionOverlay) {
 				missionOverlay.startSelectedMission();
 			} else if (currentMenu instanceof TerminalOverlay) {
 				rootNode.detachChild(currentMenu);
 				
-				switch (((TerminalOverlay) currentMenu).getCurrentIndex(true)) {
+				switch (((TerminalOverlay) currentMenu).getCurrentIndex()) {
 				case 0:
 					changeCurrentMenu(characterOverlay);
 					break;
@@ -160,7 +140,7 @@ public class HubGameState extends StageGameState {
 				rootNode.attachChild((Overlay) currentMenu);
 				toggleMenu(true);
 			} else if (currentMenu instanceof StageSelectionOverlay) {
-				Battle.setDefaultStage(((StageSelectionOverlay) currentMenu).getSelectedStageClass(true));
+				Battle.setDefaultStage(((StageSelectionOverlay) currentMenu).getSelectedStageClass());
 				
 				MissionManager.endHubGameState();
 				MissionManager.startHubGameState();
@@ -175,17 +155,17 @@ public class HubGameState extends StageGameState {
 			
 		}
 		
-		if (manager.isValidCommand(CharacterSelectionOverlay.UNDO_CHOICE,
+		if (manager.isValidCommand(CharacterSelectionOverlayBindings.UNDO_CHOICE.toString(),
 				false)) {
 			currentMenu.updateDisplay(KeyInput.KEY_DELETE);
 		}
 		
-		if (manager.isValidCommand(CharacterSelectionOverlay.CHOOSE_1,
+		if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_1.toString(),
 				false)) {
 			currentMenu.updateDisplay(KeyInput.KEY_1);
 		}
 		
-		if (manager.isValidCommand(CharacterSelectionOverlay.CHOOSE_2,
+		if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_2.toString(),
 				false)) {
 			currentMenu.updateDisplay(KeyInput.KEY_2);
 		}
@@ -196,23 +176,13 @@ public class HubGameState extends StageGameState {
 		frozen = showing;
     	menuShowing = showing;
     	
-    	if (menuShowing) {
-    		KeyBindingManager.getKeyBindingManager().remove(ACCESS_TERMINAL);
+    	if (menuShowing) 
     		hideOverlays();
-    	}
-    	else {
-    		KeyBindingManager.getKeyBindingManager().set(ACCESS_TERMINAL, KeyInput.KEY_RETURN);
-    		currentMenu.deactivate();
+    	else
     		showOverlays();
-    	}
     }
     
-    private void changeCurrentMenu(MenuOverlay m) {
-    	if (currentMenu != null)
-    		currentMenu.deactivate();
-    	
-    	m.activate();
-    	
+    private void changeCurrentMenu(MenuOverlay m) { 
     	if (m instanceof StageSelectionOverlay)
     		((StageSelectionOverlay) m).setSelectedStage(getStage().name);
     	

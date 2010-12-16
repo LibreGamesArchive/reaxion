@@ -71,10 +71,7 @@ public class TerminalOverlay extends MenuOverlay {
 		menuItems[currentIndex].update();
 	}
 	
-	public int getCurrentIndex(boolean closingOverlay) {
-		if (closingOverlay)
-			deactivate();
-		
+	public int getCurrentIndex() {
 		return currentIndex;
 	}
 	
@@ -99,25 +96,6 @@ public class TerminalOverlay extends MenuOverlay {
 		menuItems[currentIndex].update();
 		
 		updateRenderState();
-	}
-
-	@Override
-	public void initKeyBindings() {
-		super.initKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.set(SELECT_FINAL, KeyInput.KEY_SPACE);
-	}
-
-	@Override
-	public void removeKeyBindings() {
-		super.removeKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.remove(SELECT_FINAL);
-		
 	}
 	
 }

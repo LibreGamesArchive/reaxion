@@ -239,10 +239,7 @@ public class StageSelectionOverlay extends MenuOverlay {
 	 * the selected stage class name.
 	 * @return Class name of the currently selected stage
 	 */
-	public String getSelectedStageClass(boolean closingOverlay) {
-		if (closingOverlay)
-			deactivate();
-		
+	public String getSelectedStageClass() {
 		String str = stageNames[currentRow * stageGridColumns + currentColumn].replace("'", "");
 		return str.replace(" ", "");
 	}
@@ -362,25 +359,5 @@ public class StageSelectionOverlay extends MenuOverlay {
 		container.detachChild(stageTitles[lastRow * stageGridColumns + lastColumn]);
 		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
 	}
-
-	@Override
-	protected void initKeyBindings() {
-		super.initKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.set(GO_BACK, KeyInput.KEY_BACK);
-		manager.set(SELECT_FINAL, KeyInput.KEY_RETURN);
-	}
-
-	@Override
-	protected void removeKeyBindings() {
-		super.removeKeyBindings();
-		
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.remove(GO_BACK);
-		manager.remove(SELECT_FINAL);
-	}
-
+	
 }

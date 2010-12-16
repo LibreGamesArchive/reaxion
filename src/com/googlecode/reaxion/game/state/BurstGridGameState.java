@@ -135,7 +135,6 @@ public class BurstGridGameState extends BaseGameState {
         
         // initialize input handler
         input = new InputHandler();
-	    initKeyBindings();
 	    
 	    // play music
 	    AudioPlayer.queueBGM("the_sunleth_waterscape.ogg");
@@ -143,44 +142,6 @@ public class BurstGridGameState extends BaseGameState {
         
         System.out.println(grid);
     }
-	
-	protected void initKeyBindings() {
-        KeyBindingManager.getKeyBindingManager().set("traverse_ccw",
-                KeyInput.KEY_LEFT);
-        KeyBindingManager.getKeyBindingManager().set("traverse_cw",
-                KeyInput.KEY_RIGHT);
-        KeyBindingManager.getKeyBindingManager().set("traverse_next",
-                KeyInput.KEY_UP);
-        KeyBindingManager.getKeyBindingManager().set("traverse_back",
-                KeyInput.KEY_DOWN);
-        KeyBindingManager.getKeyBindingManager().set("zoom", KeyInput.KEY_TAB);
-        KeyBindingManager.getKeyBindingManager().set("screen_shot",
-                KeyInput.KEY_F1);
-        KeyBindingManager.getKeyBindingManager().set("buy_node",
-                KeyInput.KEY_RETURN);
-        KeyBindingManager.getKeyBindingManager().set("exit",
-                KeyInput.KEY_ESCAPE);
-        KeyBindingManager.getKeyBindingManager().set("toggle_stats",
-                KeyInput.KEY_F4);
-        KeyBindingManager.getKeyBindingManager().set("mem_report",
-                KeyInput.KEY_R);
-    }
-	
-	@Override
-	protected void removeKeyBindings() {
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.remove("traverse_ccw");
-		manager.remove("traverse_cw");
-		manager.remove("traverse_next");
-		manager.remove("traverse_back");
-		manager.remove("zoom");
-		manager.remove("screen_shot");
-		manager.remove("buy_node");
-		manager.remove("exit");
-		manager.remove("toggle_stats");
-		manager.remove("mem_report");
-	}
 
 	@Override
 	protected void stateUpdate(float tpf) {

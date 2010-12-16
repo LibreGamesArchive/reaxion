@@ -1,5 +1,13 @@
 package com.googlecode.reaxion.game.util;
 
+import com.googlecode.reaxion.game.input.bindings.BattleGameStateBindings;
+import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
+import com.googlecode.reaxion.game.input.bindings.DebugBindings;
+import com.googlecode.reaxion.game.input.bindings.GameBindings;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
+import com.googlecode.reaxion.game.input.bindings.HubGameStateBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
+import com.googlecode.reaxion.game.input.bindings.PlayerBindings;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.overlay.MissionOverlay;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
@@ -16,6 +24,11 @@ public class KeyBindingUtils {
 	public static void initKeyBindings() {
 		initGlobalBindings();
 		initPlayerBindings();
+		initStageBindings();
+		initDebugBindings();
+		initHubGameStateBindings();
+		initCharacterSelectionOverlayBindings();
+		initBattleGameStateBindings();
 		
 		for (String s : menus)
 			initMenuBindings(s);
@@ -51,73 +64,38 @@ public class KeyBindingUtils {
 	}
 	
 	private static void initStageBindings() {
-		manager.set("camera_mode", KeyInput.KEY_TAB);
-		manager.set("target_near", KeyInput.KEY_1);
-		manager.set("target_far", KeyInput.KEY_2);
-		manager.set("cam_left", KeyInput.KEY_A);
-		manager.set("cam_right", KeyInput.KEY_D);
-		manager.set("cam_up", KeyInput.KEY_W);
-		manager.set("cam_down", KeyInput.KEY_S);
-		manager.set("toggle_pause", KeyInput.KEY_P);
+		manager.set(GameBindings.CAM_MODE.toString(), KeyInput.KEY_TAB);
+		manager.set(GameBindings.TARGET_NEAR.toString(), KeyInput.KEY_1);
+		manager.set(GameBindings.TARGET_FAR.toString(), KeyInput.KEY_2);
+		manager.set(GameBindings.CAM_LEFT.toString(), KeyInput.KEY_A);
+		manager.set(GameBindings.CAM_RIGHT.toString(), KeyInput.KEY_D);
+		manager.set(GameBindings.CAM_UP.toString(), KeyInput.KEY_W);
+		manager.set(GameBindings.CAM_DOWN.toString(), KeyInput.KEY_S);
+		manager.set(GameBindings.TOGGLE_PAUSE.toString(), KeyInput.KEY_P);
 	}
 	
-	private interface KeyBindings {
-		
+	private static void initDebugBindings() {
+		manager.set(DebugBindings.TOGGLE_WIRE.toString(), KeyInput.KEY_T);
+		manager.set(DebugBindings.TOGGLE_DEPTH.toString(), KeyInput.KEY_F3);
+		manager.set(DebugBindings.TOGGLE_LIGHTS.toString(), KeyInput.KEY_L);
+		manager.set(DebugBindings.TOGGLE_STATS.toString(), KeyInput.KEY_F4);
+		manager.set(DebugBindings.TOGGLE_NORMALS.toString(), KeyInput.KEY_N);
+		manager.set(DebugBindings.TOGGLE_BOUNDS.toString(), KeyInput.KEY_B);
 	}
 	
-	public enum GameBindings implements KeyBindings {
-		CAM_UP, CAM_DOWN, CAM_LEFT, CAM_RIGHT,
-		TARGET_NEAR, TARGET_FAR, CAMERA_MODE,
-		TOGGLE_PAUSE;
-
-		@Override
-		public String toString() {
-			return "GameBindings_" + super.toString();
-		}
-		
-	}
-
-	public enum DebugBindings implements KeyBindings {
-		TOGGLE_WIRE, TOGGLE_NORMALS, TOGGLE_LIGHTS, 
-		TOGGLE_DEPTH, TOGGLE_STATS;
-
-		@Override
-		public String toString() {
-			return "DebugBindings_" + super.toString();
-		}
-		
+	private static void initHubGameStateBindings() {
+		manager.set(HubGameStateBindings.ACCESS_TERMINAL.toString(), KeyInput.KEY_RETURN);
+		manager.set(HubGameStateBindings.CLOSE_TERMINAL.toString(), KeyInput.KEY_BACK);
 	}
 	
-	public enum GlobalBindings implements KeyBindings {
-		EXIT, MEM_REPORT, SCREENSHOT, TOGGLE_MOUSE;
-
-		@Override
-		public String toString() {
-			return "GlobalBindings_" + super.toString();
-		}
-		
+	private static void initCharacterSelectionOverlayBindings() {
+		manager.set(CharacterSelectionOverlayBindings.CHOOSE_1.toString(), KeyInput.KEY_1);
+		manager.set(CharacterSelectionOverlayBindings.CHOOSE_2.toString(), KeyInput.KEY_2);
+		manager.set(CharacterSelectionOverlayBindings.UNDO_CHOICE.toString(), KeyInput.KEY_DELETE);
 	}
 	
-	public enum MenuBindings implements KeyBindings {
-		UP, DOWN, LEFT, RIGHT, SELECT_ITEM, SELECT_FINAL, BACK,
-		ACCESS_TERMINAL;
-
-		@Override
-		public String toString() {
-			return "MenuBindings_" + super.toString();
-		}
-		
-	}
-	
-	public enum PlayerBindings implements KeyBindings {
-		FORWARD, BACKWARD, LEFT, RIGHT, JUMP, SWITCH,
-		ATTACK_1, ATTACK_2, ATTACK_3, HOLD_ATTACK;
-
-		@Override
-		public String toString() {
-			return "PlayerBindings_" + super.toString();
-		}
-		
+	private static void initBattleGameStateBindings() {
+		manager.set(BattleGameStateBindings.RETURN_TO_HGS.toString(), KeyInput.KEY_BACK);
 	}
 	
 }
