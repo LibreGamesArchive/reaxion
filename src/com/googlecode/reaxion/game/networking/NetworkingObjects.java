@@ -21,6 +21,7 @@ import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateMode
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.ClientBattleGameState;
+import com.googlecode.reaxion.game.state.ServerBattleGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.util.GameTaskQueueManager;
@@ -61,12 +62,11 @@ public abstract class NetworkingObjects {
 		isServer = true;
 
 		System.out.println("RELIABLE SERVER:" + serverReliable);
-		
+
 		// do weird things w/ same computer
-		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(),
-				9001);
+		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(), 9001);
 		serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
-		
+
 		server = new JGNServer(serverReliable, serverFast);
 		serverSyncManager = new SynchronizationManager(server, controller);
 
@@ -81,6 +81,8 @@ public abstract class NetworkingObjects {
 			}
 
 			public void messageReceived(Message message) {
+				System.out.println("Server thread: " + isServer);
+				
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// TODO handle creation properly
@@ -108,23 +110,25 @@ public abstract class NetworkingObjects {
 										chars, stageChoice));
 
 						System.out.println("Making a battle");
-						
-
-						BattleGameState nbgs = Battle.createNetworkedBattleGameState();
 
 						
+						
+						ServerBattleGameState sbgs = (ServerBattleGameState) (Battle
+								.createNetworkedBattleGameState());
+
 						// I'm not sure this is how you do it
-						GameStateManager.getInstance().attachChild(nbgs);
+						GameStateManager.getInstance().attachChild(sbgs);
 						try {
-							nbgs.setActive(true);
-						} catch(NullPointerException e) {
-							System.out.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
+							sbgs.setActive(true);
+						} catch (NullPointerException e) {
+							e.printStackTrace();
+							System.out
+									.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
 						}
 						// Creation of objects when the server makes objects
 						// will make clients load the right things. it's not the
-					 	// most elegant way, but that's okay.
-						
-						
+						// most elegant way, but that's okay.
+
 					}
 
 					// FIXME cause this to send info to clients when all choices
@@ -173,10 +177,12 @@ public abstract class NetworkingObjects {
 			}
 
 			public void messageReceived(Message message) {
+				System.out.println("I'm in client's listener, and isServer = "+isServer);
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// Do absolutely nothing because this isn't necessary
-					System.out.println("Server is starting to create the stuff!");
+					System.out
+							.println("Server is starting to create the stuff!");
 				}
 			}
 

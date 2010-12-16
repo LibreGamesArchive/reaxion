@@ -18,7 +18,6 @@ import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
-import com.jme.app.AbstractGame.ConfigShowMode;
 import com.jme.input.MouseInput;
 import com.jmex.editors.swing.settings.GameSettingsPanel;
 import com.jmex.game.StandardGame;
@@ -33,7 +32,9 @@ import com.jmex.game.state.load.LoadingGameState;
  * @author Nilay, Khoa
  */
 public class Reaxion {
-	private enum Purpose { INITIAL_INITIALIZATION, BACKGROUND_SERVER }
+	private enum Purpose {
+		INITIAL_INITIALIZATION, BACKGROUND_SERVER
+	}
 
 	private static final String GAME_VERSION = "0.5a";
 
@@ -73,24 +74,29 @@ public class Reaxion {
 		purposeInLife = p;
 		/* Allow collection and viewing of scene statistics */
 		System.setProperty("jme.stats", "set");
-		
-		switch(purposeInLife) {
+
+		switch (purposeInLife) {
 		case INITIAL_INITIALIZATION:
-			/* Create a new StandardGame object with the given title in the window */
-			game = new StandardGame("Reaxion v" + GAME_VERSION, GameType.GRAPHICAL);
+			/*
+			 * Create a new StandardGame object with the given title in the
+			 * window
+			 */
+			game = new StandardGame("Reaxion v" + GAME_VERSION,
+					GameType.GRAPHICAL);
 			break;
 		case BACKGROUND_SERVER:
 			// Make one that's invisible
-			game = new StandardGame("Reaxion v" + GAME_VERSION, GameType.HEADLESS);
+			game = new StandardGame("Reaxion v" + GAME_VERSION,
+					GameType.HEADLESS);
 
-			//game.setConfigShowMode(ConfigShowMode.NeverShow);
+			// game.setConfigShowMode(ConfigShowMode.NeverShow);
 		}
-		
+
 	}
 
 	public static void main(String[] args) {
 		try {
-			Reaxion main = new Reaxion(Purpose.INITIAL_INITIALIZATION);
+			Reaxion main = new Reaxion(Purpose.valueOf(args[0]));
 			main.start();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -121,18 +127,19 @@ public class Reaxion {
 		JGN.register(SynchronizeCreateModelMessage.class);
 		JGN.register(CharacterAndStageSelectionsMessage.class);
 		JGN.register(StartBattleMessage.class);
-		
-		switch(purposeInLife) {
+
+		switch (purposeInLife) {
 		case INITIAL_INITIALIZATION:
 			AudioPlayer.prepare();
-		//	SoundEffectManager.initialize();
+			// SoundEffectManager.initialize();
 			FontUtils.loadFonts();
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
 			switch (sv) {
 			case 0:
 				try {
-					Reaxion bgServer = new Reaxion(Purpose.BACKGROUND_SERVER);
-					bgServer.start();
+			//		Reaxion bgServer = new Reaxion(Purpose.BACKGROUND_SERVER);
+					Runtime.getRuntime().exec("java -Xms32m -Xmx256m -jar Reaxion.jar BAKGROUND_SERVER");
+			//		bgServer.start();
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -156,7 +163,7 @@ public class Reaxion {
 			// NetworkingObjects.serverSyncManager.register(charState, new
 			// CharacterAndStageSelectionsMessage(States.CHARACTER),
 			// NetworkingObjects.updateRate);
-		break;
+			break;
 		// move to client that recieves the creation message
 		}
 	}
