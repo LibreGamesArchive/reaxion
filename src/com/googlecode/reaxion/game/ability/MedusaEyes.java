@@ -24,7 +24,8 @@ public class MedusaEyes extends Ability {
 	public boolean act(Character c, StageGameState b) {
 		// if the user is the player
 		if (c == b.getPlayer())
-			((Character)b.getTarget()).hp = Math.max(((Character)b.getTarget()).hp - dpf, 0);
+			if (b.getTarget() instanceof Character)
+				((Character)b.getTarget()).hp = Math.max(((Character)b.getTarget()).hp - dpf, 0);
 		else
 			// if the user is an opponent
 			b.getPlayer().hp = Math.max(b.getPlayer().hp - dpf, 0);

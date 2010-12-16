@@ -31,9 +31,10 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	public static final String CHOOSE_2 = "characterSelect_choose_2";
 	public static final String UNDO_CHOICE = "characterSelect_undo_choice";
 	
-	private final int numchars = 8;
+	private final int numchars = 12;
 	
 	private String[] charNames;
+	private Node grid;
 	private Quad[] p1Fill;
 	private Quad p1c;
 	private Quad p2c;
@@ -42,7 +43,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	private BitmapText menu2;
 
 	//table dimensions
-	private int tblL = 6;
+	private int tblL = 4;
 	private int tblW = 4;
 	
 	//round number (see method updateSel)
@@ -79,7 +80,11 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		charNames[4] = "Austin";
 		charNames[5] = "Brian";
 		charNames[6] = "Andrew";
-		charNames[7] = "Shine";
+		charNames[7] = "Jenna";
+		charNames[8] = "Raina";
+		charNames[9] = "Savannah";
+		charNames[10] = "Polina";
+		charNames[11] = "Shine";
 		p1Display = new BitmapText[numchars];
 		for (int i = 0; i < numchars; i++) {
 			p1Display[i] = new BitmapText(FontUtils.neuropol, false);
@@ -120,7 +125,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 				case 0:
 					selectedChars[0] = picked;
 					//round ++;
-					p1c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
+					p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
 					container.detachChild(p1c);
 					container.attachChild(p1c);
 					this.updateRenderState();
@@ -128,7 +133,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 				case 1:
 					selectedChars[1] = picked;
 					//round ++;
-					p2c.setLocalTranslation(p1Fill[picked].getLocalTranslation());
+					p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
 					container.detachChild(p2c);
 					container.attachChild(p2c);
 					this.updateRenderState();
@@ -153,34 +158,35 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			for(int j = 0; j < tblW; j++)
 				takenPos[i][j] = 123;
 		
-		String s = cursorURL + "p1.png";
+		String s = cursorURL + "p1-2.png";
 		p1c = getImage(s);
-		s = cursorURL + "p2.png";
+		s = cursorURL + "p2-2.png";
 		p2c = getImage(s);
 		
 		//retrieves character images
     	String [] charLoc = new String[numchars];
     	for(int j = 0; j<numchars; j++)
     	{
-    		charLoc[j] = baseURL+charNames[j].toLowerCase()+".png";
+    		charLoc[j] = baseURL+charNames[j].toLowerCase()+"96.png";
     		p1Fill[j] = getImage(charLoc[j]);
-    		p1Fill[j].setLocalScale(35f/64f);
     	}
     	
     	//grid creation
-    	Point[][] pos = createHorizontallyCenteredGrid(tblW, tblL, 400, 70, 70, 10, 40);
-		
+    	Point[][] pos = createHorizontallyCenteredGrid(tblW, tblL, 400, 70, 70, 40, 60);
+    	grid = new Node("grid");
+    	grid.setLocalTranslation(-400 + 32, 0, 0);
+    	
     	int cntr = 0;
 		for (int i = 0; i < tblW; i++) 
 			for (int j = 0; j < tblL; j++){
 				if(cntr >= p1Fill.length)
 					break;
-				p1Fill[cntr].setLocalTranslation(new Vector3f(-425 + pos[i][j].x,
+				p1Fill[cntr].setLocalTranslation(new Vector3f(pos[i][j].x,
 						pos[i][j].y, 0));
-				p1Display[cntr].setLocalTranslation(new Vector3f(-460 + pos[i][j].x,
-						pos[i][j].y - 35, 0));
+				p1Display[cntr].setLocalTranslation(new Vector3f(pos[i][j].x - 64*.75f,
+						pos[i][j].y - 48, 0));
 				takenPos[j][i] = cntr;
-				container.attachChild(p1Fill[cntr]);
+				grid.attachChild(p1Fill[cntr]);
 				cntr++;
 		}
 
@@ -193,6 +199,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		menu2.update();
 		container.attachChild(menu);
 		container.attachChild(menu2);
+		container.attachChild(grid);
 
 		//player name list 
 		for (int i = 0; i < p1Display.length; i++) {
@@ -200,7 +207,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			p1Display[i].setDefaultColor(i == 0? selTextColor : textColor);
 			p1Display[i].setText(charNames[i]);
 			p1Display[i].update();
-			container.attachChild(p1Display[i]);
+			grid.attachChild(p1Display[i]);
 		}
 		this.updateRenderState();
 	}

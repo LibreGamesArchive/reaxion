@@ -4,15 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.googlecode.reaxion.game.burstgrid.info.AndrewInfo;
-import com.googlecode.reaxion.game.burstgrid.info.AustinInfo;
-import com.googlecode.reaxion.game.burstgrid.info.BrianInfo;
-import com.googlecode.reaxion.game.burstgrid.info.CyInfo;
-import com.googlecode.reaxion.game.burstgrid.info.KhoaInfo;
-import com.googlecode.reaxion.game.burstgrid.info.MonicaInfo;
-import com.googlecode.reaxion.game.burstgrid.info.NilayInfo;
-import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
-import com.googlecode.reaxion.game.burstgrid.info.ShineInfo;
+import com.googlecode.reaxion.game.burstgrid.info.*;
 
 /** 
  * This class handles the creation of retrieval of {@code PlayerInfo}.
@@ -37,6 +29,10 @@ public class PlayerInfoManager {
 		map.put("Khoa", new KhoaInfo());
 		map.put("Monica", new MonicaInfo());
 		map.put("Nilay", new NilayInfo());
+		map.put("Jenna", new JennaInfo());
+		map.put("Raina", new RainaInfo());
+		map.put("Savannah", new SavannahInfo());
+		map.put("Polina", new PolinaInfo());
 		map.put("Shine", new ShineInfo());
 		
 		Collection<PlayerInfo> c = map.values();
