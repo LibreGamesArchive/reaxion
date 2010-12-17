@@ -5,14 +5,12 @@ import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindi
 import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
-import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.app.AbstractGame;
 import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
 import com.jmex.game.state.BasicGameState;
@@ -88,36 +86,36 @@ public class CharacterSelectionState extends BasicGameState {
 
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.UP.toString(),
 				false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_UP);
+			charSelectNode.updateDisplay(MenuBindings.UP);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.RIGHT.toString(), false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_RIGHT);
+			charSelectNode.updateDisplay(MenuBindings.RIGHT);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.DOWN.toString(), false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_DOWN);
+			charSelectNode.updateDisplay(MenuBindings.DOWN);
 		}
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.LEFT.toString(), false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_LEFT);
+			charSelectNode.updateDisplay(MenuBindings.LEFT);
 		}
 
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(MenuBindings.SELECT_ITEM.toString(),
 				false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_SPACE);
+			charSelectNode.updateDisplay(MenuBindings.SELECT_ITEM);
 		}
 		
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlayBindings.UNDO_CHOICE.toString(),
 				false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_BACK);
+			charSelectNode.updateDisplay(CharacterSelectionOverlayBindings.UNDO_CHOICE);
 		}
 		
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_1.toString(),
 				false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_1);
+			charSelectNode.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_1);
 		}
 		
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_2.toString(),
 				false)) {
-			charSelectNode.updateDisplay(KeyInput.KEY_2);
+			charSelectNode.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_2);
 		}
 		
 		if (KeyBindingManager.getKeyBindingManager()

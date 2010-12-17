@@ -3,9 +3,9 @@ package com.googlecode.reaxion.game.overlay;
 import java.awt.Point;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.input.bindings.KeyBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.util.FontUtils;
-import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jmex.angelfont.BitmapFont;
@@ -75,18 +75,15 @@ public class TerminalOverlay extends MenuOverlay {
 		return currentIndex;
 	}
 	
-	public void updateDisplay(int key) {
+	public void updateDisplay(KeyBindings k) {
 		int lastIndex = currentIndex;
 		
-		switch(key) {
-		case KeyInput.KEY_UP:
+		if (k == MenuBindings.UP) {
 			currentIndex--;
 			if (currentIndex == -1)
 				currentIndex += menuItems.length;
-			break;
-		case KeyInput.KEY_DOWN:
+		} else if (k == MenuBindings.DOWN) {
 			currentIndex = (currentIndex + 1) % menuItems.length;
-			break;
 		}
 		
 		menuItems[lastIndex].setDefaultColor(unselectedColor);

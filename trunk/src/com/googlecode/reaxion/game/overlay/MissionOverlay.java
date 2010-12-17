@@ -4,10 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.input.bindings.KeyBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.util.FontUtils;
-import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -98,7 +99,7 @@ public class MissionOverlay extends MenuOverlay {
 		}	
 		
 		currentIndex = missionList.length - numListItems / 2;
-		rotateMissionList(currentIndex);
+		rotateMissionList(null);
 	}
 
 	/**
@@ -158,13 +159,13 @@ public class MissionOverlay extends MenuOverlay {
 	 * Updates the locations of each of the mission list items based on key input.
 	 * @param key The keycode for the key that was pressed
 	 */
-	private void rotateMissionList(int key) {
-		if (key == KeyInput.KEY_DOWN) {
+	private void rotateMissionList(KeyBindings k) {
+		if (k == MenuBindings.DOWN) {
 			int index = currentIndex - 1;
 			if (index < 0)
 				index += missionList.length;
 			missionList[index].setLocalTranslation(1000, 0, 0);
-		} else if (key == KeyInput.KEY_UP) {
+		} else if (k == MenuBindings.UP) {
 			missionList[(currentIndex + numListItems) % missionList.length].setLocalTranslation(1000, 0, 0);
 		}
 		
@@ -181,21 +182,16 @@ public class MissionOverlay extends MenuOverlay {
 	}
 	
 	@Override
-	public void updateDisplay(int key) {
-		switch (key) {
-		case KeyInput.KEY_DOWN:
+	public void updateDisplay(KeyBindings k) {
+		if (k == MenuBindings.DOWN)
 			currentIndex = (currentIndex + 1) % missionList.length;
-			break;
-		case KeyInput.KEY_UP:
+		else if (k == MenuBindings.UP) {
 			currentIndex -= 1;
 			if (currentIndex < 0)
 				currentIndex += missionList.length;
-			break;
 		}
 		
-		System.out.println(currentIndex);
-		
-		rotateMissionList(key);
+		rotateMissionList(k);
 		
 		container.updateRenderState();
 	}
