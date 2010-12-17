@@ -89,13 +89,13 @@ public class StageSelectionState extends BasicGameState {
 	private void checkKeyInput() {
 		if (input != null) {
 			if (manager.isValidCommand(MenuBindings.UP.toString(), false))
-				stageSelectionNode.updateDisplay(KeyInput.KEY_UP);
+				stageSelectionNode.updateDisplay(MenuBindings.UP);
 			if (manager.isValidCommand(MenuBindings.DOWN.toString(), false))
-				stageSelectionNode.updateDisplay(KeyInput.KEY_DOWN);
+				stageSelectionNode.updateDisplay(MenuBindings.DOWN);
 			if (manager.isValidCommand(MenuBindings.LEFT.toString(), false))
-				stageSelectionNode.updateDisplay(KeyInput.KEY_LEFT);
+				stageSelectionNode.updateDisplay(MenuBindings.LEFT);
 			if (manager.isValidCommand(MenuBindings.RIGHT.toString(), false))
-				stageSelectionNode.updateDisplay(KeyInput.KEY_RIGHT);
+				stageSelectionNode.updateDisplay(MenuBindings.RIGHT);
 			if (manager.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false)) {
 //				switchToLoadingOverlay();
 				goToBattleGameState();

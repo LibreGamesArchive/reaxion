@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.overlay;
 
+import com.googlecode.reaxion.game.input.bindings.KeyBindings;
+
 /**
  * Contains methods for {@code Overlay} classes that serve as interactive menus.
  * 
@@ -16,6 +18,6 @@ public abstract class MenuOverlay extends GridOverlay {
 	 * Updates the {@code Overlay} based on key input.
 	 * @param key The keycode for the key that was pressed
 	 */
-	public abstract void updateDisplay(int key);
+	public abstract void updateDisplay(KeyBindings k);
 
 }

@@ -14,7 +14,7 @@ import com.googlecode.reaxion.game.overlay.TerminalOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
+import com.jme.input.KeyBindingManager.KeyCodes;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -71,9 +71,13 @@ public class HubGameState extends StageGameState {
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		
+		boolean terminalAccessed = false;
+		
 		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
 		if (manager.isValidCommand(HubGameStateBindings.ACCESS_TERMINAL.toString(), false) && !menuShowing) {
+			terminalAccessed = true;
+			
 			Vector3f playerLoc = player.getXZTranslation();
 			Vector3f terminalLoc = terminal.getXZTranslation();
 			
@@ -84,42 +88,8 @@ public class HubGameState extends StageGameState {
 			}
 		}
 		
-		if (manager.isValidCommand(HubGameStateBindings.CLOSE_TERMINAL.toString(), false) && menuShowing) {
-			Vector3f playerLoc = player.getXZTranslation();
-			Vector3f terminalLoc = terminal.getXZTranslation();
-			
-			if (playerLoc.distance(terminalLoc) <= activationDistance) {
-				toggleMenu(false);
-				rootNode.detachChild((Overlay) currentMenu);
-			}
-		}
-		
-		if (manager.isValidCommand(MenuBindings.UP.toString(), false)) {
-			if (menuShowing)
-				currentMenu.updateDisplay(KeyInput.KEY_UP);
-		}
-		
-		if (manager.isValidCommand(MenuBindings.DOWN.toString(), false)) {
-			if (menuShowing)
-				currentMenu.updateDisplay(KeyInput.KEY_DOWN);
-		}
-		
-		if (manager.isValidCommand(MenuBindings.LEFT.toString(), false)) {
-			if (menuShowing)
-				currentMenu.updateDisplay(KeyInput.KEY_LEFT);
-		}
-		
-		if (manager.isValidCommand(MenuBindings.RIGHT.toString(), false)) {
-			if (menuShowing)
-				currentMenu.updateDisplay(KeyInput.KEY_RIGHT);
-		}
-		
-		if (manager.isValidCommand(MenuBindings.SELECT_ITEM.toString(), false)) {
-			if (menuShowing)
-				currentMenu.updateDisplay(KeyInput.KEY_SPACE);
-		}
-		
-		if (manager.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false)) {
+		if (manager.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false) && !terminalAccessed) {
+			System.out.println("hello " + currentMenu);
 			if (currentMenu instanceof MissionOverlay) {
 				missionOverlay.startSelectedMission();
 			} else if (currentMenu instanceof TerminalOverlay) {
@@ -155,19 +125,54 @@ public class HubGameState extends StageGameState {
 			
 		}
 		
+		if (manager.isValidCommand(HubGameStateBindings.CLOSE_TERMINAL.toString(), false) && menuShowing) {
+			Vector3f playerLoc = player.getXZTranslation();
+			Vector3f terminalLoc = terminal.getXZTranslation();
+			
+			if (playerLoc.distance(terminalLoc) <= activationDistance) {
+				toggleMenu(false);
+				rootNode.detachChild((Overlay) currentMenu);
+			}
+		}
+		
+		if (manager.isValidCommand(MenuBindings.UP.toString(), false)) {
+			if (menuShowing)
+				currentMenu.updateDisplay(MenuBindings.UP);
+		}
+		
+		if (manager.isValidCommand(MenuBindings.DOWN.toString(), false)) {
+			if (menuShowing)
+				currentMenu.updateDisplay(MenuBindings.DOWN);
+		}
+		
+		if (manager.isValidCommand(MenuBindings.LEFT.toString(), false)) {
+			if (menuShowing)
+				currentMenu.updateDisplay(MenuBindings.LEFT);
+		}
+		
+		if (manager.isValidCommand(MenuBindings.RIGHT.toString(), false)) {
+			if (menuShowing)
+				currentMenu.updateDisplay(MenuBindings.RIGHT);
+		}
+		
+		if (manager.isValidCommand(MenuBindings.SELECT_ITEM.toString(), false)) {
+			if (menuShowing)
+				currentMenu.updateDisplay(MenuBindings.SELECT_ITEM);
+		}
+		
 		if (manager.isValidCommand(CharacterSelectionOverlayBindings.UNDO_CHOICE.toString(),
 				false)) {
-			currentMenu.updateDisplay(KeyInput.KEY_DELETE);
+			currentMenu.updateDisplay(CharacterSelectionOverlayBindings.UNDO_CHOICE);
 		}
 		
 		if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_1.toString(),
 				false)) {
-			currentMenu.updateDisplay(KeyInput.KEY_1);
+			currentMenu.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_1);
 		}
 		
 		if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_2.toString(),
 				false)) {
-			currentMenu.updateDisplay(KeyInput.KEY_2);
+			currentMenu.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_2);
 		}
 		
 	}

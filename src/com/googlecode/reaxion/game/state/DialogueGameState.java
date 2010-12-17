@@ -5,13 +5,14 @@ import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
+import com.googlecode.reaxion.game.input.bindings.DialogueGameStateBindings;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.DialogueOverlay;
 import com.googlecode.reaxion.game.util.Actor;
 import com.jme.app.AbstractGame;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
@@ -128,31 +129,6 @@ public class DialogueGameState extends BaseGameState {
 		loadText(current);
 	}
 
-	// duplicate the functionality of DebugGameState
-	// Most of this can be commented out during finalization
-	protected void initKeyBindings() {
-		KeyBindingManager.getKeyBindingManager().set("screen_shot",
-				KeyInput.KEY_F1);
-		KeyBindingManager.getKeyBindingManager().set("exit",
-				KeyInput.KEY_ESCAPE);
-		KeyBindingManager.getKeyBindingManager().set("mem_report",
-				KeyInput.KEY_R);
-		KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-				KeyInput.KEY_M);
-		KeyBindingManager.getKeyBindingManager().set("return",
-				KeyInput.KEY_RETURN);
-	}
-	
-	protected void removeKeyBindings() {
-		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
-		
-		manager.remove("screen_shot");
-		manager.remove("exit");
-		manager.remove("mem_report");
-		manager.remove("toggle_mouse");
-		manager.remove("return");
-	}
-
 	@Override
 	public void stateUpdate(float _tpf) {
 		tpf = _tpf;
@@ -162,7 +138,7 @@ public class DialogueGameState extends BaseGameState {
 			input.update(tpf);
 
 			/** If exit is a valid command (via key Esc), exit game */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
 					false)) {
 				if (game != null) {
 					game.finish();
@@ -177,7 +153,7 @@ public class DialogueGameState extends BaseGameState {
 
 		if (input != null) {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"return", false)) {
+					DialogueGameStateBindings.CONTINUE.toString(), false)) {
 				// check the duration limit
 				if (count >= durations[current]) {
 					
@@ -197,12 +173,12 @@ public class DialogueGameState extends BaseGameState {
 				}
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"screen_shot", false)) {
+					GlobalBindings.SCREENSHOT.toString(), false)) {
 				DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
 						"SimpleGameScreenShot");
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"mem_report", false)) {
+					GlobalBindings.MEM_REPORT.toString(), false)) {
 				long totMem = Runtime.getRuntime().totalMemory();
 				long freeMem = Runtime.getRuntime().freeMemory();
 				long maxMem = Runtime.getRuntime().maxMemory();
@@ -213,7 +189,7 @@ public class DialogueGameState extends BaseGameState {
 				logger.info("Max memory: " + (maxMem >> 10) + " kb");
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_mouse", false)) {
+					GlobalBindings.TOGGLE_MOUSE.toString(), false)) {
 				MouseInput.get().setCursorVisible(
 						!MouseInput.get().isCursorVisible());
 				logger.info("Cursor Visibility set to "

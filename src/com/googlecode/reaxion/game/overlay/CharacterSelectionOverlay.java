@@ -3,10 +3,9 @@ package com.googlecode.reaxion.game.overlay;
 import java.awt.Point;
 
 import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
+import com.googlecode.reaxion.game.input.bindings.KeyBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.util.FontUtils;
-import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
@@ -282,31 +281,31 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	}
 	
 	@Override
-	public void updateDisplay(int key) {
+	public void updateDisplay(KeyBindings k) {
 		int[] lastIndex = currentIndex.clone();
 		
-		if (key == KeyInput.KEY_1)
+		if (k == CharacterSelectionOverlayBindings.CHOOSE_1)
 			choose1();
-		else if (key == KeyInput.KEY_2)
+		else if (k == CharacterSelectionOverlayBindings.CHOOSE_2)
 			choose2();
-		else if (key == KeyInput.KEY_BACK)
+		else if (k == CharacterSelectionOverlayBindings.UNDO_CHOICE)
 			undo();
-		else if (key == KeyInput.KEY_SPACE)
+		else if (k == MenuBindings.SELECT_ITEM)
 			updateSel();
 		
-		if (key == KeyInput.KEY_UP) {
+		if (k == MenuBindings.UP) {
 
 			if (currentIndex[0] == 0)
 				return;
 			else
 				currentIndex[0]--;
-		} else if (key == KeyInput.KEY_RIGHT) {
+		} else if (k == MenuBindings.RIGHT) {
 				if (currentIndex[1] == tblL-1 || takenPos[currentIndex[1]+1][currentIndex[0]] == 123)
 					return;
 				else
 					currentIndex[1]++;
 
-		} else if (key == KeyInput.KEY_DOWN) {
+		} else if (k == MenuBindings.DOWN) {
 				if (currentIndex[0] == tblW-1 || takenPos[currentIndex[1]][currentIndex[0]+1] == 123)
 				{
 					if(takenPos[0][currentIndex[0]+1] != 123){
@@ -323,7 +322,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 				else
 					currentIndex[0]++;
 
-		} else if (key == KeyInput.KEY_LEFT) {
+		} else if (k == MenuBindings.LEFT) {
 				if (currentIndex[1] == 0)
 					return;
 				else

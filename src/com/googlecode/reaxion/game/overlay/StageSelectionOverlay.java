@@ -3,6 +3,8 @@ package com.googlecode.reaxion.game.overlay;
 import java.awt.Point;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.input.bindings.KeyBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.model.stage.CityOfDreams;
 import com.googlecode.reaxion.game.model.stage.CloudNine;
 import com.googlecode.reaxion.game.model.stage.CrystalPalace;
@@ -13,10 +15,7 @@ import com.googlecode.reaxion.game.model.stage.MikoLake;
 import com.googlecode.reaxion.game.model.stage.SeasRepose;
 import com.googlecode.reaxion.game.model.stage.TwilightKingdom;
 import com.googlecode.reaxion.game.model.stage.WorldsEdge;
-import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.FontUtils;
-import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Matrix3f;
 import com.jme.math.Vector3f;
@@ -286,7 +285,8 @@ public class StageSelectionOverlay extends MenuOverlay {
 		}
 	}
 
-	public void updateDisplay(int key) {
+	@Override
+	public void updateDisplay(KeyBindings k) {
 		int lastRow = currentRow;
 		int lastColumn = currentColumn;
 		
@@ -304,8 +304,7 @@ public class StageSelectionOverlay extends MenuOverlay {
 		boolean onLastRow = currentRow == (stageGridRows - 1);
 		
 		//Key Input Checking
-		switch(key) {
-		case KeyInput.KEY_UP:
+		if (k == MenuBindings.UP) {
 			if (currentRow == 0) {
 				if(uneven && currentColumn > lastItem)
 					currentColumn = lastItem;
@@ -313,9 +312,7 @@ public class StageSelectionOverlay extends MenuOverlay {
 			}
 			else
 				currentRow--;
-			break;
-			
-		case KeyInput.KEY_DOWN:
+		} else if (k == MenuBindings.DOWN) {
 			if (currentRow == stageGridRows - 1)
 				currentRow = 0;				
 			else {
@@ -323,21 +320,16 @@ public class StageSelectionOverlay extends MenuOverlay {
 					currentColumn = lastItem;
 				currentRow ++;
 			}
-			break;
-			
-		case KeyInput.KEY_LEFT:
+		} else if (k == MenuBindings.LEFT) {
 			if (currentColumn == 0)
 				currentColumn = onLastRow? lastItem : stageGridColumns - 1;
 			else
 				currentColumn--;
-			break;
-			
-		case KeyInput.KEY_RIGHT:
+		} else if (k == MenuBindings.RIGHT) {
 			if (onLastRow && currentColumn == lastItem || currentColumn == stageGridColumns - 1)
 				currentColumn = 0;
 			else
 				currentColumn++;
-			break;
 		}
 		
 		if (!(lastRow == currentRow && lastColumn == currentColumn)) {

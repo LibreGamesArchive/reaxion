@@ -3,35 +3,29 @@ package com.googlecode.reaxion.game.util;
 import com.googlecode.reaxion.game.input.bindings.BattleGameStateBindings;
 import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
 import com.googlecode.reaxion.game.input.bindings.DebugBindings;
+import com.googlecode.reaxion.game.input.bindings.DialogueGameStateBindings;
 import com.googlecode.reaxion.game.input.bindings.GameBindings;
 import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
 import com.googlecode.reaxion.game.input.bindings.HubGameStateBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.input.bindings.PlayerBindings;
-import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
-import com.googlecode.reaxion.game.overlay.MissionOverlay;
-import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
-import com.googlecode.reaxion.game.overlay.TerminalOverlay;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 
 public class KeyBindingUtils {
 
-	private static final String[] menus = {TerminalOverlay.NAME, StageSelectionOverlay.NAME, CharacterSelectionOverlay.NAME, MissionOverlay.NAME};
-	
 	private static KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 	
 	public static void initKeyBindings() {
 		initGlobalBindings();
 		initPlayerBindings();
+		initMenuBindings();
 		initStageBindings();
 		initDebugBindings();
 		initHubGameStateBindings();
 		initCharacterSelectionOverlayBindings();
 		initBattleGameStateBindings();
-		
-		for (String s : menus)
-			initMenuBindings(s);
+		initDialogueGameStateBindings();
 	}
 	
 	private static void initGlobalBindings() {
@@ -54,13 +48,13 @@ public class KeyBindingUtils {
 		manager.set(PlayerBindings.SWITCH.toString(), KeyInput.KEY_SPACE);
 	}
 	
-	private static void initMenuBindings(String name) {
-		manager.set(name + MenuBindings.LEFT, KeyInput.KEY_LEFT);
-		manager.set(name + MenuBindings.RIGHT, KeyInput.KEY_RIGHT);
-		manager.set(name + MenuBindings.UP, KeyInput.KEY_UP);
-		manager.set(name + MenuBindings.DOWN, KeyInput.KEY_DOWN);
-		manager.set(name + MenuBindings.SELECT_ITEM, KeyInput.KEY_SPACE);
-		manager.set(name + MenuBindings.SELECT_FINAL, KeyInput.KEY_RETURN);
+	private static void initMenuBindings() {
+		manager.set(MenuBindings.LEFT.toString(), KeyInput.KEY_LEFT);
+		manager.set(MenuBindings.RIGHT.toString(), KeyInput.KEY_RIGHT);
+		manager.set(MenuBindings.UP.toString(), KeyInput.KEY_UP);
+		manager.set(MenuBindings.DOWN.toString(), KeyInput.KEY_DOWN);
+		manager.set(MenuBindings.SELECT_ITEM.toString(), KeyInput.KEY_SPACE);
+		manager.set(MenuBindings.SELECT_FINAL.toString(), KeyInput.KEY_RETURN);
 	}
 	
 	private static void initStageBindings() {
@@ -95,7 +89,11 @@ public class KeyBindingUtils {
 	}
 	
 	private static void initBattleGameStateBindings() {
-		manager.set(BattleGameStateBindings.RETURN_TO_HGS.toString(), KeyInput.KEY_BACK);
+		manager.set(BattleGameStateBindings.RETURN_TO_HGS.toString(), KeyInput.KEY_DELETE);
+	}
+	
+	private static void initDialogueGameStateBindings() {
+		manager.set(DialogueGameStateBindings.CONTINUE.toString(), KeyInput.KEY_RETURN);
 	}
 	
 }
