@@ -19,7 +19,7 @@ import com.jme.math.Vector3f;
  */
 public class Doriruzu extends Enemy {
 
-	private final int dropTime = 20;
+	private final int dropTime = 15;
 	private final int numDrills = 8;
 	private final int numRiseDrills = 4;
 	private final float minDist =  24;
@@ -52,7 +52,9 @@ public class Doriruzu extends Enemy {
 	@Override
 	protected void init() {
 		super.init();
-		mass = 2;
+		mass = 10;
+		gravitate = true;
+		gravity = -.06f;
 		trackOffset = new Vector3f(0, 8, 0);
 		boundRadius = 15f;
 		boundHeight = 20f;
@@ -95,14 +97,12 @@ public class Doriruzu extends Enemy {
 				// stop and turn
 				charging = false;
 				velocity = new Vector3f();
-
-				// check if was moving
-				if (Math.abs(model.getLocalTranslation().distance(prevPos)) < .001)
-					// attack!
-					if (dist.length() > closeRadius)
-						riseDrill(b, ang);
-					else
-						circleDrill(b, ang);
+				
+				// attack!
+				if (dist.length() > closeRadius)
+					riseDrill(b, ang);
+				else
+					circleDrill(b, ang);
 				
 			} else if (hp <= maxHp/2 && dropCount == 0) {
 				// drop a crystal
@@ -122,7 +122,7 @@ public class Doriruzu extends Enemy {
 			float angle = a + 2*FastMath.PI/(float)numDrills * i;
 			Vector3f translation = new Vector3f(FastMath.sin(angle), .12f, FastMath.cos(angle)).mult(10);			
 			DrillBit d = (DrillBit)LoadingQueue.quickLoad(new DrillBit(this), b);
-			d.setVelocity(new Vector3f(FastMath.sin(angle), 0, FastMath.cos(angle)).mult(3));
+			d.setVelocity(new Vector3f(FastMath.sin(angle), 0, FastMath.cos(angle)).mult(4));
 			d.rotate(d.getVelocity());
 			d.model.setLocalTranslation(model.getWorldTranslation().add(translation));
 		}

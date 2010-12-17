@@ -9,7 +9,7 @@ import com.jme.math.FastMath;
 public class Floodlight extends Attack {
 	
 	private static final String n = "Floodlight";
-	private static final int gc = 18;
+	private static final int gc = 17;
 	
 	private final int numLights = 6;
 	

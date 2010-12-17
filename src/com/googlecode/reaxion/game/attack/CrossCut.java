@@ -12,7 +12,7 @@ import com.jme.math.Vector3f;
 public class CrossCut extends Attack {
 	
 	private static final String n = "Cross Cut";
-	private static final int gc = 7;
+	private static final int gc = 5;
 	
 	private final float slashSpeed = .15f;
 	

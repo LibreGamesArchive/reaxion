@@ -14,8 +14,8 @@ public class Chain extends AttackObject {
 	protected static final int span = 320;
 	protected static final float dpf = 0;
 	
-	public final int offset = 80;
-	private float speed = 5f/3f;
+	public final int offset = 50;
+	private float speed = 2.5f;
 	private float angle;
 	
 	private ArrayList<Character> captured = new ArrayList<Character>();

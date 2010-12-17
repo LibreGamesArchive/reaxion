@@ -14,7 +14,7 @@ import com.jme.math.Vector3f;
 public class ShootFireball extends Attack {
 	
 	private static final String n = "Fireball";
-	private static final int gc = 6;
+	private static final int gc = 7;
 	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_FIREBALL};
 	
 	private static final float speed = 3;

@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Point;
+import java.util.Arrays;
 
 import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
 import com.googlecode.reaxion.game.input.bindings.KeyBindings;
@@ -114,33 +115,42 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		
 		int picked = 0;
 		picked = takenPos[currentIndex[1]][currentIndex[0]];
-		System.out.println(picked);
+		//System.out.println(Arrays.toString(selectedChars)+": "+picked);
+		
+		boolean flag = false;
+		for (int i=0; i<selectedChars.length; i++)
+			if (selectedChars[i] == picked) {
+				flag = true;
+				break;
+			}
 		
 		//round of selection - 0 = player 1, 1 = player 2, 2 (optional) = opponent
+		if (!flag) {
 			switch(round)
 			{
-				case 0:
-					selectedChars[0] = picked;
-					//round ++;
-					p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
-					container.detachChild(p1c);
-					container.attachChild(p1c);
-					this.updateRenderState();
-					break;
-				case 1:
-					selectedChars[1] = picked;
-					//round ++;
-					p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
-					container.detachChild(p2c);
-					container.attachChild(p2c);
-					this.updateRenderState();
-					break;
-				case 2:
-					selectedChars[2] = picked;
-					//round ++;
-					break;
-				default:
-					break;
+			case 0:
+				selectedChars[0] = picked;
+				//round ++;
+				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
+				container.detachChild(p1c);
+				container.attachChild(p1c);
+				this.updateRenderState();
+				break;
+			case 1:
+				selectedChars[1] = picked;
+				//round ++;
+				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
+				container.detachChild(p2c);
+				container.attachChild(p2c);
+				this.updateRenderState();
+				break;
+			case 2:
+				selectedChars[2] = picked;
+				//round ++;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 

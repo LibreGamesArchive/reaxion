@@ -14,7 +14,7 @@ public class LightDrill extends AttackObject {
 	public static final String filename = "light-drill";
 	protected static final int span = 32;
 	protected static final int fadePoint = 28;
-	protected static final float dpf = .5f;
+	protected static final float dpf = .6f;
 	
 	private final float angleInc = FastMath.PI/8;
 	

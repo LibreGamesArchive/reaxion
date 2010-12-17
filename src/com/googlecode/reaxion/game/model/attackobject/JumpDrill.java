@@ -13,7 +13,7 @@ public class JumpDrill extends AttackObject {
 	protected static final float dpf = 6;
 	
 	protected static final float riseSpeed = 1.5f;
-	protected static final float flySpeed = 5;
+	protected static final float flySpeed = 8;
 	
 	private Model target;
 	

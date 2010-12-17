@@ -12,7 +12,7 @@ import com.jme.math.Vector3f;
 public class Rapture extends Attack {
 	
 	private static final String n = "Hand Sonic";
-	private static final int gc = 12;
+	private static final int gc = 11;
 	
 	private static final int duration = 34;
 	private static final int dashSpeed = 4;
