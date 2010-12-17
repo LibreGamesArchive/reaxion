@@ -13,7 +13,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
  */
 public class Beacon extends Attack {
 	private static final String n = "Beacon";
-	private static final int gc = 16;
+	private static final int gc = 10;
 	
 	private Model target;
 	private BeaconOrb[] orb = new BeaconOrb[4];

@@ -10,7 +10,7 @@ import com.jme.math.Vector3f;
 public class OmegaShot extends Attack {
 	
 	private static final String n = "Omega Shot";
-	private static final int gc = 15;
+	private static final int gc = 12;
 	
 	public OmegaShot() {
 		name = n;

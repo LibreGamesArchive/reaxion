@@ -58,7 +58,7 @@ public class Toybox extends Enemy {
 	@Override
 	protected void init() {
 		super.init();
-		mass = 2;
+		mass = 10;
 		gravitate = true;
 		gravity = -.06f;
 		trackOffset = new Vector3f(0, 6, 0);

@@ -26,7 +26,7 @@ public class AngelRain extends Attack {
 	public AngelRain() {
 		name = "Angel Rain";
 		description="Leaps into the air and rains down swords.";
-		gaugeCost = 22;
+		gaugeCost = 18;
 	}
 	
 	public AngelRain(AttackData ad) {

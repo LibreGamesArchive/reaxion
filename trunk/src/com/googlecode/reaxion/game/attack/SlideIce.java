@@ -16,7 +16,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class SlideIce extends Attack {
 	
 	private static final String n = "Ice Cube";
-	private static final int gc = 6;
+	private static final int gc = 4;
 	
 	private static final float speed = 3;
 	private IceCube ice;

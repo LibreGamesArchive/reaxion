@@ -13,7 +13,7 @@ import com.jme.math.Vector3f;
  */
 public class CardScreen extends Attack {	
 	private static final String n = "Card Screen";
-	private static final int gc = 7;
+	private static final int gc = 9;
 	
 	private ScreenCard[] card = new ScreenCard[5];
 	

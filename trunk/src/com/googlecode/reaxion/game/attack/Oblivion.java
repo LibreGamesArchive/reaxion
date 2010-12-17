@@ -77,10 +77,10 @@ public class Oblivion extends Attack {
 			
 		} else if (phase == 3 && (s.model.getLocalScale().x == s.maxRadius || s.model.getParent() == null)) {
 			// launch star
-			s.setVelocity(b.getTarget().model.getWorldTranslation().subtract(character.model.getWorldTranslation()).normalize().mult(launchSpeed));
+			s.setVelocity(b.getTarget().model.getWorldTranslation().subtract(s.model.getWorldTranslation()).normalize().mult(launchSpeed));
 			phase++;
 			
-		} else if (phase == 4 && s.model.getParent() == null) {
+		} else if (phase == 4 && s.model.getParent() == null || s.getVelocity().y >= 0) {
 			character.play("jump", b.tpf);
 			character.setVelocity(new Vector3f(0, -riseSpeed, 0));
 			if (character.model.getWorldTranslation().y <= 0) {

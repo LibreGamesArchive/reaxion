@@ -13,7 +13,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class BulletStorm extends Attack {
 
 	private static final String n = "Bullet Storm";
-	private static final int gc = 10;
+	private static final int gc = 16;
 	private static final float bulletSpeed = 4;
 	
 	private float maxRadius = 80;
