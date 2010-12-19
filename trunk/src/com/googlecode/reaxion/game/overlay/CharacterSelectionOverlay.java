@@ -114,7 +114,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	public void updateSel() {
 		
 		int picked = 0;
-		picked = takenPos[currentIndex[1]][currentIndex[0]];
+		picked = takenPos[currentIndex[1]][currentIndex[0]] + 1;
 		//System.out.println(Arrays.toString(selectedChars)+": "+picked);
 		
 		boolean flag = false;
@@ -131,7 +131,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			case 0:
 				selectedChars[0] = picked;
 				//round ++;
-				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
+				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked-1].getLocalTranslation()));
 				container.detachChild(p1c);
 				container.attachChild(p1c);
 				this.updateRenderState();
@@ -139,7 +139,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			case 1:
 				selectedChars[1] = picked;
 				//round ++;
-				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()));
+				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked-1].getLocalTranslation()));
 				container.detachChild(p2c);
 				container.attachChild(p2c);
 				this.updateRenderState();
@@ -286,7 +286,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	public String[] getSelectedChars(boolean closingOverlay) {		
 		String[] temp = new String[selectedChars.length];
 		for (int i = 0; i < selectedChars.length; i++)
-			temp[i] = charNames[selectedChars[i]];
+			temp[i] = charNames[Math.max(selectedChars[i]-1, 0)];
 		return temp;
 	}
 	

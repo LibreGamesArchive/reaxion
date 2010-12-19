@@ -324,6 +324,9 @@ public class StageGameState extends BaseGameState {
      */
     public void tagSwitch() {
     	if (partner != null && partner.hp > 0) {
+    		// Tell the current attack a swap is in progress
+    		if (player.currentAttack != null)
+    			player.currentAttack.switchOut(this);
     		MajorCharacter p = player;
     		player = partner;
     		partner = p;

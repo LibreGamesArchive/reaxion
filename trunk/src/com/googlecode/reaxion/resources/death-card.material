@@ -1,0 +1,45 @@
+
+material card
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/card.png
+			}
+		}
+
+	}
+
+}
+
+
+
+
+material death
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/death-card.png
+			}
+		}
+
+	}
+
+}
+
+
