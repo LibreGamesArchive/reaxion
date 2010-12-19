@@ -96,6 +96,14 @@ public class Attack {
 	}
 	
 	/**
+	 * Called when a tag switch is executed while the attack is in progress.
+	 * Override to add functionality. Attack finishes by default.
+	 */
+	public void switchOut(StageGameState b) {
+		finish();
+	}
+	
+	/**
 	 * Called to dismiss the attack, usually only done by the attack itself.
 	 * Override to add functionality.
 	 */
