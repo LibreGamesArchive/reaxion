@@ -10,7 +10,7 @@ public class ThrowCard extends AttackObject {
 	
 	public static final String filename = "card";
 	protected static final int span = 240;
-	protected static final float dpf = 5;
+	protected static final float dpf = 8;
 	final float angleinc = FastMath.PI/90;
 	final float spininc = FastMath.PI/16;
 	final float speed = 1;
