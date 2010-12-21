@@ -1,22 +1,19 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.attackobject.Bullet;
+import com.googlecode.reaxion.game.model.attackobject.StraightCard;
 import com.googlecode.reaxion.game.model.attackobject.ThrowCard;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
-/**
- * Fires an energy bullet towards the target
- */
 public class ShootCard extends Attack {
 	
-	private static final String n = "Elec Cloud";
-	private static final int gc = 10;
-	private static final float bulletSpeed = 5;
-	private ThrowCard card;
+	private static final String n = "Straight";
+	private static final int gc = 4;
+	private static final float speed = 3;
+	private StraightCard card;
 	
 	public ShootCard() {
 		name = n;
@@ -37,6 +34,7 @@ public class ShootCard extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.jumpLock = true;
 		character.animationLock = true;
+		character.tagLock = true;
 		character.play("shootUp", b.tpf);
 	}
 	
@@ -49,25 +47,14 @@ public class ShootCard extends Attack {
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			Vector3f translation = new Vector3f(-1*FastMath.sin(angle), 3.7f, -1*FastMath.cos(angle));
 			
-			card = (ThrowCard)LoadingQueue.quickLoad(new ThrowCard(getUsers()), b);
+			card = (StraightCard)LoadingQueue.quickLoad(new StraightCard(getUsers()), b);
 			card.yaw = FastMath.PI/2;
 			
 			card.rotate(rotation);
-			card.setVelocity(rotation.mult(bulletSpeed));
+			card.setVelocity(rotation.mult(speed));
 			card.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			
 			b.getRootNode().updateRenderState();
-			
-			/*			
-			// check the point blank case, between the character and the bullet's actual creation point
-	        Model[] collisions = bullet.getLinearModelCollisions(b, new Vector3f(-translation.x, 0, -translation.z), 1);
-	        for (Model c : collisions) {
-	        	if (c instanceof Character && !bullet.users.contains(c)) {
-	        		((Character)c).hit(b, bullet);
-	        		bullet.hit(b, ((Character)c));
-	        	}
-	        }
-	        */
 			
 			character.play("shootDown", b.tpf);
 			phase++;
@@ -81,6 +68,7 @@ public class ShootCard extends Attack {
 		super.finish();
 		character.jumpLock = false;
 		character.animationLock = false;
+		character.tagLock = false;
 	}
 	
 }

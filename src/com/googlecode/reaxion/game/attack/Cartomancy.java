@@ -15,11 +15,11 @@ public class Cartomancy extends Attack {
 	private static final String n = "Cartomancy";
 	private static final int gc = 32;
 	
-	private static final int height = 50;
-	private static final int heightVar = 32;
+	private static final int height = 64;
+	private static final int heightVar = 48;
 	private static final float cardSpeed = .2f;
 	private static final int radius = 250;
-	private static final int numCards = 52;
+	private static final int numCards = 104;
 	
 	public Cartomancy() {
 		name = n;
