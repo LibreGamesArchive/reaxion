@@ -76,6 +76,9 @@ public class BattleGameState extends StageGameState {
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand(BattleGameStateBindings.RETURN_TO_HGS.toString(), false)) {
 			endsBGM = true;
 			setActive(false);
+			
+			Battle b = Battle.getCurrentBattle();
+			
 			MissionManager.endMission();
 		}
 	}
