@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.util;
 
 import com.googlecode.reaxion.game.input.bindings.BattleGameStateBindings;
+import com.googlecode.reaxion.game.input.bindings.BurstGridStateBindings;
 import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
 import com.googlecode.reaxion.game.input.bindings.DebugBindings;
 import com.googlecode.reaxion.game.input.bindings.DialogueGameStateBindings;
@@ -26,6 +27,7 @@ public class KeyBindingUtils {
 		initCharacterSelectionOverlayBindings();
 		initBattleGameStateBindings();
 		initDialogueGameStateBindings();
+		initBurstGridStateBindings();
 	}
 	
 	private static void initGlobalBindings() {
@@ -94,6 +96,15 @@ public class KeyBindingUtils {
 	
 	private static void initDialogueGameStateBindings() {
 		manager.set(DialogueGameStateBindings.CONTINUE.toString(), KeyInput.KEY_RETURN);
+	}
+	
+	private static void initBurstGridStateBindings() {
+		manager.set(BurstGridStateBindings.TRAVERSE_CLOCKWISE.toString(), KeyInput.KEY_RIGHT);
+		manager.set(BurstGridStateBindings.TRAVERSE_COUNTERCLOCKWISE.toString(), KeyInput.KEY_LEFT);
+		manager.set(BurstGridStateBindings.TRAVERSE_NEXT.toString(), KeyInput.KEY_UP);
+		manager.set(BurstGridStateBindings.TRAVERSE_BACK.toString(), KeyInput.KEY_DOWN);
+		manager.set(BurstGridStateBindings.BUY_NODE.toString(), KeyInput.KEY_RETURN);
+		manager.set(BurstGridStateBindings.ZOOM.toString(), KeyInput.KEY_TAB);
 	}
 	
 }

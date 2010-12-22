@@ -15,6 +15,9 @@ import com.googlecode.reaxion.game.burstgrid.node.MaxGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.MinGaugeNode;
 import com.googlecode.reaxion.game.burstgrid.node.RateNode;
 import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
+import com.googlecode.reaxion.game.input.bindings.BurstGridStateBindings;
+import com.googlecode.reaxion.game.input.bindings.DebugBindings;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
 import com.googlecode.reaxion.game.overlay.BurstGridOverlay;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
@@ -89,8 +92,9 @@ public class BurstGridGameState extends BaseGameState {
 	protected void init() {
 		setName(NAME);
 		
-		startsBGM = false;
-		endsBGM = false;
+		startsBGM = true;
+		endsBGM = true;
+		bgm = "the_sunleth_waterscape.ogg";
 		
 		// Prepare results node
 		burstOverlay = new BurstGridOverlay();
@@ -135,10 +139,6 @@ public class BurstGridGameState extends BaseGameState {
         
         // initialize input handler
         input = new InputHandler();
-	    
-	    // play music
-	    AudioPlayer.queueBGM("the_sunleth_waterscape.ogg");
-	    AudioPlayer.startBGM();
         
         System.out.println(grid);
     }
@@ -150,7 +150,7 @@ public class BurstGridGameState extends BaseGameState {
     		input.update(tpf);
     		
     		/** If exit is a valid command (via key Esc), exit game */
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
     				false)) {
     			if (game != null) {
     				game.finish();
@@ -162,11 +162,11 @@ public class BurstGridGameState extends BaseGameState {
             	/** If traversal controls are valid commands (via arrow keys), change camera movement. */
     			if (focus == destination) {
     				
-    				if (KeyBindingManager.getKeyBindingManager().isValidCommand("zoom", false)) {
+    				if (KeyBindingManager.getKeyBindingManager().isValidCommand(BurstGridStateBindings.ZOOM.toString(), false)) {
     					zoom = (zoom + 1) % 2;
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    						"traverse_ccw", false)) {
+    						BurstGridStateBindings.TRAVERSE_COUNTERCLOCKWISE.toString(), false)) {
     					if (prevNode != currentNode) {
     						ArrayList<BurstNode> nodes = prevNode.nodes;
     						currentNode = nodes.get((nodes.indexOf(currentNode)+nodes.size()-1) % nodes.size());
@@ -174,7 +174,7 @@ public class BurstGridGameState extends BaseGameState {
     					}
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    						"traverse_cw", false)) {
+    						BurstGridStateBindings.TRAVERSE_CLOCKWISE.toString(), false)) {
     					if (prevNode != currentNode) {
     						ArrayList<BurstNode> nodes = prevNode.nodes;
     						currentNode = nodes.get((nodes.indexOf(currentNode)+1) % nodes.size());
@@ -182,7 +182,7 @@ public class BurstGridGameState extends BaseGameState {
     					}
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    						"traverse_next", false)) {
+    						BurstGridStateBindings.TRAVERSE_NEXT.toString(), false)) {
     					ArrayList<BurstNode> nodes = currentNode.nodes;
     					stackNode(currentNode);
     					prevNode = currentNode;
@@ -204,7 +204,7 @@ public class BurstGridGameState extends BaseGameState {
     					destination = currentNode.vect.mult(scale);
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    						"traverse_back", false)) {
+    						BurstGridStateBindings.TRAVERSE_BACK.toString(), false)) {
     					if (nodeStack.size() > 0) {
     						currentNode = nodeStack.remove(nodeStack.size()-1);
     						if (nodeStack.size() > 0)
@@ -217,7 +217,7 @@ public class BurstGridGameState extends BaseGameState {
     				
     				/** If buy_node is a valid command (via Enter key), activate node. */
                     if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-                            "buy_node", false)) {
+                    		BurstGridStateBindings.BUY_NODE.toString(), false)) {
                     	buyNode(currentNode);
                     }
                     
@@ -225,7 +225,7 @@ public class BurstGridGameState extends BaseGameState {
             	
     	        /** If toggle_stats is a valid command (via key F4), change depth. */
                 if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-                        "toggle_stats", false)) {
+                        DebugBindings.TOGGLE_STATS.toString(), false)) {
                 	if (statisticsCreated == false) {
     	                // create a statistics game state
     	                GameStateManager.getInstance().attachChild(
@@ -238,14 +238,14 @@ public class BurstGridGameState extends BaseGameState {
                 
                 /** If screen_shot is a valid command (via key F1), take snapshot. */
     	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "screen_shot", false)) {
+    	        		GlobalBindings.SCREENSHOT.toString(), false)) {
     	            DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
     	                    "SimpleGameScreenShot");
     	        }
     	        
     	        /** If mem_report is a valid command (via key R), display report. */
     	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                "mem_report", false)) {
+    	                GlobalBindings.MEM_REPORT.toString(), false)) {
     	            long totMem = Runtime.getRuntime().totalMemory();
     	            long freeMem = Runtime.getRuntime().freeMemory();
     	            long maxMem = Runtime.getRuntime().maxMemory();
