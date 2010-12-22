@@ -257,6 +257,8 @@ public class Battle {
 		else {
 			//FIXME all of this need to be rewritten to actually work
 			//FIXME FIX ME. Currently goes to a black screen.
+			System.out.println("Stage:\t" + b.getStage());
+			
 			ClientBattleGameState QQQ = new ClientBattleGameState(b);
 			
 			NetworkingObjects.cbgs = QQQ;

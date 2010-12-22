@@ -161,5 +161,4 @@ public class ServerBattleGameState extends BattleGameState {
     		rootNode.updateRenderState();
     	}
     }
-    
 }
