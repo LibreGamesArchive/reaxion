@@ -171,6 +171,9 @@ public class Reaxion {
 						"BACKGROUND_SERVER" };
 				server = Runtime.getRuntime().exec(javaCmd, null, null);
 
+				Thread servConsole = new ServerConsole(server);
+				servConsole.start();
+
 				// System.out.println(cmdLine);
 				// Runtime.getRuntime().exec(cmdLine);
 				// bgServer.start();
@@ -211,6 +214,32 @@ public class Reaxion {
 		if (server != null)
 			server.destroy();
 		System.exit(0);
+	}
+
+	private class ServerConsole extends Thread {
+		private Scanner normal, error;
+
+		public ServerConsole(Process p) {
+			normal = new Scanner(p.getInputStream());
+			error = new Scanner(p.getErrorStream());
+		}
+
+		@Override
+		public void run() {
+			while (true) {
+				while (normal.hasNextLine())
+					System.out.println("SERVER:  " + normal.nextLine());
+
+				while (error.hasNextLine())
+					System.err.println("SERVER:  " + error.nextLine());
+
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	/**
