@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -19,11 +20,11 @@ import com.googlecode.reaxion.game.input.bindings.BurstGridStateBindings;
 import com.googlecode.reaxion.game.input.bindings.DebugBindings;
 import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
 import com.googlecode.reaxion.game.overlay.BurstGridOverlay;
+import com.googlecode.reaxion.game.util.BurstGridSerializer;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Matrix3f;
 import com.jme.math.Vector3f;
@@ -152,6 +153,19 @@ public class BurstGridGameState extends BaseGameState {
     		/** If exit is a valid command (via key Esc), exit game */
     		if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
     				false)) {
+    			
+    			BurstGridSerializer bgs;
+				try {
+					bgs = new BurstGridSerializer(info);
+					bgs.readGrid(info.name);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    			
     			if (game != null) {
     				game.finish();
     			} else {
