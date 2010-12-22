@@ -66,7 +66,8 @@ public abstract class NetworkingObjects {
 
 		// do weird things w/ same computer
 		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(), 9001);
-		serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
+	//	serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
+		serverFast = null;
 
 		server = new JGNServer(serverReliable, serverFast);
 		serverSyncManager = new SynchronizationManager(server, controller);
@@ -167,11 +168,11 @@ public abstract class NetworkingObjects {
 			serverReliable = new InetSocketAddress(addr, 9001);
 			serverFast = new InetSocketAddress(addr, 9002);
 		}
+		serverFast = null;
 
 		// Start the client
 		client = new JGNClient(new InetSocketAddress(
-				InetAddress.getLocalHost(), 9003), new InetSocketAddress(
-				InetAddress.getLocalHost(), 9004));
+				InetAddress.getLocalHost(), 9003), null);
 		client.addMessageListener(new MessageListener() {
 			public void messageCertified(Message message) {
 			}
@@ -223,7 +224,7 @@ public abstract class NetworkingObjects {
 				// System.out.print("Trying to connect... ");
 				if (retry) {
 					retry = false;
-					client.connectAndWait(serverReliable, serverFast, 2500);
+					client.connectAndWait(serverReliable, null, 2500);
 				}
 			} catch (IOException e) {
 				client.close();
