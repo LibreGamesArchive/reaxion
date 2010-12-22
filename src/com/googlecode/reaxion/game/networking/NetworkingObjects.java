@@ -239,7 +239,7 @@ public abstract class NetworkingObjects {
 		
 		client.sendToServer(new NamedChatMessage());
 		System.out.println(client.getServerConnection().getReliableClient().getStatus());
-		System.out.println(client.getServerConnection().getFastClient().getStatus());
+	//	System.out.println(client.getServerConnection().getFastClient().getStatus());
 		
 
 		// Register our client object with the synchronization manager

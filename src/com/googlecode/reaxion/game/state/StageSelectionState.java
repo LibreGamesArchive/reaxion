@@ -204,7 +204,7 @@ public class StageSelectionState extends BasicGameState {
 		nbgs.setActive(true);
 		
 		System.out.println("RELIABLE:\t"+NetworkingObjects.client.getServerConnection().getReliableClient().getStatus());
-		System.out.println("FAST:\t\t"+NetworkingObjects.client.getServerConnection().getFastClient().getStatus());
+	//	System.out.println("FAST:\t\t"+NetworkingObjects.client.getServerConnection().getFastClient().getStatus());
 		
 		NetworkingObjects.client.sendToServer(new CharacterAndStageSelectionsMessage(chars, stage));
 
