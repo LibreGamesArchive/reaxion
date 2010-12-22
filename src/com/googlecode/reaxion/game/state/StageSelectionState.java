@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.mission.MissionID;
@@ -198,16 +199,20 @@ public class StageSelectionState extends BasicGameState {
 		String[] chars = ((CharacterSelectionState)GameStateManager.getInstance().getChild(CharacterSelectionState.NAME)).getSelectedChars();
 		String stage = stageSelectionNode.getSelectedStageClass();
 		
-		BattleGameState nbgs = Battle.createNetworkedBattleGameState();
+	//	BattleGameState nbgs = Battle.createNetworkedBattleGameState();
 		
-		GameStateManager.getInstance().attachChild(nbgs);
-		nbgs.setActive(true);
+	//	GameStateManager.getInstance().attachChild(nbgs);
+	//	nbgs.setActive(true);
 		
 		System.out.println("RELIABLE:\t"+NetworkingObjects.client.getServerConnection().getReliableClient().getStatus());
 	//	System.out.println("FAST:\t\t"+NetworkingObjects.client.getServerConnection().getFastClient().getStatus());
 		
 		NetworkingObjects.client.sendToServer(new CharacterAndStageSelectionsMessage(chars, stage));
 
+		System.out.println("Sent " + Arrays.toString(chars) + " and " + stage + "to the server");
+		System.out.println("Commence doing nothing until the battle loads :D");
+		
+		//FIXME: 12-22-10 work on this; stage is null
 		
 		setActive(false);
 		
