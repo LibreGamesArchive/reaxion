@@ -82,7 +82,7 @@ public abstract class NetworkingObjects {
 
 			public void messageReceived(Message message) {
 				System.out.println("Server thread: " + isServer);
-				
+
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// TODO handle creation properly
@@ -111,8 +111,6 @@ public abstract class NetworkingObjects {
 
 						System.out.println("Making a battle");
 
-						
-						
 						ServerBattleGameState sbgs = (ServerBattleGameState) (Battle
 								.createNetworkedBattleGameState());
 
@@ -177,7 +175,8 @@ public abstract class NetworkingObjects {
 			}
 
 			public void messageReceived(Message message) {
-				System.out.println("I'm in client's listener, and isServer = "+isServer);
+				System.out.println("I'm in client's listener, and isServer = "
+						+ isServer);
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// Do absolutely nothing because this isn't necessary
@@ -213,10 +212,19 @@ public abstract class NetworkingObjects {
 			}
 		});
 		JGN.createThread(client, clientSyncManager).start();
-		client.connectAndWait(serverReliable, serverFast, 20000);
+		while (true) {
+			try {
+				System.out.print("Trying to connect... ");
+				client.connectAndWait(serverReliable, serverFast, 2000);
+			} catch (IOException e) {
+				System.out.println("Connection failed.");
+				continue;
+			}
+			System.out.println("Connection successful.");
+			break;
+		}
 
 		// Register our client object with the synchronization manager
 		// / clientSyncManager.register( new SynchronizeCreateMessage(), 50);
 	}
-
 }
