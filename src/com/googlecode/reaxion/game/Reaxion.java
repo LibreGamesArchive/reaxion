@@ -1,8 +1,11 @@
 package com.googlecode.reaxion.game;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.Callable;
 
 import javax.swing.JOptionPane;
@@ -46,6 +49,7 @@ public class Reaxion {
 	 * Multithreaded game system that shows the state of GameStates
 	 */
 	private StandardGame game;
+	private static Process server;
 
 	private StageSelectionState stageState;
 
@@ -98,15 +102,21 @@ public class Reaxion {
 
 	public static void main(String[] args) {
 
-	/*	Properties p=System.getProperties();
-		for(Object o: Collections.list(p.keys())) {
-			System.err.println(o.toString()+"\t"+p.getProperty(o.toString()));
-		}
-		
-		System.out.println(System.getProperty("java.home")+"/bin/java -Xms32m -Xmx256m \"-D"+p.getProperty("java.library.path")+"\" -Dfile.encoding="+p.getProperty("file.encoding") + " -classpath \""+p.getProperty("java.class.path") + "\" com.googlecode.reaxion.game.Reaxion BACKGROUND_SERVER");
-		
-		if(true) return;*/
-		
+		/*
+		 * Properties p=System.getProperties(); for(Object o:
+		 * Collections.list(p.keys())) {
+		 * System.err.println(o.toString()+"\t"+p.getProperty(o.toString())); }
+		 * 
+		 * System.out.println(System.getProperty("java.home")+
+		 * "/bin/java -Xms32m -Xmx256m \"-D"
+		 * +p.getProperty("java.library.path")+"\" -Dfile.encoding="
+		 * +p.getProperty("file.encoding") +
+		 * " -classpath \""+p.getProperty("java.class.path") +
+		 * "\" com.googlecode.reaxion.game.Reaxion BACKGROUND_SERVER");
+		 * 
+		 * if(true) return;
+		 */
+
 		try {
 			Reaxion main = new Reaxion(Purpose.valueOf(args[0]));
 			main.start();
@@ -130,7 +140,7 @@ public class Reaxion {
 		// GameTaskQueueManager.getManager().update(new
 		// GameInit(INITIAL_INITIALIZATION));
 
-//		MouseInput.get().setCursorVisible(true);
+		// MouseInput.get().setCursorVisible(true);
 		// FontUtils.loadFonts();
 		// MissionManager.createMissions();
 		PlayerInfoManager.init();
@@ -148,19 +158,25 @@ public class Reaxion {
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
 			switch (sv) {
 			case 0:
-				try {
-					// Reaxion bgServer = new
-					// Reaxion(Purpose.BACKGROUND_SERVER);
-					Properties p=System.getProperties();
-					String cmdLine = System.getProperty("java.home")+"/bin/java -Xms32m -Xmx256m \"-D"+p.getProperty("java.library.path")+"\" -Dfile.encoding="+p.getProperty("file.encoding") + " -classpath \""+p.getProperty("java.class.path") + "\" com.googlecode.reaxion.game.Reaxion BACKGROUND_SERVER";
-					System.out.println(cmdLine);
-					Runtime.getRuntime().exec(cmdLine);
-					// bgServer.start();
-					System.out.println("Started?");
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				Properties p = System.getProperties();
+				String[] javaCmd = new String[] {
+						System.getProperty("java.home") + "/bin/java",
+						"-Xms32m",
+						"-Xmx256m",
+						"-Djava.library.path="
+								+ p.getProperty("java.library.path"),
+						"-Dfile.encoding=" + p.getProperty("file.encoding"),
+						"-classpath", p.getProperty("java.class.path"),
+						"com.googlecode.reaxion.game.Reaxion",
+						"BACKGROUND_SERVER" };
+				server = Runtime.getRuntime().exec(javaCmd, null, null);
+
+				// System.out.println(cmdLine);
+				// Runtime.getRuntime().exec(cmdLine);
+				// bgServer.start();
+
+				// Thread.sleep(10000); // consider replacing with a .wait
+				System.out.println("Started?");
 				NetworkingObjects.setUpClient(true);
 				break;
 			case 1:
@@ -176,6 +192,7 @@ public class Reaxion {
 			break;
 		case BACKGROUND_SERVER:
 			NetworkingObjects.setUpServer();
+			// this.n
 			// charState = new CharacterSelectionState();
 			// NetworkingObjects.serverSyncManager.register(charState, new
 			// CharacterAndStageSelectionsMessage(States.CHARACTER),
@@ -191,6 +208,8 @@ public class Reaxion {
 	public static void terminate() {
 		System.out.println("terminate called");
 		AudioPlayer.cleanup();
+		if (server != null)
+			server.destroy();
 		System.exit(0);
 	}
 
@@ -200,41 +219,30 @@ public class Reaxion {
 	 * @author Nilay
 	 * 
 	 */
-	private class GameInit implements Callable<Void> {
-
-		// @Override
-		public Void call() throws Exception {
-		//	MouseInput.get().setCursorVisible(true);
-			AudioPlayer.prepare();
-			// SoundEffectManager.initialize();
-			FontUtils.loadFonts();
-			MissionManager.createMissions();
-
-			JGN.register(SynchronizeModelMessage.class);
-			JGN.register(SynchronizeCreateModelMessage.class);
-
-			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
-
-			switch (sv) {
-			case 0:
-				NetworkingObjects.setUpServer();
-				break;
-			case 1:
-				// NetworkingObjects.setUpClient();
-				break;
-			case 2:
-			default:
-				terminate();
-			}
-
-			PlayerInfoManager.init();
-
-			charState = new CharacterSelectionState();
-			GameStateManager.getInstance().attachChild(charState);
-			charState.setActive(true);
-
-			return null;
-		}
-
-	}
+	/*
+	 * private class GameInit implements Callable<Void> {
+	 * 
+	 * // @Override public Void call() throws Exception { //
+	 * MouseInput.get().setCursorVisible(true); AudioPlayer.prepare(); //
+	 * SoundEffectManager.initialize(); FontUtils.loadFonts();
+	 * MissionManager.createMissions();
+	 * 
+	 * JGN.register(SynchronizeModelMessage.class);
+	 * JGN.register(SynchronizeCreateModelMessage.class);
+	 * 
+	 * int sv = JOptionPane.showConfirmDialog(null, "Be server?");
+	 * 
+	 * switch (sv) { case 0: NetworkingObjects.setUpServer(); break; case 1: //
+	 * NetworkingObjects.setUpClient(); break; case 2: default: terminate(); }
+	 * 
+	 * PlayerInfoManager.init();
+	 * 
+	 * charState = new CharacterSelectionState();
+	 * GameStateManager.getInstance().attachChild(charState);
+	 * charState.setActive(true);
+	 * 
+	 * return null; }
+	 * 
+	 * }
+	 */
 }
