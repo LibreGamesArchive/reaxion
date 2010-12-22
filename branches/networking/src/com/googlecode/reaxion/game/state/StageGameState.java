@@ -462,7 +462,7 @@ public class StageGameState extends CameraGameState {
 	@Override
 	protected void onActivate() {
 		if (!NetworkingObjects.isServer) {
-			System.out.println("Lolwut, why is this activating: " + NetworkingObjects.isServer);
+	//		System.out.println("Lolwut, why is this activating: " + NetworkingObjects.isServer);
 			super.onActivate();
 		}
 	}

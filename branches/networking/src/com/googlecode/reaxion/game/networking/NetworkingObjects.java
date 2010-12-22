@@ -15,6 +15,7 @@ import com.captiveimagination.jgn.synchronization.SyncObjectManager;
 import com.captiveimagination.jgn.synchronization.SynchronizationManager;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
+import com.captiveimagination.jgn.test.chat.NamedChatMessage;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
@@ -81,7 +82,11 @@ public abstract class NetworkingObjects {
 			}
 
 			public void messageReceived(Message message) {
-				System.out.println("Server thread: " + isServer);
+				if(message instanceof NamedChatMessage) {
+					System.out.println("Client sent me a message successfully =/");
+					return;
+				}
+			//	System.out.println("Server thread: " + isServer);
 
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
@@ -175,8 +180,8 @@ public abstract class NetworkingObjects {
 			}
 
 			public void messageReceived(Message message) {
-				System.out.println("I'm in client's listener, and isServer = "
-						+ isServer);
+		//		System.out.println("I'm in client's listener, and isServer = "
+			//			+ isServer);
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
 					// Do absolutely nothing because this isn't necessary
@@ -212,17 +217,29 @@ public abstract class NetworkingObjects {
 			}
 		});
 		JGN.createThread(client, clientSyncManager).start();
+		boolean retry = true;
 		while (true) {
 			try {
-				System.out.print("Trying to connect... ");
-				client.connectAndWait(serverReliable, serverFast, 2000);
+				// System.out.print("Trying to connect... ");
+				if (retry) {
+					retry = false;
+					client.connectAndWait(serverReliable, serverFast, 2500);
+				}
 			} catch (IOException e) {
-				System.out.println("Connection failed.");
+				client.close();
+				System.out.println("Connection failed. Retrying...");
+				Thread.sleep(2500);
+				retry = true;
 				continue;
 			}
-			System.out.println("Connection successful.");
+			// System.out.println("Connection successful.");
 			break;
 		}
+		
+		client.sendToServer(new NamedChatMessage());
+		System.out.println(client.getServerConnection().getReliableClient().getStatus());
+		System.out.println(client.getServerConnection().getFastClient().getStatus());
+		
 
 		// Register our client object with the synchronization manager
 		// / clientSyncManager.register( new SynchronizeCreateMessage(), 50);

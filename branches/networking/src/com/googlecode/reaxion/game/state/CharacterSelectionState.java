@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -156,6 +157,9 @@ public class CharacterSelectionState extends BasicGameState {
 		c.setPlayers(charSelectNode.getSelectedChars());
 		Battle.setCurrentBattle(c);
 		 */
+		
+		System.out.println("RELIABLE:\t"+NetworkingObjects.client.getServerConnection().getReliableClient().getStatus());
+		System.out.println("FAST:\t\t"+NetworkingObjects.client.getServerConnection().getFastClient().getStatus());
 		
 		if(GameStateManager.getInstance().getChild(StageSelectionState.NAME) == null) {			
 			StageSelectionState s = new StageSelectionState();
