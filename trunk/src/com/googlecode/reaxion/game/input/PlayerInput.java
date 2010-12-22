@@ -1,13 +1,12 @@
 package com.googlecode.reaxion.game.input;
 
 import com.googlecode.reaxion.game.attack.AttackData;
+import com.googlecode.reaxion.game.input.bindings.PlayerBindings;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.googlecode.reaxion.game.util.KeyBindingUtils;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
@@ -53,39 +52,6 @@ public class PlayerInput extends InputHandler {
     	player = state.getPlayer();
     	partner = state.getPartner();
     	camera = state.getCamera();
-        initKeyBindings();
-    }
-
-    /**
-     * Creates the keyboard object, allowing us to obtain the values of a keyboard as keys are
-     * pressed. It then sets the actions to be triggered based on if certain keys are pressed (numpad).
-     * @author Khoa
-     */
-    private void initKeyBindings() {
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.FORWARD, KeyInput.KEY_NUMPAD8);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.BACKWARD, KeyInput.KEY_NUMPAD2);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.LEFT, KeyInput.KEY_NUMPAD4);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.RIGHT, KeyInput.KEY_NUMPAD6);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.JUMP, KeyInput.KEY_NUMPAD0);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.SWITCH, KeyInput.KEY_SPACE);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.ATTACK_1, KeyInput.KEY_X);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.ATTACK_2, KeyInput.KEY_C);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.ATTACK_3, KeyInput.KEY_V);
-//    	KeyBindingUtils.addKeyBinding(KeyBindingUtils.PlayerBindings.HOLD_ATTACK, KeyInput.KEY_Z);
-    	
-    	
-        KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
-
-        keyboard.set("forth", KeyInput.KEY_NUMPAD8);
-        keyboard.set("back", KeyInput.KEY_NUMPAD2);
-        keyboard.set("right", KeyInput.KEY_NUMPAD6);
-        keyboard.set("left", KeyInput.KEY_NUMPAD4);
-        keyboard.set("jump", KeyInput.KEY_NUMPAD0);
-        keyboard.set("attackHold", KeyInput.KEY_Z);
-        keyboard.set("attack1", KeyInput.KEY_X);
-        keyboard.set("attack2", KeyInput.KEY_C);
-        keyboard.set("attack3", KeyInput.KEY_V);
-        keyboard.set("switch", KeyInput.KEY_SPACE);
     }
     
     /**
@@ -96,7 +62,7 @@ public class PlayerInput extends InputHandler {
      */
     public void checkKeys() {
     	// switch players
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false) &&
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.SWITCH.toString(), false) &&
     			!player.tagLock)
     		state.tagSwitch();
     	
@@ -106,13 +72,13 @@ public class PlayerInput extends InputHandler {
     	attacks = state.getPlayerAttacks();
     	
     	// check priority key order
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", false))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.FORWARD.toString(), false))
     		forthOn = true;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", false))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.BACKWARD.toString(), false))
     		forthOn = false;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", false))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.RIGHT.toString(), false))
     		leftOn = false;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", false))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.LEFT.toString(), false))
     		leftOn = true;
     	
     	// create unit vector and check for priority releases
@@ -120,32 +86,32 @@ public class PlayerInput extends InputHandler {
     	float unitY = 0f;
     	float unitZ = 0f;
     	if (!player.moveLock && !player.flinching) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", true)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.FORWARD.toString(), true)) {
     			if (forthOn)
     				unitX = -1f;
     		} else {
     			forthOn = false;
     		}
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", true)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.BACKWARD.toString(), true)) {
     			if (!forthOn)
     				unitX = 1f;
     		} else {
     			forthOn = true;
     		}
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", true)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.RIGHT.toString(), true)) {
     			if (!leftOn)
     				unitZ = 1f;
     		} else {
     			leftOn = true;
     		}
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", true)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.LEFT.toString(), true)) {
     			if (leftOn)
     				unitZ = -1f;
     		} else {
     			leftOn = false;
     		}
     	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("jump", true)) {
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.JUMP.toString(), true)) {
     		if (!player.jumpLock && !player.flinching && player.model.getWorldTranslation().y <= 0) {
     			if (!jumpOn) {
     				jumpOn = true;
@@ -161,25 +127,25 @@ public class PlayerInput extends InputHandler {
     	}
     	
     	// check attacks
-    	if(KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    	if(KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.HOLD_ATTACK.toString(), true))
     		state.toggleZPressed(true);
     	else
     		state.toggleZPressed(false);
     	
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack1", false)) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.ATTACK_1.toString(), false)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.HOLD_ATTACK.toString(), true))
     			executeAttack(3);
     		else
     			executeAttack(0);
     	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack2", false)) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.ATTACK_2.toString(), false)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.HOLD_ATTACK.toString(), true))
     			executeAttack(4);
     		else
     			executeAttack(1);
     	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack3", false)) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.ATTACK_3.toString(), false)) {
+    		if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.HOLD_ATTACK.toString(), true))
     			executeAttack(5);
     		else
     			executeAttack(2);
