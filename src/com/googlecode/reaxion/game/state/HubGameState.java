@@ -14,7 +14,6 @@ import com.googlecode.reaxion.game.overlay.TerminalOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyBindingManager.KeyCodes;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -65,6 +64,8 @@ public class HubGameState extends StageGameState {
     	missionOverlay = new MissionOverlay();
     	
     	changeCurrentMenu(terminalOverlay);
+    	
+    	rootNode.updateRenderState();
     }
     
     @Override
