@@ -18,7 +18,7 @@ public class BurstNode
 	public ArrayList<Integer> costs;
 	public Vector3f vect;
 	public int id; //ID number of the node; used to find nodes in the tree
-	public boolean activated; //checks to see if this node has been activated by the player
+	public boolean activated = false; //checks to see if this node has been activated by the player
 	
 	public BurstNode(int idNo){
 		id = idNo;

@@ -16,14 +16,16 @@ public class BurstGridSerializer implements Serializable{
 
 	ArrayList<BurstNode> burstGrid = new ArrayList<BurstNode>();
 	ArrayList<Integer> activatedNodes = new ArrayList<Integer>();
-	int exp = 0;
+	PlayerInfo pinf;
+	int ex = 0;
 	
 	public BurstGridSerializer(){
 		
 	}
 	
 	public BurstGridSerializer(PlayerInfo p) throws IOException{
-		saveGrid(p);
+		pinf = p;
+		saveGrid(pinf);
 	}
 	
 	private void saveGrid(PlayerInfo p) throws IOException{
@@ -32,17 +34,21 @@ public class BurstGridSerializer implements Serializable{
 		for(BurstNode b: p.getBurstGrid().getNodes()){
 			if(b.activated)
 				activatedNodes.add(b.id);
-			exp = p.exp;
-		os.writeObject(activatedNodes);
-		os.writeInt(exp);
 		}
+		ex = p.exp;
+		os.writeInt(ex);
+		os.writeObject(activatedNodes);
 	}
 	
 	public void readGrid(String name) throws IOException, ClassNotFoundException{
 		ObjectInputStream oi = new ObjectInputStream(new FileInputStream("src/com/googlecode/reaxion/resources/burstgrid/grids/" + name + ".bgs"));
-		ArrayList<Integer> aNodes = (ArrayList<Integer>)oi.readObject();
-		int ex = oi.readInt();
-		System.out.println(aNodes);
-		System.out.println(ex);
+		ex = oi.readInt();
+		Object o = oi.readObject();
+		ArrayList<Integer> aNodes = (ArrayList<Integer>)o;
+		
+		pinf.exp = ex;
+		ArrayList<BurstNode> nodes = pinf.getBurstGrid().getNodes();
+		for(int i: aNodes)
+			nodes.get(i).activated = true;			
 	}
 }
