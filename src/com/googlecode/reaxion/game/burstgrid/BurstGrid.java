@@ -112,7 +112,7 @@ public class BurstGrid
 						else{
 							b = new RateNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
-						bg.add(b);					
+						bg.add(b);	
 					}
 				}
 				for(int i = 0; i < conns.size(); i++){
