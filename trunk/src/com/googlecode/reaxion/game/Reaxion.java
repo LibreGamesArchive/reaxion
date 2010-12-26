@@ -29,7 +29,7 @@ import com.jmex.game.state.load.LoadingGameState;
  */
 public class Reaxion {
 
-	private static final String GAME_VERSION = "0.6a";
+	private static final String GAME_VERSION = "0.7a";
 
 	private static int screenWidth;
 	private static int screenHeight;
@@ -126,13 +126,13 @@ public class Reaxion {
 			
 			PlayerInfoManager.init();
 			
-			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
-			GameStateManager.getInstance().attachChild(gridState);
-			gridState.setActive(true);
+//			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
+//			GameStateManager.getInstance().attachChild(gridState);
+//			gridState.setActive(true);
 			
-//			charState = new CharacterSelectionState();
-//			GameStateManager.getInstance().attachChild(charState);
-//			charState.setActive(true);
+			charState = new CharacterSelectionState();
+			GameStateManager.getInstance().attachChild(charState);
+			charState.setActive(true);
 			
 			return null;
 		}	
