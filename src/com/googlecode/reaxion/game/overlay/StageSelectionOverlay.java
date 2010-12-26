@@ -8,6 +8,7 @@ import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.model.stage.CityOfDreams;
 import com.googlecode.reaxion.game.model.stage.CloudNine;
 import com.googlecode.reaxion.game.model.stage.CrystalPalace;
+import com.googlecode.reaxion.game.model.stage.DataCore;
 import com.googlecode.reaxion.game.model.stage.Flipside;
 import com.googlecode.reaxion.game.model.stage.FlowerField;
 import com.googlecode.reaxion.game.model.stage.LavaValley;
@@ -42,10 +43,10 @@ public class StageSelectionOverlay extends MenuOverlay {
 	private static final String baseIconURL = "../../resources/icons/stageselect/";
 	private static final String baseGuiURL = "../../resources/gui/";
 
-	private static final String[] stageNames = { FlowerField.NAME, WorldsEdge.NAME,
-			MikoLake.NAME, Flipside.NAME, TwilightKingdom.NAME,
-			SeasRepose.NAME, CityOfDreams.NAME, CloudNine.NAME,
-			LavaValley.NAME, CrystalPalace.NAME };
+	private static final String[] stageNames = { FlowerField.NAME, WorldsEdge.NAME, MikoLake.NAME,
+		Flipside.NAME, TwilightKingdom.NAME, SeasRepose.NAME,
+		CityOfDreams.NAME, CloudNine.NAME, LavaValley.NAME,
+		CrystalPalace.NAME, DataCore.NAME };
 	
 	private Quad bg;
 	private Quad back;

@@ -33,6 +33,7 @@ public class MissionManager {
 		missions.put(MissionID.VS_TOYBOX, new VsToybox());
 		missions.put(MissionID.VS_DORIRUZU, new VsDoriruzu());
 		missions.put(MissionID.VS_MONICA_1, new VsMonica1());
+		missions.put(MissionID.VS_REMNANT, new VsRemnant());
 	}
 	
 	/**

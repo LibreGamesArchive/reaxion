@@ -472,8 +472,12 @@ public class StageGameState extends BaseGameState {
     	for (int i=0; i<models.size(); i++)
     		models.get(i).act(this);
     	
+    	// Check targets
+    	if (models.indexOf(currentTarget) == -1 || currentTarget.model.getParent() == null)
+    		nextTarget(0);
+    	
     	// Update the camera
-    	if (cameraMode == "lock" && player != null && models.size() > 0 && models.indexOf(currentTarget) != -1) {
+    	if (cameraMode == "lock" && player != null && models.size() > 0) {
     		Vector3f p = player.getTrackPoint();
     		//System.out.println(models+" "+currentTarget);
     		Vector3f t = currentTarget.getTrackPoint();
