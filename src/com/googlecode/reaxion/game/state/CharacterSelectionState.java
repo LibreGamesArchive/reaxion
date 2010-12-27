@@ -126,8 +126,7 @@ public class CharacterSelectionState extends BasicGameState {
 		if (input != null) {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					GlobalBindings.SCREENSHOT.toString(), false)) {
-				DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
-						"SimpleGameScreenShot");
+				Reaxion.takeScreenshot();
 			}
 
 		}

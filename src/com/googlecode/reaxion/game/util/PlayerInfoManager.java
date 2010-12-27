@@ -41,6 +41,7 @@ public class PlayerInfoManager {
 			PlayerInfo temp = itr.next();
 			temp.init();
 			temp = SaveManager.loadInfo(temp);
+			temp.readStatsFromGrid();
 		}
 	}
 	
