@@ -63,7 +63,7 @@ public class OmegaShot extends Attack {
 	public void finish() {
 		super.finish();
 		character.jumpLock = false;
-		character.tagLock = true;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

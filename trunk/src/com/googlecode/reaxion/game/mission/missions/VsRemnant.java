@@ -36,7 +36,7 @@ public class VsRemnant extends Mission {
 				"???:: before this world was overrun by darkness, we inhabited it. even with our world in ruins, our Anima is bound to this place.",
 				"???:: now we wander this plane with the sole purpose of avenging our world.",
 				"Cy:: Wait! The one who destroyed your world is gone!",
-				"???:: you outsiders corrupted the core of our world and destroyed it. for that you will pay the ultimate price.",
+				"???:: when our world fell, time stopped. we lost our humanity - all we have left is our fading Anima. our sole reason for being is to seek revenge.",
 				"Cy:: We have to pass through here! We mean no harm to this place!",
 				"???:: all we have left to feel is hate. you will bear the full front of our despair!",
 				"Cy:: Looks like there's no choice. We have to fight our way through!"};
