@@ -10,7 +10,7 @@ import com.jme.math.FastMath;
 public class RapidGauge extends Ability {
 	
 	public RapidGauge() {
-		super("Evasive Start");
+		super("Rapid Gauge");
 	}
 	
 	@Override

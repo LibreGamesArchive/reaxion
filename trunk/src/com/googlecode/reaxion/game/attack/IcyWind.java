@@ -36,7 +36,6 @@ public class IcyWind extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
-		character.tagLock = true;
 		character.animationLock = true;
 		character.play("blowDown", b.tpf);
 	}
@@ -86,7 +85,6 @@ public class IcyWind extends Attack {
 			snow.cancel();
 		character.moveLock = false;
 		character.jumpLock = false;
-		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

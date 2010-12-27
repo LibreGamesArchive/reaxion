@@ -4,13 +4,11 @@ import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
-/**
- * Sacrifices tag switching for increased gauge.
- */
 public class Soloist extends Ability {
 	
 	public Soloist() {
 		super("Soloist");
+		description = "Sacrifices tag switching for increased gauge recovery.";
 	}
 	
 	@Override

@@ -6,7 +6,6 @@ material lambert2
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			lighting off
 
 			texture_unit

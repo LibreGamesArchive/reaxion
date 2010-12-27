@@ -6,7 +6,6 @@ material i_andrew2pasted__hairTex4
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -28,7 +27,6 @@ material i_andrew2hairTex
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -70,7 +68,6 @@ material i_andrew2glassesTex
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit

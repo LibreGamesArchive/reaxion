@@ -6,7 +6,6 @@ material lambert3
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 			lighting off
 

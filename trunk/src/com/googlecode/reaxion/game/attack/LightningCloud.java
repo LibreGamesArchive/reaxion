@@ -42,6 +42,7 @@ public class LightningCloud extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("heaveUp", b.tpf);
 	}
@@ -72,6 +73,7 @@ public class LightningCloud extends Attack {
 		super.finish();		
 		character.moveLock = false;
 		character.jumpLock = false;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 

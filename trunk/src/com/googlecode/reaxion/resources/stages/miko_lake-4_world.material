@@ -49,8 +49,7 @@ material pasted__lambert2
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
-			scene_blend	alpha_blend
+			scene_blend alpha_blend
 
 			texture_unit
 			{
@@ -112,7 +111,6 @@ material pasted__lambert6
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -435,7 +433,7 @@ material pasted__lambert8
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -458,7 +456,7 @@ material pasted__pasted__lambert2
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -481,7 +479,7 @@ material pasted__pasted__lambert3
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -504,7 +502,7 @@ material pasted__pasted__pasted__lambert3
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -527,7 +525,7 @@ material pasted__pasted__lambert4
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -550,7 +548,7 @@ material pasted__pasted__pasted__lambert4
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -573,7 +571,7 @@ material pasted__pasted__pasted__lambert5
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -596,7 +594,7 @@ material pasted__pasted__pasted__pasted__lambert3
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -619,7 +617,7 @@ material pasted__lambert9
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -642,7 +640,7 @@ material pasted__pasted__lambert10
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -665,7 +663,7 @@ material pasted__pasted__pasted__lambert2
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -688,7 +686,7 @@ material pasted__pasted__pasted__lambert10
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -711,7 +709,7 @@ material pasted__pasted__pasted__pasted__lambert10
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -734,7 +732,7 @@ material pasted__pasted__pasted__lambert11
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -757,7 +755,7 @@ material pasted__pasted__pasted__pasted__lambert4
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -780,7 +778,7 @@ material pasted__pasted__pasted__pasted__lambert5
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -803,7 +801,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert3
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -826,7 +824,7 @@ material pasted__pasted__lambert11
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -849,7 +847,7 @@ material pasted__pasted__lambert12
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -872,7 +870,7 @@ material pasted__pasted__pasted__lambert12
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -895,7 +893,7 @@ material pasted__pasted__pasted__lambert13
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -918,7 +916,7 @@ material pasted__pasted__pasted__pasted__lambert11
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -941,7 +939,7 @@ material pasted__pasted__pasted__lambert14
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -964,7 +962,7 @@ material pasted__pasted__pasted__pasted__lambert12
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -987,7 +985,7 @@ material pasted__pasted__pasted__pasted__lambert13
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1010,7 +1008,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert4
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1033,7 +1031,7 @@ material pasted__pasted__lambert13
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1056,7 +1054,7 @@ material pasted__pasted__lambert14
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1079,7 +1077,7 @@ material pasted__pasted__pasted__lambert15
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1102,7 +1100,7 @@ material pasted__pasted__pasted__lambert16
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1125,7 +1123,7 @@ material pasted__pasted__pasted__pasted__lambert14
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1148,7 +1146,7 @@ material pasted__pasted__pasted__lambert17
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1171,7 +1169,7 @@ material pasted__pasted__pasted__pasted__lambert15
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1194,7 +1192,7 @@ material pasted__pasted__pasted__pasted__lambert16
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1217,7 +1215,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert5
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1240,7 +1238,7 @@ material pasted__pasted__lambert15
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1263,7 +1261,7 @@ material pasted__pasted__lambert16
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1286,7 +1284,7 @@ material pasted__pasted__pasted__lambert18
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1309,7 +1307,7 @@ material pasted__pasted__pasted__lambert19
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1332,7 +1330,7 @@ material pasted__pasted__pasted__pasted__lambert17
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1355,7 +1353,7 @@ material pasted__pasted__pasted__lambert20
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1378,7 +1376,7 @@ material pasted__pasted__pasted__pasted__lambert18
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1401,7 +1399,7 @@ material pasted__pasted__pasted__pasted__lambert19
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1424,7 +1422,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert6
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1447,7 +1445,7 @@ material pasted__pasted__lambert17
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1470,7 +1468,7 @@ material pasted__pasted__lambert18
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1493,7 +1491,7 @@ material pasted__pasted__pasted__lambert21
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1516,7 +1514,7 @@ material pasted__pasted__pasted__lambert22
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1539,7 +1537,7 @@ material pasted__pasted__pasted__pasted__lambert20
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1562,7 +1560,7 @@ material pasted__pasted__pasted__lambert23
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1585,7 +1583,7 @@ material pasted__pasted__pasted__pasted__lambert21
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1608,7 +1606,7 @@ material pasted__pasted__pasted__pasted__lambert22
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1631,7 +1629,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert7
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1654,7 +1652,7 @@ material pasted__pasted__lambert19
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1677,7 +1675,7 @@ material pasted__pasted__lambert20
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1700,7 +1698,7 @@ material pasted__pasted__pasted__lambert24
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1723,7 +1721,7 @@ material pasted__pasted__pasted__lambert25
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1746,7 +1744,7 @@ material pasted__pasted__pasted__pasted__lambert23
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1769,7 +1767,7 @@ material pasted__pasted__pasted__lambert26
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1792,7 +1790,7 @@ material pasted__pasted__pasted__pasted__lambert24
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1815,7 +1813,7 @@ material pasted__pasted__pasted__pasted__lambert25
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1838,7 +1836,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert8
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1861,7 +1859,7 @@ material pasted__pasted__lambert21
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1884,7 +1882,7 @@ material pasted__pasted__lambert22
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1907,7 +1905,7 @@ material pasted__pasted__pasted__lambert27
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1930,7 +1928,7 @@ material pasted__pasted__pasted__lambert28
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1953,7 +1951,7 @@ material pasted__pasted__pasted__pasted__lambert26
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1976,7 +1974,7 @@ material pasted__pasted__pasted__lambert29
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -1999,7 +1997,7 @@ material pasted__pasted__pasted__pasted__lambert27
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2022,7 +2020,7 @@ material pasted__pasted__pasted__pasted__lambert28
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2045,7 +2043,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert9
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2068,7 +2066,7 @@ material pasted__pasted__lambert23
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2091,7 +2089,7 @@ material pasted__pasted__lambert24
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2114,7 +2112,7 @@ material pasted__pasted__pasted__lambert30
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2137,7 +2135,7 @@ material pasted__pasted__pasted__lambert31
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2160,7 +2158,7 @@ material pasted__pasted__pasted__pasted__lambert29
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2183,7 +2181,7 @@ material pasted__pasted__pasted__lambert32
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2206,7 +2204,7 @@ material pasted__pasted__pasted__pasted__lambert30
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2229,7 +2227,7 @@ material pasted__pasted__pasted__pasted__lambert31
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2252,7 +2250,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert10
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2275,7 +2273,7 @@ material pasted__pasted__lambert25
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2298,7 +2296,7 @@ material pasted__pasted__lambert26
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2321,7 +2319,7 @@ material pasted__pasted__pasted__lambert33
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2344,7 +2342,7 @@ material pasted__pasted__pasted__lambert34
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2367,7 +2365,7 @@ material pasted__pasted__pasted__pasted__lambert32
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2390,7 +2388,7 @@ material pasted__pasted__pasted__lambert35
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2413,7 +2411,7 @@ material pasted__pasted__pasted__pasted__lambert33
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2436,7 +2434,7 @@ material pasted__pasted__pasted__pasted__lambert34
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2459,7 +2457,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert11
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2482,7 +2480,7 @@ material pasted__pasted__lambert27
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2505,7 +2503,7 @@ material pasted__pasted__lambert28
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2528,7 +2526,7 @@ material pasted__pasted__pasted__lambert36
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2551,7 +2549,7 @@ material pasted__pasted__pasted__lambert37
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2574,7 +2572,7 @@ material pasted__pasted__pasted__pasted__lambert35
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2597,7 +2595,7 @@ material pasted__pasted__pasted__lambert38
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2620,7 +2618,7 @@ material pasted__pasted__pasted__pasted__lambert36
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2643,7 +2641,7 @@ material pasted__pasted__pasted__pasted__lambert37
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2666,7 +2664,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert12
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2689,7 +2687,7 @@ material pasted__pasted__lambert29
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2712,7 +2710,7 @@ material pasted__pasted__lambert30
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2735,7 +2733,7 @@ material pasted__pasted__pasted__lambert39
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2758,7 +2756,7 @@ material pasted__pasted__pasted__lambert40
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2781,7 +2779,7 @@ material pasted__pasted__pasted__pasted__lambert38
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2804,7 +2802,7 @@ material pasted__pasted__pasted__lambert41
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2827,7 +2825,7 @@ material pasted__pasted__pasted__pasted__lambert39
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2850,7 +2848,7 @@ material pasted__pasted__pasted__pasted__lambert40
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2873,7 +2871,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert13
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2896,7 +2894,7 @@ material pasted__pasted__lambert31
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2919,7 +2917,7 @@ material pasted__pasted__lambert32
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2942,7 +2940,7 @@ material pasted__pasted__pasted__lambert42
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2965,7 +2963,7 @@ material pasted__pasted__pasted__lambert43
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -2988,7 +2986,7 @@ material pasted__pasted__pasted__pasted__lambert41
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3011,7 +3009,7 @@ material pasted__pasted__pasted__lambert44
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3034,7 +3032,7 @@ material pasted__pasted__pasted__pasted__lambert42
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3057,7 +3055,7 @@ material pasted__pasted__pasted__pasted__lambert43
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3080,7 +3078,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert14
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3103,7 +3101,7 @@ material pasted__pasted__lambert33
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3126,7 +3124,7 @@ material pasted__pasted__lambert34
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3149,7 +3147,7 @@ material pasted__pasted__pasted__lambert45
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3172,7 +3170,7 @@ material pasted__pasted__pasted__lambert46
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3195,7 +3193,7 @@ material pasted__pasted__pasted__pasted__lambert44
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3218,7 +3216,7 @@ material pasted__pasted__pasted__lambert47
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3241,7 +3239,7 @@ material pasted__pasted__pasted__pasted__lambert45
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3264,7 +3262,7 @@ material pasted__pasted__pasted__pasted__lambert46
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3287,7 +3285,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert15
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3310,7 +3308,7 @@ material pasted__pasted__lambert35
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3333,7 +3331,7 @@ material pasted__pasted__lambert36
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3356,7 +3354,7 @@ material pasted__pasted__pasted__lambert48
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3379,7 +3377,7 @@ material pasted__pasted__pasted__lambert49
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3402,7 +3400,7 @@ material pasted__pasted__pasted__pasted__lambert47
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3425,7 +3423,7 @@ material pasted__pasted__pasted__lambert50
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3448,7 +3446,7 @@ material pasted__pasted__pasted__pasted__lambert48
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3471,7 +3469,7 @@ material pasted__pasted__pasted__pasted__lambert49
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3494,7 +3492,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert16
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3517,7 +3515,7 @@ material pasted__pasted__lambert37
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3540,7 +3538,7 @@ material pasted__pasted__lambert38
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3563,7 +3561,7 @@ material pasted__pasted__pasted__lambert51
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3586,7 +3584,7 @@ material pasted__pasted__pasted__lambert52
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3609,7 +3607,7 @@ material pasted__pasted__pasted__pasted__lambert50
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3632,7 +3630,7 @@ material pasted__pasted__pasted__lambert53
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3655,7 +3653,7 @@ material pasted__pasted__pasted__pasted__lambert51
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3678,7 +3676,7 @@ material pasted__pasted__pasted__pasted__lambert52
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3701,7 +3699,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert17
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3724,7 +3722,7 @@ material pasted__pasted__lambert39
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3747,7 +3745,7 @@ material pasted__pasted__lambert40
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3770,7 +3768,7 @@ material pasted__pasted__pasted__lambert54
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3793,7 +3791,7 @@ material pasted__pasted__pasted__lambert55
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3816,7 +3814,7 @@ material pasted__pasted__pasted__pasted__lambert53
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3839,7 +3837,7 @@ material pasted__pasted__pasted__lambert56
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3862,7 +3860,7 @@ material pasted__pasted__pasted__pasted__lambert54
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3885,7 +3883,7 @@ material pasted__pasted__pasted__pasted__lambert55
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3908,7 +3906,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert18
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3931,7 +3929,7 @@ material pasted__pasted__lambert41
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3954,7 +3952,7 @@ material pasted__pasted__lambert42
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -3977,7 +3975,7 @@ material pasted__pasted__pasted__lambert57
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4000,7 +3998,7 @@ material pasted__pasted__pasted__lambert58
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4023,7 +4021,7 @@ material pasted__pasted__pasted__pasted__lambert56
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4046,7 +4044,7 @@ material pasted__pasted__pasted__lambert59
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4069,7 +4067,7 @@ material pasted__pasted__pasted__pasted__lambert57
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4092,7 +4090,7 @@ material pasted__pasted__pasted__pasted__lambert58
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4115,7 +4113,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert19
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4138,7 +4136,7 @@ material pasted__pasted__lambert43
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4161,7 +4159,7 @@ material pasted__pasted__lambert44
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4184,7 +4182,7 @@ material pasted__pasted__pasted__lambert60
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4207,7 +4205,7 @@ material pasted__pasted__pasted__lambert61
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4230,7 +4228,7 @@ material pasted__pasted__pasted__pasted__lambert59
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4253,7 +4251,7 @@ material pasted__pasted__pasted__lambert62
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4276,7 +4274,7 @@ material pasted__pasted__pasted__pasted__lambert60
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4299,7 +4297,7 @@ material pasted__pasted__pasted__pasted__lambert61
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4322,7 +4320,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert20
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4345,7 +4343,7 @@ material pasted__pasted__lambert45
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4368,7 +4366,7 @@ material pasted__pasted__lambert46
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4391,7 +4389,7 @@ material pasted__pasted__pasted__lambert63
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4414,7 +4412,7 @@ material pasted__pasted__pasted__lambert64
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4437,7 +4435,7 @@ material pasted__pasted__pasted__pasted__lambert62
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4460,7 +4458,7 @@ material pasted__pasted__pasted__lambert65
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4483,7 +4481,7 @@ material pasted__pasted__pasted__pasted__lambert63
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4506,7 +4504,7 @@ material pasted__pasted__pasted__pasted__lambert64
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4529,7 +4527,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert21
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4552,7 +4550,7 @@ material pasted__pasted__lambert47
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4575,7 +4573,7 @@ material pasted__pasted__lambert48
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4598,7 +4596,7 @@ material pasted__pasted__pasted__lambert66
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4621,7 +4619,7 @@ material pasted__pasted__pasted__lambert67
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4644,7 +4642,7 @@ material pasted__pasted__pasted__pasted__lambert65
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4667,7 +4665,7 @@ material pasted__pasted__pasted__lambert68
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4690,7 +4688,7 @@ material pasted__pasted__pasted__pasted__lambert66
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4713,7 +4711,7 @@ material pasted__pasted__pasted__pasted__lambert67
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4736,7 +4734,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert22
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4759,7 +4757,7 @@ material pasted__pasted__lambert49
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4782,7 +4780,7 @@ material pasted__pasted__lambert50
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4805,7 +4803,7 @@ material pasted__pasted__pasted__lambert69
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4828,7 +4826,7 @@ material pasted__pasted__pasted__lambert70
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4851,7 +4849,7 @@ material pasted__pasted__pasted__pasted__lambert68
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4874,7 +4872,7 @@ material pasted__pasted__pasted__lambert71
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4897,7 +4895,7 @@ material pasted__pasted__pasted__pasted__lambert69
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4920,7 +4918,7 @@ material pasted__pasted__pasted__pasted__lambert70
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4943,7 +4941,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert23
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4966,7 +4964,7 @@ material pasted__pasted__lambert51
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -4989,7 +4987,7 @@ material pasted__pasted__lambert52
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5012,7 +5010,7 @@ material pasted__pasted__pasted__lambert72
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5035,7 +5033,7 @@ material pasted__pasted__pasted__lambert73
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5058,7 +5056,7 @@ material pasted__pasted__pasted__pasted__lambert71
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5081,7 +5079,7 @@ material pasted__pasted__pasted__lambert74
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5104,7 +5102,7 @@ material pasted__pasted__pasted__pasted__lambert72
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5127,7 +5125,7 @@ material pasted__pasted__pasted__pasted__lambert73
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5150,7 +5148,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert24
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5173,7 +5171,7 @@ material pasted__pasted__lambert53
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5196,7 +5194,7 @@ material pasted__pasted__lambert54
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5219,7 +5217,7 @@ material pasted__pasted__pasted__lambert75
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5242,7 +5240,7 @@ material pasted__pasted__pasted__lambert76
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5265,7 +5263,7 @@ material pasted__pasted__pasted__pasted__lambert74
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5288,7 +5286,7 @@ material pasted__pasted__pasted__lambert77
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5311,7 +5309,7 @@ material pasted__pasted__pasted__pasted__lambert75
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5334,7 +5332,7 @@ material pasted__pasted__pasted__pasted__lambert76
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5357,7 +5355,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert25
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5380,7 +5378,7 @@ material pasted__pasted__lambert55
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5403,7 +5401,7 @@ material pasted__pasted__lambert56
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5426,7 +5424,7 @@ material pasted__pasted__pasted__lambert78
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5449,7 +5447,7 @@ material pasted__pasted__pasted__lambert79
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5472,7 +5470,7 @@ material pasted__pasted__pasted__pasted__lambert77
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5495,7 +5493,7 @@ material pasted__pasted__pasted__lambert80
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5518,7 +5516,7 @@ material pasted__pasted__pasted__pasted__lambert78
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5541,7 +5539,7 @@ material pasted__pasted__pasted__pasted__lambert79
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5564,7 +5562,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert26
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5587,7 +5585,7 @@ material pasted__pasted__lambert57
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5610,7 +5608,7 @@ material pasted__pasted__lambert58
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5633,7 +5631,7 @@ material pasted__pasted__pasted__lambert81
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5656,7 +5654,7 @@ material pasted__pasted__pasted__lambert82
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5679,7 +5677,7 @@ material pasted__pasted__pasted__pasted__lambert80
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5702,7 +5700,7 @@ material pasted__pasted__pasted__lambert83
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5725,7 +5723,7 @@ material pasted__pasted__pasted__pasted__lambert81
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5748,7 +5746,7 @@ material pasted__pasted__pasted__pasted__lambert82
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5771,7 +5769,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert27
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5794,7 +5792,7 @@ material pasted__pasted__lambert59
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5817,7 +5815,7 @@ material pasted__pasted__lambert60
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5840,7 +5838,7 @@ material pasted__pasted__pasted__lambert84
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5863,7 +5861,7 @@ material pasted__pasted__pasted__lambert85
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5886,7 +5884,7 @@ material pasted__pasted__pasted__pasted__lambert83
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5909,7 +5907,7 @@ material pasted__pasted__pasted__lambert86
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5932,7 +5930,7 @@ material pasted__pasted__pasted__pasted__lambert84
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5955,7 +5953,7 @@ material pasted__pasted__pasted__pasted__lambert85
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -5978,7 +5976,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert28
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6001,7 +5999,7 @@ material pasted__pasted__lambert61
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6024,7 +6022,7 @@ material pasted__pasted__lambert62
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6047,7 +6045,7 @@ material pasted__pasted__pasted__lambert87
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6070,7 +6068,7 @@ material pasted__pasted__pasted__lambert88
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6093,7 +6091,7 @@ material pasted__pasted__pasted__pasted__lambert86
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6116,7 +6114,7 @@ material pasted__pasted__pasted__lambert89
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6139,7 +6137,7 @@ material pasted__pasted__pasted__pasted__lambert87
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6162,7 +6160,7 @@ material pasted__pasted__pasted__pasted__lambert88
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6185,7 +6183,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert29
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6208,7 +6206,7 @@ material pasted__pasted__lambert63
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6231,7 +6229,7 @@ material pasted__pasted__lambert64
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6254,7 +6252,7 @@ material pasted__pasted__pasted__lambert90
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6277,7 +6275,7 @@ material pasted__pasted__pasted__lambert91
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6300,7 +6298,7 @@ material pasted__pasted__pasted__pasted__lambert89
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6323,7 +6321,7 @@ material pasted__pasted__pasted__lambert92
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6346,7 +6344,7 @@ material pasted__pasted__pasted__pasted__lambert90
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6369,7 +6367,7 @@ material pasted__pasted__pasted__pasted__lambert91
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6392,7 +6390,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert30
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6415,7 +6413,7 @@ material pasted__pasted__lambert65
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6438,7 +6436,7 @@ material pasted__pasted__lambert66
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6461,7 +6459,7 @@ material pasted__pasted__pasted__lambert93
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6484,7 +6482,7 @@ material pasted__pasted__pasted__lambert94
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6507,7 +6505,7 @@ material pasted__pasted__pasted__pasted__lambert92
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6530,7 +6528,7 @@ material pasted__pasted__pasted__lambert95
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6553,7 +6551,7 @@ material pasted__pasted__pasted__pasted__lambert93
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6576,7 +6574,7 @@ material pasted__pasted__pasted__pasted__lambert94
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6599,7 +6597,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert31
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6622,7 +6620,7 @@ material pasted__pasted__lambert67
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6645,7 +6643,7 @@ material pasted__pasted__lambert68
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6668,7 +6666,7 @@ material pasted__pasted__pasted__lambert96
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6691,7 +6689,7 @@ material pasted__pasted__pasted__lambert97
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6714,7 +6712,7 @@ material pasted__pasted__pasted__pasted__lambert95
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6737,7 +6735,7 @@ material pasted__pasted__pasted__lambert98
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6760,7 +6758,7 @@ material pasted__pasted__pasted__pasted__lambert96
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6783,7 +6781,7 @@ material pasted__pasted__pasted__pasted__lambert97
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6806,7 +6804,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert32
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6829,7 +6827,7 @@ material pasted__pasted__lambert69
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6852,7 +6850,7 @@ material pasted__pasted__lambert70
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6875,7 +6873,7 @@ material pasted__pasted__pasted__lambert99
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6898,7 +6896,7 @@ material pasted__pasted__pasted__lambert100
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6921,7 +6919,7 @@ material pasted__pasted__pasted__pasted__lambert98
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6944,7 +6942,7 @@ material pasted__pasted__pasted__lambert101
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6967,7 +6965,7 @@ material pasted__pasted__pasted__pasted__lambert99
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -6990,7 +6988,7 @@ material pasted__pasted__pasted__pasted__lambert100
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7013,7 +7011,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert33
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7036,7 +7034,7 @@ material pasted__pasted__lambert71
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7059,7 +7057,7 @@ material pasted__pasted__lambert72
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7082,7 +7080,7 @@ material pasted__pasted__pasted__lambert102
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7105,7 +7103,7 @@ material pasted__pasted__pasted__lambert103
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7128,7 +7126,7 @@ material pasted__pasted__pasted__pasted__lambert101
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7151,7 +7149,7 @@ material pasted__pasted__pasted__lambert104
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7174,7 +7172,7 @@ material pasted__pasted__pasted__pasted__lambert102
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7197,7 +7195,7 @@ material pasted__pasted__pasted__pasted__lambert103
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7220,7 +7218,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert34
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7243,7 +7241,7 @@ material pasted__pasted__lambert73
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7266,7 +7264,7 @@ material pasted__pasted__lambert74
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7289,7 +7287,7 @@ material pasted__pasted__pasted__lambert105
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7312,7 +7310,7 @@ material pasted__pasted__pasted__lambert106
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7335,7 +7333,7 @@ material pasted__pasted__pasted__pasted__lambert104
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7358,7 +7356,7 @@ material pasted__pasted__pasted__lambert107
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7381,7 +7379,7 @@ material pasted__pasted__pasted__pasted__lambert105
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7404,7 +7402,7 @@ material pasted__pasted__pasted__pasted__lambert106
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7427,7 +7425,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert35
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7450,7 +7448,7 @@ material pasted__pasted__lambert75
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7473,7 +7471,7 @@ material pasted__pasted__lambert76
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7496,7 +7494,7 @@ material pasted__pasted__pasted__lambert108
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7519,7 +7517,7 @@ material pasted__pasted__pasted__lambert109
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7542,7 +7540,7 @@ material pasted__pasted__pasted__pasted__lambert107
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7565,7 +7563,7 @@ material pasted__pasted__pasted__lambert110
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7588,7 +7586,7 @@ material pasted__pasted__pasted__pasted__lambert108
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7611,7 +7609,7 @@ material pasted__pasted__pasted__pasted__lambert109
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7634,7 +7632,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert36
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7657,7 +7655,7 @@ material pasted__pasted__lambert77
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7680,7 +7678,7 @@ material pasted__pasted__lambert78
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7703,7 +7701,7 @@ material pasted__pasted__pasted__lambert111
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7726,7 +7724,7 @@ material pasted__pasted__pasted__lambert112
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7749,7 +7747,7 @@ material pasted__pasted__pasted__pasted__lambert110
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7772,7 +7770,7 @@ material pasted__pasted__pasted__lambert113
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7795,7 +7793,7 @@ material pasted__pasted__pasted__pasted__lambert111
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7818,7 +7816,7 @@ material pasted__pasted__pasted__pasted__lambert112
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7841,7 +7839,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert37
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7864,7 +7862,7 @@ material pasted__pasted__lambert79
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7887,7 +7885,7 @@ material pasted__pasted__lambert80
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7910,7 +7908,7 @@ material pasted__pasted__pasted__lambert114
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7933,7 +7931,7 @@ material pasted__pasted__pasted__lambert115
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7956,7 +7954,7 @@ material pasted__pasted__pasted__pasted__lambert113
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -7979,7 +7977,7 @@ material pasted__pasted__pasted__lambert116
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8002,7 +8000,7 @@ material pasted__pasted__pasted__pasted__lambert114
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8025,7 +8023,7 @@ material pasted__pasted__pasted__pasted__lambert115
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8048,7 +8046,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert38
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8071,7 +8069,7 @@ material pasted__pasted__lambert81
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8094,7 +8092,7 @@ material pasted__pasted__lambert82
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8117,7 +8115,7 @@ material pasted__pasted__pasted__lambert117
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8140,7 +8138,7 @@ material pasted__pasted__pasted__lambert118
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8163,7 +8161,7 @@ material pasted__pasted__pasted__pasted__lambert116
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8186,7 +8184,7 @@ material pasted__pasted__pasted__lambert119
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8209,7 +8207,7 @@ material pasted__pasted__pasted__pasted__lambert117
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8232,7 +8230,7 @@ material pasted__pasted__pasted__pasted__lambert118
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8255,7 +8253,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert39
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8278,7 +8276,7 @@ material pasted__pasted__lambert83
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8301,7 +8299,7 @@ material pasted__pasted__lambert84
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8324,7 +8322,7 @@ material pasted__pasted__pasted__lambert120
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8347,7 +8345,7 @@ material pasted__pasted__pasted__lambert121
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8370,7 +8368,7 @@ material pasted__pasted__pasted__pasted__lambert119
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8393,7 +8391,7 @@ material pasted__pasted__pasted__lambert122
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8416,7 +8414,7 @@ material pasted__pasted__pasted__pasted__lambert120
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8439,7 +8437,7 @@ material pasted__pasted__pasted__pasted__lambert121
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8462,7 +8460,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert40
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8485,7 +8483,7 @@ material pasted__pasted__lambert85
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8508,7 +8506,7 @@ material pasted__pasted__lambert86
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8531,7 +8529,7 @@ material pasted__pasted__pasted__lambert123
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8554,7 +8552,7 @@ material pasted__pasted__pasted__lambert124
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8577,7 +8575,7 @@ material pasted__pasted__pasted__pasted__lambert122
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8600,7 +8598,7 @@ material pasted__pasted__pasted__lambert125
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8623,7 +8621,7 @@ material pasted__pasted__pasted__pasted__lambert123
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8646,7 +8644,7 @@ material pasted__pasted__pasted__pasted__lambert124
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8669,7 +8667,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert41
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8692,7 +8690,7 @@ material pasted__pasted__lambert87
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8715,7 +8713,7 @@ material pasted__pasted__lambert88
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8738,7 +8736,7 @@ material pasted__pasted__pasted__lambert126
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8761,7 +8759,7 @@ material pasted__pasted__pasted__lambert127
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8784,7 +8782,7 @@ material pasted__pasted__pasted__pasted__lambert125
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8807,7 +8805,7 @@ material pasted__pasted__pasted__lambert128
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8830,7 +8828,7 @@ material pasted__pasted__pasted__pasted__lambert126
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8853,7 +8851,7 @@ material pasted__pasted__pasted__pasted__lambert127
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8876,7 +8874,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert42
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8899,7 +8897,7 @@ material pasted__pasted__lambert89
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8922,7 +8920,7 @@ material pasted__pasted__lambert90
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8945,7 +8943,7 @@ material pasted__pasted__pasted__lambert129
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8968,7 +8966,7 @@ material pasted__pasted__pasted__lambert130
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -8991,7 +8989,7 @@ material pasted__pasted__pasted__pasted__lambert128
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9014,7 +9012,7 @@ material pasted__pasted__pasted__lambert131
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9037,7 +9035,7 @@ material pasted__pasted__pasted__pasted__lambert129
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9060,7 +9058,7 @@ material pasted__pasted__pasted__pasted__lambert130
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9083,7 +9081,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert43
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9106,7 +9104,7 @@ material pasted__pasted__lambert91
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9129,7 +9127,7 @@ material pasted__pasted__lambert92
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9152,7 +9150,7 @@ material pasted__pasted__pasted__lambert132
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9175,7 +9173,7 @@ material pasted__pasted__pasted__lambert133
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9198,7 +9196,7 @@ material pasted__pasted__pasted__pasted__lambert131
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9221,7 +9219,7 @@ material pasted__pasted__pasted__lambert134
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9244,7 +9242,7 @@ material pasted__pasted__pasted__pasted__lambert132
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9267,7 +9265,7 @@ material pasted__pasted__pasted__pasted__lambert133
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9290,7 +9288,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert44
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9313,7 +9311,7 @@ material pasted__pasted__lambert93
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9336,7 +9334,7 @@ material pasted__pasted__lambert94
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9359,7 +9357,7 @@ material pasted__pasted__pasted__lambert135
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9382,7 +9380,7 @@ material pasted__pasted__pasted__lambert136
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9405,7 +9403,7 @@ material pasted__pasted__pasted__pasted__lambert134
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9428,7 +9426,7 @@ material pasted__pasted__pasted__lambert137
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9451,7 +9449,7 @@ material pasted__pasted__pasted__pasted__lambert135
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9474,7 +9472,7 @@ material pasted__pasted__pasted__pasted__lambert136
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9497,7 +9495,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert45
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9520,7 +9518,7 @@ material pasted__pasted__lambert95
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9543,7 +9541,7 @@ material pasted__pasted__lambert96
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9566,7 +9564,7 @@ material pasted__pasted__pasted__lambert138
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9589,7 +9587,7 @@ material pasted__pasted__pasted__lambert139
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9612,7 +9610,7 @@ material pasted__pasted__pasted__pasted__lambert137
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9635,7 +9633,7 @@ material pasted__pasted__pasted__lambert140
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9658,7 +9656,7 @@ material pasted__pasted__pasted__pasted__lambert138
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9681,7 +9679,7 @@ material pasted__pasted__pasted__pasted__lambert139
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9704,7 +9702,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert46
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9727,7 +9725,7 @@ material pasted__pasted__lambert97
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9750,7 +9748,7 @@ material pasted__pasted__lambert98
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9773,7 +9771,7 @@ material pasted__pasted__pasted__lambert141
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9796,7 +9794,7 @@ material pasted__pasted__pasted__lambert142
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9819,7 +9817,7 @@ material pasted__pasted__pasted__pasted__lambert140
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9842,7 +9840,7 @@ material pasted__pasted__pasted__lambert143
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9865,7 +9863,7 @@ material pasted__pasted__pasted__pasted__lambert141
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9888,7 +9886,7 @@ material pasted__pasted__pasted__pasted__lambert142
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9911,7 +9909,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert47
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9934,7 +9932,7 @@ material pasted__pasted__lambert99
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9957,7 +9955,7 @@ material pasted__pasted__lambert100
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -9980,7 +9978,7 @@ material pasted__pasted__pasted__lambert144
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10003,7 +10001,7 @@ material pasted__pasted__pasted__lambert145
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10026,7 +10024,7 @@ material pasted__pasted__pasted__pasted__lambert143
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10049,7 +10047,7 @@ material pasted__pasted__pasted__lambert146
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10072,7 +10070,7 @@ material pasted__pasted__pasted__pasted__lambert144
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10095,7 +10093,7 @@ material pasted__pasted__pasted__pasted__lambert145
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10118,7 +10116,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert48
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10141,7 +10139,7 @@ material pasted__pasted__lambert101
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10164,7 +10162,7 @@ material pasted__pasted__lambert102
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10187,7 +10185,7 @@ material pasted__pasted__pasted__lambert147
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10210,7 +10208,7 @@ material pasted__pasted__pasted__lambert148
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10233,7 +10231,7 @@ material pasted__pasted__pasted__pasted__lambert146
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10256,7 +10254,7 @@ material pasted__pasted__pasted__lambert149
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10279,7 +10277,7 @@ material pasted__pasted__pasted__pasted__lambert147
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10302,7 +10300,7 @@ material pasted__pasted__pasted__pasted__lambert148
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10325,7 +10323,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert49
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10348,7 +10346,7 @@ material pasted__pasted__lambert103
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10371,7 +10369,7 @@ material pasted__pasted__lambert104
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10394,7 +10392,7 @@ material pasted__pasted__pasted__lambert150
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10417,7 +10415,7 @@ material pasted__pasted__pasted__lambert151
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10440,7 +10438,7 @@ material pasted__pasted__pasted__pasted__lambert149
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10463,7 +10461,7 @@ material pasted__pasted__pasted__lambert152
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10486,7 +10484,7 @@ material pasted__pasted__pasted__pasted__lambert150
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10509,7 +10507,7 @@ material pasted__pasted__pasted__pasted__lambert151
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10532,7 +10530,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert50
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10555,7 +10553,7 @@ material pasted__pasted__lambert105
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10578,7 +10576,7 @@ material pasted__pasted__lambert106
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10601,7 +10599,7 @@ material pasted__pasted__pasted__lambert153
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10624,7 +10622,7 @@ material pasted__pasted__pasted__lambert154
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10647,7 +10645,7 @@ material pasted__pasted__pasted__pasted__lambert152
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10670,7 +10668,7 @@ material pasted__pasted__pasted__lambert155
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10693,7 +10691,7 @@ material pasted__pasted__pasted__pasted__lambert153
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10716,7 +10714,7 @@ material pasted__pasted__pasted__pasted__lambert154
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10739,7 +10737,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert51
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10762,7 +10760,7 @@ material pasted__pasted__lambert107
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10785,7 +10783,7 @@ material pasted__pasted__lambert108
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10808,7 +10806,7 @@ material pasted__pasted__pasted__lambert156
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10831,7 +10829,7 @@ material pasted__pasted__pasted__lambert157
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10854,7 +10852,7 @@ material pasted__pasted__pasted__pasted__lambert155
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10877,7 +10875,7 @@ material pasted__pasted__pasted__lambert158
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10900,7 +10898,7 @@ material pasted__pasted__pasted__pasted__lambert156
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10923,7 +10921,7 @@ material pasted__pasted__pasted__pasted__lambert157
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10946,7 +10944,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert52
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10969,7 +10967,7 @@ material pasted__pasted__lambert109
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -10992,7 +10990,7 @@ material pasted__pasted__lambert110
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11015,7 +11013,7 @@ material pasted__pasted__pasted__lambert159
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11038,7 +11036,7 @@ material pasted__pasted__pasted__lambert160
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11061,7 +11059,7 @@ material pasted__pasted__pasted__pasted__lambert158
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11084,7 +11082,7 @@ material pasted__pasted__pasted__lambert161
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11107,7 +11105,7 @@ material pasted__pasted__pasted__pasted__lambert159
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11130,7 +11128,7 @@ material pasted__pasted__pasted__pasted__lambert160
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11153,7 +11151,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert53
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11176,7 +11174,7 @@ material pasted__pasted__lambert111
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11199,7 +11197,7 @@ material pasted__pasted__lambert112
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11222,7 +11220,7 @@ material pasted__pasted__pasted__lambert162
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11245,7 +11243,7 @@ material pasted__pasted__pasted__lambert163
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11268,7 +11266,7 @@ material pasted__pasted__pasted__pasted__lambert161
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11291,7 +11289,7 @@ material pasted__pasted__pasted__lambert164
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11314,7 +11312,7 @@ material pasted__pasted__pasted__pasted__lambert162
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11337,7 +11335,7 @@ material pasted__pasted__pasted__pasted__lambert163
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11360,7 +11358,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert54
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11383,7 +11381,7 @@ material pasted__pasted__lambert113
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11406,7 +11404,7 @@ material pasted__pasted__lambert114
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11429,7 +11427,7 @@ material pasted__pasted__pasted__lambert165
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11452,7 +11450,7 @@ material pasted__pasted__pasted__lambert166
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11475,7 +11473,7 @@ material pasted__pasted__pasted__pasted__lambert164
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11498,7 +11496,7 @@ material pasted__pasted__pasted__lambert167
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11521,7 +11519,7 @@ material pasted__pasted__pasted__pasted__lambert165
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11544,7 +11542,7 @@ material pasted__pasted__pasted__pasted__lambert166
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11567,7 +11565,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert55
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11590,7 +11588,7 @@ material pasted__pasted__lambert115
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11613,7 +11611,7 @@ material pasted__pasted__lambert116
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11636,7 +11634,7 @@ material pasted__pasted__pasted__lambert168
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11659,7 +11657,7 @@ material pasted__pasted__pasted__lambert169
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11682,7 +11680,7 @@ material pasted__pasted__pasted__pasted__lambert167
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11705,7 +11703,7 @@ material pasted__pasted__pasted__lambert170
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11728,7 +11726,7 @@ material pasted__pasted__pasted__pasted__lambert168
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11751,7 +11749,7 @@ material pasted__pasted__pasted__pasted__lambert169
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11774,7 +11772,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert56
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11797,7 +11795,7 @@ material pasted__pasted__lambert117
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11820,7 +11818,7 @@ material pasted__pasted__lambert118
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11843,7 +11841,7 @@ material pasted__pasted__pasted__lambert171
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11866,7 +11864,7 @@ material pasted__pasted__pasted__lambert172
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11889,7 +11887,7 @@ material pasted__pasted__pasted__pasted__lambert170
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11912,7 +11910,7 @@ material pasted__pasted__pasted__lambert173
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11935,7 +11933,7 @@ material pasted__pasted__pasted__pasted__lambert171
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11958,7 +11956,7 @@ material pasted__pasted__pasted__pasted__lambert172
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -11981,7 +11979,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert57
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12004,7 +12002,7 @@ material pasted__pasted__lambert119
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12027,7 +12025,7 @@ material pasted__pasted__lambert120
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12050,7 +12048,7 @@ material pasted__pasted__pasted__lambert174
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12073,7 +12071,7 @@ material pasted__pasted__pasted__lambert175
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12096,7 +12094,7 @@ material pasted__pasted__pasted__pasted__lambert173
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12119,7 +12117,7 @@ material pasted__pasted__pasted__lambert176
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12142,7 +12140,7 @@ material pasted__pasted__pasted__pasted__lambert174
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12165,7 +12163,7 @@ material pasted__pasted__pasted__pasted__lambert175
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12188,7 +12186,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert58
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12211,7 +12209,7 @@ material pasted__pasted__lambert121
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12234,7 +12232,7 @@ material pasted__pasted__lambert122
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12257,7 +12255,7 @@ material pasted__pasted__pasted__lambert177
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12280,7 +12278,7 @@ material pasted__pasted__pasted__lambert178
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12303,7 +12301,7 @@ material pasted__pasted__pasted__pasted__lambert176
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12326,7 +12324,7 @@ material pasted__pasted__pasted__lambert179
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12349,7 +12347,7 @@ material pasted__pasted__pasted__pasted__lambert177
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12372,7 +12370,7 @@ material pasted__pasted__pasted__pasted__lambert178
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12395,7 +12393,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert59
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12418,7 +12416,7 @@ material pasted__pasted__lambert123
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12441,7 +12439,7 @@ material pasted__pasted__lambert124
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12464,7 +12462,7 @@ material pasted__pasted__pasted__lambert180
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12487,7 +12485,7 @@ material pasted__pasted__pasted__lambert181
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12510,7 +12508,7 @@ material pasted__pasted__pasted__pasted__lambert179
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12533,7 +12531,7 @@ material pasted__pasted__pasted__lambert182
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12556,7 +12554,7 @@ material pasted__pasted__pasted__pasted__lambert180
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12579,7 +12577,7 @@ material pasted__pasted__pasted__pasted__lambert181
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12602,7 +12600,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert60
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12625,7 +12623,7 @@ material pasted__pasted__lambert125
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12648,7 +12646,7 @@ material pasted__pasted__lambert126
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12671,7 +12669,7 @@ material pasted__pasted__pasted__lambert183
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12694,7 +12692,7 @@ material pasted__pasted__pasted__lambert184
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12717,7 +12715,7 @@ material pasted__pasted__pasted__pasted__lambert182
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12740,7 +12738,7 @@ material pasted__pasted__pasted__lambert185
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12763,7 +12761,7 @@ material pasted__pasted__pasted__pasted__lambert183
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12786,7 +12784,7 @@ material pasted__pasted__pasted__pasted__lambert184
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12809,7 +12807,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert61
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12832,7 +12830,7 @@ material pasted__pasted__lambert127
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12855,7 +12853,7 @@ material pasted__pasted__lambert128
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12878,7 +12876,7 @@ material pasted__pasted__pasted__lambert186
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12901,7 +12899,7 @@ material pasted__pasted__pasted__lambert187
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12924,7 +12922,7 @@ material pasted__pasted__pasted__pasted__lambert185
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12947,7 +12945,7 @@ material pasted__pasted__pasted__lambert188
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12970,7 +12968,7 @@ material pasted__pasted__pasted__pasted__lambert186
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -12993,7 +12991,7 @@ material pasted__pasted__pasted__pasted__lambert187
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13016,7 +13014,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert62
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13039,7 +13037,7 @@ material pasted__pasted__lambert129
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13062,7 +13060,7 @@ material pasted__pasted__lambert130
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13085,7 +13083,7 @@ material pasted__pasted__pasted__lambert189
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13108,7 +13106,7 @@ material pasted__pasted__pasted__lambert190
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13131,7 +13129,7 @@ material pasted__pasted__pasted__pasted__lambert188
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13154,7 +13152,7 @@ material pasted__pasted__pasted__lambert191
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13177,7 +13175,7 @@ material pasted__pasted__pasted__pasted__lambert189
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13200,7 +13198,7 @@ material pasted__pasted__pasted__pasted__lambert190
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13223,7 +13221,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert63
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13246,7 +13244,7 @@ material pasted__pasted__lambert131
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13269,7 +13267,7 @@ material pasted__pasted__lambert132
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13292,7 +13290,7 @@ material pasted__pasted__pasted__lambert192
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13315,7 +13313,7 @@ material pasted__pasted__pasted__lambert193
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13338,7 +13336,7 @@ material pasted__pasted__pasted__pasted__lambert191
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13361,7 +13359,7 @@ material pasted__pasted__pasted__lambert194
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13384,7 +13382,7 @@ material pasted__pasted__pasted__pasted__lambert192
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13407,7 +13405,7 @@ material pasted__pasted__pasted__pasted__lambert193
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13430,7 +13428,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert64
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13453,7 +13451,7 @@ material pasted__pasted__lambert133
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13476,7 +13474,7 @@ material pasted__pasted__lambert134
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13499,7 +13497,7 @@ material pasted__pasted__pasted__lambert195
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13522,7 +13520,7 @@ material pasted__pasted__pasted__lambert196
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13545,7 +13543,7 @@ material pasted__pasted__pasted__pasted__lambert194
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13568,7 +13566,7 @@ material pasted__pasted__pasted__lambert197
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13591,7 +13589,7 @@ material pasted__pasted__pasted__pasted__lambert195
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13614,7 +13612,7 @@ material pasted__pasted__pasted__pasted__lambert196
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13637,7 +13635,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert65
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13660,7 +13658,7 @@ material pasted__pasted__lambert135
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13683,7 +13681,7 @@ material pasted__pasted__lambert136
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13706,7 +13704,7 @@ material pasted__pasted__pasted__lambert198
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13729,7 +13727,7 @@ material pasted__pasted__pasted__lambert199
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13752,7 +13750,7 @@ material pasted__pasted__pasted__pasted__lambert197
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13775,7 +13773,7 @@ material pasted__pasted__pasted__lambert200
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13798,7 +13796,7 @@ material pasted__pasted__pasted__pasted__lambert198
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13821,7 +13819,7 @@ material pasted__pasted__pasted__pasted__lambert199
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13844,7 +13842,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert66
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13867,7 +13865,7 @@ material pasted__pasted__lambert137
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13890,7 +13888,7 @@ material pasted__pasted__lambert138
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13913,7 +13911,7 @@ material pasted__pasted__pasted__lambert201
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13936,7 +13934,7 @@ material pasted__pasted__pasted__lambert202
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13959,7 +13957,7 @@ material pasted__pasted__pasted__pasted__lambert200
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -13982,7 +13980,7 @@ material pasted__pasted__pasted__lambert203
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14005,7 +14003,7 @@ material pasted__pasted__pasted__pasted__lambert201
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14028,7 +14026,7 @@ material pasted__pasted__pasted__pasted__lambert202
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14051,7 +14049,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert67
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14074,7 +14072,7 @@ material pasted__pasted__lambert139
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14097,7 +14095,7 @@ material pasted__pasted__lambert140
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14120,7 +14118,7 @@ material pasted__pasted__pasted__lambert204
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14143,7 +14141,7 @@ material pasted__pasted__pasted__lambert205
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14166,7 +14164,7 @@ material pasted__pasted__pasted__pasted__lambert203
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14189,7 +14187,7 @@ material pasted__pasted__pasted__lambert206
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14212,7 +14210,7 @@ material pasted__pasted__pasted__pasted__lambert204
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14235,7 +14233,7 @@ material pasted__pasted__pasted__pasted__lambert205
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14258,7 +14256,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert68
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14281,7 +14279,7 @@ material pasted__pasted__lambert141
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14304,7 +14302,7 @@ material pasted__pasted__lambert142
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14327,7 +14325,7 @@ material pasted__pasted__pasted__lambert207
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14350,7 +14348,7 @@ material pasted__pasted__pasted__lambert208
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14373,7 +14371,7 @@ material pasted__pasted__pasted__pasted__lambert206
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14396,7 +14394,7 @@ material pasted__pasted__pasted__lambert209
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14419,7 +14417,7 @@ material pasted__pasted__pasted__pasted__lambert207
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14442,7 +14440,7 @@ material pasted__pasted__pasted__pasted__lambert208
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14465,7 +14463,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert69
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14488,7 +14486,7 @@ material pasted__pasted__lambert143
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14511,7 +14509,7 @@ material pasted__pasted__lambert144
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14534,7 +14532,7 @@ material pasted__pasted__pasted__lambert210
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14557,7 +14555,7 @@ material pasted__pasted__pasted__lambert211
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14580,7 +14578,7 @@ material pasted__pasted__pasted__pasted__lambert209
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14603,7 +14601,7 @@ material pasted__pasted__pasted__lambert212
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14626,7 +14624,7 @@ material pasted__pasted__pasted__pasted__lambert210
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14649,7 +14647,7 @@ material pasted__pasted__pasted__pasted__lambert211
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14672,7 +14670,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert70
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14695,7 +14693,7 @@ material pasted__pasted__lambert145
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14718,7 +14716,7 @@ material pasted__pasted__lambert146
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14741,7 +14739,7 @@ material pasted__pasted__pasted__lambert213
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14764,7 +14762,7 @@ material pasted__pasted__pasted__lambert214
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14787,7 +14785,7 @@ material pasted__pasted__pasted__pasted__lambert212
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14810,7 +14808,7 @@ material pasted__pasted__pasted__lambert215
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14833,7 +14831,7 @@ material pasted__pasted__pasted__pasted__lambert213
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14856,7 +14854,7 @@ material pasted__pasted__pasted__pasted__lambert214
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14879,7 +14877,7 @@ material pasted__pasted__pasted__pasted__pasted__lambert71
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit
@@ -14902,7 +14900,7 @@ material pasted__pasted__lambert147
 		{
 			ambient 0 0 0 1
 			lighting off
-			depth_write off
+			
 			scene_blend alpha_blend
 
 			texture_unit

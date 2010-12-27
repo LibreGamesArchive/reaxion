@@ -30,6 +30,7 @@ public class OmegaShot extends Attack {
 	@Override
 	public void firstFrame(StageGameState b) {
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("shootUp", b.tpf);
 	}
@@ -62,6 +63,7 @@ public class OmegaShot extends Attack {
 	public void finish() {
 		super.finish();
 		character.jumpLock = false;
+		character.tagLock = true;
 		character.animationLock = false;
 	}
 	

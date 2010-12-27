@@ -8,15 +8,13 @@ import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
-/**
- * Recovers some gauge points when a Barrier type attack is used.
- */
 public class ActiveShielder extends Ability {
 	
 	private Attack lastAttack;
 	
 	public ActiveShielder() {
 		super("Active Shielder");
+		description = "Recovers some gauge points when a Barrier type attack is used.";
 	}
 	
 	@Override

@@ -51,8 +51,8 @@ public class CityOfDreams extends Stage {
 		setupFog(b);
 		
 		// create fireworks
-		Firework firework = new Firework();
-        b.getContainerNode().attachChild(firework);
+//		Firework firework = new Firework();
+//        b.getContainerNode().attachChild(firework);
 		
 		// set up water
 		waterEffectRenderPass = new WaterRenderPass(b.getCamera(), 4, false, true);

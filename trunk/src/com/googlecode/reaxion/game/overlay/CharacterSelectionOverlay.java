@@ -51,7 +51,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	private ColorRGBA selTextColor;
 
 	private int[] currentIndex = new int[2];
-	private int[] selectedChars = new int[3];
+	private int[] selectedChars = new int[2];
 	
 	private int[][] takenPos = new int[tblL][tblW];
 
@@ -94,8 +94,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		menu2 = new BitmapText(FontUtils.neuropol, false);
 		menu2.setText("Press 1 to choose player 1 and 2 to choose player 2.");
 		
-		for (int i = 0; i < 3; i++)
-			selectedChars[i] = 0;
+		for (int i = 0; i < selectedChars.length; i++)
+			selectedChars[i] = -1;
 
 		//initiates display
 		initGUI();
@@ -113,8 +113,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	 */
 	public void updateSel() {
 		
-		int picked = 0;
-		picked = takenPos[currentIndex[1]][currentIndex[0]] + 1;
+		int picked = takenPos[currentIndex[1]][currentIndex[0]];
 		//System.out.println(Arrays.toString(selectedChars)+": "+picked);
 		
 		boolean flag = false;
@@ -131,23 +130,17 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			case 0:
 				selectedChars[0] = picked;
 				//round ++;
-				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked-1].getLocalTranslation()));
-				container.detachChild(p1c);
-				container.attachChild(p1c);
-				this.updateRenderState();
+				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
 				break;
 			case 1:
 				selectedChars[1] = picked;
 				//round ++;
-				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked-1].getLocalTranslation()));
-				container.detachChild(p2c);
-				container.attachChild(p2c);
-				this.updateRenderState();
+				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
 				break;
-			case 2:
-				selectedChars[2] = picked;
-				//round ++;
-				break;
+//			case 2:
+//				selectedChars[2] = picked;
+//				//round ++;
+//				break;
 			default:
 				break;
 			}
@@ -169,6 +162,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		p1c = getImage(s);
 		s = cursorURL + "p2-2.png";
 		p2c = getImage(s);
+		hide(p1c);
+		hide(p2c);
 		
 		//retrieves character images
     	String [] charLoc = new String[numchars];
@@ -207,7 +202,9 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		container.attachChild(menu);
 		container.attachChild(menu2);
 		container.attachChild(grid);
-
+		container.attachChild(p1c);
+		container.attachChild(p2c);
+		
 		//player name list 
 		for (int i = 0; i < p1Display.length; i++) {
 			p1Display[i].setSize(16);
@@ -229,7 +226,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		else
 			if(round == 1)
 			{
-				container.detachChild(p1c);
+				hide(p1c);
 				round = 0;
 				this.updateRenderState();
 				return;
@@ -237,7 +234,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			else
 				if(round == 2)
 				{
-					container.detachChild(p2c);
+					hide(p2c);
 					round = 1;
 					this.updateRenderState();
 					return;
@@ -257,7 +254,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	 * 
 	 */
 	public void choose1() {
-		container.detachChild(p1c);
+		hide(p1c);
 		round = 0;
 		this.updateRenderState();
 		return;
@@ -270,7 +267,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	 * 
 	 */
 	public void choose2() {
-		container.detachChild(p2c);
+		hide(p2c);
 		round = 1;
 		this.updateRenderState();
 		return;
@@ -285,8 +282,11 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	 */
 	public String[] getSelectedChars(boolean closingOverlay) {		
 		String[] temp = new String[selectedChars.length];
-		for (int i = 0; i < selectedChars.length; i++)
-			temp[i] = charNames[Math.max(selectedChars[i]-1, 0)];
+		for (int i = 0; i < selectedChars.length; i++) {
+			if (selectedChars[i] < 0)
+				return null;
+			temp[i] = charNames[selectedChars[i]];
+		}
 		return temp;
 	}
 	
@@ -354,6 +354,10 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		container.detachChild(p1c);
 		container.attachChild(p1c);*/
 
+	}
+	
+	private void hide(Quad q) {
+		q.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 	}
 
 }

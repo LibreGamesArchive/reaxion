@@ -11,6 +11,7 @@ public class FleetFooted extends Ability {
 	
 	public FleetFooted() {
 		super("Fleet Footed");
+		description = "Increases running speed.";
 	}
 	
 	@Override

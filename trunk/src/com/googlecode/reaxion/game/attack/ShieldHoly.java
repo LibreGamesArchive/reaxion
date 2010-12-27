@@ -41,6 +41,7 @@ public class ShieldHoly extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		
 		character.play("prayerUp");
@@ -64,6 +65,7 @@ public class ShieldHoly extends Attack {
 			// unlock when holy starts to shrink
 			character.moveLock = false;
 			character.jumpLock = false;
+			character.tagLock = false;
 			character.animationLock = false;
 			
 		} else if (frameCount == duration) {
@@ -91,6 +93,7 @@ public class ShieldHoly extends Attack {
 			holy.cancel();
 		character.moveLock = false;
 		character.jumpLock = false;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

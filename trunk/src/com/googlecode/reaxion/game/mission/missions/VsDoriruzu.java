@@ -16,7 +16,7 @@ import com.jme.math.Vector3f;
 public class VsDoriruzu extends Mission {
 	
 	public VsDoriruzu() {
-		super("Doriruzu's Terror!", MissionID.VS_DORIRUZU, 4, true, "An animation has kidnapped the shrine maiden and is running rampant in Miko Lake!", "");
+		super("Doriruzu's Terror!", MissionID.VS_DORIRUZU, 4, true, "An animation has kidnapped the shrine maiden and is running rampant in Miko Lake!", "", new int[] {300, 120});
 	}
 	
 	public void init() {
@@ -46,8 +46,7 @@ public class VsDoriruzu extends Mission {
 				"Andrew:: NO ME",
 				"Cy:: PUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDIPUDDI",
 				"Andrew:: nani?",
-				"Cy:: GIGA PUDDIPUDDIPUDDIPUDDIPUDDI" +
-				""};
+				"Cy:: GIGA PUDDIPUDDIPUDDIPUDDIPUDDI"};
 		int[] durations = {32, 32, 0, 0, 0, 0, 0, 48, 0, 48};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_miko-lake.png");
@@ -62,7 +61,7 @@ public class VsDoriruzu extends Mission {
 		b.setOps(new Character[] {tb});
 		b.setStage("MikoLake");
 		b.setTargetTime(180);
-		b.setExpYield(4000);
+		b.setExpYield(getExpYield());
 		Battle.setCurrentBattle(b);
 		
 		BattleGameState bgs = Battle.createBattleGameState();

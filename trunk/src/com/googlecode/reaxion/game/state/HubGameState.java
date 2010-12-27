@@ -1,13 +1,11 @@
 package com.googlecode.reaxion.game.state;
 
-import javax.swing.JOptionPane;
-
 import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
 import com.googlecode.reaxion.game.input.bindings.HubGameStateBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.character.Monica;
+import com.googlecode.reaxion.game.model.prop.Pointer;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.overlay.MissionOverlay;
@@ -33,6 +31,7 @@ public class HubGameState extends StageGameState {
 	public static final String NAME = "hubGameState";
 	
 	private Model terminal;
+	private Pointer pointer;
 	
 	private TerminalOverlay terminalOverlay;
 	private CharacterSelectionOverlay characterOverlay;
@@ -40,7 +39,7 @@ public class HubGameState extends StageGameState {
 	private MissionOverlay missionOverlay;
 	private MenuOverlay currentMenu;
 	
-	private final float activationDistance = 8f;
+	private final float activationDistance = 16f;
 	
 	private boolean menuShowing;
     
@@ -79,15 +78,17 @@ public class HubGameState extends StageGameState {
 		
 		boolean terminalAccessed = false;
 		
+		Vector3f playerLoc = player.getXZTranslation();
+		Vector3f terminalLoc = terminal.getXZTranslation();
+		boolean withinRange = playerLoc.distance(terminalLoc) <= activationDistance;
+		pointer.show(withinRange);
+		
 		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
 		if (manager.isValidCommand(HubGameStateBindings.ACCESS_TERMINAL.toString(), false) && !menuShowing) {
 			terminalAccessed = true;
 			
-			Vector3f playerLoc = player.getXZTranslation();
-			Vector3f terminalLoc = terminal.getXZTranslation();
-			
-			if (playerLoc.distance(terminalLoc) <= activationDistance) {
+			if (withinRange) {
 				toggleMenu(true);
 				changeCurrentMenu(terminalOverlay);
 				rootNode.attachChild((Overlay) currentMenu);
@@ -128,6 +129,10 @@ public class HubGameState extends StageGameState {
 			} else if (currentMenu instanceof CharacterSelectionOverlay) {
 				String[] characters = ((CharacterSelectionOverlay) currentMenu).getSelectedChars(true);
 				
+				// check selection
+				if (characters == null)
+					return;
+				
 				Battle.setDefaultPlayers(characters[0], characters[1]);
 				
 				MissionManager.endHubGameState();
@@ -137,8 +142,6 @@ public class HubGameState extends StageGameState {
 		}
 		
 		if (manager.isValidCommand(HubGameStateBindings.CLOSE_TERMINAL.toString(), false) && menuShowing) {
-			Vector3f playerLoc = player.getXZTranslation();
-			Vector3f terminalLoc = terminal.getXZTranslation();
 			
 			if (playerLoc.distance(terminalLoc) <= activationDistance) {
 				toggleMenu(false);
@@ -243,6 +246,7 @@ public class HubGameState extends StageGameState {
     	terminal = LoadingQueue.quickLoad(new Model("dashboard"), this);
     	terminal.trackable = true;
     	terminal.model.setLocalTranslation(pos);
+    	pointer = (Pointer)LoadingQueue.quickLoad(new Pointer(terminal), this);
     	rootNode.updateRenderState();
     }
 

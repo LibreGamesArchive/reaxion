@@ -7,7 +7,6 @@ material lambert2
 		{
 			ambient 0 0 0 1
 			scene_blend alpha_blend
-			depth_write off
 			lighting off
 
 			texture_unit
@@ -30,7 +29,6 @@ material pasted__lambert2
 		{
 			ambient 0 0 0 1
 			scene_blend alpha_blend
-			depth_write off
 			lighting off
 
 			texture_unit
@@ -53,7 +51,6 @@ material lambert3
 		{
 			ambient 0 0 0 1
 			scene_blend alpha_blend
-			depth_write off
 			lighting off
 
 			texture_unit

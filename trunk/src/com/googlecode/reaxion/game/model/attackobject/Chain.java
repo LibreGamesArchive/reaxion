@@ -15,10 +15,11 @@ public class Chain extends AttackObject {
 	protected static final float dpf = 0;
 	
 	public final int offset = 50;
-	private float speed = 2.5f;
+	private float speed = 3f;
 	private float angle;
 	
 	private ArrayList<Character> captured = new ArrayList<Character>();
+	private ArrayList<Integer> masses = new ArrayList<Integer>();
 	
 	public Chain(Model m, float a) {
     	super(filename, dpf, m);
@@ -43,6 +44,7 @@ public class Chain extends AttackObject {
         	if (c instanceof Character && !users.contains(c) && !captured.contains(c)) {
         		if (((Character)c).hit(b, this)) {
         			captured.add((Character)c);
+        			masses.add(new Integer(((Character)c).mass));
         		}
         	}
         }
@@ -54,9 +56,10 @@ public class Chain extends AttackObject {
         	captured.get(i).jumpLock = true;
         	captured.get(i).flinching = true;
         	captured.get(i).tagLock = true;
-        	if (lifeCount < offset/speed)
-        		captured.get(i).model.setLocalTranslation(captured.get(i).model.getLocalTranslation().add(
-        				new Vector3f(speed*FastMath.sin(angle), 0, speed*FastMath.cos(angle))));
+        	captured.get(i).mass = 3;
+//        	if (lifeCount < offset/speed)
+//        		captured.get(i).model.setLocalTranslation(captured.get(i).model.getLocalTranslation().add(
+//        				new Vector3f(speed*FastMath.sin(angle), 0, speed*FastMath.cos(angle))));
         }
         
         // advance
@@ -88,6 +91,7 @@ public class Chain extends AttackObject {
         	captured.get(i).jumpLock = false;
         	captured.get(i).flinching = false;
         	captured.get(i).tagLock = false;
+        	captured.get(i).mass = masses.get(i);
         }
 		b.removeModel(this);
 	}

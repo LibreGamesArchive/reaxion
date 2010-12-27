@@ -6,9 +6,6 @@ import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
-/**
- * Random chance of teleporting when about to get hit. Rises with HP loss.
- */
 public class AfterImage extends Ability {
 	
 	private static final float lowerThreshold = 0;
@@ -20,6 +17,7 @@ public class AfterImage extends Ability {
 	
 	public AfterImage() {
 		super("After Image");
+		description = "Random chance of teleporting when about to get hit. Rises with HP loss.";
 	}
 	
 	@Override

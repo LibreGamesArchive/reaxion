@@ -6,13 +6,11 @@ import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
-/**
- * Access a comrade's abilities even after they have fallen.
- */
 public class Inheritor extends Ability {
 	
 	public Inheritor() {
 		super("Inheritor");
+		description = "Access a comrade's abilities even after they have fallen.";
 	}
 	
 	@Override

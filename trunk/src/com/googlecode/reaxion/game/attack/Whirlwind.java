@@ -1,38 +1,35 @@
 package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
-import com.googlecode.reaxion.game.model.attackobject.Bubble;
+import com.googlecode.reaxion.game.model.attackobject.Tornado;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
 
-/**
- * Splashes up several bubbles.
- */
-public class BubbleBath extends Attack {
+public class Whirlwind extends Attack {
 	
-	private static final String n = "Bubble Bath";
-	private static final int gc = 14;
+	private static final String n = "Whirlwind";
+	private static final int gc = 11;
 	
-	private static final float speed = .75f;
-	private Bubble[] bubble = new Bubble[16];
+	private Model target;
+	private Tornado tornado;
 	
-	public BubbleBath() {
+	public Whirlwind() {
 		name = n;
 		gaugeCost = gc;
-		description = "Splashes up several bubbles.";
+		description = "Creates a gust of wind that seeks the opponent.";
 	}
 	
-	public BubbleBath(AttackData ad) {
+	public Whirlwind(AttackData ad) {
 		super(ad, gc);
 		name = n;
-		validateGround();
+		target = ad.target;
 	}
 	
 	public static void load() {
-		LoadingQueue.push(new Model(Bubble.filename));
+		LoadingQueue.push(new Model(Tornado.filename));
 	}
 	
 	@Override
@@ -50,21 +47,13 @@ public class BubbleBath extends Attack {
 		MeshAnimationController animControl = (MeshAnimationController) character.model.getController(0);
 		if (phase == 0 && animControl.getCurTime() + b.tpf >= animControl.getAnimationLength("cast")/2) {
 			
-			phase++;
+			tornado = (Tornado)LoadingQueue.quickLoad(new Tornado(getUsers()), b);
+			tornado.target = target;
 			
-			Vector3f rotation = character.rotationVector;
-			
-			// make the bubbles fly
-			for (int i=0; i<bubble.length; i++) {
-				float angle = FastMath.atan2(rotation.x, rotation.z) + 2*FastMath.PI/bubble.length*i;
-				Vector3f translation = new Vector3f(3f*FastMath.sin(angle), 3.7f, 3f*FastMath.cos(angle));			
-				bubble[i] = (Bubble)LoadingQueue.quickLoad(new Bubble(getUsers()), b);
-				bubble[i].amplitude = 8;
-				bubble[i].setVelocity(new Vector3f(FastMath.sin(angle), 0, FastMath.cos(angle)).mult(speed));
-				bubble[i].model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
-			}
+			tornado.model.setLocalTranslation(character.model.getWorldTranslation());
 			
 			b.getRootNode().updateRenderState();
+			phase++;
 			
 		} else if (character.play("cast", b.tpf)) {
 			finish();

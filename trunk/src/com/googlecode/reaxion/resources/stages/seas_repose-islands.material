@@ -46,7 +46,6 @@ material sunset_wake_tree8leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -88,7 +87,6 @@ material sunset_wake_tree9leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -130,7 +128,6 @@ material sunset_wake_tree7leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -172,7 +169,6 @@ material sunset_wake_tree5leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -214,7 +210,6 @@ material sunset_wake_tree4leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -256,7 +251,6 @@ material sunset_wake_tree6leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -298,7 +292,6 @@ material sunset_wake_tree3leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -340,7 +333,6 @@ material sunset_wake_tree2leaf
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit

@@ -6,7 +6,6 @@ material i_monica6hairTex4
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -28,7 +27,6 @@ material i_monica6hairTex3
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -50,7 +48,6 @@ material i_monica6hairTex2
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit
@@ -72,7 +69,6 @@ material i_monica6hairTex5
 		pass
 		{
 			ambient 0 0 0 1
-			depth_write off
 			scene_blend alpha_blend
 
 			texture_unit

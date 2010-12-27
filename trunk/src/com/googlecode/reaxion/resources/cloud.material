@@ -7,7 +7,6 @@ material cloud
 		{
 			ambient 0 0 0 1
 			scene_blend alpha_blend
-			depth_write off
 
 			texture_unit
 			{

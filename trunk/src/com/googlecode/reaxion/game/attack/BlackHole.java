@@ -44,6 +44,7 @@ public class BlackHole extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("smite", b.tpf);
 //		triggerSoundEffect(sfxTypes, true);
@@ -67,6 +68,7 @@ public class BlackHole extends Attack {
 		super.finish();
 		character.moveLock = false;
 		character.jumpLock = false;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

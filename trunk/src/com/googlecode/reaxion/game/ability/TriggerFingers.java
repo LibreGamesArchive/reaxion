@@ -7,9 +7,6 @@ import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
-/**
- * Occasionally will fire bullets automatically.
- */
 public class TriggerFingers extends Ability {
 	
 	private static final float bulletSpeed = 4;
@@ -17,6 +14,7 @@ public class TriggerFingers extends Ability {
 	
 	public TriggerFingers() {
 		super("Trigger Fingers");
+		description = "Occasionally will fire bullets automatically.";
 	}
 	
 	@Override
