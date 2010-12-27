@@ -71,7 +71,7 @@ public class ShadowTag extends Attack {
 		super.finish();
 		character.moveLock = false;
 		character.jumpLock = false;
-		character.tagLock = true;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	
