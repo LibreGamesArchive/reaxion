@@ -27,7 +27,7 @@ public class MajorCharacter extends Character {
     protected void init() {
     	super.init();
     	type();
-    	setInfo();
+    	updateStats();
     	trackOffset = new Vector3f(0, 3, 0);
     	renew();
     }
@@ -48,9 +48,11 @@ public class MajorCharacter extends Character {
     /**
 	 * Set traits for all characters of this type based on {@code PlayerInfo}.
 	 */
-    protected void setInfo() {
+    public void updateStats() {
     	// create stats based on PlayerInfo
-    	info = PlayerInfoManager.get(name);
+    	if (info == null)
+    		info = PlayerInfoManager.get(name);
+    	
     	maxHp = info.getMaxHp();
     	strengthMult = info.getAttackMultiplier();
     	minGauge = info.getMinGauge();

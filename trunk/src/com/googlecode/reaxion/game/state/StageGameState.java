@@ -609,8 +609,7 @@ public class StageGameState extends BaseGameState {
 	        }
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                GlobalBindings.SCREENSHOT.toString(), false)) {
-	            DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
-	                    "SimpleGameScreenShot");
+	        	Reaxion.takeScreenshot();
 	        }
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                GlobalBindings.MEM_REPORT.toString(), false)) {
@@ -640,7 +639,17 @@ public class StageGameState extends BaseGameState {
     	
     }
     
-    /**
+    @Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		
+		if (active) {
+			player.updateStats();
+			partner.updateStats();
+		}
+	}
+
+	/**
      * Toggles camera mode, maintaining viewpoint when switching to free, and auto-locking
      * closest target when switching to lock
      */

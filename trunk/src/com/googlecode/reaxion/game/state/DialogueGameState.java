@@ -174,8 +174,7 @@ public class DialogueGameState extends BaseGameState {
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					GlobalBindings.SCREENSHOT.toString(), false)) {
-				DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
-						"SimpleGameScreenShot");
+				Reaxion.takeScreenshot();
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					GlobalBindings.MEM_REPORT.toString(), false)) {

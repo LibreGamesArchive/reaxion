@@ -1,9 +1,9 @@
 package com.googlecode.reaxion.game;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.concurrent.Callable;
-
-import javax.swing.JOptionPane;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
@@ -14,7 +14,6 @@ import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.KeyBindingUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
-import com.jme.input.KeyBindingManager;
 import com.jme.input.MouseInput;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
@@ -30,6 +29,7 @@ import com.jmex.game.state.load.LoadingGameState;
 public class Reaxion {
 
 	private static final String GAME_VERSION = "0.7a";
+	private static final String screenshotDir = "screenshots/";
 
 	private static int screenWidth;
 	private static int screenHeight;
@@ -101,6 +101,18 @@ public class Reaxion {
 		System.exit(0);
 	}
 	
+	public static void takeScreenshot() {
+		File f = new File(screenshotDir);
+		if (!f.exists())
+			f.mkdir();
+		
+		Calendar c = Calendar.getInstance();
+		String tag = "Reaxion_" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.YEAR) +
+			"_" + c.get(Calendar.HOUR_OF_DAY) + "-" + c.get(Calendar.MINUTE) + "-" + 
+			(c.get(Calendar.SECOND) < 10 ? "0" + c.get(Calendar.SECOND) : c.get(Calendar.SECOND));
+		DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(screenshotDir + tag);
+	}
+	
 	public static int getScreenWidth() {
 		return screenWidth;
 	}
@@ -126,13 +138,13 @@ public class Reaxion {
 			
 			PlayerInfoManager.init();
 			
-			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
-			GameStateManager.getInstance().attachChild(gridState);
-			gridState.setActive(true);
+//			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
+//			GameStateManager.getInstance().attachChild(gridState);
+//			gridState.setActive(true);
 			
-//			charState = new CharacterSelectionState();
-//			GameStateManager.getInstance().attachChild(charState);
-//			charState.setActive(true);
+			charState = new CharacterSelectionState();
+			GameStateManager.getInstance().attachChild(charState);
+			charState.setActive(true);
 			
 			return null;
 		}	

@@ -3,25 +3,18 @@ package com.googlecode.reaxion.game.state;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.audio.AudioPlayer;
-import com.googlecode.reaxion.game.audio.BgmPlayer;
+import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.ResultsOverlay;
 import com.jme.app.AbstractGame;
-import com.jme.image.Texture;
 import com.jme.input.AbsoluteMouse;
 import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
-import com.jme.scene.shape.Quad;
-import com.jme.scene.state.BlendState;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
-import com.jmex.game.state.CameraGameState;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -50,9 +43,10 @@ public class ResultsGameState extends BaseGameState {
 	private AbsoluteMouse mouse;
 
 	public ResultsGameState(BattleGameState b) {
-		super(true);
-		battle = b;
+		super(false);
 		setEndsBGM(true);
+		battle = b;
+		init();
 	}
 
 	@Override
@@ -81,8 +75,7 @@ public class ResultsGameState extends BaseGameState {
 		// Initial InputHandler
 		// input = new FirstPersonHandler(cam, 15.0f, 0.5f);
 		input = new InputHandler();
-		initKeyBindings();
-
+		
 		// Setup software mouse
 		/*
 		mouse = new AbsoluteMouse("Mouse Input", DisplaySystem
@@ -118,21 +111,6 @@ public class ResultsGameState extends BaseGameState {
 		rootNode.updateGeometricState(0.0f, true);
 	}
 
-	// duplicate the functionality of DebugGameState
-	// Most of this can be commented out during finalization
-	private void initKeyBindings() {
-		KeyBindingManager.getKeyBindingManager().set("screen_shot",
-				KeyInput.KEY_F1);
-		KeyBindingManager.getKeyBindingManager().set("exit",
-				KeyInput.KEY_ESCAPE);
-		KeyBindingManager.getKeyBindingManager().set("mem_report",
-				KeyInput.KEY_R);
-		KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-				KeyInput.KEY_M);
-		KeyBindingManager.getKeyBindingManager().set("return",
-				KeyInput.KEY_RETURN);
-	}
-
 	@Override
 	public void stateUpdate(float _tpf) {
 		tpf = _tpf;
@@ -142,7 +120,7 @@ public class ResultsGameState extends BaseGameState {
 			input.update(tpf);
 
 			/** If exit is a valid command (via key Esc), exit game */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
 					false)) {
 				if (game != null) {
 					game.finish();
@@ -160,16 +138,15 @@ public class ResultsGameState extends BaseGameState {
 
 		if (input != null) {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"return", false)) {
+					MenuBindings.SELECT_FINAL.toString(), false)) {
 				returnToCharSelectState();
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"screen_shot", false)) {
-				DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
-						"SimpleGameScreenShot");
+					GlobalBindings.SCREENSHOT.toString(), false)) {
+				Reaxion.takeScreenshot();
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"mem_report", false)) {
+					GlobalBindings.MEM_REPORT.toString(), false)) {
 				long totMem = Runtime.getRuntime().totalMemory();
 				long freeMem = Runtime.getRuntime().freeMemory();
 				long maxMem = Runtime.getRuntime().maxMemory();
@@ -180,7 +157,7 @@ public class ResultsGameState extends BaseGameState {
 				logger.info("Max memory: " + (maxMem >> 10) + " kb");
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_mouse", false)) {
+					GlobalBindings.TOGGLE_MOUSE.toString(), false)) {
 				MouseInput.get().setCursorVisible(
 						!MouseInput.get().isCursorVisible());
 				logger.info("Cursor Visibility set to "

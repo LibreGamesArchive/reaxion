@@ -91,6 +91,7 @@ public class BurstGrid
 						String[] node = temp[0].split(" ");
 						conns.add(temp[1]);
 
+						
 						if(node[1].contains("Max")){
 							b = new MaxGaugeNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
@@ -112,6 +113,11 @@ public class BurstGrid
 						else{
 							b = new RateNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
+						
+						// Checks for root node
+						if (Integer.parseInt(node[0]) == 1)
+							b.activated = true;
+						
 						bg.add(b);	
 					}
 				}
