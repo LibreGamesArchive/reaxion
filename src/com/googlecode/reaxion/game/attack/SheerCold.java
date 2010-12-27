@@ -79,7 +79,7 @@ public class SheerCold extends Attack {
 	private void death(Model t) {
 		if (t instanceof Character) {
 			Character c = (Character)t;
-			double chance = .15 * (character.hp - c.hp)/character.hp;
+			double chance = .2 * (character.hp - c.hp/2)/character.hp;
 			if (Math.random() <= chance)
 				// execute death
 				c.hp = (c.hp > 1) ? 1 : 0;

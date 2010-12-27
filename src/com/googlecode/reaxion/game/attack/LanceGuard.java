@@ -17,7 +17,7 @@ public class LanceGuard extends Attack {
 	private static final String n = "Lance Guard";
 	private static final int gc = 22;
 	
-	private SeekingLance[] lance = new SeekingLance[4];
+	private SeekingLance[] lance = new SeekingLance[6];
 	
 	private float radius = 4;
 	private float curAngle = 0;
@@ -101,6 +101,18 @@ public class LanceGuard extends Attack {
 	@Override
 	public void finish() {
 		super.finish();
+		
+		// fling off
+		if (lance != null) {
+			Vector3f pos = character.model.getLocalTranslation();
+			for (int i=0; i<lance.length; i++) {
+				if (lance[i] != null) {
+					Vector3f l = lance[i].model.getLocalTranslation();
+					float angle = FastMath.atan2(l.z - pos.z, l.x - pos.x);
+					lance[i].setVelocity(new Vector3f(FastMath.sin(angle), 0, FastMath.cos(angle)).mult(-2*angleInc*radius));
+				}
+			}
+		}
 		character.moveLock = false;
 		character.jumpLock = false;
 		character.animationLock = false;

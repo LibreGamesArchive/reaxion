@@ -18,7 +18,7 @@ import com.jme.math.Vector3f;
 public class VsMonica1 extends Mission {
 	
 	public VsMonica1() {
-		super("Ambush!", MissionID.VS_MONICA_1, 1, false, "Take down the gunner!", "");
+		super("Ambush!", MissionID.VS_MONICA_1, 1, false, "Take down the gunner!", "", new int[] {130, 80});
 	}
 	
 	public void init() {
@@ -65,7 +65,7 @@ public class VsMonica1 extends Mission {
 		b.setOps(new Character[] {monica});
 		//b.setOpAbilities(ab);
 		b.setTargetTime(60);
-		b.setExpYield(1000);
+		b.setExpYield(getExpYield());
 		b.setPlayerPosition(new Vector3f(0, 0, -20));
 		b.addOponentPosition(new Vector3f(0, 0, 20));
 		Battle.setCurrentBattle(b);

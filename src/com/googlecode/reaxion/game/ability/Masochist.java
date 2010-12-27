@@ -4,15 +4,13 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 
-/**
- * Increases gauge drive proportional to damage received.
- */
 public class Masochist extends Ability {
 	
 	private static float ratio = 1/3f;
 	
 	public Masochist() {
 		super("Masochist");
+		description = "Increases gauge drive proportional to damage received.";
 	}
 	
 	@Override

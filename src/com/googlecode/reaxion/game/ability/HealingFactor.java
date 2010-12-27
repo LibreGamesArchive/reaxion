@@ -13,6 +13,7 @@ public class HealingFactor extends Ability {
 	
 	public HealingFactor() {
 		super("Healing Factor");
+		description = "Healing moves become more effective.";
 	}
 	
 	@Override

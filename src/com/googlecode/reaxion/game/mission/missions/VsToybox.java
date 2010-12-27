@@ -16,7 +16,7 @@ import com.jme.math.Vector3f;
 public class VsToybox extends Mission {
 	
 	public VsToybox() {
-		super("The Toybox Attacks!", MissionID.VS_TOYBOX, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "");
+		super("The Toybox Attacks!", MissionID.VS_TOYBOX, 4, true, "A powerful Animation has appeared on Cloud Nine! Defeat the mysterious opponent!", "", new int[] {600, 280});
 	}
 	
 	public void init() {
@@ -61,7 +61,7 @@ public class VsToybox extends Mission {
 		b.setOps(new Character[] {tb});
 		b.setStage("CloudNine");
 		b.setTargetTime(180);
-		b.setExpYield(4000);
+		b.setExpYield(getExpYield());
 		Battle.setCurrentBattle(b);
 		
 		BattleGameState bgs = Battle.createBattleGameState();

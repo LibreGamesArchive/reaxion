@@ -4,9 +4,6 @@ import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
-/**
- * Gauge goes crazy when HP reaches critical levels.
- */
 public class FinalHour extends Ability {
 	
 	private static final int changeRate = 20;
@@ -14,6 +11,7 @@ public class FinalHour extends Ability {
 	
 	public FinalHour() {
 		super("Final Hour");
+		description = "Gauge goes crazy when HP reaches critical levels.";
 	}
 	
 	@Override

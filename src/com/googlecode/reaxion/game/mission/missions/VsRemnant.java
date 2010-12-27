@@ -16,7 +16,7 @@ import com.jme.math.Vector3f;
 public class VsRemnant extends Mission {
 	
 	public VsRemnant() {
-		super("The Last Remnant", MissionID.VS_REMNANT, 4, true, "The lost Anima of the ruined world mount their last attack!", "");
+		super("The Last Remnant", MissionID.VS_REMNANT, 4, true, "The lost Anima of the ruined world mount their last attack!", "", new int[] {800, 340});
 	}
 	
 	public void init() {
@@ -55,7 +55,7 @@ public class VsRemnant extends Mission {
 		b.addOponentPosition(new Vector3f(0, 0, -300));
 		b.setStage("DataCore");
 		b.setTargetTime(210);
-		b.setExpYield(10000);
+		b.setExpYield(getExpYield());
 		Battle.setCurrentBattle(b);
 		
 		BattleGameState bgs = Battle.createBattleGameState();

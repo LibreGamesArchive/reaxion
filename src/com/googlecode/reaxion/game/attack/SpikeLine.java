@@ -42,6 +42,7 @@ public class SpikeLine extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("smite", b.tpf);
 		
@@ -85,6 +86,7 @@ public class SpikeLine extends Attack {
 		super.finish();
 		character.moveLock = false;
 		character.jumpLock = false;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

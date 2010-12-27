@@ -11,6 +11,7 @@ public class HighJump extends Ability {
 	
 	public HighJump() {
 		super("High Jump");
+		description = "Doubles user's jumping height.";
 	}
 	
 	@Override

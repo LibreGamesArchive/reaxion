@@ -140,6 +140,11 @@ public class CharacterSelectionState extends BasicGameState {
 		LoadingQueue.resetQueue();
 		
 		String[] chars = charSelectNode.getSelectedChars(true);
+		
+		// check selection
+		if (chars == null)
+			return;
+		
 		Battle.setDefaultPlayers(chars[0], chars[1]);
 		
 		/*

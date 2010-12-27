@@ -13,7 +13,7 @@ public class RandomInstantGauge extends Ability {
 	private static final float chance = .0002f;
 	
 	public RandomInstantGauge() {
-		super("Evasive Start");
+		super("Instant Gauge");
 	}
 	
 	@Override

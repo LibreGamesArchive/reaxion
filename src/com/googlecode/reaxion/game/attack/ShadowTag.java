@@ -39,6 +39,7 @@ public class ShadowTag extends Attack {
 	public void firstFrame(StageGameState b) {
 		character.moveLock = true;
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("command", b.tpf);
 	}
@@ -70,6 +71,7 @@ public class ShadowTag extends Attack {
 		super.finish();
 		character.moveLock = false;
 		character.jumpLock = false;
+		character.tagLock = true;
 		character.animationLock = false;
 	}
 	

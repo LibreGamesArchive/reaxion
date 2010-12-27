@@ -8,15 +8,12 @@ import com.googlecode.reaxion.game.model.prop.GlowRing;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 
-/**
- * Copies current target's ability powers.
- *
- */
 public class Synchronize extends Ability {
 	
 	
 	public Synchronize() {
 		super("Synchronize");
+		description = "Copies current target's ability powers.";
 	}
 	
 	@Override

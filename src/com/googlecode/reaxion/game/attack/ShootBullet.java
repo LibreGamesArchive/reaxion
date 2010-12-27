@@ -37,6 +37,7 @@ public class ShootBullet extends Attack {
 	@Override
 	public void firstFrame(StageGameState b) {
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("shootUp", b.tpf);
 	}
@@ -80,6 +81,7 @@ public class ShootBullet extends Attack {
 	public void finish() {
 		super.finish();
 		character.jumpLock = false;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

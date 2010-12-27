@@ -34,6 +34,7 @@ public class CardCircle extends Attack {
 	@Override
 	public void firstFrame(StageGameState b) {
 		character.jumpLock = true;
+		character.tagLock = true;
 		character.animationLock = true;
 		character.play("shootUp", b.tpf);
 	}
@@ -66,6 +67,7 @@ public class CardCircle extends Attack {
 	public void finish() {
 		super.finish();
 		character.jumpLock = false;
+		character.tagLock = false;
 		character.animationLock = false;
 	}
 	

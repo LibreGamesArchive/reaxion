@@ -19,7 +19,7 @@ import com.jme.math.Vector3f;
 public class Mission00 extends Mission {
 	
 	public Mission00() {
-		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER, 1, false, "(Test scenario.)", "");
+		super("Defeat the Light-user!", MissionID.DEFEAT_LIGHT_USER, 1, false, "(Test scenario.)", "", new int[] {100, 100});
 	}
 	
 	public void init() {
@@ -66,7 +66,7 @@ public class Mission00 extends Mission {
 		//b.setPlayers(new String[] {"Brian", "Cy", "Khoa"});
 		//b.setStage("TwilightKingdom");
 		b.setTargetTime(60);
-		b.setExpYield(1000);
+		b.setExpYield(getExpYield());
 		b.setPlayerPosition(new Vector3f(0, 0, -20));
 		b.addOponentPosition(new Vector3f(0, 0, 20));
 		Battle.setCurrentBattle(b);

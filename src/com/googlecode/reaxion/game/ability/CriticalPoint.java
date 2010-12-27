@@ -4,9 +4,6 @@ import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
-/**
- * Attack power increases at low HP levels.
- */
 public class CriticalPoint extends Ability {
 	
 	private static final double multiplier = 2;
@@ -14,6 +11,7 @@ public class CriticalPoint extends Ability {
 	
 	public CriticalPoint() {
 		super("Critical Point");
+		description = "Attack power increases at low HP levels.";
 	}
 	
 	@Override
