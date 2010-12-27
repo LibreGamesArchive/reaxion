@@ -80,6 +80,7 @@ public class BurstGridGameState extends BaseGameState {
 	private int currentCost;
 	
 	private Node gridNode;
+	private Node cursorNode;
 	private Node bgNode;
 	private Quad[] clouds = new Quad[2];
 	
@@ -124,7 +125,9 @@ public class BurstGridGameState extends BaseGameState {
         
         // create gridNode
         gridNode = new Node("gridNode");
+        cursorNode = new Node("cursorNode");
         rootNode.attachChild(gridNode);
+        rootNode.attachChild(cursorNode);
         
         // create textures
         ci = createTexture("connector-inactive");
@@ -133,9 +136,8 @@ public class BurstGridGameState extends BaseGameState {
         // createRings
         createRings();
         
-        // test activate
-//        grid.getNodes().get(0).activated = true;
-//        grid.getNodes().get(1).activated = true;
+        // base node is always active
+        grid.getNodes().get(0).activated = true;
         
         // read in burstgrid
         readNodes();
@@ -468,13 +470,13 @@ public class BurstGridGameState extends BaseGameState {
     	TextureState gs = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		gs.setTexture(createTexture("root-locator"));
 		prevRing.setRenderState(gs);
-        gridNode.attachChild(prevRing);
+        cursorNode.attachChild(prevRing);
         
         currentRing = new Quad("", 2, 2);
     	TextureState gs2 = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		gs2.setTexture(createTexture("current-locator"));
 		currentRing.setRenderState(gs2);
-        gridNode.attachChild(currentRing);
+        cursorNode.attachChild(currentRing);
 	}
 	
     /**
