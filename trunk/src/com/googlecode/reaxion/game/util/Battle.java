@@ -60,7 +60,9 @@ public class Battle {
 	 * Load all attacks, abilities, and stage from data.
 	 */
 	private void init() {
-		// Load stage
+		// Load basics
+		LoadingQueue.push(p1);
+		LoadingQueue.push(p2);
 		LoadingQueue.push(stage);
 		
 		p1Attacks = new Class[6];
@@ -121,8 +123,8 @@ public class Battle {
 			Class temp2 = Class.forName(baseURL + dp2);
 			
 			// set players
-			nextP1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1.getConstructors()[1].newInstance(false));
-			nextP2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2.getConstructors()[1].newInstance(false));
+			nextP1 = (MajorCharacter) temp1.getConstructors()[1].newInstance(false);
+			nextP2 = (MajorCharacter) temp2.getConstructors()[1].newInstance(false);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -135,9 +137,9 @@ public class Battle {
 			Class temp2 = Class.forName(baseURL + chars[1]);
 			
 			// set players
-			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp1.getConstructors()[1].newInstance(false));
+			p1 = (MajorCharacter) temp1.getConstructors()[1].newInstance(false);
 			p1.setAbilities(p1Abilities);
-			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) temp2.getConstructors()[1].newInstance(false));
+			p2 = (MajorCharacter) temp2.getConstructors()[1].newInstance(false);
 			p2.setAbilities(p2Abilities);
 			
 			// set opponents

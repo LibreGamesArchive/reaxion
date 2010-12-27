@@ -9,7 +9,7 @@ import com.jme.math.Vector3f;
 public class BugOrb extends AttackObject {
 	
 	public static final String filename = "bug-orb";
-	protected static final int span = 360;
+	protected static final int span = 540;
 	
 	protected static final float dpf = 32;
 	

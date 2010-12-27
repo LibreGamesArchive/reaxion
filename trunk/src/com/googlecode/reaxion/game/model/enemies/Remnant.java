@@ -134,7 +134,7 @@ public class Remnant extends Enemy {
 				if (beamCount / beamDelay <= numBeamRows - 1) {
 					if (beamCount % beamDelay == 0) {
 						i = (i + (int)Math.floor(Math.random()*5) -2) % numBeams;
-						float offset = FastMath.nextRandomFloat()*4 - 2;
+						float offset = FastMath.nextRandomFloat()*6 - 2;
 						for (int j= 0; j<numBeams; j++) {
 							if (j != i) {
 								DataBeam d = (DataBeam)LoadingQueue.quickLoad(new DataBeam(this), b);

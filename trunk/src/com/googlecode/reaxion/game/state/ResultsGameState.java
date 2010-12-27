@@ -30,7 +30,7 @@ import com.jmex.game.state.GameStateManager;
  * 
  * @author Khoa
  */
-public class ResultsGameState extends CameraGameState {
+public class ResultsGameState extends BaseGameState {
 
 	public static final String NAME = "resultsGameState";
 
@@ -50,12 +50,13 @@ public class ResultsGameState extends CameraGameState {
 	private AbsoluteMouse mouse;
 
 	public ResultsGameState(BattleGameState b) {
-		super(NAME);
+		super(true);
 		battle = b;
-		init();
+		setEndsBGM(true);
 	}
 
-	private void init() {
+	@Override
+	protected void init() {
 		rootNode = new Node("RootNode");
 
 		// Prepare results node
