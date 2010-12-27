@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import com.googlecode.reaxion.game.mission.missions.*;
+import com.googlecode.reaxion.game.mission.missions.Mission00;
+import com.googlecode.reaxion.game.mission.missions.VsDoriruzu;
+import com.googlecode.reaxion.game.mission.missions.VsMonica1;
+import com.googlecode.reaxion.game.mission.missions.VsRemnant;
+import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.googlecode.reaxion.game.state.HubGameState;
+import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.math.Vector3f;
 import com.jmex.game.state.GameStateManager;
@@ -59,7 +64,7 @@ public class MissionManager {
 	public static void startNext() {
 		if(currentIndex + 1 == currentMission.getStateCount()) {
 			endMission();
-		} else {			
+		} else {
 			currentMission.deactivateStateAt(currentIndex);
 			GameStateManager.getInstance().detachChild(currentMission.getStateAt(currentIndex));
 			currentIndex++;

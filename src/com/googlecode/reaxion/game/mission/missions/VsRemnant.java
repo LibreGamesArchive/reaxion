@@ -49,7 +49,7 @@ public class VsRemnant extends Mission {
 		addState(dialogueState);
 		
 		Battle b = Battle.getCurrentBattle();
-		b.setPlayerPosition(new Vector3f(0, 0, 50));
+		b.setPlayerPosition(new Vector3f(0, 0, 100));
 		Character r = (Character)LoadingQueue.push(new Remnant());
 		b.setOps(new Character[] {r});
 		b.addOponentPosition(new Vector3f(0, 0, -300));

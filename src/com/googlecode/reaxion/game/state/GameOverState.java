@@ -32,7 +32,7 @@ import com.jmex.game.state.GameStateManager;
  * 
  * @author Khoa
  */
-public class GameOverState extends CameraGameState {
+public class GameOverState extends BaseGameState {
 
 	public static final String NAME = "gameOverState";
 
@@ -54,12 +54,13 @@ public class GameOverState extends CameraGameState {
 	private boolean retry = true;
 
 	public GameOverState(BattleGameState b) {
-		super(NAME);
+		super(true);
+		setEndsBGM(true);
 		battle = b;
-		init();
 	}
 
-	private void init() {
+	@Override
+	protected void init() {
 		rootNode = new Node("RootNode");
 
 		// Prepare game over node

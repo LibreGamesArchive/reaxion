@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+import javax.security.sasl.AuthorizeCallback;
+
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
@@ -119,6 +121,7 @@ public class StageGameState extends BaseGameState {
     	nextTarget(0);
     	
     	load();
+    	initStage();
     	
     	rootNode.updateRenderState();
     }
@@ -263,8 +266,15 @@ public class StageGameState extends BaseGameState {
      */
     public void setStage(Stage s) {
     	stage = s;
-    	stage.loadComponents(this);
     	containerNode.attachChild(s.model);
+    }
+    
+    /**
+     * Initialize stage components.
+     * @author Khoa
+     */
+    public void initStage() {
+    	stage.loadComponents(this);
     	// attach stage's lighting to rootNode
     	lightState = stage.createLights();
     	rootNode.setRenderState(lightState);

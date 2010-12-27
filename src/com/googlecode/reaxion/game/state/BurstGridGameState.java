@@ -61,6 +61,8 @@ public class BurstGridGameState extends BaseGameState {
 	private AbstractGame game = null;
 	private boolean statisticsCreated = false;
 	
+	private float time = 0;
+	
 	private BurstGridOverlay burstOverlay;
 	
 	private PlayerInfo info;
@@ -80,6 +82,9 @@ public class BurstGridGameState extends BaseGameState {
 	private Node gridNode;
 	private Node bgNode;
 	private Quad[] clouds = new Quad[2];
+	
+	private Quad prevRing;
+	private Quad currentRing;
 	
 	public BurstGridGameState(PlayerInfo info) {
     	super(false);
@@ -125,9 +130,12 @@ public class BurstGridGameState extends BaseGameState {
         ci = createTexture("connector-inactive");
         ca = createTexture("connector-active");
         
+        // createRings
+        createRings();
+        
         // test activate
-        grid.getNodes().get(0).activated = true;
-        grid.getNodes().get(1).activated = true;
+//        grid.getNodes().get(0).activated = true;
+//        grid.getNodes().get(1).activated = true;
         
         // read in burstgrid
         readNodes();
@@ -284,6 +292,10 @@ public class BurstGridGameState extends BaseGameState {
     	// update the camera
     	cam.setLocation(focus.add(camOffset));
     	
+    	// update rings
+    	prevRing.setLocalTranslation(prevNode.vect.mult(scale).add(0, 0, -.01f));
+    	currentRing.setLocalTranslation(currentNode.vect.mult(scale).add(0, (FastMath.sin(time*4)+1)/6, -.01f));
+    	
     	// shift bg
     	bgNode.setLocalTranslation(cam.getLocation().add(bgOffset));
     	for (int i=0; i<clouds.length; i++) {
@@ -301,6 +313,8 @@ public class BurstGridGameState extends BaseGameState {
     	
     	rootNode.updateGeometricState(tpf, true);
     	rootNode.updateRenderState();
+    	
+    	time += tpf;
     }
 	
 	/**
@@ -444,6 +458,23 @@ public class BurstGridGameState extends BaseGameState {
         
         if (active)
         	createGlow(vec);
+	}
+	
+	/**
+     * Create ring indicators. 
+     */
+	private void createRings() {
+		prevRing = new Quad("", 2, 2);
+    	TextureState gs = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
+		gs.setTexture(createTexture("root-locator"));
+		prevRing.setRenderState(gs);
+        gridNode.attachChild(prevRing);
+        
+        currentRing = new Quad("", 2, 2);
+    	TextureState gs2 = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
+		gs2.setTexture(createTexture("current-locator"));
+		currentRing.setRenderState(gs2);
+        gridNode.attachChild(currentRing);
 	}
 	
     /**
