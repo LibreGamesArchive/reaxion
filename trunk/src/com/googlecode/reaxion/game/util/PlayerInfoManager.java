@@ -38,7 +38,9 @@ public class PlayerInfoManager {
 		Collection<PlayerInfo> c = map.values();
 		Iterator<PlayerInfo> itr = c.iterator();
 		while(itr.hasNext()) {
-			itr.next().init();
+			PlayerInfo temp = itr.next();
+			temp.init();
+			temp = SaveManager.loadInfo(temp);
 		}
 	}
 	
