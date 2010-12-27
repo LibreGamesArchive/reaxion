@@ -15,7 +15,7 @@ public class TerminalOverlay extends MenuOverlay {
 	
 	public static final String NAME = "terminalOverlay";
 	
-	private static final String[] menuItemNames = {"Character Select", "Stage Select", "Mission Select"};
+	private static final String[] menuItemNames = {"Character Select", "Stage Select", "Mission Select", "Burst Grid", "Save Game"};
 	
 	private BitmapText[] menuItems;
 	

@@ -105,6 +105,7 @@ public class KeyBindingUtils {
 		manager.set(BurstGridStateBindings.TRAVERSE_BACK.toString(), KeyInput.KEY_DOWN);
 		manager.set(BurstGridStateBindings.BUY_NODE.toString(), KeyInput.KEY_RETURN);
 		manager.set(BurstGridStateBindings.ZOOM.toString(), KeyInput.KEY_TAB);
+		manager.set(BurstGridStateBindings.RETURN_TO_HGS.toString(), KeyInput.KEY_BACK);
 	}
 	
 }

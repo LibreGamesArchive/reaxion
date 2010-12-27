@@ -42,9 +42,7 @@ public class MissionManager {
 	 * @param missionID {@code MissionID} object that denotes which mission to initiate
 	 */
 	public static void startMission(MissionID missionID) {
-		GameStateManager.getInstance().getChild(HubGameState.NAME).setActive(false);
-		GameStateManager.getInstance().detachChild(currentHGS);
-		currentHGS = null;
+		endHubGameState();
 		
 		currentMission = missions.get(missionID).clone();
 		currentIndex = 0;

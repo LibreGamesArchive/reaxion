@@ -1,10 +1,13 @@
 package com.googlecode.reaxion.game.state;
 
+import javax.swing.JOptionPane;
+
 import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindings;
 import com.googlecode.reaxion.game.input.bindings.HubGameStateBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.character.Monica;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.overlay.MissionOverlay;
@@ -13,9 +16,11 @@ import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
 import com.googlecode.reaxion.game.overlay.TerminalOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
+import com.googlecode.reaxion.game.util.SaveManager;
 import com.jme.input.KeyBindingManager;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jmex.game.state.GameStateManager;
 
 /**
  * {@code HubGameState} extends {@code StageGameState} with functionality
@@ -90,7 +95,6 @@ public class HubGameState extends StageGameState {
 		}
 		
 		if (manager.isValidCommand(MenuBindings.SELECT_FINAL.toString(), false) && !terminalAccessed) {
-			System.out.println("hello " + currentMenu);
 			if (currentMenu instanceof MissionOverlay) {
 				missionOverlay.startSelectedMission();
 			} else if (currentMenu instanceof TerminalOverlay) {
@@ -105,6 +109,12 @@ public class HubGameState extends StageGameState {
 					break;
 				case 2:
 					changeCurrentMenu(missionOverlay);
+					break;
+				case 3:
+					switchToBurstGrid();
+					break;
+				case 4:
+					saveGame();
 				}
 				
 				((Overlay) currentMenu).updateRenderState();
@@ -193,6 +203,22 @@ public class HubGameState extends StageGameState {
     		((StageSelectionOverlay) m).setSelectedStage(getStage().name);
     	
     	currentMenu = m;
+    }
+    
+    private void switchToBurstGrid() {
+    	MissionManager.endHubGameState();
+		BurstGridGameState bggs = new BurstGridGameState(player.info);
+//		Monica m = new Monica();
+//		BurstGridGameState bggs = new BurstGridGameState(m.info);
+		bggs.setActive(true);
+		GameStateManager.getInstance().attachChild(bggs);
+    }
+    
+    private void saveGame() {
+    	SaveManager.saveInfo(player);
+    	SaveManager.saveInfo(partner);
+    	//TODO: Create Confirmation Overlay
+    	System.out.println("Game saved");
     }
     
 	@Override

@@ -1,11 +1,9 @@
 package com.googlecode.reaxion.game.state;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
-import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
@@ -19,8 +17,8 @@ import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 import com.googlecode.reaxion.game.input.bindings.BurstGridStateBindings;
 import com.googlecode.reaxion.game.input.bindings.DebugBindings;
 import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.overlay.BurstGridOverlay;
-import com.googlecode.reaxion.game.util.BurstGridSerializer;
 import com.jme.app.AbstractGame;
 import com.jme.image.Texture;
 import com.jme.input.InputHandler;
@@ -154,18 +152,6 @@ public class BurstGridGameState extends BaseGameState {
     		if (KeyBindingManager.getKeyBindingManager().isValidCommand(GlobalBindings.EXIT.toString(),
     				false)) {
     			
-    			BurstGridSerializer bgs;
-				try {
-					bgs = new BurstGridSerializer(info);
-					bgs.readGrid(info.name);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-    			
     			if (game != null) {
     				game.finish();
     			} else {
@@ -179,6 +165,13 @@ public class BurstGridGameState extends BaseGameState {
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(BurstGridStateBindings.ZOOM.toString(), false)) {
     					zoom = (zoom + 1) % 2;
     				}
+    				if (KeyBindingManager.getKeyBindingManager().isValidCommand(BurstGridStateBindings.RETURN_TO_HGS.toString(), false)) {
+    					//TODO: Confirmation Overlay
+    					setActive(false);
+    					GameStateManager.getInstance().detachChild(this);
+    					MissionManager.startHubGameState();
+    				}
+    				
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     						BurstGridStateBindings.TRAVERSE_COUNTERCLOCKWISE.toString(), false)) {
     					if (prevNode != currentNode) {
