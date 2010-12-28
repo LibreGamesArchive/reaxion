@@ -120,6 +120,15 @@ public class MissionManager {
 		return temp;
 	}
 	
+	public static String getCurrentMissionTitle() {
+		String title = null;
+		
+		if(hasCurrentMission())
+			title = currentMission.getTitle();
+	
+		return title;
+	}
+	
 	/**
 	 * Initializes and activates the {@code HubGameState} object of {@code MissionManager}.
 	 */

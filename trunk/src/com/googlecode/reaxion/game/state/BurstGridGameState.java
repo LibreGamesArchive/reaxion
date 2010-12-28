@@ -256,7 +256,7 @@ public class BurstGridGameState extends BaseGameState {
                 /** If screen_shot is a valid command (via key F1), take snapshot. */
     	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     	        		GlobalBindings.SCREENSHOT.toString(), false)) {
-    	        	Reaxion.takeScreenshot();
+    	        	Reaxion.takeScreenshot("BurstGrid");
     	        }
     	        
     	        /** If mem_report is a valid command (via key R), display report. */

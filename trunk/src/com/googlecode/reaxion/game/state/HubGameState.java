@@ -39,7 +39,7 @@ public class HubGameState extends StageGameState {
 	private MissionOverlay missionOverlay;
 	private MenuOverlay currentMenu;
 	
-	private final float activationDistance = 16f;
+	private final float activationDistance = 10f;
 	
 	private boolean menuShowing;
     
