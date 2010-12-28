@@ -151,7 +151,7 @@ public class GameOverState extends BaseGameState {
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					GlobalBindings.SCREENSHOT.toString(), false)) {
-				Reaxion.takeScreenshot();
+				Reaxion.takeScreenshot("GameOver");
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					GlobalBindings.MEM_REPORT.toString(), false)) {

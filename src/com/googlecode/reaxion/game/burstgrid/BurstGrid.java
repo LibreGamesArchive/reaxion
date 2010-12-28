@@ -114,6 +114,8 @@ public class BurstGrid
 							b = new RateNode(Integer.parseInt(node[2]), Integer.parseInt(node[0]));
 						}
 						
+						b.id = Integer.parseInt(node[0]);
+						
 						// Checks for root node
 						if (Integer.parseInt(node[0]) == 1)
 							b.activated = true;

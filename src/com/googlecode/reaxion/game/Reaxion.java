@@ -101,14 +101,15 @@ public class Reaxion {
 		System.exit(0);
 	}
 	
-	public static void takeScreenshot() {
+	public static void takeScreenshot(String descriptor) {
 		File f = new File(screenshotDir);
 		if (!f.exists())
 			f.mkdir();
 		
 		Calendar c = Calendar.getInstance();
-		String tag = "Reaxion_" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.YEAR) +
-			"_" + c.get(Calendar.HOUR_OF_DAY) + "-" + c.get(Calendar.MINUTE) + "-" + 
+		String tag = "Reaxion_" + descriptor + "_" +
+			c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.YEAR) +"_" + 
+			c.get(Calendar.HOUR_OF_DAY) + "-" + c.get(Calendar.MINUTE) + "-" + 
 			(c.get(Calendar.SECOND) < 10 ? "0" + c.get(Calendar.SECOND) : c.get(Calendar.SECOND));
 		DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(screenshotDir + tag);
 	}

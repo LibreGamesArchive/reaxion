@@ -13,6 +13,7 @@ import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.input.bindings.DebugBindings;
 import com.googlecode.reaxion.game.input.bindings.GameBindings;
 import com.googlecode.reaxion.game.input.bindings.GlobalBindings;
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
@@ -117,7 +118,7 @@ public class StageGameState extends BaseGameState {
     	bgm = getStage().getBgm(-1);
     	
     	b.assignPositions();
-    	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
+    	assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());    	
     	nextTarget(0);
     	
     	load();
@@ -299,14 +300,22 @@ public class StageGameState extends BaseGameState {
      *
      */
     public void assignTeam(MajorCharacter p1, Class[] q1, MajorCharacter p2, Class[] q2) {
+    	// Assign players to local objects
     	player = p1;
     	playerAttacks = q1;
     	partner = p2;
     	partnerAttacks = q2;
+    	
+    	// Update player stats
+    	player.updateStats();
+    	partner.updateStats();
+    	
     	// Create input system
     	playerInput = new PlayerInput(this);
+    	
     	// Pass attack reference to HUD
     	hudNode.passCharacterInfo(playerAttacks, player.minGauge);
+    	
     	// Remove the inactive character
     	removeModel(partner);
     }
@@ -319,8 +328,11 @@ public class StageGameState extends BaseGameState {
      *
      */
     public void assignPlayer(MajorCharacter p, Class[] q) {
+    	// Assign players to local objects
     	player = p;
+    	player.updateStats();
     	playerAttacks = q;
+    	
     	// Create input system
     	playerInput = new PlayerInput(this);
     	// Pass attack reference to HUD
@@ -609,7 +621,7 @@ public class StageGameState extends BaseGameState {
 	        }
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                GlobalBindings.SCREENSHOT.toString(), false)) {
-	        	Reaxion.takeScreenshot();
+	        	Reaxion.takeScreenshot(MissionManager.hasCurrentMission() ? MissionManager.getCurrentMissionTitle() : "Hub");
 	        }
 	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 	                GlobalBindings.MEM_REPORT.toString(), false)) {
@@ -639,16 +651,6 @@ public class StageGameState extends BaseGameState {
     	
     }
     
-    @Override
-	public void setActive(boolean active) {
-		super.setActive(active);
-		
-		if (active) {
-			player.updateStats();
-			partner.updateStats();
-		}
-	}
-
 	/**
      * Toggles camera mode, maintaining viewpoint when switching to free, and auto-locking
      * closest target when switching to lock
