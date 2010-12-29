@@ -7,12 +7,15 @@ import com.googlecode.reaxion.game.input.bindings.CharacterSelectionOverlayBindi
 import com.googlecode.reaxion.game.input.bindings.KeyBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.math.FastMath;
+import com.jme.math.Matrix3f;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapText;
+import com.jmex.game.state.GameState;
 
 /**
  * {@code CharacterSelectionOverlay} extends the functionality of {@code GridOverlay} in
@@ -27,18 +30,21 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	public static final String NAME = "characterSelectionOverlay";
 	
 	private static final String baseURL = "../../resources/icons/characterselect/";
+	private static final String baseGuiURL = "../../resources/gui/";
 	private static final String cursorURL = "../../resources/cursors/";
 	
-	private final int numchars = 12;
-	
-	private String[] charNames;
+	private String[] charNames = {"Khoa", "Cy", "Nilay", "Monica", "Austin", "Brian", "Andrew", "Jenna", "Raina", "Savannah", "Polina", "Shine"};
 	private Node grid;
 	private Quad[] p1Fill;
 	private Quad p1c;
 	private Quad p2c;
 	private BitmapText[] p1Display;
-	private BitmapText menu;
-	private BitmapText menu2;
+	
+	private boolean showBg;
+	private float bgAngle = 0;
+	
+	private Quad bg;
+	private Quad front;
 
 	//table dimensions
 	private int tblL = 4;
@@ -58,41 +64,33 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	/**
 	 * This method initializes both visible and background elements of {@code CharacterSelectionOverlay}.
 	 */
-	public CharacterSelectionOverlay() {
+	public CharacterSelectionOverlay(boolean showBg) {
 		super(NAME, 800, 600, true);
 		// create a container Node for scaling
 		container = new Node("container_characterSelect");
 		
-		// Colors
-		textColor = new ColorRGBA(1, 1, 1, 1);
-		selTextColor = new ColorRGBA(0, 1, 0, 1);
+		this.showBg = showBg;
 		
-		p1Fill = new Quad[numchars];
+		// Colors
+		textColor = FontUtils.unselected;
+		selTextColor = FontUtils.blueSelected;
+		
+		p1Fill = new Quad[charNames.length];
 
+		// Create visuals
+		bg = getImage(baseGuiURL + "stage-select-bg.png");
+		bg.setLocalTranslation(new Vector3f(400, 300, 0));
+		bg.setZOrder(2);
+		front = getImage(baseGuiURL + "char-select-front.png");
+		front.setLocalTranslation(new Vector3f(400, 300, 0));
+		front.setZOrder(1);
+		
 		//Character List initiation
-		charNames = new String[numchars];
-		charNames[0] = "Khoa";
-		charNames[1] = "Cy";
-		charNames[2] = "Nilay";
-		charNames[3] = "Monica";
-		charNames[4] = "Austin";
-		charNames[5] = "Brian";
-		charNames[6] = "Andrew";
-		charNames[7] = "Jenna";
-		charNames[8] = "Raina";
-		charNames[9] = "Savannah";
-		charNames[10] = "Polina";
-		charNames[11] = "Shine";
-		p1Display = new BitmapText[numchars];
-		for (int i = 0; i < numchars; i++) {
+		p1Display = new BitmapText[charNames.length];
+		for (int i = 0; i < charNames.length; i++) {
 			p1Display[i] = new BitmapText(FontUtils.neuropol, false);
 			p1Display[i].setText(charNames[i]);
 		}
-		
-		menu = new BitmapText(FontUtils.neuropol, false);
-		menu.setText("Character Select. Use arrow keys to move, space to choose, and enter to play.");
-		menu2 = new BitmapText(FontUtils.neuropol, false);
-		menu2.setText("Press 1 to choose player 1 and 2 to choose player 2.");
 		
 		for (int i = 0; i < selectedChars.length; i++)
 			selectedChars[i] = -1;
@@ -100,6 +98,10 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		//initiates display
 		initGUI();
 
+		if (showBg)
+			container.attachChild(bg);
+		container.attachChild(front);
+		
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight() / 600);
@@ -108,13 +110,22 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	}
 
 	/**
+	 * Function to be called during each update by the GameState.
+	 */
+	public void update(GameState b) {
+		bgAngle = (bgAngle - FastMath.PI/600)%(FastMath.PI*2);
+		Matrix3f m = new Matrix3f();
+		m.fromAngleNormalAxis(bgAngle, new Vector3f(0, 0, 1));
+		bg.setLocalRotation(m);
+	}
+	
+	/**
 	 * Function to be called during each selection by the player.
 	 * 
 	 */
 	public void updateSel() {
 		
 		int picked = takenPos[currentIndex[1]][currentIndex[0]];
-		//System.out.println(Arrays.toString(selectedChars)+": "+picked);
 		
 		boolean flag = false;
 		for (int i=0; i<selectedChars.length; i++)
@@ -123,24 +134,18 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 				break;
 			}
 		
-		//round of selection - 0 = player 1, 1 = player 2, 2 (optional) = opponent
+		//round of selection - 0 = player 1, 1 = player 2
 		if (!flag) {
 			switch(round)
 			{
 			case 0:
 				selectedChars[0] = picked;
-				//round ++;
 				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
 				break;
 			case 1:
 				selectedChars[1] = picked;
-				//round ++;
 				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
 				break;
-//			case 2:
-//				selectedChars[2] = picked;
-//				//round ++;
-//				break;
 			default:
 				break;
 			}
@@ -166,8 +171,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		hide(p2c);
 		
 		//retrieves character images
-    	String [] charLoc = new String[numchars];
-    	for(int j = 0; j<numchars; j++)
+    	String [] charLoc = new String[charNames.length];
+    	for(int j = 0; j<charNames.length; j++)
     	{
     		charLoc[j] = baseURL+charNames[j].toLowerCase()+"96.png";
     		p1Fill[j] = getImage(charLoc[j]);
@@ -176,7 +181,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
     	//grid creation
     	Point[][] pos = createHorizontallyCenteredGrid(tblW, tblL, 400, 70, 70, 40, 60);
     	grid = new Node("grid");
-    	grid.setLocalTranslation(-400 + 32, 0, 0);
+    	grid.setLocalTranslation(-400 + 32, 32, 0);
     	
     	int cntr = 0;
 		for (int i = 0; i < tblW; i++) 
@@ -193,14 +198,6 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		}
 
 		//instructions
-		menu.setLocalTranslation(new Vector3f(-22 + 38, 550, 0));
-		menu.setSize(18);
-		menu.update();
-		menu2.setLocalTranslation(new Vector3f(-22 + 38, 535, 0));
-		menu2.setSize(18);
-		menu2.update();
-		container.attachChild(menu);
-		container.attachChild(menu2);
 		container.attachChild(grid);
 		container.attachChild(p1c);
 		container.attachChild(p2c);

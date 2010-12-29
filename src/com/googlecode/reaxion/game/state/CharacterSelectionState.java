@@ -52,7 +52,7 @@ public class CharacterSelectionState extends BasicGameState {
 	private void init() {
 		// Initial charSelect
 		rootNode = new Node("RootNode");
-		charSelectNode = new CharacterSelectionOverlay();
+		charSelectNode = new CharacterSelectionOverlay(true);
 		rootNode.attachChild(charSelectNode);
 
 		// Initial InputHandler
@@ -130,6 +130,8 @@ public class CharacterSelectionState extends BasicGameState {
 			}
 
 		}
+		
+		charSelectNode.update(this);
 	}
 
 	/**

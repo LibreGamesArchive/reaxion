@@ -110,6 +110,8 @@ public class GameOverState extends BaseGameState {
 
 	@Override
 	public void stateUpdate(float _tpf) {
+		super.stateUpdate(_tpf);
+		
 		tpf = _tpf;
 
 		// Update the InputHandler

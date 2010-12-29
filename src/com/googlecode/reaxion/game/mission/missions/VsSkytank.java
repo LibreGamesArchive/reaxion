@@ -44,7 +44,7 @@ public class VsSkytank extends Mission {
 				"Shine:: !!! Up in the sky!",
 				"Khoa:: ?! What is that thing?!",
 				"Shine:: That's the same thing I saw the other day!",
-				"Shine:: Khoa, we have to stop it before it destorys this place!",
+				"Shine:: Khoa, we have to stop it before it destroys this place!",
 				"Khoa:: Are you sure you're up for a fight?",
 				"Shine:: ...",
 				"Khoa:: Well, ready or not here it comes!"};
@@ -62,7 +62,7 @@ public class VsSkytank extends Mission {
 		b.setOps(new Character[] {r});
 		b.addOponentPosition(new Vector3f(0, 0, -20));
 		b.setStage("FlowerField");
-		b.setTargetTime(180);
+		b.setTargetTime(90);
 		b.setExpYield(getExpYield());
 		Battle.setCurrentBattle(b);
 		

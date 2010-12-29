@@ -153,7 +153,9 @@ public class BurstGridGameState extends BaseGameState {
     }
 
 	@Override
-	protected void stateUpdate(float tpf) {
+	public void stateUpdate(float tpf) {
+		super.stateUpdate(tpf);
+		
 		// Update the InputHandler
     	if (input != null) {
     		input.update(tpf);

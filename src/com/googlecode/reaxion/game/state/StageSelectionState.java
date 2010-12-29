@@ -50,7 +50,7 @@ public class StageSelectionState extends BasicGameState {
 	private void init() {
 		rootNode = new Node("RootNode");
 
-		stageSelectionNode = new StageSelectionOverlay();
+		stageSelectionNode = new StageSelectionOverlay(true);
 		rootNode.attachChild(stageSelectionNode);
 
 		input = new InputHandler();

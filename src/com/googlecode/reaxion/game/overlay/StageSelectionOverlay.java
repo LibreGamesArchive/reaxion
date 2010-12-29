@@ -48,6 +48,8 @@ public class StageSelectionOverlay extends MenuOverlay {
 		CityOfDreams.NAME, CloudNine.NAME, LavaValley.NAME,
 		CrystalPalace.NAME, DataCore.NAME };
 	
+	private boolean showBg;
+	
 	private Quad bg;
 	private Quad back;
 	private Quad front;
@@ -65,8 +67,9 @@ public class StageSelectionOverlay extends MenuOverlay {
 	private int fontSize;
 	private int stageGridRows, stageGridColumns;
 
-	public StageSelectionOverlay() {
+	public StageSelectionOverlay(boolean showBg) {
 		super(NAME, 800, 600, true);
+		this.showBg = showBg;
 		init();
 	}
 
@@ -111,7 +114,8 @@ public class StageSelectionOverlay extends MenuOverlay {
 		previews.setZOrder(1);
 		
 		// Visual Element Attachment
-		container.attachChild(bg);
+		if (showBg)
+			container.attachChild(bg);
 		container.attachChild(back);
 		container.attachChild(cursor);
 		container.attachChild(previews);
