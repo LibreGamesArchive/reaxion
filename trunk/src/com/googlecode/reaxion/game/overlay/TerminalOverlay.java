@@ -6,14 +6,18 @@ import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.input.bindings.KeyBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.util.FontUtils;
+import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
+import com.jme.scene.shape.Quad;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
 public class TerminalOverlay extends MenuOverlay {
 	
 	public static final String NAME = "terminalOverlay";
+	
+	private static final String baseURL = "../../resources/gui/";
 	
 	private static final String[] menuItemNames = {"Character Select", "Stage Select", "Mission Select", "Burst Grid", "Save Game"};
 	
@@ -25,6 +29,9 @@ public class TerminalOverlay extends MenuOverlay {
 	
 	private int fontSize;
 	
+	private Quad box;
+	private Quad selector;
+	
 	private ColorRGBA selectedColor;
 	private ColorRGBA unselectedColor;
 	
@@ -33,10 +40,20 @@ public class TerminalOverlay extends MenuOverlay {
 		
 		container = new Node("terminalOverlay");
 		
-		selectedColor = FontUtils.greenSelected;
+		selectedColor = FontUtils.blueSelected;
 		unselectedColor = FontUtils.unselected;
 		
+		// create box
+        box = getImage(baseURL+"menu-box.png");
+        
+        // create selector
+        selector = getImage(baseURL+"selector.png");
+        selector.setLocalTranslation(-94 + 71, 86 - 15, 0);
+		
 		currentIndex = 0;
+		
+		container.attachChild(box);
+		container.attachChild(selector);
 		
 		createMenuList();
 		
@@ -45,25 +62,26 @@ public class TerminalOverlay extends MenuOverlay {
 		container.setLocalTranslation(Reaxion.getScreenWidth() / 2, Reaxion.getScreenHeight() / 2, 0);
 		
 		attachChild(container);
+		
+		updateRenderState();
 	}
 	
 	private void createMenuList() {
-		fontSize = 36;
-		menuGrid = createCenteredTextList(menuItemNames.length, fontSize, 10);
+		fontSize = 20;
+		menuGrid = createCenteredTextList(menuItemNames.length, fontSize, 16);
 		
 		menuItems = new BitmapText[menuItemNames.length];
 		
 		for (int i = 0; i < menuItems.length; i++) {
-			BitmapText temp = new BitmapText(FontUtils.eurostile, false);
-			temp.setText(menuItemNames[i]);
-			temp.setSize(fontSize);
-			temp.setAlignment(BitmapFont.Align.Center);
-			temp.setDefaultColor(i == 0 ? selectedColor : unselectedColor);
-			temp.update();
+			menuItems[i] = new BitmapText(FontUtils.eurostile, false);
+			menuItems[i].setText(menuItemNames[i]);
+			menuItems[i].setSize(fontSize);
+			menuItems[i].setAlignment(BitmapFont.Align.Right);
+			menuItems[i].setDefaultColor(i == 0 ? selectedColor : unselectedColor);
+			menuItems[i].update();
 			
-			temp.setLocalTranslation(menuGrid[i].x, menuGrid[i].y, 0);
+			menuItems[i].setLocalTranslation(menuGrid[i].x + 80, menuGrid[i].y, 0);
 			
-			menuItems[i] = temp;
 			container.attachChild(menuItems[i]);
 		}
 		
@@ -91,6 +109,8 @@ public class TerminalOverlay extends MenuOverlay {
 		
 		menuItems[currentIndex].setDefaultColor(selectedColor);
 		menuItems[currentIndex].update();
+		
+		selector.setLocalTranslation(-94 + 71, Math.round(86 - 15 - (float)(currentIndex*178f/menuItems.length)), 0);
 		
 		updateRenderState();
 	}

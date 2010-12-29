@@ -18,6 +18,7 @@ import com.googlecode.reaxion.game.util.SaveManager;
 import com.jme.input.KeyBindingManager;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jme.scene.Node;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -33,6 +34,8 @@ public class HubGameState extends StageGameState {
 	private Model terminal;
 	private Pointer pointer;
 	
+	private Node holderNode;
+	
 	private TerminalOverlay terminalOverlay;
 	private CharacterSelectionOverlay characterOverlay;
 	private StageSelectionOverlay stageOverlay;
@@ -42,6 +45,8 @@ public class HubGameState extends StageGameState {
 	private final float activationDistance = 10f;
 	
 	private boolean menuShowing;
+	
+	private String action = "";
     
     public HubGameState() {
     	super();
@@ -59,12 +64,15 @@ public class HubGameState extends StageGameState {
     	
     	setName(NAME);
     	
+    	holderNode = new Node("holderNode");
+    	rootNode.attachChild(holderNode);
+    	
     	startsBGM = true;
     	endsBGM = true;
     	
     	terminalOverlay = new TerminalOverlay();
-    	characterOverlay = new CharacterSelectionOverlay();
-    	stageOverlay = new StageSelectionOverlay();
+    	characterOverlay = new CharacterSelectionOverlay(false);
+    	stageOverlay = new StageSelectionOverlay(false);
     	missionOverlay = new MissionOverlay();
     	
     	changeCurrentMenu(terminalOverlay);
@@ -83,6 +91,26 @@ public class HubGameState extends StageGameState {
 		boolean withinRange = playerLoc.distance(terminalLoc) <= activationDistance;
 		pointer.show(withinRange);
 		
+		//  check queue actions
+		if (action == "stage") {
+			Battle.setDefaultStage(((StageSelectionOverlay) currentMenu).getSelectedStageClass());
+			
+			MissionManager.endHubGameState();
+			MissionManager.startHubGameState();
+			
+		} else if (action == "char") {
+			String[] characters = ((CharacterSelectionOverlay) currentMenu).getSelectedChars(true);
+			
+			// check selection
+			if (characters == null)
+				return;
+			
+			Battle.setDefaultPlayers(characters[0], characters[1]);
+			
+			MissionManager.endHubGameState();
+			MissionManager.startHubGameState();
+		}
+		
 		KeyBindingManager manager = KeyBindingManager.getKeyBindingManager();
 		
 		if (manager.isValidCommand(HubGameStateBindings.ACCESS_TERMINAL.toString(), false) && !menuShowing) {
@@ -91,7 +119,7 @@ public class HubGameState extends StageGameState {
 			if (withinRange) {
 				toggleMenu(true);
 				changeCurrentMenu(terminalOverlay);
-				rootNode.attachChild((Overlay) currentMenu);
+				holderNode.attachChild((Overlay) currentMenu);
 			}
 		}
 		
@@ -99,7 +127,7 @@ public class HubGameState extends StageGameState {
 			if (currentMenu instanceof MissionOverlay) {
 				missionOverlay.startSelectedMission();
 			} else if (currentMenu instanceof TerminalOverlay) {
-				rootNode.detachChild(currentMenu);
+				holderNode.detachChild(currentMenu);
 				
 				switch (((TerminalOverlay) currentMenu).getCurrentIndex()) {
 				case 0:
@@ -119,24 +147,18 @@ public class HubGameState extends StageGameState {
 				}
 				
 				((Overlay) currentMenu).updateRenderState();
-				rootNode.attachChild((Overlay) currentMenu);
+				holderNode.attachChild((Overlay) currentMenu);
 				toggleMenu(true);
 			} else if (currentMenu instanceof StageSelectionOverlay) {
-				Battle.setDefaultStage(((StageSelectionOverlay) currentMenu).getSelectedStageClass());
+				loading.show(true);
+				action = "stage";
+				return;
 				
-				MissionManager.endHubGameState();
-				MissionManager.startHubGameState();
 			} else if (currentMenu instanceof CharacterSelectionOverlay) {
-				String[] characters = ((CharacterSelectionOverlay) currentMenu).getSelectedChars(true);
+				loading.show(true);
+				action = "char";
+				return;
 				
-				// check selection
-				if (characters == null)
-					return;
-				
-				Battle.setDefaultPlayers(characters[0], characters[1]);
-				
-				MissionManager.endHubGameState();
-				MissionManager.startHubGameState();
 			}
 			
 		}
@@ -145,7 +167,7 @@ public class HubGameState extends StageGameState {
 			
 			if (playerLoc.distance(terminalLoc) <= activationDistance) {
 				toggleMenu(false);
-				rootNode.detachChild((Overlay) currentMenu);
+				holderNode.detachChild((Overlay) currentMenu);
 			}
 		}
 		
@@ -220,7 +242,7 @@ public class HubGameState extends StageGameState {
     private void saveGame() {
     	SaveManager.saveInfo(player);
     	SaveManager.saveInfo(partner);
-    	//TODO: Create Confirmation Overlay
+    	info.alert("Game saved sucessfully!", 60, 1);
     	System.out.println("Game saved");
     }
     

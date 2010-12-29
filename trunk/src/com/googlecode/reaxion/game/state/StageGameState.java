@@ -436,6 +436,7 @@ public class StageGameState extends BaseGameState {
 
     @ Override
     public void stateUpdate(float _tpf) {
+    	super.stateUpdate(_tpf);
     	
         // Update the InputHandler
     	if (input != null) {

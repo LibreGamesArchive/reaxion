@@ -11,7 +11,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class Whirlwind extends Attack {
 	
 	private static final String n = "Whirlwind";
-	private static final int gc = 11;
+	private static final int gc = 13;
 	
 	private Model target;
 	private Tornado tornado;
