@@ -16,7 +16,8 @@ public enum MissionID {
 	VS_TOYBOX (2),
 	VS_DORIRUZU (3),
 	VS_MONICA_1 (4),
-	VS_REMNANT (5);
+	VS_REMNANT (5),
+	VS_SKYTANK (6);
 	
 	public int id;
 	

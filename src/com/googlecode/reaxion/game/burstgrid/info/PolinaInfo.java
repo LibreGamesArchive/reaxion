@@ -19,9 +19,9 @@ public class PolinaInfo extends PlayerInfo {
 	
 	@Override
 	public void init() {
-		setStats(100,3,10,15,0);
+		setStats(100,3,10,27,0);
 		setAbilities(new String[] { "Insurance", "FleetFooted" });
-		setAttacks(new String[] { "ShootFireball", "OmegaShot", "Rapture", "ShieldBarrier" });
+		setAttacks(new String[] { "ShootFireball", "Firestorm", "Rapture", "ShieldBarrier" });
 		createBurstGrid("");
 		setUsableSfx();
 	}

@@ -18,9 +18,9 @@ public class BrianInfo extends PlayerInfo {
 	
 	@Override
 	public void init(){
-		setStats(75,1,16,22,1);
+		setStats(75,1,16,34,1);
 		setAbilities(new String[] {"GroundStriker"});
-		setAttacks(new String[] {"BombingMagnet", "LightningCloud", "LightningStorm", "LanceArc", "SpawnBubble"});
+		setAttacks(new String[] {"BombingMagnet", "LightningCloud", "LightningStorm", "Railgun", "SpawnBubble"});
 		createBurstGrid("");
 		setUsableSfx();
 	}
