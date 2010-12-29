@@ -18,7 +18,7 @@ public class BurstGridSerializer implements Serializable{
 		try {
 			ArrayList<Integer> activatedNodes = new ArrayList<Integer>();
 			FileOutputStream fs;
-			fs = new FileOutputStream("src/com/googlecode/reaxion/resources/burstgrid/grids/" + p.name + ".bgs");
+			fs = new FileOutputStream(SaveManager.saveDir + p.name + ".bgs");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 			
 			for(BurstNode b: p.getBurstGrid().getNodes())
@@ -41,7 +41,7 @@ public class BurstGridSerializer implements Serializable{
 	public static PlayerInfo readGrid(PlayerInfo p) {		
 		try {
 			ObjectInputStream oi;
-			oi = new ObjectInputStream(new FileInputStream("src/com/googlecode/reaxion/resources/burstgrid/grids/" + p.name + ".bgs"));
+			oi = new ObjectInputStream(new FileInputStream(SaveManager.saveDir + p.name + ".bgs"));
 			p.exp = oi.readInt();
 			Object o = oi.readObject();
 			ArrayList<Integer> aNodes = (ArrayList<Integer>) o;

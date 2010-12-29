@@ -1,12 +1,19 @@
 package com.googlecode.reaxion.game.mission;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import com.googlecode.reaxion.game.mission.missions.*;
+import com.googlecode.reaxion.game.mission.missions.Mission00;
+import com.googlecode.reaxion.game.mission.missions.VsDoriruzu;
+import com.googlecode.reaxion.game.mission.missions.VsMonica1;
+import com.googlecode.reaxion.game.mission.missions.VsRemnant;
+import com.googlecode.reaxion.game.mission.missions.VsSkytank;
+import com.googlecode.reaxion.game.mission.missions.VsToybox;
 import com.googlecode.reaxion.game.state.HubGameState;
 import com.googlecode.reaxion.game.util.Battle;
+import com.googlecode.reaxion.game.util.MissionSerializer;
 import com.jme.math.Vector3f;
 import com.jmex.game.state.GameStateManager;
 
@@ -18,7 +25,7 @@ import com.jmex.game.state.GameStateManager;
  *
  */
 
-public class MissionManager {
+public class MissionManager implements Serializable {
 	
 	private static HashMap<MissionID, Mission> missions = new HashMap<MissionID, Mission>();
 	private static Mission currentMission = null;
@@ -35,6 +42,8 @@ public class MissionManager {
 		missions.put(MissionID.VS_MONICA_1, new VsMonica1());
 		missions.put(MissionID.VS_REMNANT, new VsRemnant());
 		missions.put(MissionID.VS_SKYTANK, new VsSkytank());
+		
+		MissionSerializer.readMissions();
 	}
 	
 	/**
@@ -145,6 +154,15 @@ public class MissionManager {
 		currentHGS.setActive(false);
 		GameStateManager.getInstance().detachChild(currentHGS);
 		currentHGS = null;
+	}
+	
+	public static void setCompletedMissions(ArrayList<MissionID> completedMissions) {
+		for (MissionID m : completedMissions)
+			missions.get(m).setCompleted(true);
+	}
+	
+	public static void markCompletedCurrentMission() {
+		missions.get(currentMission.getMissionID()).setCompleted(true);
 	}
 	
 }
