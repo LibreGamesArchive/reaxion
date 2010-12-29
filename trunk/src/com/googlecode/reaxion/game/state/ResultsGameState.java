@@ -44,6 +44,9 @@ public class ResultsGameState extends BaseGameState {
 
 	public ResultsGameState(BattleGameState b) {
 		super(false);
+		
+		MissionManager.markCompletedCurrentMission();
+		
 		setEndsBGM(true);
 		battle = b;
 		init();

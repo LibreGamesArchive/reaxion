@@ -5,6 +5,7 @@ import com.googlecode.reaxion.game.input.bindings.HubGameStateBindings;
 import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.character.Monica;
 import com.googlecode.reaxion.game.model.prop.Pointer;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
 import com.googlecode.reaxion.game.overlay.MenuOverlay;
@@ -143,7 +144,8 @@ public class HubGameState extends StageGameState {
 					switchToBurstGrid();
 					break;
 				case 4:
-					saveGame();
+					SaveManager.saveGame(this);
+			    	info.alert("Game saved sucessfully!", 60, 1);
 				}
 				
 				((Overlay) currentMenu).updateRenderState();
@@ -231,19 +233,15 @@ public class HubGameState extends StageGameState {
     }
     
     private void switchToBurstGrid() {
-    	MissionManager.endHubGameState();
-		BurstGridGameState bggs = new BurstGridGameState(player.info);
-//		Monica m = new Monica();
-//		BurstGridGameState bggs = new BurstGridGameState(m.info);
-		bggs.setActive(true);
-		GameStateManager.getInstance().attachChild(bggs);
-    }
-    
-    private void saveGame() {
-    	SaveManager.saveInfo(player);
-    	SaveManager.saveInfo(partner);
-    	info.alert("Game saved sucessfully!", 60, 1);
-    	System.out.println("Game saved");
+    	// The following check is temporary
+    	if (player instanceof Monica) {
+    		MissionManager.endHubGameState();
+    		BurstGridGameState bggs = new BurstGridGameState(player.info);
+    		bggs.setActive(true);
+    		GameStateManager.getInstance().attachChild(bggs);
+    	} else {
+    		info.alert("You can only access the burst grid with Monica.", 120, 1);
+    	}
     }
     
 	@Override
