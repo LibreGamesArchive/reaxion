@@ -16,7 +16,7 @@ import com.jme.math.Vector3f;
 public class VsDoriruzu extends Mission {
 	
 	public VsDoriruzu() {
-		super("Doriruzu's Terror!", MissionID.VS_DORIRUZU, 4, true, "An animation has kidnapped the shrine maiden and is running rampant in Miko Lake!", "", new int[] {300, 120});
+		super("Doriruzu's Terror!", MissionID.VS_DORIRUZU, 3, true, "An animation has kidnapped the shrine maiden and is running rampant in Miko Lake!", "", new int[] {210, 100});
 	}
 	
 	public void init() {

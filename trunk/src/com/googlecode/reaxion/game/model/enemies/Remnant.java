@@ -5,7 +5,7 @@ import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.BugOrb;
 import com.googlecode.reaxion.game.model.attackobject.DataBeam;
 import com.googlecode.reaxion.game.model.attackobject.Laser;
-import com.googlecode.reaxion.game.model.attackobject.Pellet;
+import com.googlecode.reaxion.game.model.attackobject.PelletPulled;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
@@ -188,7 +188,7 @@ public class Remnant extends Enemy {
 						for (int j= 0; j<numBullets; j++)  {
 							float a = FastMath.nextRandomFloat()*FastMath.PI*2;
 							Vector3f pt = new Vector3f(FastMath.sin(a)*180, 1, FastMath.cos(a)*180);
-							Pellet p = (Pellet)LoadingQueue.quickLoad(new Pellet(this, pt, new Vector3f(0, 1, 0)), b);
+							PelletPulled p = (PelletPulled)LoadingQueue.quickLoad(new PelletPulled(this, pt, new Vector3f(0, 1, 0)), b);
 							p.model.setLocalTranslation(pt);
 						}
 						b.getRootNode().updateRenderState();

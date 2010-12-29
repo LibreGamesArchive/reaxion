@@ -11,7 +11,7 @@ public class Tornado extends AttackObject {
 	public static final String filename = "whirlwind";
 	protected static final int span = 380;
 	protected static final float speed = .25f;
-	protected static final float dpf = .22f;
+	protected static final float dpf = .18f;
 	private static final float angleInc = FastMath.PI/60;
 	private final int sizeTime = 12;
 	
