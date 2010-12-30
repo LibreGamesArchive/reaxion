@@ -32,8 +32,8 @@ public class DataCore extends Stage {
 
 	public DataCore() {
 		super(filename, NAME);
-		bgm = new String[] { "zero_tail.ogg" };
-		bgmOdds = new float[] { 1 };
+		bgm = new String[] { "zero_tail.ogg", "challenge.ogg" };
+		bgmOdds = new float[] { 1, 2 };
 	}
 
 	public void loadComponents(StageGameState b) {

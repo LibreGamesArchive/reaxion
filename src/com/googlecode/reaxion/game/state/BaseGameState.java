@@ -44,6 +44,10 @@ public abstract class BaseGameState extends CameraGameState {
 	 */
 	protected abstract void init();
 	
+	protected void showMusicAlert() {
+		info.alert("Now Playing:\n" + AudioPlayer.getCurrentBGM(), 100, 1);
+	}
+	
 	@Override
 	public void setActive(boolean active) {
 		super.setActive(active);
@@ -52,6 +56,8 @@ public abstract class BaseGameState extends CameraGameState {
 			if (startsBGM) {
 				AudioPlayer.queueBGM(bgm);
 				AudioPlayer.startBGM();
+				if (this instanceof StageGameState)
+					showMusicAlert();
 			}
 			
 			rootNode.updateRenderState();
