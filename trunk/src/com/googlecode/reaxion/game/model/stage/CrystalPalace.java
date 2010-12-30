@@ -31,8 +31,8 @@ public class CrystalPalace extends Stage {
 
 	public CrystalPalace() {
 		super(filename, NAME);
-		bgm = new String[] { "forgotten_challenge.ogg" };
-		bgmOdds = new float[] { 1 };
+		bgm = new String[] { "forgotten_challenge.ogg", "via_purifico.ogg" };
+		bgmOdds = new float[] { 1, 2 };
 	}
 
 	public void loadComponents(StageGameState b) {

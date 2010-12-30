@@ -167,4 +167,16 @@ public class AudioPlayer {
 		sound.cleanup();
 	}
 	
+	public static String getCurrentBGM() {
+		String[] temp = currentBGM.split("_");
+		String title = "";
+		
+		for (int i = 0; i < temp.length; i++) {
+			char upperCase = Character.toUpperCase(temp[i].charAt(0));
+			title += upperCase + temp[i].substring(1) + (i != temp.length - 1 ? " " : "");
+		}
+		
+		return title;
+	}
+	
 }
