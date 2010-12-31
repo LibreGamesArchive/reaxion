@@ -24,7 +24,7 @@ public class FallingCard extends AttackObject {
 	
 	@Override
 	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
+		finish(b);
     }
 	
 	@ Override
@@ -50,7 +50,7 @@ public class FallingCard extends AttackObject {
         		// kill this card
         		if (flag) {
         			((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
-        			b.removeModel(this);
+        			finish(b);
         		}
         		
         	// check for character hits
@@ -67,7 +67,7 @@ public class FallingCard extends AttackObject {
         model.setLocalTranslation(loc);
         
         if (model.getWorldTranslation().y <= -5)
-			b.removeModel(this);
+        	finish(b);
         
     }
 	

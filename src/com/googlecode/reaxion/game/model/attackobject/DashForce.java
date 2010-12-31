@@ -63,7 +63,7 @@ public class DashForce extends AttackObject {
         
         //check lifespan
         if (lifeCount == lifespan)
-        	b.removeModel(this);
+        	finish(b);
         lifeCount++;
     }
 	

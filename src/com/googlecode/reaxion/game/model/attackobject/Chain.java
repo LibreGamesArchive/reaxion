@@ -84,7 +84,7 @@ public class Chain extends AttackObject {
         
     }
 	
-	private void finish(StageGameState b) {
+	protected void finish(StageGameState b) {
 		for (int i=0; i<captured.size(); i++) {
         	// free characters
         	captured.get(i).moveLock = false;
@@ -93,7 +93,8 @@ public class Chain extends AttackObject {
         	captured.get(i).tagLock = false;
         	captured.get(i).mass = masses.get(i);
         }
-		b.removeModel(this);
+		
+		super.finish(b);
 	}
 	
 }

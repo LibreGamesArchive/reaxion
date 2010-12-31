@@ -22,12 +22,13 @@ public class PolinaInfo extends PlayerInfo {
 		setStats(100,3,10,27,0);
 		setAbilities(new String[] { "Insurance", "FleetFooted" });
 		setAttacks(new String[] { "ShootFireball", "Firestorm", "Rapture", "ShieldBarrier" });
-		createBurstGrid("");
 		setUsableSfx();
+		createBurstGrid("");
 	}
 
 	@Override
 	protected void setUsableSfx() {
+		super.setUsableSfx();
 		usableSfx.put(SoundEffectType.ATTACK_FIREBALL, "test3.ogg");
 	}
 	

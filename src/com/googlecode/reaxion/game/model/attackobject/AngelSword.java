@@ -24,7 +24,7 @@ public class AngelSword extends AttackObject {
 	
 	@Override
 	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
+		finish(b);
     }
 	
 	@ Override
@@ -37,7 +37,7 @@ public class AngelSword extends AttackObject {
     	} else if (lifeCount >= growFrames) {
     		velocity = new Vector3f(0, -speed, 0);
     		if (model.getWorldTranslation().y <= -2.5)
-    			b.removeModel(this);
+    			finish(b);
     	}
         
     	super.act(b);

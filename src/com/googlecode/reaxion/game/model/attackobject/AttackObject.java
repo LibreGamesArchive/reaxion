@@ -80,10 +80,14 @@ public class AttackObject extends Model {
         
         //check lifespan
         if (lifeCount == lifespan)
-        	b.removeModel(this);
+        	finish(b);
         lifeCount++;
         
     }
+	
+	protected void finish(StageGameState b) {
+		b.removeModel(this);
+	}
 	
 	/**
 	 * Called when Character is hit, override to add functionality

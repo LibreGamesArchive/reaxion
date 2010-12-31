@@ -29,7 +29,7 @@ public class OmegaBullet extends AttackObject {
 	
 	@Override
 	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
+		finish(b);
     }
 	
 	@ Override

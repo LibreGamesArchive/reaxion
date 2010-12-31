@@ -62,7 +62,7 @@ public class LightDrill extends AttackObject {
         
         //check lifespan
         if (lifeCount == lifespan)
-        	b.removeModel(this);
+        	finish(b);
         lifeCount++;
     }
 	

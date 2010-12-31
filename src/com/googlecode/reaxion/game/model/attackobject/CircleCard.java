@@ -64,7 +64,7 @@ public class CircleCard extends AttackObject {
         		// kill this card
         		if (flag) {
         			((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
-        			b.removeModel(this);
+        			finish(b);
         		}
         	}
         }

@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
+import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -11,6 +12,7 @@ public class Bubble extends AttackObject {
 	public static final String filename = "bubble";
 	protected static final int span = 520;
 	protected static final float dpf = 4;
+	private static final String pop = "bubble_pop.ogg";
 	
 	private final float maxDpf = 14;
 	
@@ -35,7 +37,7 @@ public class Bubble extends AttackObject {
 	
 	@Override
 	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
+		finish(b);
     }
 	
 	@ Override
@@ -66,6 +68,12 @@ public class Bubble extends AttackObject {
     }
 	
 	
+	@Override
+	protected void finish(StageGameState b) {
+		AudioPlayer.playSoundEffect(pop, model.getLocalTranslation().x, model.getLocalTranslation().y, model.getLocalTranslation().z);
+		super.finish(b);
+	}
+
 	/**
 	 * Change {@code damagePerFrame} based on bubble's size.
 	 */

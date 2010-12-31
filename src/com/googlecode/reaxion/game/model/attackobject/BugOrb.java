@@ -40,7 +40,7 @@ public class BugOrb extends AttackObject {
 	
 	@Override
 	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
+		finish(b);
     }
 	
 	@ Override
@@ -98,7 +98,7 @@ public class BugOrb extends AttackObject {
         
         //check lifespan
         if (lifeCount == lifespan)
-        	b.removeModel(this);
+        	finish(b);
         lifeCount++;
     }
 	

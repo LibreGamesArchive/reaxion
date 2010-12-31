@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.StraightCard;
 import com.googlecode.reaxion.game.model.attackobject.ThrowCard;
@@ -13,6 +14,8 @@ public class ShootCard extends Attack {
 	private static final String n = "Straight";
 	private static final int gc = 4;
 	private static final float speed = 3;
+	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_CARD_THROW};
+	
 	private StraightCard card;
 	
 	public ShootCard() {
@@ -41,6 +44,8 @@ public class ShootCard extends Attack {
 	@Override
 	public void nextFrame(StageGameState b) {
 		if (phase == 0 && character.play("shootUp", b.tpf)) {
+			
+			triggerSoundEffect(sfxTypes, false);
 			
 			// calculate transformations
 			Vector3f rotation = character.rotationVector;

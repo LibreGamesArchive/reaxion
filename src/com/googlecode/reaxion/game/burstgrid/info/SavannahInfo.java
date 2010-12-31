@@ -20,8 +20,8 @@ public class SavannahInfo extends PlayerInfo {
 		setStats(100,3,10,15,0);
 		setAbilities(new String[] { "HighJump", "Inheritor" });
 		setAttacks(new String[] { "Whirlwind", "AirCannon", "Teleport", "TriLance", "CrossCut" });
-		createBurstGrid("");
 		setUsableSfx();
+		createBurstGrid("");
 	}
 	
 }

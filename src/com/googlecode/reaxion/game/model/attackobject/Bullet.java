@@ -25,7 +25,7 @@ public class Bullet extends AttackObject {
 	@Override
 	public void hit(StageGameState b, Character other) {
 		//System.out.println("bullet hit "+other.model);
-		b.removeModel(this);
+		finish(b);
     }
 	
 	/*

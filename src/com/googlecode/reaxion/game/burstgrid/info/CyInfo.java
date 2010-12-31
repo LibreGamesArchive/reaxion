@@ -21,12 +21,13 @@ public class CyInfo extends PlayerInfo {
 		setStats(100,1,15,20,0);
 		setAbilities(new String[] {"Chivalry", "Masochist"});
 		setAttacks(new String[] {"SpikeLine", "ShadowTag", "BlackHole", "SpinLance"});
-		createBurstGrid("");
 		setUsableSfx();
+		createBurstGrid("");
 	}
 
 	@Override
 	protected void setUsableSfx() {
+		super.setUsableSfx();
 		//usableSfx.put(SoundEffectType.ATTACK_BLACK_HOLE, "test3.ogg");
 	}
 	
