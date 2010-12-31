@@ -4,9 +4,9 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 
 public class MagnetBeam extends AttackObject {
-	public static final String filename = "laser";
+	public static final String filename = "elec-stream";
 	protected static final int span = 40;
-	protected static final float dpf = .5f;
+	protected static final float dpf = .34f;
 	
 	public MagnetBeam(Model m) {
 		super(filename, dpf, m);

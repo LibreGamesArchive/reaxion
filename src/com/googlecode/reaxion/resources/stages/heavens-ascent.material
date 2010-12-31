@@ -1,0 +1,150 @@
+
+material heavens_ascent_thronethone1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_throne1-UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material heavens_ascent_thronethrone2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_throne2-UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material heavens_ascent_thronethrone3
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_throne3-UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material heavens_ascent_columnmarble
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_column-UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material circle
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_circle2UV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material step
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_step.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material heavens_ascent_glassglass
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_glassUV.png
+			}
+		}
+
+	}
+
+}
+
+

@@ -1,0 +1,20 @@
+
+material gear1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/heavens-ascent_gearUV2.png
+			}
+		}
+
+	}
+
+}
+
+

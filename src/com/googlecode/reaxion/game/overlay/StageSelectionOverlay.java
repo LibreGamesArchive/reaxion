@@ -11,6 +11,7 @@ import com.googlecode.reaxion.game.model.stage.CrystalPalace;
 import com.googlecode.reaxion.game.model.stage.DataCore;
 import com.googlecode.reaxion.game.model.stage.Flipside;
 import com.googlecode.reaxion.game.model.stage.FlowerField;
+import com.googlecode.reaxion.game.model.stage.HeavensAscent;
 import com.googlecode.reaxion.game.model.stage.LavaValley;
 import com.googlecode.reaxion.game.model.stage.MikoLake;
 import com.googlecode.reaxion.game.model.stage.SeasRepose;
@@ -46,7 +47,7 @@ public class StageSelectionOverlay extends MenuOverlay {
 	private static final String[] stageNames = { FlowerField.NAME, WorldsEdge.NAME, MikoLake.NAME,
 		Flipside.NAME, TwilightKingdom.NAME, SeasRepose.NAME,
 		CityOfDreams.NAME, CloudNine.NAME, LavaValley.NAME,
-		CrystalPalace.NAME, DataCore.NAME };
+		CrystalPalace.NAME, DataCore.NAME, HeavensAscent.NAME };
 	
 	private boolean showBg;
 	

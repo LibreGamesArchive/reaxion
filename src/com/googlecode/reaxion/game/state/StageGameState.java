@@ -168,7 +168,7 @@ public class StageGameState extends BaseGameState {
         Vector3f up = new Vector3f( 0.0f, 1.0f, 0.0f );
         Vector3f dir = new Vector3f( 0.0f, 0f, -1.0f );
         cam.setFrame( loc, left, up, dir );
-        cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem().getWidth()/DisplaySystem.getDisplaySystem().getHeight(), .01f, 1500);
+        cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem().getWidth()/DisplaySystem.getDisplaySystem().getHeight(), .01f, 2000);
         cam.update();
 
         // Initial InputHandler
