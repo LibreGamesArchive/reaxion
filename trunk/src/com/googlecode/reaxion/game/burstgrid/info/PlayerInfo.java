@@ -180,7 +180,8 @@ public abstract class PlayerInfo{
 	 * Sets the {@code HashMap} of usable sound effects. Must be overridden by each subclass of {@code PlayerInfo};
 	 */
 	protected void setUsableSfx() {
-		
+		//Universal Sfx
+		usableSfx.put(SoundEffectType.ATTACK_BUBBLE_SPAWN, "bubble.ogg");
 	}
 	
 	/**

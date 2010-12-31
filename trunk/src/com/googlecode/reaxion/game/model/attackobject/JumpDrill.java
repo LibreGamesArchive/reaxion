@@ -33,7 +33,7 @@ public class JumpDrill extends AttackObject {
 	
 	@Override
 	public void hit(StageGameState b, Character other) {
-		b.removeModel(this);
+		finish(b);
     }
 	
 	@ Override
@@ -43,7 +43,7 @@ public class JumpDrill extends AttackObject {
 		else if (lifeCount == flyTime)
 			velocity = target.model.getLocalTranslation().subtract(model.getLocalTranslation()).normalize().mult(flySpeed);
 		else if (model.getLocalTranslation().y < -2)
-			b.removeModel(this);
+			finish(b);
 		
 		rotate(velocity);
 		

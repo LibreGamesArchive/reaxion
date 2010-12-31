@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.ScreenCard;
 import com.googlecode.reaxion.game.model.attackobject.ThrowCard;
@@ -11,6 +12,8 @@ import com.jme.math.Vector3f;
 public class CardThrow extends Attack {	
 	private static final String n = "Card Throw";
 	private static final int gc = 4;
+	
+	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_CARD_THROW};
 	
 	private ThrowCard card;
 	
@@ -40,6 +43,8 @@ public class CardThrow extends Attack {
 	@Override
 	public void nextFrame(StageGameState b) {
 		if (phase == 0 && character.play("command", b.tpf)) {
+			
+			triggerSoundEffect(sfxTypes, false);
 			
 			// calculate transformations
 			Vector3f rotation = character.rotationVector;

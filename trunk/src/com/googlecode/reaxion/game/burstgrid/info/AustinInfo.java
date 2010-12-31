@@ -22,12 +22,13 @@ public class AustinInfo extends PlayerInfo {
 		setStats(100,3,10,15,0);
 		setAbilities(new String[] { "RapidGauge" });
 		setAttacks(new String[] { "SoundBarrier", "BombingMagnet", "ShootFireball", "SpawnBubble", "LanceGuard" });
-		createBurstGrid("");
 		setUsableSfx();
+		createBurstGrid("");
 	}
 
 	@Override
 	protected void setUsableSfx() {
+		super.setUsableSfx();
 		usableSfx.put(SoundEffectType.ATTACK_FIREBALL, "test3.ogg");
 	}
 	

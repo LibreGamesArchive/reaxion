@@ -22,12 +22,13 @@ public class RainaInfo extends PlayerInfo {
 		setStats(125,0,12,38,1);
 		setAbilities(new String[] { "Charity", "CriticalPoint" });
 		setAttacks(new String[] { "SpawnBubble", "BubbleBath", "Psywave", "Beacon", "LightningStorm" });
-		createBurstGrid("");
 		setUsableSfx();
+		createBurstGrid("");
 	}
 	
 	@Override
 	protected void setUsableSfx() {
+		super.setUsableSfx();
 		usableSfx.put(SoundEffectType.ATTACK_LIGHTNING_STORM, "sm64_thank_you.ogg");
 	}
 	

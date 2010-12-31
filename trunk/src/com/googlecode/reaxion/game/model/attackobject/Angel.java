@@ -81,7 +81,7 @@ public class Angel extends AttackObject {
         			// check if dead
         			if (hp <= 0) {
         				createLight(b);
-        				b.removeModel(this);
+        				finish(b);
         			}
         		}
         	}

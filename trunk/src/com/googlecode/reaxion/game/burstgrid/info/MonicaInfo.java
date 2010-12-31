@@ -20,6 +20,7 @@ public class MonicaInfo extends PlayerInfo {
 		setAbilities(new String[] {"TriggerFingers", "Inheritor"});
 		setAttacks(new String[] {"ShootBullet", "BulletWave", "BulletStorm", "SlideDash", "OmegaShot", "ShieldBarrier"});
 		//createBurstGrid("");
+		setUsableSfx();
 		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
 	}
 	

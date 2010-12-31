@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.attack;
 
+import com.googlecode.reaxion.game.audio.SoundEffectType;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Bubble;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -14,8 +15,10 @@ public class SpawnBubble extends Attack {
 	
 	private static final String n = "Bubble";
 	private static final int gc = 2;
-	
 	private static final float speed = .25f;
+
+	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_BUBBLE_SPAWN};
+	
 	private Bubble bubble;
 	
 	public SpawnBubble() {
@@ -48,6 +51,8 @@ public class SpawnBubble extends Attack {
 			//change animation
 			character.play("blow", b.tpf);
 			phase++;
+			
+			triggerSoundEffect(sfxTypes, false);
 			
 			// calculate transformations
 			Vector3f rotation = character.rotationVector;

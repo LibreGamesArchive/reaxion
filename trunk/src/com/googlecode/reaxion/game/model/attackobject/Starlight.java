@@ -43,7 +43,7 @@ public class Starlight extends AttackObject {
     public void act(StageGameState b) {
 		// check if underground
 		if (model.getLocalTranslation().y <= -maxRadius)
-			b.removeModel(this);
+			finish(b);
 		
 		// count user's hp
 		if (lifeCount == 0) {

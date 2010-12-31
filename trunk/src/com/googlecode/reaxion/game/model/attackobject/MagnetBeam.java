@@ -24,7 +24,7 @@ public class MagnetBeam extends AttackObject {
 	public void act(StageGameState b) {
 		//check lifespan
         if (lifeCount == lifespan)
-        	b.removeModel(this);
+        	finish(b);
         lifeCount++;
 	}
 	

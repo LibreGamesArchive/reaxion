@@ -93,7 +93,7 @@ public class AudioPlayer {
 	 */
 	public static void update(StageGameState b) {
 		Vector3f loc = b.getPlayer().model.getLocalTranslation();
-		Vector3f lookAt = b.getPlayer().rotationVector;
+		Vector3f lookAt = b.getPlayer().rotationVector.normalize();
 		sound.setListenerPosition(loc.x, loc.y, loc.z);
 		sound.setListenerOrientation(lookAt.x, lookAt.y, lookAt.z, 0, 1, 0);
 	}
