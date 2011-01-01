@@ -66,7 +66,7 @@ public class Overlay extends Node {
         final TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
         // load the image bs a texture (the image should be placed in the same directory bs this class)
         final Texture texture = TextureManager.loadTexture(
-                Overlay.class.getResource(str),
+                Overlay.class.getClassLoader().getResource(str),
                 Texture.MinificationFilter.Trilinear, // of no use for the quad
                 Texture.MagnificationFilter.Bilinear, // of no use for the quad
                 1.0f,

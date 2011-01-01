@@ -17,7 +17,7 @@ public class TerminalOverlay extends MenuOverlay {
 	
 	public static final String NAME = "terminalOverlay";
 	
-	private static final String baseURL = "../../resources/gui/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/gui/";
 	
 	private static final String[] menuItemNames = {"Character Select", "Stage Select", "Mission Select", "Burst Grid", "Save Game"};
 	

@@ -19,7 +19,7 @@ public class GameOverOverlay extends ScreenshotOverlay {
 	
 	public static final String NAME = "gameOverOverlay";
 	
-	private static final String baseURL = "../../resources/gui/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/gui/";
 	
 	private final ColorRGBA selectedText = FontUtils.blueSelected;
 	private final ColorRGBA unselectedText = FontUtils.unselected;

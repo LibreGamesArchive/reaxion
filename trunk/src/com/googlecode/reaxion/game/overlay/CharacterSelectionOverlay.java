@@ -29,9 +29,9 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 
 	public static final String NAME = "characterSelectionOverlay";
 	
-	private static final String baseURL = "../../resources/icons/characterselect/";
-	private static final String baseGuiURL = "../../resources/gui/";
-	private static final String cursorURL = "../../resources/cursors/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/icons/characterselect/";
+	private static final String baseGuiURL = "com/googlecode/reaxion/resources/gui/";
+	private static final String cursorURL = "com/googlecode/reaxion/resources/cursors/";
 	
 	private String[] charNames = {"Khoa", "Cy", "Nilay", "Monica", "Austin", "Brian", "Andrew", "Jenna", "Raina", "Savannah", "Polina", "Shine"};
 	private Node grid;

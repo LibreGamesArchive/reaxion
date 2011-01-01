@@ -41,8 +41,8 @@ public class StageSelectionOverlay extends MenuOverlay {
 
 	public static final String NAME = "stageSelectionOverlay";
 	
-	private static final String baseIconURL = "../../resources/icons/stageselect/";
-	private static final String baseGuiURL = "../../resources/gui/";
+	private static final String baseIconURL = "com/googlecode/reaxion/resources/icons/stageselect/";
+	private static final String baseGuiURL = "com/googlecode/reaxion/resources/gui/";
 
 	private static final String[] stageNames = { FlowerField.NAME, WorldsEdge.NAME, MikoLake.NAME,
 		Flipside.NAME, TwilightKingdom.NAME, SeasRepose.NAME,
