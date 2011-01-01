@@ -23,7 +23,7 @@ public class HudOverlay extends Overlay {
 	
 	public static final String NAME = "hudOverlay";
 	
-	private static final String baseURL = "../../resources/gui/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/gui/";
     
 	private Class[] attacks;
 	private int gaugeCap;

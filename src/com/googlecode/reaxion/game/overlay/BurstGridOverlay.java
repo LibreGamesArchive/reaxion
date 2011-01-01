@@ -30,7 +30,7 @@ public class BurstGridOverlay extends Overlay {
 	
 	public static final String NAME = "burstGridOverlay";
 	
-	private static final String baseURL = "../../resources/icons/cosmos/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/icons/cosmos/";
 	
 	private final ColorRGBA plain = new ColorRGBA(1, 1, 1, 1);
 	private final ColorRGBA blocked = new ColorRGBA(2/3f, 2/3f, 2/3f, 1);

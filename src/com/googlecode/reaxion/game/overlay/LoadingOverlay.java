@@ -13,7 +13,7 @@ public class LoadingOverlay extends Overlay {
 	
 	public static final String NAME = "infoOverlay";
 	
-	private static final String baseURL = "../../resources/gui/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/gui/";
 	
 	private Node container;
 	

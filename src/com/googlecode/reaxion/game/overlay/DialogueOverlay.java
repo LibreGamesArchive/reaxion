@@ -37,8 +37,8 @@ public class DialogueOverlay extends Overlay {
 	
 	public static final String NAME = "dialogueOverlay";
 	
-	private static final String baseURL = "../../resources/gui/";
-	private static final String resourceURL = "../../resources/cutscene/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/gui/";
+	private static final String resourceURL = "com/googlecode/reaxion/resources/cutscene/";
 
 	public Quad box;
 	public Quad pointer;

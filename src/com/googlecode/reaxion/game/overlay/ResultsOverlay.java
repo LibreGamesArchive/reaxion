@@ -21,7 +21,7 @@ public class ResultsOverlay extends ScreenshotOverlay {
 	
 	public static final String NAME = "resultsOverlay";
 	
-	private static final String baseURL = "../../resources/gui/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/gui/";
 	
 	private final int[] point = {32, 96, 104, 110, 116, 122, 128, 134, 140};
 	private int frame = 0;

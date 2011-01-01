@@ -27,8 +27,8 @@ public class MissionOverlay extends MenuOverlay {
 
 	public static final String NAME = "missionOverlay";
 	
-	private static final String baseURL = "../../resources/icons/missionselect/";
-	private static final String baseGuiURL = "../../resources/gui/";
+	private static final String baseURL = "com/googlecode/reaxion/resources/icons/missionselect/";
+	private static final String baseGuiURL = "com/googlecode/reaxion/resources/gui/";
 	
 	private static final int missionListItemWidth = 300;
 	private static final int missionListItemHeight = 80;
