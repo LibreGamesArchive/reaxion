@@ -1,10 +1,7 @@
 package com.googlecode.reaxion.game.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.googlecode.reaxion.game.ability.*;
-import com.googlecode.reaxion.game.input.ai.*;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
@@ -25,9 +22,10 @@ public class Battle {
 	private static final String stageClassURL = "com.googlecode.reaxion.game.model.stage.";
 
 	private static Battle currentBattle;
-	private static MajorCharacter nextP1, nextP2;
+	private static String nextP1s, nextP2s;
 	private static Stage nextStage;
 	
+	private String p1s, p2s;
 	private MajorCharacter p1, p2;
 	private ArrayList<Character> op = new ArrayList<Character>();
 	private Class[] p1Attacks, p2Attacks;
@@ -48,10 +46,10 @@ public class Battle {
 	 * Sets players and stage to Battle's globals.
 	 */
 	protected void loadDefaults() {
-		if (p1 == null)
-			p1 = nextP1;
-		if (p2 == null)
-			p2 = nextP2;
+		if (p1s == null)
+			p1s = nextP1s;
+		if (p2s == null)
+			p2s = nextP2s;
 		if (stage == null)
 			stage = nextStage;
 	}
@@ -61,10 +59,13 @@ public class Battle {
 	 */
 	private void init() {
 		// Load basics
-		LoadingQueue.push(p1);
-		LoadingQueue.push(p2);
-		LoadingQueue.push(stage);
-		
+		try {
+			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + p1s).getConstructors()[1].newInstance(false)));
+			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + p2s).getConstructors()[1].newInstance(false)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		LoadingQueue.push(stage);	
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
 		
@@ -118,43 +119,9 @@ public class Battle {
 	 * Sets the default players for all {@code Battle} objects.
 	 */
 	public static void setDefaultPlayers(String dp1, String dp2) {
-		try {
-			Class temp1 = Class.forName(baseURL + dp1);
-			Class temp2 = Class.forName(baseURL + dp2);
-			
-			// set players
-			nextP1 = (MajorCharacter) temp1.getConstructors()[1].newInstance(false);
-			nextP2 = (MajorCharacter) temp2.getConstructors()[1].newInstance(false);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void setPlayers(String[] chars) {
-		try {
-			Class temp1 = Class.forName(baseURL + chars[0]);
-			Class temp2 = Class.forName(baseURL + chars[1]);
-			
-			// set players
-			p1 = (MajorCharacter) temp1.getConstructors()[1].newInstance(false);
-			p1.setAbilities(p1Abilities);
-			p2 = (MajorCharacter) temp2.getConstructors()[1].newInstance(false);
-			p2.setAbilities(p2Abilities);
-			
-			// set opponents
-			op = new ArrayList<Character>();
-			for (int i=2; i<chars.length; i++) {
-				Class tempO = Class.forName(baseURL + chars[i]);
-				op.add((MajorCharacter) LoadingQueue.push((Character) tempO.getConstructors()[0].newInstance()));
-				if (opAbilities.size() > i-2)
-					op.get(i-2).setAbilities(opAbilities.get(i-2));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		//op.hp = 5;
+		// set players
+			nextP1s = dp1;
+			nextP2s = dp2;
 	}
 	
 	/**
