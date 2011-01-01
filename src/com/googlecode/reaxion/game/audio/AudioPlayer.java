@@ -7,6 +7,7 @@ import paulscode.sound.SoundSystemLogger;
 import paulscode.sound.codecs.CodecJOrbis;
 import paulscode.sound.libraries.LibraryJavaSound;
 
+import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
@@ -57,6 +58,9 @@ public class AudioPlayer {
 	 * @param filename Filename of background music to be queued
 	 */
 	public static void queueBGM(BackgroundMusic bgm) {
+		if (!Reaxion.musicEnabled())
+			return;
+		
 		String filename = bgm.getFilename();
 		String bgmName = filename.substring(0, filename.indexOf("."));
 		String ext = filename.substring(filename.indexOf("."));
@@ -73,6 +77,9 @@ public class AudioPlayer {
 	 * Starts background music.
 	 */
 	public static void startBGM() {
+		if (!Reaxion.musicEnabled())
+			return;
+		
 		playingBGM = true;
 		sound.play(currentBGM.getTitle());
 		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 0);
@@ -82,6 +89,9 @@ public class AudioPlayer {
 	 * Stops background music.
 	 */
 	public static void clearBGM() {
+		if (!Reaxion.musicEnabled())
+			return;
+		
 		playingBGM = false;
 		sound.stop(currentBGM.getTitle());
 		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
@@ -93,6 +103,9 @@ public class AudioPlayer {
 	 * @param b {@code StageGameState} object that is currently active
 	 */
 	public static void update(StageGameState b) {
+		if (!Reaxion.sfxEnabled())
+			return;
+		
 		Vector3f loc = b.getPlayer().model.getLocalTranslation();
 		Vector3f lookAt = b.getPlayer().rotationVector.normalize();
 		sound.setListenerPosition(loc.x, loc.y, loc.z);
@@ -108,6 +121,9 @@ public class AudioPlayer {
 	 * @param z Z position of sound effect to be played
 	 */
 	public static void playSoundEffect(String filename, float x, float y, float z) {
+		if (!Reaxion.sfxEnabled())
+			return;
+		
 		sound.quickPlay(true, sfxDir + filename, false, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
 		logger.message(loggerHeader + "Quick SFX " + filename + " played.", 0);
 	}
@@ -121,6 +137,9 @@ public class AudioPlayer {
 	 * @param z Z position of sound effect to be played
 	 */
 	public static void playRepeatingSoundEffect(String filename, float x, float y, float z) {
+		if (!Reaxion.sfxEnabled())
+			return;
+		
 		sound.newStreamingSource(true, filename, sfxDir + filename, true, x, y, z, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
 		sound.play(filename);
 		logger.message(loggerHeader + "Repeating SFX " + filename + " played.", 0);
@@ -132,6 +151,9 @@ public class AudioPlayer {
 	 * @param filename Filename of the sound effect to be stopped
 	 */
 	public static void stopRepeatingSoundEffect(String filename) {
+		if (!Reaxion.sfxEnabled())
+			return;
+		
 		sound.stop(filename);
 		logger.message(loggerHeader + "Repeating SFX " + filename + " stopped.", 0);
 	}
