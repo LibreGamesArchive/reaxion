@@ -28,11 +28,14 @@ import com.jmex.game.state.load.LoadingGameState;
  */
 public class Reaxion {
 
-	private static final String GAME_VERSION = "0.7a";
+	private static final String GAME_VERSION = "0.8a";
 	private static final String screenshotDir = "screenshots/";
 
 	private static int screenWidth;
 	private static int screenHeight;
+	
+	private static boolean music;
+	private static boolean sfx;
 	
 	/**
 	 * Multithreaded game system that shows the state of GameStates
@@ -90,6 +93,9 @@ public class Reaxion {
         
 		screenWidth = DisplaySystem.getDisplaySystem().getWidth();
 		screenHeight = DisplaySystem.getDisplaySystem().getHeight();
+		
+		music = game.getSettings().isMusic();
+		sfx = game.getSettings().isSFX();
 	}
 	
 	/**
@@ -121,6 +127,14 @@ public class Reaxion {
 	public static int getScreenHeight() {
 		return screenHeight;
 	}
+	
+	public static boolean musicEnabled() {
+		return music;
+	}
+	
+	public static boolean sfxEnabled() {
+		return sfx;
+	}
 
 	/**
 	 * Initializes the system.
@@ -132,7 +146,7 @@ public class Reaxion {
 		//@Override	
 		public Void call() throws Exception {
 			MouseInput.get().setCursorVisible(true);
-	    	AudioPlayer.prepare();
+			AudioPlayer.prepare();
 			FontUtils.loadFonts();
 			KeyBindingUtils.initKeyBindings();
 			MissionManager.createMissions();
