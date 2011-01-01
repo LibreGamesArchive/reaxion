@@ -20,6 +20,7 @@ import com.jme.input.KeyBindingManager;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
+import com.jmex.angelfont.BitmapFont;
 import com.jmex.game.state.GameStateManager;
 
 /**
@@ -145,7 +146,7 @@ public class HubGameState extends StageGameState {
 					break;
 				case 4:
 					SaveManager.saveGame(this);
-			    	info.alert("Game saved sucessfully!", 60, 1);
+			    	info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
 				}
 				
 				((Overlay) currentMenu).updateRenderState();
@@ -240,7 +241,7 @@ public class HubGameState extends StageGameState {
     		bggs.setActive(true);
     		GameStateManager.getInstance().attachChild(bggs);
     	} else {
-    		info.alert("You can only access the burst grid with Monica.", 120, 1);
+    		info.alert("You can only access the burst grid with Monica.", BitmapFont.Align.Right, 100, 1);
     	}
     }
     

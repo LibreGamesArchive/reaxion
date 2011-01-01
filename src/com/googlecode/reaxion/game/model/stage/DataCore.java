@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -32,7 +33,7 @@ public class DataCore extends Stage {
 
 	public DataCore() {
 		super(filename, NAME);
-		bgm = new String[] { "zero_tail.ogg", "challenge.ogg" };
+		bgm = new BackgroundMusic[] { BackgroundMusic.ZERO_TAIL, BackgroundMusic.CHALLENGE };
 		bgmOdds = new float[] { 1, 2 };
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.googlecode.reaxion.game.Reaxion;
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.burstgrid.BurstGrid;
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.burstgrid.node.AbilityNode;
@@ -99,7 +100,7 @@ public class BurstGridGameState extends BaseGameState {
 		
 		startsBGM = true;
 		endsBGM = true;
-		bgm = "the_sunleth_waterscape.ogg";
+		bgm = BackgroundMusic.SUNLETH_WATERSCAPE;
 		
 		// Prepare results node
 		burstOverlay = new BurstGridOverlay();

@@ -24,7 +24,7 @@ public class AudioPlayer {
 	private static String sfxDir = "sfx/";
 	private static String loggerHeader = "Audio Player Logger: ";
 	
-	private static String currentBGM;
+	private static BackgroundMusic currentBGM;
 	
 	private static boolean playingBGM;
 	
@@ -56,14 +56,15 @@ public class AudioPlayer {
 	 * 
 	 * @param filename Filename of background music to be queued
 	 */
-	public static void queueBGM(String filename) {
+	public static void queueBGM(BackgroundMusic bgm) {
+		String filename = bgm.getFilename();
 		String bgmName = filename.substring(0, filename.indexOf("."));
 		String ext = filename.substring(filename.indexOf("."));
 		String intro = bgmName + "-intro";
-		currentBGM = bgmName;
+		currentBGM = bgm;
 		
-		sound.newStreamingSource(true, currentBGM, trackDir + intro + ext, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
-		sound.queueSound(currentBGM, trackDir + filename);
+		sound.newStreamingSource(true, currentBGM.getTitle(), trackDir + intro + ext, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
+		sound.queueSound(currentBGM.getTitle(), trackDir + filename);
 		
 		logger.message(loggerHeader + "Queued BGM " + filename, 0);
 	}
@@ -73,7 +74,7 @@ public class AudioPlayer {
 	 */
 	public static void startBGM() {
 		playingBGM = true;
-		sound.play(currentBGM);
+		sound.play(currentBGM.getTitle());
 		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 0);
 	}
 
@@ -82,7 +83,7 @@ public class AudioPlayer {
 	 */
 	public static void clearBGM() {
 		playingBGM = false;
-		sound.stop(currentBGM);
+		sound.stop(currentBGM.getTitle());
 		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
 	}
 	
@@ -167,16 +168,8 @@ public class AudioPlayer {
 		sound.cleanup();
 	}
 	
-	public static String getCurrentBGM() {
-		String[] temp = currentBGM.split("_");
-		String title = "";
-		
-		for (int i = 0; i < temp.length; i++) {
-			char upperCase = Character.toUpperCase(temp[i].charAt(0));
-			title += upperCase + temp[i].substring(1) + (i != temp.length - 1 ? " " : "");
-		}
-		
-		return title;
+	public static BackgroundMusic getCurrentBGM() {
+		return currentBGM;
 	}
 	
 }

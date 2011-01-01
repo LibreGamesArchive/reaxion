@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -31,7 +32,7 @@ public class Flipside extends Stage {
 
 	public Flipside() {
 		super(filename, NAME);
-		bgm = new String[] {"stairway_to_solstice.ogg"};
+		bgm = new BackgroundMusic[] {BackgroundMusic.STAIRWAY_TO_SOLSTICE};
 		bgmOdds = new float[] {1};
 	}
 

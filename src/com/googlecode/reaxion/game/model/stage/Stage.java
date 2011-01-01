@@ -1,8 +1,8 @@
 package com.googlecode.reaxion.game.model.stage;
 
 import java.awt.geom.Point2D;
-import java.util.Arrays;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -16,7 +16,7 @@ import com.jme.scene.state.LightState;
  */
 public class Stage extends Model {
 	
-	protected String[] bgm;
+	protected BackgroundMusic[] bgm;
 	protected float[] bgmOdds;
 	
 	protected Vector3f terminalPos = new Vector3f(0, 4, 0);
@@ -138,8 +138,8 @@ public class Stage extends Model {
      * @param i index of bgm or -1 for random
      * @return String for bgm
      */
-    public String getBgm(int i) {
-    	String str = null;
+    public BackgroundMusic getBgm(int i) {
+    	BackgroundMusic str = null;
     	if (i < 0) {
     		float total = 0;
     		for (float f : bgmOdds)

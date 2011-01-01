@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.jme.light.PointLight;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -21,7 +22,7 @@ public class Checkerboard extends Stage {
 	
     public Checkerboard() {
     	super(filename, NAME);
-    	bgm = new String[] {"olive.ogg"};
+    	bgm = new BackgroundMusic[] {BackgroundMusic.OLIVE};
     	bgmOdds = new float[] {1};
     }
 

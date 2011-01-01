@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.mission.missions;
 
 import java.awt.Point;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -43,7 +44,7 @@ public class VsRemnant extends Mission {
 		int[] durations = {32, 0, 0, 0, 48, 0, 0, 0, 0, 0, 0};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_data-core.png");
-		dialogueState.setBgm("zero_tail.ogg");
+		dialogueState.setBgm(BackgroundMusic.ZERO_TAIL);
 		dialogueState.setStartsBGM(true);
 		dialogueState.setEndsBGM(true);
 		addState(dialogueState);
@@ -59,7 +60,7 @@ public class VsRemnant extends Mission {
 		Battle.setCurrentBattle(b);
 		
 		BattleGameState bgs = Battle.createBattleGameState();
-		bgs.setBgm("nebula_gray.ogg");
+		bgs.setBgm(BackgroundMusic.NEBULA_GRAY);
 		bgs.setStartsBGM(true);
 		bgs.setEndsBGM(false);
 		addState(bgs);

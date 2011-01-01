@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -31,7 +32,7 @@ public class CrystalPalace extends Stage {
 
 	public CrystalPalace() {
 		super(filename, NAME);
-		bgm = new String[] { "forgotten_challenge.ogg", "via_purifico.ogg" };
+		bgm = new BackgroundMusic[] { BackgroundMusic.FORGOTTEN_CHALLENGE, BackgroundMusic.VIA_PURIFICO };
 		bgmOdds = new float[] { 1, 2 };
 	}
 
