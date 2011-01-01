@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -66,7 +67,7 @@ public class SeasRepose extends Stage {
 	
 	public SeasRepose() {
 		super(filename, NAME);
-		bgm = new String[] {"dj_got_us_fallin_in_love.ogg" };
+		bgm = new BackgroundMusic[] {BackgroundMusic.DJ_GOT_US_FALLIN_IN_LOVE};
 		bgmOdds = new float[] {1};
 	}
 

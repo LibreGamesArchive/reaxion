@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.mission.missions;
 
 import java.awt.Point;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -51,7 +52,7 @@ public class VsSkytank extends Mission {
 		int[] durations = {48, 0, 0, 0, 32, 64, 0, 0, 0, 0, 48};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_flower-field.png");
-		dialogueState.setBgm("packaged.ogg");
+		dialogueState.setBgm(BackgroundMusic.PACKAGED);
 		dialogueState.setStartsBGM(true);
 		dialogueState.setEndsBGM(true);
 		addState(dialogueState);
@@ -67,7 +68,7 @@ public class VsSkytank extends Mission {
 		Battle.setCurrentBattle(b);
 		
 		BattleGameState bgs = Battle.createBattleGameState();
-		bgs.setBgm("night_of_fate.ogg");
+		bgs.setBgm(BackgroundMusic.NIGHT_OF_FATE);
 		bgs.setStartsBGM(true);
 		bgs.setEndsBGM(false);
 		addState(bgs);

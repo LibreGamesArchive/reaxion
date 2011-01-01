@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.ability.AfterImage;
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.input.ai.TestAI;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
@@ -51,7 +52,7 @@ public class Mission00 extends Mission {
 		int[] durations = {0, 0, 0, 0, 0};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_twilight-kingdom.png");
-		dialogueState.setBgm("mitsu_no_yoake.ogg");
+		dialogueState.setBgm(BackgroundMusic.MITSU_NO_YOAKE);
 		dialogueState.setStartsBGM(true);
 		dialogueState.setEndsBGM(true);
 		addState(dialogueState);

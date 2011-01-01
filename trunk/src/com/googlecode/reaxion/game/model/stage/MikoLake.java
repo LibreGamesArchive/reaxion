@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -36,7 +37,7 @@ public class MikoLake extends Stage {
 	
 	public MikoLake() {
 		super(filename, NAME);
-		bgm = new String[] {"japanize_dream.ogg", "551 Depression (Legend of Hourai).ogg" };
+		bgm = new BackgroundMusic[] {BackgroundMusic.JAPANIZE_DREAM, BackgroundMusic.DEPRESSION };
 		bgmOdds = new float[] {1, 1};
 	}
 

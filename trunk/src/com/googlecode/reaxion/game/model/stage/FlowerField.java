@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.prop.Petal;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -32,7 +33,7 @@ public class FlowerField extends Stage {
 
 	public FlowerField() {
 		super(filename, NAME);
-		bgm = new String[] { "packaged.ogg" };
+		bgm = new BackgroundMusic[] {BackgroundMusic.PACKAGED };
 		bgmOdds = new float[] {1};
 	}
 

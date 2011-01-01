@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.mission.missions;
 
 import java.awt.Point;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -50,7 +51,7 @@ public class VsDoriruzu extends Mission {
 		int[] durations = {32, 32, 0, 0, 0, 0, 0, 48, 0, 48};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_miko-lake.png");
-		dialogueState.setBgm("sakura_distortion.ogg");
+		dialogueState.setBgm(BackgroundMusic.SAKURA_DISTORTION);
 		dialogueState.setStartsBGM(true);
 		dialogueState.setEndsBGM(false);
 		addState(dialogueState);

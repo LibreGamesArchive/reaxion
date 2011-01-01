@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.prop.Dust;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -30,7 +31,7 @@ public class TwilightKingdom extends Stage {
 
 	public TwilightKingdom() {
 		super(filename, NAME);
-		bgm = new String[] { "mitsu_no_yoake.ogg" };
+		bgm = new BackgroundMusic[] { BackgroundMusic.MITSU_NO_YOAKE };
 		bgmOdds = new float[] {1};
 	}
 

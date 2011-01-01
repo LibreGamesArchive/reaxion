@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -32,7 +33,7 @@ public class LavaValley extends Stage {
 
 	public LavaValley() {
 		super(filename, NAME);
-		bgm = new String[] { "firing_preparation.ogg" };
+		bgm = new BackgroundMusic[] { BackgroundMusic.FIRIING_PREPARATION };
 		bgmOdds = new float[] { 1 };
 	}
 

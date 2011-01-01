@@ -6,6 +6,7 @@ import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
 import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapFont.Align;
+import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 import com.jmex.angelfont.Rectangle;
 import com.jmex.game.state.GameState;
@@ -89,13 +90,14 @@ public class InfoOverlay extends Overlay {
 	 * 
 	 * @return If message set up successfully
 	 */
-	public boolean alert(String message, int duration, int priority) {
+	public boolean alert(String message, BitmapFont.Align alignment, int duration, int priority) {
 		if (this.duration == 0  || priority >= messagePriority) {
 			
 			this.duration = duration + slideTime*2;
 			messagePriority = priority;
 
 			infoText.setText(message);
+			infoText.setAlignment(alignment);
 			infoText.update();
 			container.updateRenderState();
 			

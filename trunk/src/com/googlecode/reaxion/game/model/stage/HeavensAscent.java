@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -81,7 +82,7 @@ public class HeavensAscent extends Stage {
 
 	public HeavensAscent() {
 		super(filename, NAME);
-		bgm = new String[] { "dust_to_dust.ogg" };
+		bgm = new BackgroundMusic[] { BackgroundMusic.DUST_TO_DUST };
 		bgmOdds = new float[] { 1 };
 	}
 

@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.stage;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.prop.Firework;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -38,7 +39,7 @@ public class CityOfDreams extends Stage {
 	
 	public CityOfDreams() {
 		super(filename, NAME);
-		bgm = new String[] {"gateway_colosseum.ogg" };
+		bgm = new BackgroundMusic[] {BackgroundMusic.GATEWAY_COLOSSEUM};
 		bgmOdds = new float[] {1};
 	}
 

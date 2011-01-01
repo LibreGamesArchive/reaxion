@@ -1,8 +1,10 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.overlay.InfoOverlay;
 import com.googlecode.reaxion.game.overlay.LoadingOverlay;
+import com.jmex.angelfont.BitmapFont;
 import com.jmex.game.state.CameraGameState;
 
 /**
@@ -20,7 +22,7 @@ public abstract class BaseGameState extends CameraGameState {
 	protected boolean startsBGM;
 	protected boolean endsBGM;
 	
-	protected String bgm;
+	protected BackgroundMusic bgm;
 	
 	protected LoadingOverlay loading;
 	protected InfoOverlay info;
@@ -45,7 +47,9 @@ public abstract class BaseGameState extends CameraGameState {
 	protected abstract void init();
 	
 	protected void showMusicAlert() {
-		info.alert("Now Playing:\n" + AudioPlayer.getCurrentBGM(), 100, 1);
+		String title = bgm.getTitle();
+		String album = bgm.getAlbum();
+		info.alert(title + "\n" + album, BitmapFont.Align.Center, 100, 1);
 	}
 	
 	@Override
@@ -86,11 +90,11 @@ public abstract class BaseGameState extends CameraGameState {
 		this.endsBGM = endsBGM;
 	}
 
-	public String getBgm() {
+	public BackgroundMusic getBgm() {
 		return bgm;
 	}
 
-	public void setBgm(String bgm) {
+	public void setBgm(BackgroundMusic bgm) {
 		this.bgm = bgm;
 	}
 	

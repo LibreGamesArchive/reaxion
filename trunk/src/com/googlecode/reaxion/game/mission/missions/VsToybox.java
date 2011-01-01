@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.mission.missions;
 
 import java.awt.Point;
 
+import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.mission.Mission;
 import com.googlecode.reaxion.game.mission.MissionID;
 import com.googlecode.reaxion.game.model.character.Character;
@@ -50,7 +51,7 @@ public class VsToybox extends Mission {
 		int[] durations = {32, 32, 0, 0, 0, 0, 0, 48, 0, 48};
 		
 		DialogueGameState dialogueState = new DialogueGameState(lines, durations, a, "bg_cloud-nine.png");
-		dialogueState.setBgm("unversed_boss.ogg");
+		dialogueState.setBgm(BackgroundMusic.TUMBLING);
 		dialogueState.setStartsBGM(true);
 		dialogueState.setEndsBGM(false);
 		addState(dialogueState);
