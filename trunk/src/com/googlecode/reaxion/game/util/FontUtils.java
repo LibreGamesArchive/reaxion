@@ -12,16 +12,12 @@ public class FontUtils {
 
 	// Fonts
 	public static BitmapFont neuropol;
-	private static final File neuropolFile = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol-c.fnt");
-	private static final File neuropolGlyph = new File(
-			"src/com/googlecode/reaxion/resources/fonts/neuropol-c_0.png");
+	private static final String neuropolFile = "com/googlecode/reaxion/resources/fonts/neuropol-c.fnt";
+	private static final String neuropolGlyph = "com/googlecode/reaxion/resources/fonts/neuropol-c_0.png";
 	
 	public static BitmapFont eurostile;
-	private static final File eurostileFile = new File(
-		"src/com/googlecode/reaxion/resources/fonts/eurostile.fnt");
-	private static final File eurostileGlyph = new File(
-		"src/com/googlecode/reaxion/resources/fonts/eurostile_0.png");
+	private static final String eurostileFile = "com/googlecode/reaxion/resources/fonts/eurostile.fnt";
+	private static final String eurostileGlyph = "com/googlecode/reaxion/resources/fonts/eurostile_0.png";
 	
 	// Font Colors
 	public static ColorRGBA blueSelected = new ColorRGBA(0, .7f, 1, 1);
@@ -30,10 +26,10 @@ public class FontUtils {
 	
 	public static void loadFonts() {
 		try {
-			neuropol = BitmapFontLoader.load(neuropolFile.toURI().toURL(), neuropolGlyph
-					.toURI().toURL());
-			eurostile = BitmapFontLoader.load(eurostileFile.toURI().toURL(), eurostileGlyph
-					.toURI().toURL());
+			neuropol = BitmapFontLoader.load(ClassLoader.getSystemClassLoader().getResource(neuropolFile),
+					ClassLoader.getSystemClassLoader().getResource(neuropolGlyph));
+			eurostile = BitmapFontLoader.load(ClassLoader.getSystemClassLoader().getResource(eurostileFile),
+					ClassLoader.getSystemClassLoader().getResource(eurostileGlyph));
 		} catch (Exception ex) {
 			Logger.getLogger("FontUtils").log(Level.SEVERE,
 					"Unable to load font: " + ex);
