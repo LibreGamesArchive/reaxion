@@ -91,8 +91,7 @@ public class LoadingQueue {
 	 */
 	private static void locateTextures() {
 		try {
-			locator = new SimpleResourceLocator(ModelTest.class
-					.getClassLoader()
+			locator = new SimpleResourceLocator(ClassLoader.getSystemClassLoader()
 					.getResource("com/googlecode/reaxion/resources/"));
             ResourceLocatorTool.addResourceLocator(
                     ResourceLocatorTool.TYPE_TEXTURE, locator);
