@@ -40,7 +40,7 @@ public class Reaxion {
 	/**
 	 * Multithreaded game system that shows the state of GameStates
 	 */
-	private StandardGame game;
+	private static ReaxionGame game;
 	
 	private StageSelectionState stageState;
 	
@@ -69,7 +69,7 @@ public class Reaxion {
 		/* Allow collection and viewing of scene statistics */
 		System.setProperty("jme.stats", "set");
 		/* Create a new StandardGame object with the given title in the window */
-		game = new StandardGame("Reaxion v" + GAME_VERSION);
+		game = new ReaxionGame("Reaxion v" + GAME_VERSION);
 	}
 
 	public static void main(String[] args) {
@@ -102,9 +102,7 @@ public class Reaxion {
 	 * Performs necessary cleanup, then closes application.
 	 */
 	public static void terminate() {
-		AudioPlayer.cleanup();
-		GameStateManager.getInstance().detachAllChildren();
-		System.exit(0);
+		game.shutdown();
 	}
 	
 	public static void takeScreenshot(String descriptor) {
