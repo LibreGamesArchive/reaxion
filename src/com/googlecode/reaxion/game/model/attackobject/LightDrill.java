@@ -54,7 +54,6 @@ public class LightDrill extends AttackObject {
         	if (c instanceof Character && !users.contains(c)) {
         		if (((Character)c).hit(b, this)) {
         			strike = true;
-        			user.setVelocity(new Vector3f());
         			((Character)c).gauge = Math.max(0, ((Character)c).gauge - ((Character)c).gaugeRate);
         		}
         	}

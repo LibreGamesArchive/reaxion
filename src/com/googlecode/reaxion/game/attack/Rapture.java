@@ -19,6 +19,8 @@ public class Rapture extends Attack {
 	
 	private LightDrill drill;
 	
+	private boolean stopped = false;
+	
 	public Rapture() {
 		name = n;
 		gaugeCost = gc;
@@ -41,21 +43,25 @@ public class Rapture extends Attack {
 		character.tagLock = true;
 		
 		character.play("halt", b.tpf);
+		
+		// add the drill
+		drill = (LightDrill)LoadingQueue.quickLoad(new LightDrill(getUsers()), b);
+		b.getRootNode().updateRenderState();
 	}
 	
 	@Override
 	public void nextFrame(StageGameState b) {
 		if (phase == 0) {
 			if (frameCount < duration) {
-				// add the drill
-				if (drill == null) {
-					drill = (LightDrill)LoadingQueue.quickLoad(new LightDrill(getUsers()), b);
-					b.getRootNode().updateRenderState();
-				}
 				if (!drill.strike)
 					character.setVelocity(character.rotationVector.mult(dashSpeed*FastMath.pow((float)(duration - frameCount)/duration, 2.5f)));
 				else
-					character.setVelocity(new Vector3f());
+					if (!stopped) {
+						stopped = true;
+						character.model.setLocalTranslation(character.model.getLocalTranslation().add(
+								character.rotationVector.mult(-dashSpeed*FastMath.pow((float)(duration - (frameCount-1))/duration, 2.5f))));
+					} else
+						character.setVelocity(new Vector3f());
 			} else {
 				finish();
 			}
