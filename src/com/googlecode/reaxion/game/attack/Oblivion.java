@@ -80,7 +80,7 @@ public class Oblivion extends Attack {
 			s.setVelocity(b.getTarget().model.getWorldTranslation().subtract(s.model.getWorldTranslation()).normalize().mult(launchSpeed));
 			phase++;
 			
-		} else if (phase == 4 && s.model.getParent() == null || s.getVelocity().y >= 0) {
+		} else if (phase == 4 && (s.model.getParent() == null || s.getVelocity().y >= 0)) {
 			character.play("jump", b.tpf);
 			character.setVelocity(new Vector3f(0, -riseSpeed, 0));
 			if (character.model.getWorldTranslation().y <= 0) {
