@@ -141,10 +141,12 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			case 0:
 				selectedChars[0] = picked;
 				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
+				round++;
 				break;
 			case 1:
 				selectedChars[1] = picked;
 				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
+				round++;
 				break;
 			default:
 				break;
@@ -205,11 +207,14 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		//player name list 
 		for (int i = 0; i < p1Display.length; i++) {
 			p1Display[i].setSize(16);
-			p1Display[i].setDefaultColor(i == 0? selTextColor : textColor);
+			p1Display[i].setDefaultColor(textColor);
 			p1Display[i].setText(charNames[i]);
 			p1Display[i].update();
 			grid.attachChild(p1Display[i]);
 		}
+		
+		p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[0].getLocalTranslation()).mult(container.getLocalScale()));
+		
 		this.updateRenderState();
 	}
 
@@ -339,11 +344,16 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 
 		int selCur = takenPos[currentIndex[1]][currentIndex[0]];
 		
-		p1Display[selCur].setDefaultColor(selTextColor);
+		//p1Display[selCur].setDefaultColor(selTextColor);
 		
 		int selBef = takenPos[lastIndex[1]][lastIndex[0]];
 		
-		p1Display[selBef].setDefaultColor(textColor);
+		//p1Display[selBef].setDefaultColor(textColor);
+		
+		if(round == 0)
+		    p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[selCur].getLocalTranslation()).mult(container.getLocalScale()));
+		else if(round == 1)
+			p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[selCur].getLocalTranslation()).mult(container.getLocalScale()));
 		
 		/*int picked = 0;
 		picked = takenPos[currentIndex[1]][currentIndex[0]];
