@@ -230,6 +230,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			{
 				hide(p1c);
 				round = 0;
+				currentIndex[0] = 0;
+				currentIndex[1] = 0;
 				this.updateRenderState();
 				return;
 			}
