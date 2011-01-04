@@ -18,6 +18,8 @@ public class LightDrill extends AttackObject {
 	
 	private final float angleInc = FastMath.PI/8;
 	
+	private final float drainPerFrame = .0125f;
+	
 	private Model user;
 	
 	public boolean strike = false;
@@ -54,7 +56,7 @@ public class LightDrill extends AttackObject {
         	if (c instanceof Character && !users.contains(c)) {
         		if (((Character)c).hit(b, this)) {
         			strike = true;
-        			((Character)c).gauge = Math.max(0, ((Character)c).gauge - ((Character)c).gaugeRate);
+        			((Character)c).gauge = Math.max(0, ((Character)c).gauge - ((Character)c).gaugeRate - drainPerFrame);
         		}
         	}
         }

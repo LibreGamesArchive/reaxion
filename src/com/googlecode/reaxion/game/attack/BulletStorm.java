@@ -13,15 +13,17 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class BulletStorm extends Attack {
 
 	private static final String n = "Bullet Storm";
-	private static final int gc = 16;
+	private static final int gc = 18;
 	private static final float bulletSpeed = 4;
 	
 	private float maxRadius = 80;
 	
 	private Bullet[] bullet = new Bullet[12];
+	private Vector3f[] loc = new Vector3f[bullet.length];
 	
 	private Character user;
 	private Model target;
+	private Vector3f opPos;
 	
 	public BulletStorm() {
 		name = n;
@@ -58,26 +60,29 @@ public class BulletStorm extends Attack {
 			phase++;
 			
 			// average center of convergence
-			Vector3f opPos = target.model.getWorldTranslation();
+			opPos = target.model.getWorldTranslation().clone();
 			Vector3f center = user.model.getWorldTranslation().add(opPos).divide(2);
 			center.y = opPos.y;
 			
 			// make the bullets fly
-			for (int i=0; i<bullet.length; i++) {
+			for (int i=0; i<loc.length; i++) {
 				float angle = FastMath.nextRandomFloat()*FastMath.PI*2;
 				float radius = FastMath.nextRandomFloat()*maxRadius;
-				Vector3f translation = center.add(new Vector3f(radius*FastMath.sin(angle), 3.7f , radius*FastMath.cos(angle)));			
-				bullet[i] = (Bullet)LoadingQueue.quickLoad(new Bullet(getUsers()), b);
-				bullet[i].setVelocity(opPos.subtract(translation).normalize().mult(bulletSpeed));
-				bullet[i].rotate(bullet[i].getVelocity());
-				bullet[i].model.setLocalTranslation(translation);
-				
-				createLight(translation, b);
+				loc[i] = center.add(new Vector3f(radius*FastMath.sin(angle), 3.7f , radius*FastMath.cos(angle)));							
+				createLight(loc[i], b);
 			}
 			
 			b.getRootNode().updateRenderState();
 			
 		} else if (character.play("cast", b.tpf)) {
+			// make the bullets fly
+			for (int i=0; i<bullet.length; i++) {		
+				bullet[i] = (Bullet)LoadingQueue.quickLoad(new Bullet(getUsers()), b);
+				bullet[i].setVelocity(opPos.subtract(loc[i]).normalize().mult(bulletSpeed));
+				bullet[i].rotate(bullet[i].getVelocity());
+				bullet[i].model.setLocalTranslation(loc[i]);
+			}
+			
 			finish();
 		}
 	}
