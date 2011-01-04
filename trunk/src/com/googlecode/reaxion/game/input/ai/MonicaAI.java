@@ -70,7 +70,7 @@ public class MonicaAI extends SmartAI {
     				new SlideDash(new AttackData(character, player));
     			}
     		} else if (threats.size() < 2) {
-    			if (character.gauge >= 16 && !character.flinching)
+    			if (character.gauge >= 18 && !character.flinching)
     				new BulletStorm(new AttackData(character, player));
     		}
     		

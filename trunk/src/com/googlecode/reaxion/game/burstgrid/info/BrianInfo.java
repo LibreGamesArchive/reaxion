@@ -20,7 +20,7 @@ public class BrianInfo extends PlayerInfo {
 	public void init(){
 		setStats(75,1,16,34,1);
 		setAbilities(new String[] {"GroundStriker"});
-		setAttacks(new String[] {"BombingMagnet", "LightningCloud", "LightningStorm", "Railgun", "SpawnBubble", "Jolt"});
+		setAttacks(new String[] {"BombingMagnet", "LightningCloud", "LightningStorm", "Railgun", "LightningRod", "Jolt"});
 		createBurstGrid("");
 		setUsableSfx();
 	}
