@@ -2,9 +2,7 @@ package com.googlecode.reaxion.game.attack;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AttackObject;
-import com.googlecode.reaxion.game.model.attackobject.Bubble;
 import com.googlecode.reaxion.game.model.attackobject.Chain;
-import com.googlecode.reaxion.game.model.attackobject.Starlight;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
@@ -37,11 +35,23 @@ public class Stopga extends Attack {
 	
 	@Override
 	public void firstFrame(StageGameState b) {
-		character.jumpLock = true;
-		character.animationLock = true;
-		character.tagLock = true;
-		
-		character.play("cast", b.tpf);
+		// make sure there isn't already a Stopga
+		boolean flag = false;
+		for (int i=0; i< b.getModels().size(); i++)
+			if (b.getModels().get(i) instanceof Chain && b.getModels().get(i).users.contains(getUsers()[getUsers().length-1])) {
+				flag = true;
+				break;
+			}
+		if (flag) {
+			character.gauge += gaugeCost;
+			finish();
+		} else {
+			character.jumpLock = true;
+			character.animationLock = true;
+			character.tagLock = true;
+
+			character.play("cast", b.tpf);
+		}
 	}
 	
 	@Override

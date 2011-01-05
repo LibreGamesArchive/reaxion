@@ -24,7 +24,7 @@ public class SatelliteFlower extends Character {
 	private final float riseHeight = 10;
 	
 	private final double[] reloadTime = {1/10, 2};
-	private final float maxDist = 140;
+	private final float maxDist = 60;
 	private final float dTheta = FastMath.PI/240;
 	
 	private float radius;
@@ -64,9 +64,9 @@ public class SatelliteFlower extends Character {
         else if (lifespan - lifeCount < riseTime)
         	velocity.y = -riseHeight/(float)riseTime;
         else {
-        	if (target != null) {
+        	if (target != null && tPos.distance(pos) <= maxDist) {
         		// check distance
-        		double load = (Math.min(tPos.distance(pos), maxDist)/maxDist)*(reloadTime[1]-reloadTime[0]) + reloadTime[0];
+        		double load = (tPos.distance(pos)/maxDist)*(reloadTime[1]-reloadTime[0]) + reloadTime[0];
         		if (b.getTotalTime() - load >= lastReload && (beam == null || beam.model.getParent() == null)) {
         			// fire!
         			users.add(this);

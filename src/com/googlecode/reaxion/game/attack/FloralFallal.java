@@ -59,8 +59,8 @@ public class FloralFallal extends Attack {
 		if (phase == 0 && animControl.getCurTime() + b.tpf >= animControl.getAnimationLength("cast")/2) {
 			
 			// create satellites
-			for (int i=0; i<4; i++) {
-				float angle = FastMath.PI*2/4*i;
+			for (int i=0; i<6; i++) {
+				float angle = FastMath.PI*2/6*i;
 				Vector3f translation = new Vector3f(1000*FastMath.sin(angle), -4f, 1000*FastMath.cos(angle));
 				SatelliteFlower s = (SatelliteFlower)LoadingQueue.quickLoad(new SatelliteFlower(getUsers()), b);
 				s.model.setLocalTranslation(translation);

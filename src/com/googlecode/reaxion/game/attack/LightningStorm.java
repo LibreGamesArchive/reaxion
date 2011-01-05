@@ -18,7 +18,7 @@ public class LightningStorm extends Attack {
 	private static final int gc = 22;
 	private static final SoundEffectType[] sfxTypes = {SoundEffectType.ATTACK_LIGHTNING_STORM};
 	
-	private RoamingCloud[] cloud = new RoamingCloud[7];
+	private RoamingCloud[] cloud = new RoamingCloud[6];
 	
 	public LightningStorm() {
 		name = n;

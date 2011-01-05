@@ -2,13 +2,12 @@ package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.Vector3f;
 
 public class CyberBeam extends AttackObject {
 	
 	public static final String filename = "cyber-beam";
-	protected static final float dpf = .3f;
+	protected static final float dpf = .2f;
 	
 	private static final Vector3f offset = new Vector3f(0, 3, 0); // offset beam so it doesn't sit between the legs
 	

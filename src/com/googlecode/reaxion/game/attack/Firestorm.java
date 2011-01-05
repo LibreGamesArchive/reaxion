@@ -12,7 +12,7 @@ public class Firestorm extends Attack {
 	private static final String n = "Firestorm";
 	private static final int gc = 27;
 	
-	private Ember[] ember = new Ember[6];
+	private Ember[] ember = new Ember[5];
 	
 	private Model target;
 	

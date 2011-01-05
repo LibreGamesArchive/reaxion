@@ -9,8 +9,8 @@ import com.jme.math.Vector3f;
 public class Tornado extends AttackObject {
 	
 	public static final String filename = "whirlwind";
-	protected static final int span = 380;
-	protected static final float speed = .25f;
+	protected static final int span = 300;
+	protected static final float speed = .3f;
 	protected static final float dpf = .18f;
 	private static final float angleInc = FastMath.PI/60;
 	private final int sizeTime = 12;
@@ -34,6 +34,9 @@ public class Tornado extends AttackObject {
         // rotate
     	roll = (roll + angleInc) % (FastMath.PI*2);
     	rotate();
+    	
+    	// only flinch sometimes
+    	flinch = ((lifeCount % 5) == 0);
     	
     	// grow/shrink
     	float s = 1;
