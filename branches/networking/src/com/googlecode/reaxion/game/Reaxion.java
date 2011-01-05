@@ -155,6 +155,8 @@ public class Reaxion {
 			AudioPlayer.prepare();
 			// SoundEffectManager.initialize();
 			FontUtils.loadFonts();
+			
+		//	Runtime.getRuntime().exec("kill -9 `ps aux | grep java.*BACKGROUND_SERVER | cut -c 12-14  -`");
 			int sv = JOptionPane.showConfirmDialog(null, "Be server?");
 			switch (sv) {
 			case 0:
