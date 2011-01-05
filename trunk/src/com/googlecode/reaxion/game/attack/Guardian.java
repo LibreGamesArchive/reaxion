@@ -37,7 +37,7 @@ public class Guardian extends Attack {
 		// make sure there isn't already an angel
 		boolean flag = false;
 		for (int i=0; i< b.getModels().size(); i++)
-			if (b.getModels().get(i) instanceof Angel) {
+			if (b.getModels().get(i) instanceof Angel && b.getModels().get(i).users.contains(getUsers()[getUsers().length-1])) {
 				flag = true;
 				break;
 			}
