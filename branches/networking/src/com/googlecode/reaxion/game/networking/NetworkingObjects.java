@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.networking;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -94,18 +95,22 @@ public abstract class NetworkingObjects {
 					// TODO handle creation properly
 
 					if (creationMessagesRecieved == 0) {
-						System.out.println("1 message recieved!");
+						System.out.print("1 message recieved! ");
 						chars[0] = cassm.getCharacters()[0];
 						chars[1] = cassm.getCharacters()[1];
 						stage1 = cassm.getStage();
 						creationMessagesRecieved++;
+						System.out.println("Characters: "+Arrays.toString(cassm.getCharacters())+" Stage: "+stage1);
 					} else if (creationMessagesRecieved == 1) {
-						System.out.println("2 message recieved!");
+						System.out.print("2 message recieved! ");
 						chars[2] = cassm.getCharacters()[0];
 						chars[3] = cassm.getCharacters()[1];
 						stage2 = cassm.getStage();
+						System.out.println("Characters: "+Arrays.toString(cassm.getCharacters())+" Stage: "+stage2);
 						stageChoice = Math.random() > .5 ? stage1 : stage2;
+						System.out.println("Stage choice: " + stageChoice);
 						Battle c = Battle.getCurrentBattle();
+						
 						c.setPlayers(chars);
 						c.setStage(stageChoice);
 						Battle.setCurrentBattle(c);
