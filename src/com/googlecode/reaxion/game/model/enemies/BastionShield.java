@@ -35,7 +35,7 @@ public class BastionShield extends Character {
     	users.addAll(Arrays.asList(m));
     	point = pnt.clone();
     	trackable = false;
-    	mass = 2;
+    	mass = 3;
 		boundRadius = 3f;
 		boundHeight = 7f;
     }
