@@ -18,7 +18,7 @@ public class BulletStorm extends Attack {
 	
 	private float maxRadius = 80;
 	
-	private Bullet[] bullet = new Bullet[12];
+	private Bullet[] bullet = new Bullet[8];
 	private Vector3f[] loc = new Vector3f[bullet.length];
 	
 	private Character user;
@@ -72,8 +72,6 @@ public class BulletStorm extends Attack {
 				createLight(loc[i], b);
 			}
 			
-			b.getRootNode().updateRenderState();
-			
 		} else if (character.play("cast", b.tpf)) {
 			// make the bullets fly
 			for (int i=0; i<bullet.length; i++) {		
@@ -82,7 +80,7 @@ public class BulletStorm extends Attack {
 				bullet[i].rotate(bullet[i].getVelocity());
 				bullet[i].model.setLocalTranslation(loc[i]);
 			}
-			
+			b.getRootNode().updateRenderState();
 			finish();
 		}
 	}

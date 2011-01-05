@@ -4,8 +4,6 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Tornado;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 public class Whirlwind extends Attack {
@@ -34,11 +32,23 @@ public class Whirlwind extends Attack {
 	
 	@Override
 	public void firstFrame(StageGameState b) {
-		character.moveLock = true;
-		character.jumpLock = true;
-		character.tagLock = true;
-		character.animationLock = true;
-		character.play("cast", b.tpf);
+		// make sure there isn't already a tornado
+		boolean flag = false;
+		for (int i=0; i< b.getModels().size(); i++)
+			if (b.getModels().get(i) instanceof Tornado && b.getModels().get(i).users.contains(getUsers()[getUsers().length-1])) {
+				flag = true;
+				break;
+			}
+		if (flag) {
+			character.gauge += gaugeCost;
+			finish();
+		} else {
+			character.moveLock = true;
+			character.jumpLock = true;
+			character.tagLock = true;
+			character.animationLock = true;
+			character.play("cast", b.tpf);
+		}
 	}
 	
 	@Override

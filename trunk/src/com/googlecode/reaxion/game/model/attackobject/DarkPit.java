@@ -12,7 +12,7 @@ public class DarkPit extends AttackObject {
 	public static final String filename = "dark-pit";
 	protected static final int span = 500;
 	protected static final float dpf = 0;
-	protected static final float maxdpf = .1f;
+	protected static final float maxdpf = .25f;
 	
 	private final int upTime = 80;
 	private final int downTime = 440;
