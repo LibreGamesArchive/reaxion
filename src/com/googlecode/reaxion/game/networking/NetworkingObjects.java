@@ -126,9 +126,11 @@ public abstract class NetworkingObjects {
 								.createNetworkedBattleGameState());
 
 						// I'm not sure this is how you do it
-						GameStateManager.getInstance().attachChild(sbgs);
+			//			GameStateManager.getInstance().attachChild(sbgs);
 						try {
-							sbgs.setActive(true);
+							System.out.println("setactive pre");
+					//		sbgs.setActive(true);
+							System.out.println("setactive post");
 						} catch (NullPointerException e) {
 							e.printStackTrace();
 							System.out
@@ -190,9 +192,18 @@ public abstract class NetworkingObjects {
 			//			+ isServer);
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
-					// Do absolutely nothing because this isn't necessary
-					System.out
-							.println("Server is starting to create the stuff!");
+					
+					System.out.println("Stage recieved!");
+					
+					Battle c = Battle.getCurrentBattle();
+					c.setStage(cassm.getStage());
+					
+					ClientBattleGameState nbgs = (ClientBattleGameState)Battle.createNetworkedBattleGameState();
+					
+					GameStateManager.getInstance().attachChild(nbgs);
+					nbgs.setActive(true);
+					
+					cbgs = nbgs;
 				}
 			}
 
