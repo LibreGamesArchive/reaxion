@@ -56,6 +56,7 @@ public class MajorCharacter extends Character {
     	minGauge = info.getMinGauge();
     	maxGauge = info.getMaxGauge();
     	gaugeRate = info.getScaledGauge();
+    //	setAbilities(info.getAbilities());
     }
     
     /**
