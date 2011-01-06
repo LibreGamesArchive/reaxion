@@ -48,6 +48,7 @@ public class KeyBindingUtils {
 		manager.set(PlayerBindings.ATTACK_2.toString(), KeyInput.KEY_C);
 		manager.set(PlayerBindings.ATTACK_3.toString(), KeyInput.KEY_V);
 		manager.set(PlayerBindings.SWITCH.toString(), KeyInput.KEY_SPACE);
+		manager.set(PlayerBindings.DASH.toString(), KeyInput.KEY_ADD);
 	}
 	
 	private static void initMenuBindings() {

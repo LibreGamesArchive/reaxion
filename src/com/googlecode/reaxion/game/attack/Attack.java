@@ -117,6 +117,7 @@ public class Attack {
 	 * whether deduction was successful or not.
 	 */
 	protected boolean checkGauge() {
+		if(gaugeCost <= 0) return true;
 		if (character.gauge >= gaugeCost) {
 			character.gauge = Math.max(Math.min(character.minGauge, character.gauge) - gaugeCost, 0);
 			return true;

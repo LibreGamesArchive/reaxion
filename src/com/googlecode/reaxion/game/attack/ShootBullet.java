@@ -1,7 +1,10 @@
 package com.googlecode.reaxion.game.attack;
 
+import org.eclipse.swt.internal.win32.ACTCTX;
+
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Bullet;
+import com.googlecode.reaxion.game.model.attackobject.HomingBullet;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
@@ -12,8 +15,8 @@ import com.jme.math.Vector3f;
  */
 public class ShootBullet extends Attack {
 	
-	private static final float bulletSpeed = 4;
-	private Bullet bullet;
+	private HomingBullet bullet;
+	private Model target;
 	
 	public ShootBullet() {
 		name = "Shoot";
@@ -24,10 +27,7 @@ public class ShootBullet extends Attack {
 	public ShootBullet(AttackData ad) {
 		super(ad, 2);
 		name = "Shoot";
-	}
-	
-	public static float getBulletSpeed() {
-		return bulletSpeed;
+		target = ad.target;
 	}
 	
 	public static void load() {
@@ -51,10 +51,11 @@ public class ShootBullet extends Attack {
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			Vector3f translation = new Vector3f(-1*FastMath.sin(angle), 3.7f, -1*FastMath.cos(angle));
 			
-			bullet = (Bullet)LoadingQueue.quickLoad(new Bullet(getUsers()), b);
+			bullet = (HomingBullet)LoadingQueue.quickLoad(new HomingBullet(getUsers(), rotation), b);
 			
+			bullet.setVelocity(rotation.mult(4f));
 			bullet.rotate(rotation);
-			bullet.setVelocity(rotation.mult(bulletSpeed));
+			bullet.target = target;
 			bullet.model.setLocalTranslation(character.model.getWorldTranslation().add(translation));
 			
 			b.getRootNode().updateRenderState();

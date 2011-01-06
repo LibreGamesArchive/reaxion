@@ -1,6 +1,9 @@
 package com.googlecode.reaxion.game.input;
 
+import com.googlecode.reaxion.game.attack.AirDash;
 import com.googlecode.reaxion.game.attack.AttackData;
+import com.googlecode.reaxion.game.attack.GroundDash;
+import com.googlecode.reaxion.game.attack.SlideDash;
 import com.googlecode.reaxion.game.input.bindings.PlayerBindings;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
@@ -124,6 +127,14 @@ public class PlayerInput extends InputHandler {
     		}
     	} else {
     		jumpOn = false;
+    	}
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.DASH.toString(), true)) {
+    		if(!player.moveLock && !player.flinching)
+    			if(player.model.getWorldTranslation().y <= 0) {
+    			new GroundDash(new AttackData(player, null));
+    		} else {
+    			new AirDash(new AttackData(player, null));
+    		}
     	}
     	
     	// check attacks
