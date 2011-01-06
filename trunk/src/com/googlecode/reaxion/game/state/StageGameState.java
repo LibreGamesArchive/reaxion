@@ -31,9 +31,11 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.pass.BasicPassManager;
 import com.jme.scene.Node;
+import com.jme.scene.state.CullState;
 import com.jme.scene.state.LightState;
 import com.jme.scene.state.WireframeState;
 import com.jme.scene.state.ZBufferState;
+import com.jme.scene.state.CullState.Face;
 import com.jme.system.DisplaySystem;
 import com.jme.util.geom.Debugger;
 import com.jmex.game.state.GameStateManager;
@@ -155,6 +157,11 @@ public class StageGameState extends BaseGameState {
         wireState.setEnabled(false);
         rootNode.setRenderState(wireState);
 
+    //	CullState cs = DisplaySystem.getDisplaySystem().getRenderer().createCullState();
+    //	cs.setCullFace(Face.Back);
+    	//cs.setEnabled(true);
+    //	rootNode.setRenderState(cs);
+    	
         // Create ZBuffer for depth
         ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer()
                 .createZBufferState();

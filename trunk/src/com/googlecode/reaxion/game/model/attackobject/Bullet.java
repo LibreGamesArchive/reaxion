@@ -7,7 +7,7 @@ import com.googlecode.reaxion.game.state.StageGameState;
 public class Bullet extends AttackObject {
 	
 	public static final String filename = "bullet";
-	protected static final int span = 120;
+	protected static final int span = 80;
 	protected static final float dpf = 3;
 	
 	public Bullet(Model m) {
