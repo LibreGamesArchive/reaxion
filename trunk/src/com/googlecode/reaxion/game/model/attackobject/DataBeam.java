@@ -14,6 +14,8 @@ public class DataBeam extends AttackObject {
 	
 	private final int upTime = 12;
 	
+	public float offset = 0;
+	
 	public DataBeam(Model m) {
     	super(filename, dpf, m);
     	flinch = true;
@@ -34,7 +36,7 @@ public class DataBeam extends AttackObject {
 			velocity.y = (float)-24/upTime;
 		else {
 			velocity.y = 0;
-			velocity.x = .5f*FastMath.sin((float)lifeCount/7);
+			velocity.x = .5f*FastMath.sin((float)(lifeCount+offset)/7);
 		}
 		
     	super.act(b);

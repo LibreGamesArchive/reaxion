@@ -23,7 +23,7 @@ public class Remnant extends Enemy {
 	private String mode = "idle"; // idle, ball, laser, array, circle, flinch
 
 	private final int changeTime = 180;
-	private final int numBeams = 20;
+	private final int numBeams = 24;
 	private final int beamDelay = 30;
 	private final int numBeamRows = 12;
 	private final int numBullets = 24;
@@ -135,10 +135,12 @@ public class Remnant extends Enemy {
 					if (beamCount % beamDelay == 0) {
 						i = (i + (int)Math.floor(Math.random()*5) -2) % numBeams;
 						float offset = FastMath.nextRandomFloat()*6 - 2;
+						float phaseShift = FastMath.nextRandomFloat()*FastMath.PI*2;
 						for (int j= 0; j<numBeams; j++) {
 							if (j != i) {
 								DataBeam d = (DataBeam)LoadingQueue.quickLoad(new DataBeam(this), b);
 								d.model.setLocalTranslation(model.getWorldTranslation().add((180*2/numBeams)*(j-numBeams/2) + offset, -24, 14*8));
+								d.offset = phaseShift;
 								d.setVelocity(new Vector3f(0, 0, 2));
 							}
 						}
@@ -207,7 +209,7 @@ public class Remnant extends Enemy {
 			if (step == 0 && play("swipeForth", b.tpf)) {
 				//for (int j= -1; j<=1; j++)  {
 					BugOrb d = (BugOrb)LoadingQueue.quickLoad(new BugOrb(this, model.getLocalTranslation().add(0, 12*8, 6*8)), b);
-					d.setVelocity(new Vector3f(0, 0, 1).mult(d.speed));
+					d.setVelocity(new Vector3f(0, 0, 4/3f).mult(d.speed));
 					d.rotate(d.getVelocity());
 					d.model.setLocalTranslation(model.getWorldTranslation().add(/*8*9*j*/0, 10*8, 14*8));
 				//}
