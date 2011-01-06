@@ -87,12 +87,12 @@ public class StageGameState extends BaseGameState {
     protected Stage stage;
     
     protected AbsoluteMouse mouse;
-	public String cameraMode = "free"; //options are "lock" and "free"
+	public String cameraMode = "lock"; //options are "lock" and "free"
 	public static int cameraDistance = 15;
 	protected Model currentTarget;
-	protected float camRotXZ;
+	protected float camRotXZ = 0;
 	protected final static float camRotXZSpd = (float)Math.PI/12;
-	protected float camRotY;
+	protected float camRotY = .3927f; // pi/8
 	protected final static float camRotYSpd = (float)Math.PI/24;
 	protected final static float[] camRotXZLimit = {-0.5236f, 0.5236f}; //-pi/6 and pi/6
 	protected final static float[] camRotYLimit = {-0.1325f, 1.5394f, 0.5236f}; //arctan(2/15), 49pi/100 (close to pi/2) and pi/6

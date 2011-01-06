@@ -3,7 +3,6 @@ package com.googlecode.reaxion.game.model.attackobject;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 public class BugOrb extends AttackObject {
@@ -51,30 +50,26 @@ public class BugOrb extends AttackObject {
         for (Model c : collisions) {
         	if (c instanceof AttackObject) {
         		boolean flag = false;
-        		// can't touch other circle cards
-        		if (c instanceof CircleCard) {
-        			flag = true;
-        		} else {
-        			// check if users include the other attack's users
-        			for (Model u : users) {
-        				boolean flag2 = false;
-        				for (Model o : c.users)
-        					if (u == o) {
-        						flag2 = true;
-        						break;
-        					}
-        				if (!flag2) {
-        					flag = true;
+        		// check if users include the other attack's users
+        		for (Model u : users) {
+        			boolean flag2 = false;
+        			for (Model o : c.users)
+        				if (u == o) {
+        					flag2 = true;
         					break;
         				}
+        			if (!flag2) {
+        				flag = true;
+        				break;
         			}
         		}
         		// turn around
         		if (flag && !changed) {
         			((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
+        			lifeCount = 0;
         			users = c.users;
         			changed = true;
-        			velocity = backPoint.subtract(model.getLocalTranslation()).normalize().mult(speed);
+        			velocity = backPoint.subtract(model.getLocalTranslation()).normalize().mult(speed*2);
         			gravitate = false;
         		}
         		
