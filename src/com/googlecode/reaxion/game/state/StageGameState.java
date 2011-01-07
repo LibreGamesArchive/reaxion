@@ -153,7 +153,7 @@ public class StageGameState extends BaseGameState {
         pManager = new BasicPassManager();
         
         // Set up multipass
-//        setUpPasses();
+        //setUpPasses();
         
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
@@ -163,24 +163,24 @@ public class StageGameState extends BaseGameState {
         rootNode.setRenderState(wireState);
 
         // Create cull states
-    	CullState cs = DisplaySystem.getDisplaySystem().getRenderer().createCullState();
-    	cs.setCullFace(Face.Back);
-    	cs.setEnabled(true);
-    	rootNode.setRenderState(cs);
+//    	CullState cs = DisplaySystem.getDisplaySystem().getRenderer().createCullState();
+//    	cs.setCullFace(Face.Back);
+//    	cs.setEnabled(true);
+//    	rootNode.setRenderState(cs);
     	
     	// Create blend states
 //    	BlendState alphaState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
 //        alphaState.setBlendEnabled(true);
-//        alphaState.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
-//        alphaState.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
+//        alphaState.setSourceFunction(BlendState.SourceFunction.ConstantAlpha);
+//        alphaState.setDestinationFunction(BlendState.DestinationFunction.DestinationAlpha);
 //        alphaState.setTestEnabled(true);
-//        alphaState.setTestFunction(BlendState.TestFunction.GreaterThan);
+//        alphaState.setTestFunction(BlendState.TestFunction.Never);
 //        alphaState.setEnabled(true);
-//        alphaState.setReference(1);
+//        //alphaState.setReference(1);
 //        containerNode.setRenderState(alphaState);
 //        containerNode.updateRenderState();
-//
-//    	DisplaySystem.getDisplaySystem().getRenderer().getQueue().setTwoPassTransparency(true);
+
+    	DisplaySystem.getDisplaySystem().getRenderer().getQueue().setTwoPassTransparency(true);
     	
         // Create ZBuffer for depth
         ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer()

@@ -159,6 +159,9 @@ public class Reaxion {
 			GameStateManager.getInstance().attachChild(charState);
 			charState.setActive(true);
 			
+			StageSelectionState s = new StageSelectionState();
+			GameStateManager.getInstance().attachChild(s);
+			
 			return null;
 		}	
 	}
