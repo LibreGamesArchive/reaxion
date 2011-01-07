@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
-import javax.security.sasl.AuthorizeCallback;
-
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
@@ -29,13 +27,16 @@ import com.jme.input.KeyBindingManager;
 import com.jme.input.MouseInput;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
+import com.jme.renderer.Renderer;
 import com.jme.renderer.pass.BasicPassManager;
+import com.jme.renderer.pass.RenderPass;
 import com.jme.scene.Node;
+import com.jme.scene.state.BlendState;
 import com.jme.scene.state.CullState;
+import com.jme.scene.state.CullState.Face;
 import com.jme.scene.state.LightState;
 import com.jme.scene.state.WireframeState;
 import com.jme.scene.state.ZBufferState;
-import com.jme.scene.state.CullState.Face;
 import com.jme.system.DisplaySystem;
 import com.jme.util.geom.Debugger;
 import com.jmex.game.state.GameStateManager;
@@ -145,10 +146,14 @@ public class StageGameState extends BaseGameState {
         
         // Prepare container node (must contain anything being reflected)
         containerNode = new Node("ReflectionNode");
+        containerNode.setRenderQueueMode(Renderer.QUEUE_OPAQUE);
         rootNode.attachChild(containerNode);
         
         // Prepare the pass manager
         pManager = new BasicPassManager();
+        
+        // Set up multipass
+//        setUpPasses();
         
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
@@ -157,10 +162,25 @@ public class StageGameState extends BaseGameState {
         wireState.setEnabled(false);
         rootNode.setRenderState(wireState);
 
-    //	CullState cs = DisplaySystem.getDisplaySystem().getRenderer().createCullState();
-    //	cs.setCullFace(Face.Back);
-    	//cs.setEnabled(true);
-    //	rootNode.setRenderState(cs);
+        // Create cull states
+    	CullState cs = DisplaySystem.getDisplaySystem().getRenderer().createCullState();
+    	cs.setCullFace(Face.Back);
+    	cs.setEnabled(true);
+    	rootNode.setRenderState(cs);
+    	
+    	// Create blend states
+//    	BlendState alphaState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
+//        alphaState.setBlendEnabled(true);
+//        alphaState.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
+//        alphaState.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
+//        alphaState.setTestEnabled(true);
+//        alphaState.setTestFunction(BlendState.TestFunction.GreaterThan);
+//        alphaState.setEnabled(true);
+//        alphaState.setReference(1);
+//        containerNode.setRenderState(alphaState);
+//        containerNode.updateRenderState();
+//
+//    	DisplaySystem.getDisplaySystem().getRenderer().getQueue().setTwoPassTransparency(true);
     	
         // Create ZBuffer for depth
         ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer()
@@ -264,6 +284,34 @@ public class StageGameState extends BaseGameState {
      */
     public BasicPassManager getPassManager() {
     	return pManager;
+    }
+    
+    /**
+     * Sets up a multipass system for correct rendering
+     * of different transparency blends.
+     */
+    protected void setUpPasses() {
+    	RenderPass rp = new RenderPass();
+    	
+    	ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState();
+        zbs.setWritable(false);
+        zbs.setEnabled(true);
+        zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
+        
+        BlendState alphaState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
+        alphaState.setBlendEnabled(true);
+        alphaState.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
+        alphaState.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
+        alphaState.setTestEnabled(true);
+        alphaState.setTestFunction(BlendState.TestFunction.GreaterThan);
+        alphaState.setEnabled(true);
+        alphaState.setReference(0);
+        
+        rp.setPassState(zbs);
+        rp.setPassState(alphaState);
+        rp.add(containerNode);
+        
+        pManager.add(rp);
     }
     
     /**

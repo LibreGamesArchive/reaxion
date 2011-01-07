@@ -24,10 +24,10 @@ public class SatelliteFlower extends Character {
 	private final float riseHeight = 10;
 	
 	private final double[] reloadTime = {1/10, 2};
-	private final float maxDist = 60;
-	private final float dTheta = FastMath.PI/240;
+	private final float dTheta = FastMath.PI/180;
 	
 	private float radius;
+	private float maxDist;
 	
 	public float angle;
 	private double lastReload = 0;
@@ -50,8 +50,10 @@ public class SatelliteFlower extends Character {
 		// define radius
 		if (lifeCount == 0)
 			b.getStage().contain(this);
-		else if (lifeCount == 1)
+		else if (lifeCount == 1) {
 			radius = model.getWorldTranslation().length();
+			maxDist = radius * 2/3f;
+		}
 		
 		// find target
 		Model target = nearestTarget(b);

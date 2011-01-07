@@ -10,7 +10,7 @@ import com.jme.math.Vector3f;
 public class Ember extends AttackObject {
 	
 	public static final String filename = "bound-sphere";
-	protected static final int span = 300;
+	protected static final int span = 240;
 	protected static final float dpf = 4;
 	
 	private final Vector3f offset = new Vector3f(0, 3, 0);
@@ -19,7 +19,7 @@ public class Ember extends AttackObject {
 	private final int peakTime = 50;
 	
 	private float riseSpeed = .2f;
-	private float speed = .5f;
+	private float speed = 1f;
 	
 	public Model target;
 	
