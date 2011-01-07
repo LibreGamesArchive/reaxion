@@ -60,6 +60,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	private int[] selectedChars = new int[2];
 	
 	private int[][] takenPos = new int[tblL][tblW];
+	
+	
 
 	/**
 	 * This method initializes both visible and background elements of {@code CharacterSelectionOverlay}.
@@ -141,6 +143,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			case 0:
 				selectedChars[0] = picked;
 				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
+				currentIndex[0] = 0;
+				currentIndex[1] = 0;
 				round++;
 				break;
 			case 1:
@@ -230,8 +234,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			{
 				hide(p1c);
 				round = 0;
-				currentIndex[0] = 0;
-				currentIndex[1] = 0;
+				//currentIndex[0] = 0;
+				//currentIndex[1] = 0;
 				this.updateRenderState();
 				return;
 			}
@@ -273,6 +277,7 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	public void choose2() {
 		hide(p2c);
 		round = 1;
+
 		this.updateRenderState();
 		return;
 	}
@@ -310,12 +315,18 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		if (k == MenuBindings.UP) {
 
 			if (currentIndex[0] == 0)
-				return;
+			{
+				currentIndex[0] = tblW - 1;
+				if(takenPos[currentIndex[1]][currentIndex[0]] == 123)
+					currentIndex[0]--;
+			}
+				//return;
 			else
 				currentIndex[0]--;
 		} else if (k == MenuBindings.RIGHT) {
 				if (currentIndex[1] == tblL-1 || takenPos[currentIndex[1]+1][currentIndex[0]] == 123)
-					return;
+					currentIndex[1] = 0;
+					//return;
 				else
 					currentIndex[1]++;
 
@@ -331,14 +342,18 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 						currentIndex[1] = a;
 					}
 					else
-						return;
+						currentIndex[0] = 0;
 				}
 				else
 					currentIndex[0]++;
 
 		} else if (k == MenuBindings.LEFT) {
 				if (currentIndex[1] == 0)
-					return;
+				{
+					currentIndex[1] = tblL - 1;
+					while(takenPos[currentIndex[1]][currentIndex[0]] == 123)
+						currentIndex[1]--;
+				}
 				else
 					currentIndex[1]--;
 
