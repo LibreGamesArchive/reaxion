@@ -8,6 +8,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
+import com.googlecode.reaxion.game.state.StageGameInterface;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
@@ -18,7 +19,7 @@ import com.jme.util.resource.SimpleResourceLocator;
 public class LoadingQueue {
 
 	private static ArrayList<Model> queue = new ArrayList<Model>();
-	private static StageGameState state;
+	private static StageGameInterface state;
 	private static CharacterSelectionState Cstate;
 	private static StageSelectionState Sstate;
 	private static SimpleResourceLocator locator;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.concurrent.Callable;
 
 import javax.swing.JOptionPane;
 
@@ -26,6 +27,7 @@ import com.googlecode.reaxion.game.state.ClientBattleGameState;
 import com.googlecode.reaxion.game.state.ServerBattleGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
+import com.jme.util.GameTaskQueue;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.game.state.GameStateManager;
 
@@ -43,6 +45,7 @@ public abstract class NetworkingObjects {
 	public static JMEGraphicalController controller;
 
 	public static ClientBattleGameState cbgs;
+	private static ServerBattleGameState sbgs;
 
 	private static InetSocketAddress serverReliable, serverFast;
 	public static boolean isServer;
@@ -122,20 +125,28 @@ public abstract class NetworkingObjects {
 
 						System.out.println("Making a battle");
 
-						ServerBattleGameState sbgs = (ServerBattleGameState) (Battle
+						sbgs = (ServerBattleGameState) (Battle
 								.createNetworkedBattleGameState());
 
 						// I'm not sure this is how you do it
-			//			GameStateManager.getInstance().attachChild(sbgs);
-						try {
-							System.out.println("setactive pre");
-					//		sbgs.setActive(true);
-							System.out.println("setactive post");
-						} catch (NullPointerException e) {
-							e.printStackTrace();
-							System.out
-									.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
-						}
+						 GameTaskQueueManager.getManager().update(new Callable(){
+							public Object call() throws Exception {
+								GameStateManager.getInstance().attachChild(sbgs);
+								try {
+									System.out.println("setactive pre");
+									sbgs.setActive(true);
+									System.out.println("setactive post");
+								} catch (NullPointerException e) {
+									e.printStackTrace();
+									System.out
+											.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
+								}
+								return null;
+							}
+						});
+						
+			//			
+
 						// Creation of objects when the server makes objects
 						// will make clients load the right things. it's not the
 						// most elegant way, but that's okay.
