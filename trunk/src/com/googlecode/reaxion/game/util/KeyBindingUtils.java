@@ -58,6 +58,7 @@ public class KeyBindingUtils {
 		manager.set(MenuBindings.DOWN.toString(), KeyInput.KEY_DOWN);
 		manager.set(MenuBindings.SELECT_ITEM.toString(), KeyInput.KEY_SPACE);
 		manager.set(MenuBindings.SELECT_FINAL.toString(), KeyInput.KEY_RETURN);
+		manager.set(MenuBindings.BACK.toString(), KeyInput.KEY_BACK);
 	}
 	
 	private static void initStageBindings() {
