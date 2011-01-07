@@ -1,7 +1,5 @@
 package com.googlecode.reaxion.game.attack;
 
-import org.eclipse.swt.internal.win32.ACTCTX;
-
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.Bullet;
 import com.googlecode.reaxion.game.model.attackobject.HomingBullet;
