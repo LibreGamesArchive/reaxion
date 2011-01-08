@@ -71,6 +71,7 @@ public class BulletStorm extends Attack {
 				loc[i] = center.add(new Vector3f(radius*FastMath.sin(angle), 3.7f , radius*FastMath.cos(angle)));							
 				createLight(loc[i], b);
 			}
+			b.getRootNode().updateRenderState();
 			
 		} else if (character.play("cast", b.tpf)) {
 			// make the bullets fly

@@ -37,6 +37,8 @@ public class ResultsOverlay extends ScreenshotOverlay {
 	private Quad starBar;
 	private Quad statBar;
 	
+	private Quad sides;
+	
 	private BitmapText combatants;
 	private Node targetTime;
 	private Node clearTime;
@@ -96,7 +98,13 @@ public class ResultsOverlay extends ScreenshotOverlay {
         container.attachChild(statBar);
         container.attachChild(botFade);
         
+		// add sides
+		sides = getImage(baseURL + "sides.png");
+		sides.setLocalTranslation(400, 300, 0);
+		container.attachChild(sides);
+        
         container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
     }
 	
 	/**

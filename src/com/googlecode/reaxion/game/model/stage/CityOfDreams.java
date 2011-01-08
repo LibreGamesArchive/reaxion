@@ -64,7 +64,7 @@ public class CityOfDreams extends Stage {
         projectedGrid = new ProjectedGrid("ProjectedGrid", b.getCamera(), 40, 40, 0.01f,
         		new HeightGenerator() {
         	public float getHeight( float x, float z, float time ) {
-        		return FastMath.sin(x*0.05f+time*-2.0f)+FastMath.cos(z*0.1f+time*-4.0f) - 2;
+        		return FastMath.sin(x*0.05f+time*-2.0f)+FastMath.cos(z*0.1f+time*-4.0f) - 3;
         	} } );
 
         waterEffectRenderPass.setWaterEffectOnSpatial(projectedGrid);

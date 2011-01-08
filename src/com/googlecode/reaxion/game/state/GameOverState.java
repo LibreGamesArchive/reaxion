@@ -139,9 +139,9 @@ public class GameOverState extends BaseGameState {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					MenuBindings.SELECT_FINAL.toString(), false)) {
 				if (retry)
-					returnToMission();
+					returnRetry();
 				else
-					returnToMenu();
+					returnToHub();
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					MenuBindings.LEFT.toString(), false) ||
@@ -176,21 +176,19 @@ public class GameOverState extends BaseGameState {
 		}
 	}
 	
-	private void returnToMission() {
+	private void returnRetry() {
 		// TODO: Link to the last mission point
 		
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();
 		
-		GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
-		
 		setActive(false);
 		GameStateManager.getInstance().detachChild(this);
+		
+		MissionManager.retrySection();
 	}
 
-	private void returnToMenu() {
-		// TODO: Link to the main menu
-		
+	private void returnToHub() {
 		// flush LoadingQueue
 		LoadingQueue.resetQueue();		
 
@@ -198,9 +196,9 @@ public class GameOverState extends BaseGameState {
 		GameStateManager.getInstance().detachChild(this);
 		
 		if (MissionManager.hasCurrentMission())
-			MissionManager.startNext();
+			MissionManager.endMission();
 		else
-			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
+			MissionManager.startHubGameState();
 	}
 
 	public void cleanup() {

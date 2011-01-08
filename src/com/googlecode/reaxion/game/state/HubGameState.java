@@ -103,10 +103,6 @@ public class HubGameState extends StageGameState {
 		} else if (action == "char") {
 			String[] characters = ((CharacterSelectionOverlay) currentMenu).getSelectedChars(true);
 			
-			// check selection
-			if (characters == null)
-				return;
-			
 			Battle.setDefaultPlayers(characters[0], characters[1]);
 			
 			MissionManager.endHubGameState();
@@ -158,6 +154,11 @@ public class HubGameState extends StageGameState {
 				return;
 				
 			} else if (currentMenu instanceof CharacterSelectionOverlay) {
+				// check selection
+				String[] characters = ((CharacterSelectionOverlay) currentMenu).getSelectedChars(true);
+				if (characters == null)
+					return;
+				
 				loading.show(true);
 				action = "char";
 				return;

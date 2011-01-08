@@ -15,7 +15,7 @@ public class Angel extends AttackObject {
 	public static final String filename = "i_angel";
 	protected static final float dpf = 0;
 	
-	private final double hpf = .7;
+	private final double hpf = .07;
 	
 	private final float speed = .3f;
 	

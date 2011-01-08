@@ -8,6 +8,7 @@ material mist
 			ambient 0 0 0 1
 			scene_blend alpha_blend
 			lighting off
+			depth_write off
 
 			texture_unit
 			{

@@ -43,6 +43,8 @@ public class DialogueOverlay extends Overlay {
 	public Quad box;
 	public Quad pointer;
 	
+	private Quad sides;
+	
 	public BitmapText name;
 	public BitmapText text;
 	public BitmapText testText;
@@ -99,7 +101,13 @@ public class DialogueOverlay extends Overlay {
         container.attachChild(name);
         container.attachChild(text);
         
+		// add sides
+		sides = getImage(baseURL + "sides.png");
+		sides.setLocalTranslation(400, 300, 0);
+		container.attachChild(sides);
+        
         container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
     }
 	
 	/**

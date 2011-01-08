@@ -142,7 +142,7 @@ public class ResultsGameState extends BaseGameState {
 		if (input != null) {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					MenuBindings.SELECT_FINAL.toString(), false)) {
-				returnToCharSelectState();
+				endState();
 			}
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					GlobalBindings.SCREENSHOT.toString(), false)) {
@@ -169,14 +169,14 @@ public class ResultsGameState extends BaseGameState {
 		}
 	}
 
-	private void returnToCharSelectState() {
+	private void endState() {
 		setActive(false);
 		GameStateManager.getInstance().detachChild(this);
 		
 		if (MissionManager.hasCurrentMission())
 			MissionManager.startNext();
 		else
-			GameStateManager.getInstance().getChild(CharacterSelectionState.NAME).setActive(true);
+			MissionManager.startHubGameState();
 	}
 	
 	public void cleanup() {

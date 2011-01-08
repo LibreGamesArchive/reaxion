@@ -62,6 +62,8 @@ public class StageSelectionOverlay extends MenuOverlay {
 	private Quad[][] stageGrid;
 	private Quad cursor;
 	
+	private Quad sides;
+	
 	private Point[][] stageGridLayout;
 
 	private int currentRow, currentColumn;
@@ -122,9 +124,15 @@ public class StageSelectionOverlay extends MenuOverlay {
 		container.attachChild(previews);
 		container.attachChild(front);
 		container.attachChild(stageTitles[currentRow * stageGridColumns + currentColumn]);
+		
+		// add sides
+		sides = getImage(baseGuiURL + "sides.png");
+		sides.setLocalTranslation(400, 300, 0);
+		container.attachChild(sides);
 
 		container.updateRenderState();
 		container.setLocalScale((float) Reaxion.getScreenHeight() / baseHeight);
+		container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
 
 		attachChild(container);
 	}

@@ -56,6 +56,7 @@ public class BurstGridGameState extends BaseGameState {
 	private final Vector3f bgOffset = new Vector3f(0, 0, 725);
 	private final float camSpeed = 1f;
 	private final float zoomSpeed = 3f;
+	private final int arrowOffset = 2;
 	private int zoom = 0;
 	
 	private InputHandler input;
@@ -82,11 +83,15 @@ public class BurstGridGameState extends BaseGameState {
 	
 	private Node gridNode;
 	private Node cursorNode;
+	private Node arrowNode;
 	private Node bgNode;
 	private Quad[] clouds = new Quad[2];
 	
 	private Quad prevRing;
 	private Quad currentRing;
+	
+	private Quad[] arrow = new Quad[4]; // top, right, bottom, left
+	private BurstNode[] future = new BurstNode[4];
 	
 	public BurstGridGameState(PlayerInfo info) {
     	super(false);
@@ -127,8 +132,10 @@ public class BurstGridGameState extends BaseGameState {
         // create gridNode
         gridNode = new Node("gridNode");
         cursorNode = new Node("cursorNode");
+        arrowNode = new Node("arrowNode");
         rootNode.attachChild(gridNode);
         rootNode.attachChild(cursorNode);
+        rootNode.attachChild(arrowNode);
         
         // create textures
         ci = createTexture("connector-inactive");
@@ -136,6 +143,9 @@ public class BurstGridGameState extends BaseGameState {
         
         // createRings
         createRings();
+        
+        // create arrows
+        createArrows();
         
         // base node is always active
         grid.getNodes().get(0).activated = true;
@@ -146,6 +156,10 @@ public class BurstGridGameState extends BaseGameState {
         // set initials
         currentNode = prevNode = grid.getNodes().get(0);
         destination = focus = currentNode.vect;
+        
+        // set up the initial arrows
+        findOptions();
+		updateArrows();
         
         // initialize input handler
         input = new InputHandler();
@@ -185,46 +199,31 @@ public class BurstGridGameState extends BaseGameState {
     					MissionManager.startHubGameState();
     				}
     				
+    				boolean move = false;
+    				
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     						BurstGridStateBindings.TRAVERSE_COUNTERCLOCKWISE.toString(), false)) {
-    					if (prevNode != currentNode) {
-    						ArrayList<BurstNode> nodes = prevNode.nodes;
-    						currentNode = nodes.get((nodes.indexOf(currentNode)+nodes.size()-1) % nodes.size());
-    						destination = currentNode.vect.mult(scale);
-    					}
+    					move = true;
+    					currentNode = future[3];
+    					destination = currentNode.vect.mult(scale);
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    						BurstGridStateBindings.TRAVERSE_CLOCKWISE.toString(), false)) {
-    					if (prevNode != currentNode) {
-    						ArrayList<BurstNode> nodes = prevNode.nodes;
-    						currentNode = nodes.get((nodes.indexOf(currentNode)+1) % nodes.size());
-    						destination = currentNode.vect.mult(scale);
-    					}
+    						BurstGridStateBindings.TRAVERSE_CLOCKWISE.toString(), false)) {  	
+    					move = true;
+    					currentNode = future[1];
+    					destination = currentNode.vect.mult(scale);
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     						BurstGridStateBindings.TRAVERSE_NEXT.toString(), false)) {
-    					ArrayList<BurstNode> nodes = currentNode.nodes;
+    					move = true;
     					stackNode(currentNode);
     					prevNode = currentNode;
-    					// try to find unactivated node
-    					boolean found = false;
-    					for (BurstNode n : nodes) {
-    						if (n != prevNode && !n.activated) {
-    							currentNode = n;
-    							found = true;
-    						}
-    					}
-    					// settle for an activated one
-    					if (!found) {
-    						if (prevNode == nodes.get(0) && nodes.size() > 1)
-    							currentNode = nodes.get(1);
-    						else
-    							currentNode = nodes.get(0);
-    					}
+    					currentNode = future[0];
     					destination = currentNode.vect.mult(scale);
     				}
     				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
     						BurstGridStateBindings.TRAVERSE_BACK.toString(), false)) {
+    					move = true;
     					if (nodeStack.size() > 0) {
     						currentNode = nodeStack.remove(nodeStack.size()-1);
     						if (nodeStack.size() > 0)
@@ -233,6 +232,11 @@ public class BurstGridGameState extends BaseGameState {
     							prevNode = currentNode;
     						destination = currentNode.vect.mult(scale);
     					}
+    				}
+    				
+    				if (move) {
+    					findOptions();
+    					updateArrows();
     				}
     				
     				/** If buy_node is a valid command (via Enter key), activate node. */
@@ -322,6 +326,63 @@ public class BurstGridGameState extends BaseGameState {
     }
 	
 	/**
+	 * Calculate future movement options.
+	 */
+	private void findOptions() {
+		ArrayList<BurstNode> nodes = currentNode.nodes;
+		
+		// find next (up)
+		// try to find unactivated node
+		boolean found = false;
+		for (BurstNode n : nodes) {
+			if (n != currentNode && !n.activated) {
+				future[0] = n;
+				found = true;
+			}
+		}
+		// settle for an activated one
+		if (!found) {
+			if (currentNode == nodes.get(0) && nodes.size() > 1)
+				future[0] = nodes.get(1);
+			else
+				future[0] = nodes.get(0);
+		}
+		
+		nodes = prevNode.nodes;
+		
+		// find clockwise (right)
+		if (prevNode != currentNode) {
+			future[1] = nodes.get((nodes.indexOf(currentNode)+1) % nodes.size());
+		} else
+			future[1] = currentNode;
+		
+		// find previous (down)
+		if (nodeStack.size() > 0)
+			future[2] = nodeStack.get(nodeStack.size()-1);
+		else
+			future[2] = currentNode;
+		
+		// find counterclockwise (left)
+		if (prevNode != currentNode) {
+			future[3] = nodes.get((nodes.indexOf(currentNode)+nodes.size()-1) % nodes.size());
+		} else
+			future[3] = currentNode;
+	}
+	
+	/**
+	 * Positions arrows based on future nodes.
+	 */
+	private void updateArrows() {
+		for (int i=0; i<arrow.length; i++) {
+			if (future[i] != currentNode)
+				arrow[i].setLocalTranslation(
+						currentNode.vect.mult(scale).add(future[i].vect.mult(scale).subtract(currentNode.vect.mult(scale)).normalize().mult(arrowOffset)));
+			else
+				arrow[i].setLocalTranslation(0, 0, 1000);
+		}
+	}
+	
+	/**
 	 * Adds a node to the traversal stack and optimizes it.
 	 */
 	private void stackNode(BurstNode b) {
@@ -382,6 +443,9 @@ public class BurstGridGameState extends BaseGameState {
 		Matrix3f m = new Matrix3f();
 		m.fromAngleAxis(FastMath.PI, new Vector3f(0, 1, 0));
 		bg.setLocalRotation(m);
+		
+		// adjust for aspect ratio
+		bg.setLocalScale((float)DisplaySystem.getDisplaySystem().getWidth()/(float)DisplaySystem.getDisplaySystem().getHeight()*.75f);
 		
         return bg;
 	}
@@ -479,6 +543,25 @@ public class BurstGridGameState extends BaseGameState {
 		gs2.setTexture(createTexture("current-locator"));
 		currentRing.setRenderState(gs2);
         cursorNode.attachChild(currentRing);
+	}
+	
+	/**
+     * Create ring indicators. 
+     */
+	private void createArrows() {
+		TextureState gs;
+		for (int i=0; i<arrow.length; i++) {
+			arrow[i] = new Quad("", 1.5f, 1.5f);
+			gs = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
+			gs.setTexture(createTexture("arrow"));
+			arrow[i].setRenderState(gs);
+			
+			Matrix3f m = new Matrix3f();
+			m.fromAngleNormalAxis(FastMath.PI/2*i, new Vector3f(0, 0, 1));
+			arrow[i].setLocalRotation(m);
+			
+			arrowNode.attachChild(arrow[i]);
+		}
 	}
 	
     /**
