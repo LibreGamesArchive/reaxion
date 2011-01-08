@@ -33,6 +33,7 @@ public class LoadingOverlay extends Overlay {
         attachChild(container);
         
         container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
     }
 	
 	/**

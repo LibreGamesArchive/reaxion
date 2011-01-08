@@ -12,7 +12,9 @@ import com.jme.light.PointLight;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
+import com.jme.scene.state.BlendState;
 import com.jme.scene.state.LightState;
+import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 
 /**
@@ -90,7 +92,7 @@ public class HeavensAscent extends Stage {
 		sky = LoadingQueue.quickLoad(new Model("stages/heavens-ascent_sky"), null);
 		model.attachChild(sky.model);
 		gear = LoadingQueue.quickLoad(new Model("stages/heavens-ascent_gear"), null);
-		model.attachChild(gear.model);
+		model.attachChild(gear.model);     
 		
 		// load mist
 		mist = new Model[mistPos.length];

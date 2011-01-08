@@ -74,6 +74,7 @@ material heavens_ascent_columnmarble
 			texture_unit
 			{
 				texture stages/heavens-ascent_column-UV.png
+				tex_address_mode clamp
 			}
 		}
 

@@ -27,6 +27,8 @@ public class Overlay extends Node {
 	protected int width;
 	protected int height;
 	
+	protected int offset;
+	
 	protected Node container;
 	
 	public Overlay(String name) {
@@ -34,6 +36,7 @@ public class Overlay extends Node {
 		
 		width = DisplaySystem.getDisplaySystem().getWidth();
 		height = DisplaySystem.getDisplaySystem().getHeight();
+		offset = (int)((800*((double)width/(double)height)*.75 - 800) / 2);
 		
         this.setRenderQueueMode(Renderer.QUEUE_ORTHO);        
         this.setLightCombineMode(Spatial.LightCombineMode.Off);

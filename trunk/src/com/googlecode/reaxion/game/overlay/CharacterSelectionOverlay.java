@@ -45,6 +45,8 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 	
 	private Quad bg;
 	private Quad front;
+	
+	private Quad sides;
 
 	//table dimensions
 	private int tblL = 4;
@@ -104,9 +106,15 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			container.attachChild(bg);
 		container.attachChild(front);
 		
+		// add sides
+		sides = getImage(baseGuiURL + "sides.png");
+		sides.setLocalTranslation(400, 300, 0);
+		container.attachChild(sides);
+		
 		container.updateRenderState();
 		container.setLocalScale((float) DisplaySystem.getDisplaySystem()
 				.getHeight() / 600);
+		container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
 		
 		attachChild(container);
 	}
@@ -142,14 +150,14 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 			{
 			case 0:
 				selectedChars[0] = picked;
-				p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
+				p1c.setLocalTranslation(getLocation(picked));
 				currentIndex[0] = 0;
 				currentIndex[1] = 0;
 				round++;
 				break;
 			case 1:
 				selectedChars[1] = picked;
-				p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[picked].getLocalTranslation()).mult(container.getLocalScale()));
+				p2c.setLocalTranslation(getLocation(picked));
 				round++;
 				break;
 			default:
@@ -368,9 +376,9 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		//p1Display[selBef].setDefaultColor(textColor);
 		
 		if(round == 0)
-		    p1c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[selCur].getLocalTranslation()).mult(container.getLocalScale()));
+		    p1c.setLocalTranslation(getLocation(selCur));
 		else if(round == 1)
-			p2c.setLocalTranslation(grid.getLocalTranslation().add(p1Fill[selCur].getLocalTranslation()).mult(container.getLocalScale()));
+			p2c.setLocalTranslation(getLocation(selCur));
 		
 		/*int picked = 0;
 		picked = takenPos[currentIndex[1]][currentIndex[0]];
@@ -378,6 +386,11 @@ public class CharacterSelectionOverlay extends MenuOverlay {
 		container.detachChild(p1c);
 		container.attachChild(p1c);*/
 
+	}
+	
+	private Vector3f getLocation(int i) {
+		//return grid.getLocalTranslation().add(p1Fill[i].getLocalTranslation()).add(new Vector3f(offset, 0, 0)).mult(container.getLocalScale());
+		return grid.getLocalTranslation().add(p1Fill[i].getLocalTranslation());
 	}
 	
 	private void hide(Quad q) {

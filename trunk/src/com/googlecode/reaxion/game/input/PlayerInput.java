@@ -128,7 +128,7 @@ public class PlayerInput extends InputHandler {
     	} else {
     		jumpOn = false;
     	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.DASH.toString(), true)) {
+    	if (KeyBindingManager.getKeyBindingManager().isValidCommand(PlayerBindings.DASH.toString(), false)) {
     		if(!player.moveLock && !player.flinching)
     			if(player.model.getWorldTranslation().y <= 0) {
     			new GroundDash(new AttackData(player, null));

@@ -68,7 +68,8 @@ public class MissionOverlay extends MenuOverlay {
 		
 		container.updateRenderState();
 		container.setLocalScale((float) Reaxion.getScreenHeight() / baseHeight);
-		container.setLocalTranslation(Reaxion.getScreenWidth() / 2, Reaxion.getScreenHeight() / 2, 0);
+		container.setLocalTranslation(Reaxion.getScreenWidth() / 2 + offset, Reaxion.getScreenHeight() / 2, 0);
+		
 		
 		attachChild(container);
 	}

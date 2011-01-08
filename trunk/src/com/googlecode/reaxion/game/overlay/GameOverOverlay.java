@@ -37,6 +37,8 @@ public class GameOverOverlay extends ScreenshotOverlay {
 	private Quad botBar;
 	private Quad exitBar;
 	
+	private Quad sides;
+	
 	private BitmapText gameOverText;
 	private BitmapText retryText;
 	private BitmapText exitText;
@@ -106,7 +108,13 @@ public class GameOverOverlay extends ScreenshotOverlay {
         container.attachChild(botBar);
         container.attachChild(botFade);
         
+		// add sides
+		sides = getImage(baseURL + "sides.png");
+		sides.setLocalTranslation(400, 300, 0);
+		container.attachChild(sides);
+        
         container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
     }
 	
 	/**

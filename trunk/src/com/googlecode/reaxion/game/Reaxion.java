@@ -87,7 +87,7 @@ public class Reaxion {
 	 * @throws InterruptedException 
 	 */
 	public void start() throws InterruptedException {
-		if(GameSettingsPanel.prompt(game.getSettings()))
+		if(ReaxionSettingsPanel.prompt(game.getSettings()))
 			game.start();
 		GameTaskQueueManager.getManager().update(new GameInit());
         

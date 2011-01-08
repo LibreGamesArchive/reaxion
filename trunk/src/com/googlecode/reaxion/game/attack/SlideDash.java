@@ -16,7 +16,7 @@ public class SlideDash extends Attack {
 	private static final int gc = 10;
 	
 	private static final int duration = 40;
-	private static final int dashSpeed = 8;
+	private static final int dashSpeed = 9;
 	
 	private DashForce force;
 	

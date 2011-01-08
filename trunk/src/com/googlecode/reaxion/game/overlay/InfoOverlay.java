@@ -32,10 +32,17 @@ public class InfoOverlay extends Overlay {
 	private Quad info;
 	private BitmapText infoText;
 	
+	private int height;
+	private int width;
+	
 	private int frame = 0;
 	
 	public InfoOverlay() {
 		super(NAME);
+		
+		// set resolution variables
+		height = DisplaySystem.getDisplaySystem().getHeight();
+		width = DisplaySystem.getDisplaySystem().getWidth();
         
         // create a container Node for scaling
         container = new Node("container");
@@ -56,13 +63,13 @@ public class InfoOverlay extends Overlay {
         box.attachChild(infoText);
         
         // hide box
-        box.setLocalTranslation(200, 0, 0);
+        box.setLocalTranslation(200 + offset*2, 0, 0);
         
         // attach children
         attachChild(container);
         container.attachChild(box);
         
-        container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalScale((float) height/600);
     }
 	
 	/**
@@ -75,9 +82,9 @@ public class InfoOverlay extends Overlay {
 				messagePriority = 0;
 				frame = 0;
 			} else if (frame <= slideTime)
-				box.setLocalTranslation(200*(1 - (float)1/slideTime*frame), 0, 0);
+				box.setLocalTranslation(200*(1 - (float)1/slideTime*frame) + offset*2, 0, 0);
 			else if (frame > duration - slideTime)
-				box.setLocalTranslation((float)200/slideTime*(frame - duration + slideTime), 0, 0);
+				box.setLocalTranslation((float)200/slideTime*(frame - duration + slideTime) + offset*2, 0, 0);
 			frame++;
 		}
 	}

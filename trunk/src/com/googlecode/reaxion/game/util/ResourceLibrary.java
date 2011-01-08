@@ -51,13 +51,6 @@ public class ResourceLibrary {
             map.put(filename, (Node) loader.loadModel(meshURL));
             System.out.println(filename+" added to ResourceLibrary.");
             
-            // Assign transparencies
-//            List<Spatial> l = map.get(filename).getChildren();
-//            for(Spatial s : l) {
-//            	if (s.getRenderQueueMode() == 3)
-//            		setTransparent(s);
-//            		
-//            }
         } catch (IOException ex) {
             Logger.getLogger(ModelTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,26 +65,6 @@ public class ResourceLibrary {
 		if (map.get(filename) == null)
 			load(filename);
 		return (MeshCloner.cloneMesh(map.get(filename)));
-	}
-	
-	private static void setTransparent(Spatial s) {
-		ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState();
-        zbs.setWritable(false);
-        zbs.setEnabled(true);
-        zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
-        s.setRenderState(zbs);
-        
-        BlendState alphaState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
-        alphaState.setBlendEnabled(true);
-        alphaState.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
-        alphaState.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
-        alphaState.setTestEnabled(true);
-        alphaState.setTestFunction(BlendState.TestFunction.GreaterThan);
-        alphaState.setEnabled(true);
-//        alphaState.setReference(1);
- 
-        s.setRenderState(alphaState);
-        s.updateRenderState();
 	}
 
 }

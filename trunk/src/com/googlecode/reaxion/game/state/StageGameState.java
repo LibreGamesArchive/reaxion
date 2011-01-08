@@ -31,6 +31,7 @@ import com.jme.renderer.Renderer;
 import com.jme.renderer.pass.BasicPassManager;
 import com.jme.renderer.pass.RenderPass;
 import com.jme.scene.Node;
+import com.jme.scene.Spatial;
 import com.jme.scene.state.BlendState;
 import com.jme.scene.state.CullState;
 import com.jme.scene.state.CullState.Face;
@@ -154,7 +155,7 @@ public class StageGameState extends BaseGameState {
         
         // Set up multipass
         //setUpPasses();
-        
+
         // Create a wirestate to toggle on and off. Starts disabled with default
         // width of 1 pixel.
         wireState = DisplaySystem.getDisplaySystem().getRenderer()
@@ -284,34 +285,6 @@ public class StageGameState extends BaseGameState {
      */
     public BasicPassManager getPassManager() {
     	return pManager;
-    }
-    
-    /**
-     * Sets up a multipass system for correct rendering
-     * of different transparency blends.
-     */
-    protected void setUpPasses() {
-    	RenderPass rp = new RenderPass();
-    	
-    	ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState();
-        zbs.setWritable(false);
-        zbs.setEnabled(true);
-        zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
-        
-        BlendState alphaState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
-        alphaState.setBlendEnabled(true);
-        alphaState.setSourceFunction(BlendState.SourceFunction.SourceAlpha);
-        alphaState.setDestinationFunction(BlendState.DestinationFunction.OneMinusSourceAlpha);
-        alphaState.setTestEnabled(true);
-        alphaState.setTestFunction(BlendState.TestFunction.GreaterThan);
-        alphaState.setEnabled(true);
-        alphaState.setReference(0);
-        
-        rp.setPassState(zbs);
-        rp.setPassState(alphaState);
-        rp.add(containerNode);
-        
-        pManager.add(rp);
     }
     
     /**

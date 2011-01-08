@@ -93,6 +93,23 @@ public class MissionManager implements Serializable {
 	}
 	
 	/**
+	 * Restarts the last mission state.
+	 */
+	public static void retrySection() {
+		// discard current state
+		currentMission.deactivateStateAt(currentIndex);
+		GameStateManager.getInstance().detachChild(currentMission.getStateAt(currentIndex));
+		
+		// reinitialize
+		currentMission = missions.get(currentMission.getMissionID()).clone();		
+		currentMission.init();
+		
+		// re-enter
+		GameStateManager.getInstance().attachChild(currentMission.getStateAt(currentIndex));
+		currentMission.activateStateAt(currentIndex);
+	}
+	
+	/**
 	 * Checks to see if a mission is currently in progress.
 	 * 
 	 * @return {@code true} if mission progress, {@code false} if no mission in progress
