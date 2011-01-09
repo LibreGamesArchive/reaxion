@@ -8,7 +8,7 @@ public class GroundDash extends Attack {
 	private static final String n = "Ground Dash";
 	private static final int gc = 0;
 	
-	protected static final int duration = 8;
+	protected static final int duration = 20;
 	protected static final int dashSpeed = 6;
 	protected static final int lag = 12;
 	
@@ -54,7 +54,7 @@ public class GroundDash extends Attack {
 //				b.getRootNode().updateRenderState();
 		
 		if (frameCount < duration)
-			character.setVelocity(character.rotationVector.mult(dashSpeed*FastMath.pow((float)(duration - frameCount)/duration, 1.5f)));
+			character.setVelocity(character.rotationVector.mult(dashSpeed*FastMath.pow((float)(duration - frameCount)/duration, 2)));
 				
 		if (phase == 0) {
 			if (frameCount >= duration) {

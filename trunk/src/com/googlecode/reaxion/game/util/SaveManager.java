@@ -14,6 +14,7 @@ import java.util.Iterator;
 
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
+import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.HubGameState;
 
@@ -48,6 +49,10 @@ public class SaveManager {
 			fs = new FileOutputStream(saveDir + hgs.getSaveName() + ".sav");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 
+			String stage = hgs.getStage().getClass().getName();
+			stage = stage.substring(stage.lastIndexOf(".")+1);
+			os.writeObject(stage);
+			
 			os.writeObject(p1.name);
 			os.writeObject(p2.name);
 
@@ -80,17 +85,22 @@ public class SaveManager {
 		//		System.out.println("Saving complete");
 	}
 
-	public static void loadGame(HashMap map, String saveName){
+	public static void loadGame(HashMap<String, PlayerInfo> map, String saveName){
+		boolean error = false;
+		
 		String name;
+		String stage;
 		String activeCharacter1, activeCharacter2;
 
 		try {
 			ObjectInputStream oi;
 			oi = new ObjectInputStream(new FileInputStream(saveDir + saveName + ".sav"));
-
+			
+			stage = (String)oi.readObject();
+			
 			activeCharacter1 = (String)oi.readObject();
-			activeCharacter2 = (String)oi.readObject();			
-
+			activeCharacter2 = (String)oi.readObject();		
+			
 			//			String p1name = (String)oi.readObject();
 			//			int p1exp = oi.readInt();
 			//			boolean unlocked1 = oi.readBoolean();
@@ -114,31 +124,33 @@ public class SaveManager {
 				System.out.println(name + " " + temp.unlockFlag + " Exp: " + temp.exp + " " + activatedNodes.toString());
 			}
 
-			//			Battle.setDefaultPlayers(p1.name, p2.name);
-
-			//			MissionManager.endHubGameState();
-			//			MissionManager.startHubGameState();
+			System.out.println(stage+", "+activeCharacter1+", "+activeCharacter2);
+			
+			Battle.setDefaultStage(stage);
+			Battle.setDefaultPlayers(activeCharacter1, activeCharacter2);
+			MissionManager.startHubGameState();
 
 			System.out.println("Read Saved Data from " + saveName);
 
 		} catch (FileNotFoundException e) {
+			error = true;			
+			System.out.println("No Saved Data For: " + saveName);
+		} catch (Exception e) {
+			error = true;
+			System.out.println("Error Reading Saved Data: " + saveName);
+		}
+		
+		if (error) {		
 			Collection<PlayerInfo> c = map.values();
 			Iterator<PlayerInfo> itr = c.iterator();
-			
 			while(itr.hasNext()) {
 				PlayerInfo temp = itr.next();
 				temp.init();
-				//temp = SaveManager.loadInfo(temp);
-				//temp.readStatsFromGrid();
+				temp = SaveManager.loadInfo(temp);
+				temp.readStatsFromGrid();
 			}
-			
-			System.out.println("No Saved Data For: " + saveName);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoadingQueue.resetQueue();
+			loadDefaults();
 		}
 	}
 
@@ -157,11 +169,7 @@ public class SaveManager {
 			os.writeObject(activatedNodes);
 			System.out.println("Saved Info For: " + p.name);
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -179,13 +187,17 @@ public class SaveManager {
 			System.out.println("Read Saved Data For: " + p.name);
 		} catch (FileNotFoundException e) {
 			System.out.println("No Saved Data For: " + p.name);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return p;
+	}
+	
+	private static void loadDefaults() {
+		// TODO: Detect defaults based on flags
+		
+		Battle.setDefaultStage("FlowerField");
+		Battle.setDefaultPlayers("Monica", "Nilay");
+		MissionManager.startHubGameState();
 	}
 }

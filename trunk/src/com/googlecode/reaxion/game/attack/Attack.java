@@ -37,6 +37,11 @@ public class Attack {
 	 */
 	protected Character[] friends;
 	
+	/**
+	 * Parameter attack data
+	 */
+	protected AttackData attackData;
+	
 	// creating an Attack with these constructors is useless, as they only
 	// exist to facilitate backend stuff
 	public Attack() {name=""; description="";}
@@ -45,6 +50,7 @@ public class Attack {
 	protected int sfxIndex = -1;
 	
 	public Attack(AttackData ad, int gc) {
+		attackData = ad;
 		character = ad.character;
 		friends = ad.friends;
 		character.currentAttack = this;
@@ -109,6 +115,10 @@ public class Attack {
 	 */
 	public void finish() {
 		character.currentAttack = null;
+	}
+	
+	public AttackData getAttackData() {
+		return attackData;
 	}
 	
 	/**

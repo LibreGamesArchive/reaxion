@@ -65,7 +65,7 @@ public class MonicaAI extends SmartAI {
     			velocity = aW;
 
     		if (toPlayer.length() <= radius/3 && character.model.getWorldTranslation().y <= 0) {
-    			if (character.gauge >= 10 && !character.flinching) {
+    			if (character.gauge >= 6 && !character.flinching) {
     				velocity = toPlayer.mult(new Vector3f(-1, 0, -1)).normalize();
     				new SlideDash(new AttackData(character, player));
     			}
