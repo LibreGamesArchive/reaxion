@@ -13,7 +13,7 @@ import com.jme.math.Vector3f;
 public class SlideDash extends Attack {
 	
 	private static final String n = "Slide Dash";
-	private static final int gc = 10;
+	private static final int gc = 6;
 	
 	private static final int duration = 40;
 	private static final int dashSpeed = 9;

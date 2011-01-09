@@ -155,12 +155,12 @@ public class Reaxion {
 //			GameStateManager.getInstance().attachChild(gridState);
 //			gridState.setActive(true);
 			
-			charState = new CharacterSelectionState();
-			GameStateManager.getInstance().attachChild(charState);
-			charState.setActive(true);
-			
-			StageSelectionState s = new StageSelectionState();
-			GameStateManager.getInstance().attachChild(s);
+//			charState = new CharacterSelectionState();
+//			GameStateManager.getInstance().attachChild(charState);
+//			charState.setActive(true);
+//			
+//			StageSelectionState s = new StageSelectionState();
+//			GameStateManager.getInstance().attachChild(s);
 			
 			return null;
 		}	
