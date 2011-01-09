@@ -22,6 +22,14 @@ public class MonicaInfo extends PlayerInfo {
 		//createBurstGrid("");
 		setUsableSfx();
 		createBurstGrid("src/com/googlecode/reaxion/resources/burstgrid/MonicaGrid.txt");
+		
+		/**
+		The following is to be implemented later on, once all the characters have Grids and can choose 
+		their abilities
+		*/
+		
+		//readStatsFromGrid();
+		//getBurstGrid().activateNode(1);
 	}
 	
 }

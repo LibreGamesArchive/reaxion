@@ -35,14 +35,7 @@ public class PlayerInfoManager {
 		map.put("Polina", new PolinaInfo());
 		map.put("Shine", new ShineInfo());
 		
-		Collection<PlayerInfo> c = map.values();
-		Iterator<PlayerInfo> itr = c.iterator();
-		while(itr.hasNext()) {
-			PlayerInfo temp = itr.next();
-			temp.init();
-			temp = SaveManager.loadInfo(temp);
-			temp.readStatsFromGrid();
-		}
+		SaveManager.loadGame(map, "SaveState");
 	}
 	
 	/**
@@ -50,6 +43,10 @@ public class PlayerInfoManager {
 	 */
 	public static PlayerInfo get(String name) {
 		return map.get(name);
+	}
+	
+	public static HashMap getMap(){
+		return map;
 	}
 	
 }

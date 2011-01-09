@@ -49,6 +49,7 @@ public class HubGameState extends StageGameState {
 	private boolean menuShowing;
 	
 	private String action = "";
+	private String saveName = "SaveState";
     
     public HubGameState() {
     	super();
@@ -143,6 +144,9 @@ public class HubGameState extends StageGameState {
 				case 4:
 					SaveManager.saveGame(this);
 			    	info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
+			    	break;
+				case 5:
+					//SaveManager.loadGame("SaveState");
 				}
 				
 				((Overlay) currentMenu).updateRenderState();
@@ -270,6 +274,10 @@ public class HubGameState extends StageGameState {
     	terminal.model.setLocalTranslation(pos);
     	pointer = (Pointer)LoadingQueue.quickLoad(new Pointer(terminal), this);
     	rootNode.updateRenderState();
+    }
+    
+    public String getSaveName(){
+    	return saveName;
     }
 
 }
