@@ -57,6 +57,7 @@ public class ReaxionGame extends AbstractGame implements Runnable {
         GRAPHICAL, HEADLESS
     }
 
+    
     private Thread gameThread;
     private String gameName;
     private GameType type;

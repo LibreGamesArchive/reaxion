@@ -67,6 +67,10 @@ public class BurstGrid
 		
 		return count;
 	}
+	
+	public void activateNode(int id){
+		bg.get(id).activated = true;
+	}
 
 	private void readGrid(String filePath){
 		String line;

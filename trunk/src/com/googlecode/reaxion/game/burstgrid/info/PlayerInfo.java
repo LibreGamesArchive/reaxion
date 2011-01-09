@@ -19,19 +19,20 @@ import com.googlecode.reaxion.game.burstgrid.node.StrengthNode;
 public abstract class PlayerInfo{
 	
 	public String name;
+	public boolean unlockFlag;
 	
 	// default values
 	protected int baseHp = 60;
 	protected int baseStrength = 0;
-	protected int baseMinGauge = 8;
+	protected int baseMinGauge = 10;
 	protected int baseMaxGauge = 16;
 	protected int baseRate = 0;
 	
 	//current values
 	protected int maxHp = 60;
 	protected int strength = 0;
-	protected int minGauge = 20;
-	protected int maxGauge = 30;
+	protected int minGauge = 10;
+	protected int maxGauge = 16;
 	protected int rate = 1;
 	
 	public int exp = 0;

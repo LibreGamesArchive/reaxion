@@ -10,12 +10,12 @@ import com.jme.math.Vector3f;
 public class DarkPit extends AttackObject {
 	
 	public static final String filename = "dark-pit";
-	protected static final int span = 500;
+	protected static final int span = 640;
 	protected static final float dpf = 0;
-	protected static final float maxdpf = .25f;
+	protected static final float maxdpf = .3f;
 	
-	private final int upTime = 80;
-	private final int downTime = 440;
+	private final int upTime = 40;
+	private final int downTime = 600;
 	
 	private Model user;
 	
@@ -40,13 +40,12 @@ public class DarkPit extends AttackObject {
 	@ Override
     public void act(StageGameState b) {
 		if (lifeCount < upTime)
-			model.setLocalScale((float)(lifeCount+1)/upTime);
+			model.setLocalScale(4*(float)(lifeCount+1)/upTime);
 		else if (lifeCount > downTime) {
-			model.setLocalScale((float)(lifespan - lifeCount + 1)/(lifespan - downTime));
+			model.setLocalScale(4*(float)(lifespan - lifeCount + 1)/(lifespan - downTime));
 			damagePerFrame = 0;
 		} else
 			damagePerFrame = maxdpf;
-		
     	super.act(b);
     }
 	
