@@ -95,8 +95,8 @@ public class Mirror extends AttackObject {
 			// check user's attack
 			Attack a = user.currentAttack;
 			if (a != null) {
-				if (a instanceof Mirage || a instanceof Oblivion || a instanceof SheerCold || a instanceof ShieldBarrier ||
-						a instanceof ShieldHoly || a instanceof ShieldMediguard || a instanceof ShieldReflega) {
+				if (a instanceof Mirage || a instanceof Oblivion || a instanceof SheerCold /*|| a instanceof ShieldBarrier ||
+						a instanceof ShieldHoly || a instanceof ShieldMediguard || a instanceof ShieldReflega*/) {
 					// do nothing
 				} else {
 					// mimic the attack with a specter

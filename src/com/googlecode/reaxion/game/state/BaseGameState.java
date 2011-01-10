@@ -4,6 +4,7 @@ import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.overlay.InfoOverlay;
 import com.googlecode.reaxion.game.overlay.LoadingOverlay;
+import com.googlecode.reaxion.game.overlay.PromptOverlay;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.game.state.CameraGameState;
 
@@ -25,6 +26,7 @@ public abstract class BaseGameState extends CameraGameState {
 	protected BackgroundMusic bgm;
 	
 	protected LoadingOverlay loading;
+	protected PromptOverlay prompt;
 	protected InfoOverlay info;
 	
 	public BaseGameState(boolean preinitialize) {
@@ -35,8 +37,10 @@ public abstract class BaseGameState extends CameraGameState {
 		
 		// create global overlays
 		loading = new LoadingOverlay();
+		prompt = new PromptOverlay();
 		info = new InfoOverlay();
 		rootNode.attachChild(loading);
+		rootNode.attachChild(prompt);
 		rootNode.attachChild(info);
 		rootNode.updateRenderState();
 	}
