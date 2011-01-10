@@ -8,8 +8,8 @@ import java.util.concurrent.Callable;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.mission.MissionManager;
 import com.googlecode.reaxion.game.state.BattleGameState;
-import com.googlecode.reaxion.game.state.BurstGridGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
+import com.googlecode.reaxion.game.state.KeyPreferencesState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.KeyBindingUtils;
@@ -17,8 +17,6 @@ import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.input.MouseInput;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
-import com.jmex.editors.swing.settings.GameSettingsPanel;
-import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
 import com.jmex.game.state.load.LoadingGameState;
 
@@ -148,6 +146,10 @@ public class Reaxion {
 			FontUtils.loadFonts();
 			KeyBindingUtils.initKeyBindings();
 			MissionManager.createMissions();
+			
+//			KeyPreferencesState keyState = new KeyPreferencesState();
+//			GameStateManager.getInstance().attachChild(keyState);
+//			keyState.setActive(true);
 			
 			PlayerInfoManager.init();
 			

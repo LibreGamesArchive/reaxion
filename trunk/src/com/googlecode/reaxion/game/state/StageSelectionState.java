@@ -78,9 +78,10 @@ public class StageSelectionState extends BasicGameState {
 			}
 		}
 
+		checkKeyInput();
+		
 		rootNode.updateGeometricState(tpf, true);
 
-		checkKeyInput();
 	}
 	
 	/**

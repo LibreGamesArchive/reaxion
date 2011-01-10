@@ -12,7 +12,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class Mirage extends Attack {
 	
 	private static final String n = "Mirage";
-	private static final int gc = 18;
+	private static final int gc = 16;
 	
 	private final int radius = 5;
 	
