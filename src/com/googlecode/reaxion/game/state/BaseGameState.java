@@ -50,6 +50,9 @@ public abstract class BaseGameState extends CameraGameState {
 	 */
 	protected abstract void init();
 	
+	/**
+	 * Creates a music alert, which displays information about the background music.
+	 */
 	protected void showMusicAlert() {
 		String title = bgm.getTitle();
 		String album = bgm.getAlbum();
