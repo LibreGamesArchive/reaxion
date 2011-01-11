@@ -1,5 +1,13 @@
 package com.googlecode.reaxion.game.audio;
 
+/**
+ * An {@code enum} containing all possible background music choices in the game. Each enum stores
+ * information for the filename, song title, and game that the song came from or artist if the song
+ * did not originate from a video game.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public enum BackgroundMusic {
 
 	CHALLENGE("challenge.ogg", "Challenge", "Final Fantasy X"), 

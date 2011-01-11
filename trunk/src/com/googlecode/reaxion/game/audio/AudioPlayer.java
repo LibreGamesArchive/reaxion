@@ -82,7 +82,7 @@ public class AudioPlayer {
 		
 		playingBGM = true;
 		sound.play(currentBGM.getTitle());
-		logger.message(loggerHeader + "BGM " + currentBGM + " started.", 0);
+		logger.message(loggerHeader + "BGM " + currentBGM.getTitle() + " started.", 0);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class AudioPlayer {
 		
 		playingBGM = false;
 		sound.stop(currentBGM.getTitle());
-		logger.message(loggerHeader + "BGM " + currentBGM + " cleared.", 0);
+		logger.message(loggerHeader + "BGM " + currentBGM.getTitle() + " cleared.", 0);
 	}
 	
 	/**
@@ -188,10 +188,6 @@ public class AudioPlayer {
 	 */
 	public static void cleanup() {
 		sound.cleanup();
-	}
-	
-	public static BackgroundMusic getCurrentBGM() {
-		return currentBGM;
 	}
 	
 }
