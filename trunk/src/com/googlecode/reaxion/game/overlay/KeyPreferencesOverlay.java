@@ -149,7 +149,7 @@ public class KeyPreferencesOverlay extends Overlay {
         keysMenu.setLocalTranslation(512, 120, 0);
         keysMenu.update();
         
-        Quad bg = drawRect(800, 600, new ColorRGBA(1, .5f, .5f, 1));
+        Quad bg = getImage(baseURL+"title-wp.png");
         bg.setLocalTranslation(400, 300, 0);
         
         // attach children
@@ -159,6 +159,7 @@ public class KeyPreferencesOverlay extends Overlay {
         container.attachChild(keysMenu);
         
         container.setLocalScale((float) height/600);
+        container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
     }
 	
 	/**

@@ -61,7 +61,7 @@ public class ScrollMenu extends Overlay {
 	
 	public ScrollMenu(int width, int entryHeight, int numEntries, String[] entries) {
 		this(width, entryHeight, numEntries, new ColorRGBA(0,0,0,.5f), new ColorRGBA(.5f,.5f,.5f,.5f), new ColorRGBA(.5f,.5f,.5f,.75f),
-				new ColorRGBA(7.5f,.75f,.75f,1), new ColorRGBA(1,1,1,1), entries);
+				new ColorRGBA(.75f,.75f,.75f,1), new ColorRGBA(1,1,1,1), entries);
     }
 	
 	public ScrollMenu(int width, int entryHeight, int numEntries, ColorRGBA backgroundColor, ColorRGBA separatorColor, ColorRGBA selectedColor,

@@ -55,6 +55,7 @@ public class PromptOverlay extends Overlay {
         attachChild(container);
         
         container.setLocalScale((float) DisplaySystem.getDisplaySystem().getHeight()/600);
+        container.setLocalTranslation(offset*container.getLocalScale().x, 0, 0);
     }
 	
 	/**
@@ -66,7 +67,7 @@ public class PromptOverlay extends Overlay {
 		alertText.setText(str);
 		alertText.setSize(size);
 		alertText.update();
-		//alertText.setBox(new Rectangle(400 - 192 + border, 300 + alertText.getHeight()/2, 384 - border*2, 192));
+		alertText.setBox(new Rectangle(400 - 192 + border, 300 + alertText.getHeight()/2, 384 - border*2, 192));
 		alertText.update();
 		container.attachChild(cover);
 		updateRenderState();
