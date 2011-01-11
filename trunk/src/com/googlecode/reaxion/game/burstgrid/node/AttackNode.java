@@ -20,14 +20,15 @@ public class AttackNode extends BurstNode
 		at = a;
 	}
 	
-	public AttackNode(Attack a, int id, ArrayList<BurstNode> nextNodes){
-		super(id);
-		at = a;
-	}
 	
 	public AttackNode(String s, int id){
 		super(id);
 		at = findAttack(s);
+	}
+	
+	public AttackNode(Attack a, int id, ArrayList<BurstNode> nextNodes){
+		super(id);
+		at = a;
 	}
 	
 	/**

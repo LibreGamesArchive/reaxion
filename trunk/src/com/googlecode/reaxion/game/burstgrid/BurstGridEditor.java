@@ -61,7 +61,7 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 		drawNodes = new ArrayList<Point>();
 
 		finish.setEnabled(false);
-		
+
 		finish.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,7 +81,7 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 								b = (BurstNode) (Class.forName(loc + (String)types.getSelectedItem() + "Node").getConstructors()[1].newInstance(info.getText(), Integer.parseInt(idBox.getText())));
 							else
 								b = (BurstNode) (Class.forName(loc + (String)types.getSelectedItem() + "Node").getConstructors()[1].newInstance(Integer.parseInt(info.getText()), Integer.parseInt(idBox.getText())));
-							
+
 							idBox.setText("" + (Integer.parseInt(idBox.getText())+1));
 							grid.add(b);
 							System.out.println(grid);
@@ -126,31 +126,32 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 
 	public void mouseClicked( MouseEvent e ) {
 		boolean contains = false;
+		if(clickable){
+			mx = e.getX() - width/2;
+			my = (e.getY() - height/2)*-1;
 
-		mx = e.getX() - width/2;
-		my = (e.getY() - height/2)*-1;
+			x = 20*((mx+5)/20)+10*(int)Math.copySign(1, mx);
+			y =  -1*(20*((my+5)/20))-10*(int)Math.copySign(1, my);		
 
-		x = 20*((mx+5)/20)+10*(int)Math.copySign(1, mx);
-		y =  -1*(20*((my+5)/20))-10*(int)Math.copySign(1, my);		
-
-		Point p = new Point(x, y);
-		drawNodes.add(p);
-		if(nodes.isEmpty()){
-			nodes.add(p);
-			finish.setEnabled(clickable);
-			clickable = false;
-		}
-		else{
-			for(Point pnt: nodes)
-				if(pnt.equals(p)){
-					contains = true;
-					break;
-				}
-			if(!contains){
+			Point p = new Point(x, y);
+			drawNodes.add(p);
+			if(nodes.isEmpty()){
 				nodes.add(p);
-				//BurstNode b = createNode(p);
 				finish.setEnabled(clickable);
 				clickable = false;
+			}
+			else{
+				for(Point pnt: nodes)
+					if(pnt.equals(p)){
+						contains = true;
+						break;
+					}
+				if(!contains){
+					nodes.add(p);
+					//BurstNode b = createNode(p);
+					finish.setEnabled(clickable);
+					clickable = false;
+				}
 			}
 		}
 		repaint();
