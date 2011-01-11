@@ -160,12 +160,14 @@ public class StageGameState extends CameraGameState {
 		models = new ArrayList<Model>();
 
 		// Prepare HUD node
-		hudNode = new HudOverlay();
-		rootNode.attachChild(hudNode);
-
-		// Prepare pause node
-		pauseNode = new PauseOverlay();
-		rootNode.attachChild(pauseNode);
+		if (!NetworkingObjects.isServer) {
+			hudNode = new HudOverlay();
+			rootNode.attachChild(hudNode);
+	
+			// Prepare pause node
+			pauseNode = new PauseOverlay();
+			rootNode.attachChild(pauseNode);
+		}
 
 		// Prepare container node (must contain anything being reflected)
 		containerNode = new Node("ReflectionNode");

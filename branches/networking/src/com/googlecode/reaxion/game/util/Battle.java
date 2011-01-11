@@ -41,7 +41,7 @@ public class Battle {
 
 	private String p1s, p2s;
 	private MajorCharacter p1, p2;
-	private ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>();
+	private ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>(2);
 	private Class[] p1Attacks, p2Attacks;
 	private Ability[] p1Abilities, p2Abilities;
 	private Vector3f playerPosition;
@@ -97,8 +97,10 @@ public class Battle {
 			for (int i=0; i<b2.length; i++)
 				p2Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b2[i]).getConstructors()[0].newInstance();
 			String[] t2 = p2.info.getAttacks();
-			for (int i=0; i<t2.length; i++)
+			for (int i=0; i<t2.length; i++) {
+				System.out.println(attackBaseLocation + t2[i]);
 				p2Attacks[i] = Class.forName(attackBaseLocation + t2[i]);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,8 +108,10 @@ public class Battle {
 		
 		if(networkedOps) {
 			try {
-				op.set(0, (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + o1s).getConstructors()[1].newInstance(false))));
-				op.set(1, (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + o2s).getConstructors()[1].newInstance(false))));
+				if(op == null)
+					op = new ArrayList<MajorCharacter>(2);
+				op.add((MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + o1s).getConstructors()[1].newInstance(false))));
+				op.add((MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + o2s).getConstructors()[1].newInstance(false))));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -118,7 +122,7 @@ public class Battle {
 			try {
 				for(int i = 0; i < op.size(); i++) {
 					String[] b1 = op.get(i).info.getAbilities();
-					opAbilities.set(i, new Ability[b1.length]);
+					opAbilities.add( new Ability[b1.length]);
 					for (int j=0; j<b1.length; j++)
 						opAbilities.get(i)[j] = (Ability) Class.forName(abilityBaseLocation + b1[j]).getConstructors()[0].newInstance();
 			//		String[] t1 = p1.info.getAttacks();
