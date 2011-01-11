@@ -93,7 +93,7 @@ public class Reaxion {
 		case BACKGROUND_SERVER:
 			// Make one that's invisible
 			game = new StandardGame("Reaxion v" + GAME_VERSION,
-					GameType.HEADLESS);
+					GameType.GRAPHICAL);
 
 			// game.setConfigShowMode(ConfigShowMode.NeverShow);
 		}

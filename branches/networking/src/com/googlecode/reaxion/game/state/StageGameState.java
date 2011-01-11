@@ -46,7 +46,7 @@ import com.jmex.game.state.StatisticsGameState;
  * 
  * @author Khoa
  */
-public class StageGameState extends CameraGameState implements StageGameInterface {
+public class StageGameState extends CameraGameState {
 
 	public static final String NAME = "stageGameState";
 
