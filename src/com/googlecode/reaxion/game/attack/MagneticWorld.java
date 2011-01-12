@@ -39,6 +39,7 @@ public class MagneticWorld extends Attack {
 		character.jumpLock = true;
 		character.tagLock = true;
 		character.animationLock = true;
+		character.mass *= 2;
 		character.play("heaveUp", b.tpf);
 	}
 	
@@ -79,6 +80,7 @@ public class MagneticWorld extends Attack {
 		character.jumpLock = false;
 		character.tagLock = false;
 		character.animationLock = false;
+		character.mass /= 2;
 	}
 
 }
