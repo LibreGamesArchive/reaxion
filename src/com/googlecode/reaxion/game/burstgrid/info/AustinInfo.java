@@ -19,9 +19,9 @@ public class AustinInfo extends PlayerInfo {
 	
 	@Override
 	public void init() {
-		setStats(100,3,10,15,0);
+		setStats(100,3,10,24,0);
 		setAbilities(new String[] { "RapidGauge" });
-		setAttacks(new String[] { "Rapture", "SoundBarrier", "ShootEcho", "BombingMagnet", "ShootFireball", "SpawnBubble"});
+		setAttacks(new String[] { "Cacophony", "Rapture", "SoundBarrier", "ShootEcho", "BombingMagnet", "ShootFireball"});
 		setUsableSfx();
 		createBurstGrid("");
 	}
