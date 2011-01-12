@@ -1,11 +1,12 @@
 package com.googlecode.reaxion.game.input.ai;
 
 import com.googlecode.reaxion.game.attack.AttackData;
-import com.googlecode.reaxion.game.attack.ShootBullet;
+import com.googlecode.reaxion.game.attack.MagneticWorld;
 import com.googlecode.reaxion.game.input.AIInput;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.jme.math.Vector3f;
 
 /**
  * AI input made to do nothing but continuously shoot bullets.
@@ -22,10 +23,10 @@ public class TestAI2 extends AIInput {
     @Override
     public void makeCommands(StageGameState state) {
     	MajorCharacter player = state.getPlayer();
-    	
+    	character.setVelocity(new Vector3f());
     	// attack whenever possible
     	if (character.gauge >= 6 && !character.flinching && character.currentAttack == null)
-    		new ShootBullet(new AttackData(character, player));
+    		new MagneticWorld(new AttackData(character, player));
     }
     
 }

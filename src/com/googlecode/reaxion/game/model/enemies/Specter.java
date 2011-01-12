@@ -17,7 +17,9 @@ public class Specter extends Character {
 	
 	private boolean hadAttack = false;
 	
-	public Specter(Model[] m) {
+	private Model target;
+	
+	public Specter(Model[] m, Model t) {
     	// Load model
     	super("i_specter");
     	users = new ArrayList<Model>();
@@ -26,19 +28,23 @@ public class Specter extends Character {
     	mass = 3;
     	
     	Character user = (Character)m[m.length-1];
+    	target = t;
     	maxHp = 999;
     	hp = 999;
     	strengthMult = user.strengthMult;
     	minGauge = 999;
     	maxGauge = 999;
     	gauge = 999;
+    	speed = user.speed;
     }
 	
 	@ Override
     public void act(StageGameState b) {
+		// move towards opponent, if able
+		velocity = b.getTarget().model.getWorldTranslation().subtract(model.getWorldTranslation()).normalize().mult(speed);
+		velocity.y = 0;
+		
     	super.act(b);
-    	
-    	System.out.println("&&& "+currentAttack);
     	
     	if (currentAttack == null) {
     		// remove if done attacking

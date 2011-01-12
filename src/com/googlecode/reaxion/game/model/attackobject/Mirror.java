@@ -93,26 +93,39 @@ public class Mirror extends AttackObject {
 		else {
 			
 			// check user's attack
-			Attack a = user.currentAttack;
+			Attack a;
+			if (user != b.getPlayer() && user != b.getPartner())
+				a = user.currentAttack;
+			else
+				// can also mirror teammate's attack
+				a = b.getPlayer().currentAttack;
+			
 			if (a != null) {
 				if (a instanceof Mirage || a instanceof Oblivion || a instanceof SheerCold /*|| a instanceof ShieldBarrier ||
 						a instanceof ShieldHoly || a instanceof ShieldMediguard || a instanceof ShieldReflega*/) {
 					// do nothing
 				} else {
 					// mimic the attack with a specter
-					specter = (Specter)LoadingQueue.quickLoad(new Specter(users), b);
+					specter = (Specter)LoadingQueue.quickLoad(new Specter(users, target), b);
 					specter.rotate(toTarget.mult(new Vector3f(1, 0, 1)));
 					specter.model.setLocalTranslation(model.getLocalTranslation());
 					b.getRootNode().updateRenderState();
+					
 					try {
 						AttackData ad = a.getAttackData();
-						a.getClass().getConstructors()[1].newInstance(new AttackData(specter, ad.friends, ad.target));
+						// create new list of users
+						Character[] users = new Character[ad.friends.length+1];
+						for(int i = 0; i < ad.friends.length; i++)
+							users[i] = ad.friends[i];
+						users[users.length-1] = ad.character;
+						a.getClass().getConstructors()[1].newInstance(new AttackData(specter, users, ad.target));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					
+					// break mirror
+					shatter(b);
 				}
-				// break mirror
-				shatter(b);
 			}
 			
 		}
