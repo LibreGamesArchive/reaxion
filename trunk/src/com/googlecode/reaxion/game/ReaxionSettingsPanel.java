@@ -48,7 +48,8 @@ public class ReaxionSettingsPanel extends JPanel {
 			{1024, 768},
 			{1280, 720},
 			{1280, 1024},
-			{1440, 900}
+			{1440, 900},
+			{1920, 1080}
 		};
 	public static final int[] DEPTHS = {
 			16,
