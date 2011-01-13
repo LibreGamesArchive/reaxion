@@ -42,6 +42,7 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 	private ToolButton[] tools;
 	private BurstGridPanel bgp;
 	private JPanel nodeAttributes;
+	private JComboBox types;
 	
 	public static void main(String[] args) {
 		BurstGridEditor bge = new BurstGridEditor();
@@ -68,7 +69,6 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 	
 	private void initToolbar() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-		panel.setBackground(Color.blue);
 		panel.setPreferredSize(new Dimension(250, screen.height));
 		JPanel toolbar = new JPanel();
 		toolbar.setLayout(new BoxLayout(toolbar, BoxLayout.Y_AXIS));
@@ -80,16 +80,19 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 		
 		JLabel id = new JLabel("Node ID: " + nodeID);
 		JLabel typeDesc = new JLabel("Node Type:");
-		JComboBox types = new JComboBox(temp);
+		types = new JComboBox(temp);
 		types.addActionListener(this);
 		types.setActionCommand("node_types");
 		
 		initAttributesPanel();
 		
+		ToolButton createNode = new ToolButton("Create Node", this);
+		
 		addComponentToToolbar(id, toolbar, false);
 		addComponentToToolbar(typeDesc, toolbar, false);
 		addComponentToToolbar(types, toolbar, false);
-		addComponentToToolbar(nodeAttributes, toolbar, true);
+		addComponentToToolbar(nodeAttributes, toolbar, false);
+		addComponentToToolbar(createNode, toolbar, true);
 		
 		panel.add(toolbar);
 		add(panel);
@@ -133,6 +136,7 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 	private void initFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		requestFocus();
 	}
@@ -143,6 +147,8 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 		if (e.getSource() instanceof JComboBox) {
 			CardLayout c = (CardLayout) nodeAttributes.getLayout();
 			c.show(nodeAttributes, attributes[((JComboBox) e.getSource()).getSelectedIndex()]);
+		} else if (command.equals("Create Node")) {
+			bgp.createSelectedNode(types.getSelectedIndex());
 		}
 	}
 
