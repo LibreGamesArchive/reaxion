@@ -1,15 +1,12 @@
 package com.googlecode.reaxion.tools;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,17 +25,19 @@ import javax.swing.JPanel;
 import com.googlecode.reaxion.tools.components.AttributePanel;
 import com.googlecode.reaxion.tools.components.BurstGridPanel;
 import com.googlecode.reaxion.tools.components.ToolButton;
+import com.googlecode.reaxion.tools.vo.EditorNode;
 
 public class BurstGridEditor extends JFrame implements ActionListener {
 
-	public static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final String nodeIconDir = "src/com/googlecode/reaxion/tools/icons/";
 	public static final String[] nodeTypes = {"ability", "attack", "gauge1", "gauge2", "hp", "rate", "strength"};
 	public static final String[] attributes = {"Ability Name", "Attack Name", "Min Gauge Plus", "Max Gauge Plus", 
 		"HP Plus", "Rate Plus", "Strength Plus"};
 	
 	private static int nodeID = 1;
-	
+
+	public static ToolButton createNode;
+
 	private ToolButton[] tools;
 	private BurstGridPanel bgp;
 	private JPanel nodeAttributes;
@@ -60,7 +59,7 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 		initToolbar();
 
 		// Init Burst Grid
-		Dimension temp = new Dimension(screen.width - 250, screen.height);
+		Dimension temp = new Dimension(480, 480);
 		bgp = new BurstGridPanel(temp);
 		add(bgp);		
 		
@@ -69,7 +68,7 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 	
 	private void initToolbar() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-		panel.setPreferredSize(new Dimension(250, screen.height));
+		panel.setPreferredSize(new Dimension(250, 480));
 		JPanel toolbar = new JPanel();
 		toolbar.setLayout(new BoxLayout(toolbar, BoxLayout.Y_AXIS));
 		
@@ -86,7 +85,7 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 		
 		initAttributesPanel();
 		
-		ToolButton createNode = new ToolButton("Create Node", this);
+		createNode = new ToolButton("Create Node", this);
 		
 		addComponentToToolbar(id, toolbar, false);
 		addComponentToToolbar(typeDesc, toolbar, false);
@@ -135,8 +134,8 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 	
 	private void initFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocation(200,100);
 		pack();
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		requestFocus();
 	}
@@ -148,7 +147,10 @@ public class BurstGridEditor extends JFrame implements ActionListener {
 			CardLayout c = (CardLayout) nodeAttributes.getLayout();
 			c.show(nodeAttributes, attributes[((JComboBox) e.getSource()).getSelectedIndex()]);
 		} else if (command.equals("Create Node")) {
-			bgp.createSelectedNode(types.getSelectedIndex());
+			AttributePanel temp = (AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()];
+			EditorNode node = new EditorNode(nodeID, (String)types.getSelectedItem(), temp.getData());
+			bgp.createSelectedNode(types.getSelectedIndex(), node);
+			nodeID++;
 		}
 	}
 

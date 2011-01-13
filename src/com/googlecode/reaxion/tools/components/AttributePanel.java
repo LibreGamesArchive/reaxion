@@ -10,18 +10,29 @@ public class AttributePanel extends JPanel {
 	
 	private JLabel descriptor;
 	private JTextField field;
+	private JLabel depthLabel;
+	private JTextField depth;
 	
 	public AttributePanel(String attribute) {
-		super(new GridLayout(1, 2));
+		super(new GridLayout(2, 2));
 		descriptor = new JLabel(attribute + ": ");
 		field = new JTextField();
 		
+		depthLabel = new JLabel("Depth: ");
+		depth = new JTextField("1");
+		
 		add(descriptor);
 		add(field);
+		add(depthLabel);
+		add(depth);
 	}
 	
-	public String getFieldText() {
+	public String getData() {
 		return field.getText();
+	}
+	
+	public int getDepth() {
+		return Integer.parseInt(depth.getText());
 	}
 	
 }
