@@ -93,6 +93,11 @@ public abstract class NetworkingObjects {
 					if (((NamedChatMessage) message).getText().equals("done")) {
 						doneRecieved++;
 						if(doneRecieved==2) {
+							System.out.println("Making a battle");
+
+							sbgs = (ServerBattleGameState) (Battle
+									.createNetworkedBattleGameState());
+							
 						// I'm not sure this is how you do it
 						 GameTaskQueueManager.getManager().update(new Callable(){
 							public Object call() throws Exception {
@@ -145,15 +150,6 @@ public abstract class NetworkingObjects {
 						server
 								.sendToAll(new CharacterAndStageSelectionsMessage(
 										chars, stageChoice));
-
-						System.out.println("Making a battle");
-
-						sbgs = (ServerBattleGameState) (Battle
-								.createNetworkedBattleGameState());
-
-						
-						
-			//			
 
 						// Creation of objects when the server makes objects
 						// will make clients load the right things. it's not the
@@ -216,11 +212,13 @@ public abstract class NetworkingObjects {
 					
 					Battle c = Battle.getCurrentBattle();
 					c.setStage(cassm.getStage());
+					Battle.setCurrentBattle(c);
 					
 					ClientBattleGameState nbgs = (ClientBattleGameState)Battle.createNetworkedBattleGameState();
 					
 					GameStateManager.getInstance().attachChild(nbgs);
 					nbgs.setActive(true);
+					// FIXME: music turned off
 					
 					cbgs = nbgs;
 					
