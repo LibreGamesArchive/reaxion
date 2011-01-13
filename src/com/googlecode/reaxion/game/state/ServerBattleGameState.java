@@ -4,6 +4,7 @@ import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jmex.model.collada.schema.renderType;
 
@@ -65,7 +66,7 @@ public class ServerBattleGameState extends BattleGameState {
     		timing = false;
     	
     	// Check winning/losing conditions
-    	if (player.hp <= 0 && (partner == null || partner.hp <=0)) {
+/*    	if (player.hp <= 0 && (partner == null || partner.hp <=0)) {
     		System.out.println("You lose!");
 			if (resultCount >= defeatTime)
 				goToGameOver();
@@ -81,7 +82,7 @@ public class ServerBattleGameState extends BattleGameState {
     			hideOverlays();
     			resultCount++;
     		}
-    	}
+    	}*/
     	
     }
     
@@ -97,8 +98,8 @@ public class ServerBattleGameState extends BattleGameState {
     
     @Override
     public boolean removeModel(Model m) {
-    	containerNode.detachChild(m.model);
-    	return models.remove(m);
+    	NetworkingObjects.serverSyncManager.unregister(m);
+    	return super.removeModel(m);
     }
     
     /**
@@ -160,5 +161,7 @@ public class ServerBattleGameState extends BattleGameState {
 
     		rootNode.updateRenderState();
     	}
+    	
+    	
     }
 }

@@ -6,6 +6,7 @@ import com.googlecode.reaxion.game.audio.SfxPlayer;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.MouseInput;
@@ -297,6 +298,7 @@ public class ClientBattleGameState extends BattleGameState {
 	@Override
 	public boolean removeModel(Model m) {
 		if (models.contains(m)) {
+			NetworkingObjects.clientSyncManager.unregister(m);
 			containerNode.detachChild(m.model);
 			return models.remove(m);
 		}
