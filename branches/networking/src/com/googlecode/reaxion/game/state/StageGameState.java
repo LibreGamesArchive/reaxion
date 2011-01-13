@@ -625,8 +625,10 @@ public class StageGameState extends CameraGameState {
 			SfxPlayer.update(this);
 		}
 
+		if(!NetworkingObjects.isServer) {
 		// Update the HUD
 		hudNode.update(this);
+		}
 
 		// Update the geometric state of the rootNode
 		rootNode.updateGeometricState(tpf, true);
