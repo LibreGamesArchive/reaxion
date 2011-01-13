@@ -77,6 +77,7 @@ public class LoadingQueue {
 			ModelLoader.load(m, m.filename);
 			if (NetworkingObjects.isServer) {
 				// khoa was biscuiting about efficiency here. w/e.
+				if(m != null) {
 				try {
 					NetworkingObjects.serverSyncManager
 							.register(m, new SynchronizeCreateModelMessage(m,
@@ -84,7 +85,7 @@ public class LoadingQueue {
 									NetworkingObjects.updateRate);
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				}} else System.out.println("object is null");
 			}
 		}
 		resetQueue();

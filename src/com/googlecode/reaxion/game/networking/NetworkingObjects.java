@@ -22,12 +22,11 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSelectionsMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
-import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.ClientBattleGameState;
 import com.googlecode.reaxion.game.state.ServerBattleGameState;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jme.util.GameTaskQueue;
+import com.jme.math.Vector3f;
 import com.jme.util.GameTaskQueueManager;
 import com.jmex.game.state.GameStateManager;
 
@@ -68,6 +67,8 @@ public abstract class NetworkingObjects {
 
 		System.out.println("RELIABLE SERVER:" + serverReliable);
 
+		controller = new JMEGraphicalController();
+		
 		// do weird things w/ same computer
 		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(), 9001);
 	//	serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
@@ -86,9 +87,30 @@ public abstract class NetworkingObjects {
 			public void messageFailed(Message message) {
 			}
 
+			private int doneRecieved = 0;
 			public void messageReceived(Message message) {
 				if(message instanceof NamedChatMessage) {
-					System.out.println("Client sent me a message successfully =/");
+					if (((NamedChatMessage) message).getText().equals("done")) {
+						doneRecieved++;
+						if(doneRecieved==2) {
+						// I'm not sure this is how you do it
+						 GameTaskQueueManager.getManager().update(new Callable(){
+							public Object call() throws Exception {
+								GameStateManager.getInstance().attachChild(sbgs);
+								try {
+									System.out.println("setactive pre");
+									sbgs.setActive(true);
+									System.out.println("setactive post");
+								} catch (NullPointerException e) {
+									e.printStackTrace();
+									System.out
+											.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
+								}
+								return null;
+							}
+						});
+						}
+					}
 					return;
 				}
 			//	System.out.println("Server thread: " + isServer);
@@ -116,6 +138,7 @@ public abstract class NetworkingObjects {
 						
 						c.setPlayers(chars);
 						c.setStage(stageChoice);
+						c.setPlayerPosition(new Vector3f(0,0,0));
 						Battle.setCurrentBattle(c);
 
 						// for the lulz, since nothing happens
@@ -128,22 +151,7 @@ public abstract class NetworkingObjects {
 						sbgs = (ServerBattleGameState) (Battle
 								.createNetworkedBattleGameState());
 
-						// I'm not sure this is how you do it
-						 GameTaskQueueManager.getManager().update(new Callable(){
-							public Object call() throws Exception {
-								GameStateManager.getInstance().attachChild(sbgs);
-								try {
-									System.out.println("setactive pre");
-									sbgs.setActive(true);
-									System.out.println("setactive post");
-								} catch (NullPointerException e) {
-									e.printStackTrace();
-									System.out
-											.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
-								}
-								return null;
-							}
-						});
+						
 						
 			//			
 
@@ -215,6 +223,10 @@ public abstract class NetworkingObjects {
 					nbgs.setActive(true);
 					
 					cbgs = nbgs;
+					
+					NamedChatMessage qrr = new NamedChatMessage();
+					qrr.setText("done");
+					client.sendToServer(qrr);
 				}
 			}
 
@@ -264,7 +276,7 @@ public abstract class NetworkingObjects {
 			break;
 		}
 		
-		client.sendToServer(new NamedChatMessage());
+	
 		System.out.println(client.getServerConnection().getReliableClient().getStatus());
 	//	System.out.println(client.getServerConnection().getFastClient().getStatus());
 		

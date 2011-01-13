@@ -44,7 +44,7 @@ public class Battle {
 	private ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>(2);
 	private Class[] p1Attacks, p2Attacks;
 	private Ability[] p1Abilities, p2Abilities;
-	private Vector3f playerPosition;
+	private Vector3f playerPosition = new Vector3f(0,0,0);
 	private ArrayList<Vector3f> opPositions = new ArrayList<Vector3f>();
 	private ArrayList<Ability[]> opAbilities = new ArrayList<Ability[]>();
 	private Stage stage;

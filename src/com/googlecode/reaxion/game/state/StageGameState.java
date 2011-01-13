@@ -346,7 +346,8 @@ public class StageGameState extends CameraGameState {
 		// Create input system
 		playerInput = new PlayerInput(this);
 		// Pass attack reference to HUD
-		hudNode.passCharacterInfo(playerAttacks, player.minGauge);
+		if(!NetworkingObjects.isServer)
+			hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 		// Remove the inactive character
 		removeModel(partner);
 	}
@@ -573,7 +574,7 @@ public class StageGameState extends CameraGameState {
 		}
 
 		// Update the PlayerInput
-		if (playerInput != null) {
+		if (playerInput != null && !NetworkingObjects.isServer) {
 			playerInput.checkKeys();
 		}
 
