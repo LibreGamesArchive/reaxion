@@ -214,17 +214,24 @@ public abstract class NetworkingObjects {
 					c.setStage(cassm.getStage());
 					Battle.setCurrentBattle(c);
 					
-					ClientBattleGameState nbgs = (ClientBattleGameState)Battle.createNetworkedBattleGameState();
-					
-					GameStateManager.getInstance().attachChild(nbgs);
-					nbgs.setActive(true);
-					// FIXME: music turned off
-					
-					cbgs = nbgs;
-					
-					NamedChatMessage qrr = new NamedChatMessage();
-					qrr.setText("done");
-					client.sendToServer(qrr);
+					 GameTaskQueueManager.getManager().update(new Callable(){
+							public Object call() throws Exception {
+								ClientBattleGameState nbgs = (ClientBattleGameState)Battle.createNetworkedBattleGameState();
+								
+								GameStateManager.getInstance().attachChild(nbgs);
+								nbgs.setActive(true);
+								// FIXME: music turned off
+								
+								cbgs = nbgs;
+								
+								NamedChatMessage qrr = new NamedChatMessage();
+								qrr.setText("done");
+								client.sendToServer(qrr);
+								
+								return null;
+							}
+						});
+
 				}
 			}
 
