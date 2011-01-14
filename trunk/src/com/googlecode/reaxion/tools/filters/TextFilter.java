@@ -2,17 +2,17 @@ package com.googlecode.reaxion.tools.filters;
 
 import java.io.File;
 
-public class DialogueEditorFilter extends ToolFileFilter {
+public class TextFilter extends ToolFileFilter {
 
 	@Override
 	public boolean accept(File f) {
 		String ext = getExtension(f);
-		return ext != null && (f.isDirectory() || ext.equals(".scene"));
+		return ext != null && ext.equals(".txt");
 	}
 
 	@Override
 	public String getDescription() {
-		return "Cutcenes (*.scene)";
+		return "Burst Grid (*.txt)";
 	}
 
 }

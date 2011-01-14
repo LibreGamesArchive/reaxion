@@ -14,11 +14,14 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import com.googlecode.reaxion.tools.BurstGridEditor;
+import com.googlecode.reaxion.tools.events.NodeEvent;
+import com.googlecode.reaxion.tools.listeners.NodeEventListener;
 import com.googlecode.reaxion.tools.vo.EditorNode;
 
 public class BurstGridPanel extends JPanel implements MouseListener {
 
+	private NodeEventListener listener;
+	
 	private static final int lineCount = 24;
 	private static final Color[] nodeColors = {Color.gray, Color.blue, Color.pink,
 		Color.magenta.darker(), Color.green, Color.yellow.darker(), Color.red};
@@ -52,7 +55,11 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		currentNode = node;
 		currentNode.setColor(nodeColor);
 		clickable = true;
-		BurstGridEditor.createNode.setEnabled(!clickable);
+		fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.CREATED));
+	}
+	
+	public ArrayList<EditorNode> getNodes()	{
+		return nodes;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -113,7 +120,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 				currentNode.setPosition(p);
 				nodes.add(currentNode);
 				clickable = false;
-				BurstGridEditor.createNode.setEnabled(!clickable);
+				fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
 				currentNode = null;
 			}
 			else{
@@ -126,7 +133,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 					currentNode.setPosition(p);
 					nodes.add(currentNode);
 					clickable = false;
-					BurstGridEditor.createNode.setEnabled(!clickable);
+					fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
 					currentNode = null;
 				}
 			}
@@ -155,5 +162,24 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public synchronized void addNodeEventListener(NodeEventListener n) {
+		listener = n;
+	}
+	
+	public synchronized void removeNodeEventListener(NodeEventListener n) {
+		listener = null;
+	}
+	
+	private synchronized void fireNodeEvent(NodeEvent event) {
+		if (listener != null) {
+			if (event.getType().equals(NodeEvent.ADDED))
+				listener.nodeAdded(event);
+			else if (event.getType().equals(NodeEvent.REMOVED))
+				listener.nodeRemoved(event);
+			else if (event.getType().equals(NodeEvent.CREATED))
+				listener.nodeCreated(event);
+		}
+	}	
 	
 }

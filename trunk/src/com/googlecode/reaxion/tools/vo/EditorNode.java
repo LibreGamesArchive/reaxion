@@ -9,7 +9,8 @@ public class EditorNode {
 	private int id;
 	private Point position;
 	private int depth;
-	private ArrayList<Integer> connections;
+	private ArrayList<Integer> nodes;
+	private ArrayList<Integer> costs;
 	private String data, type;
 	private Color color;
 	
@@ -17,8 +18,23 @@ public class EditorNode {
 		this.id = id;
 		this.type = type;
 		this.data = data;
+		
+		nodes = new ArrayList<Integer>();
+		costs = new ArrayList<Integer>();
 	}
 
+	public String toString() {
+		String s = "" + id + " " + type + " " + data + "-";
+		
+		for (int i = 0; i < nodes.size(); i++)
+			s += nodes.get(i) + "," + costs.get(i) + ", ";
+		
+		s.trim();
+		s += "-" + position.x + "," + position.y + "," + depth;
+		
+		return s;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -43,12 +59,20 @@ public class EditorNode {
 		this.depth = depth;
 	}
 
-	public ArrayList<Integer> getConnections() {
-		return connections;
+	public ArrayList<Integer> getNodes() {
+		return nodes;
 	}
 
-	public void setConnections(ArrayList<Integer> connections) {
-		this.connections = connections;
+	public void setNodes(ArrayList<Integer> nodes) {
+		this.nodes = nodes;
+	}
+
+	public ArrayList<Integer> getCosts() {
+		return costs;
+	}
+
+	public void setCosts(ArrayList<Integer> costs) {
+		this.costs = costs;
 	}
 
 	public String getData() {
@@ -57,6 +81,14 @@ public class EditorNode {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Color getColor() {
