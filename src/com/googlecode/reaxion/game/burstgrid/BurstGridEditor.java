@@ -22,10 +22,12 @@ import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
 import com.googlecode.reaxion.game.burstgrid.node.BurstNode;
+import com.googlecode.reaxion.tools.events.NodeEvent;
+import com.googlecode.reaxion.tools.listeners.NodeEventListener;
 
 
 public class BurstGridEditor extends JApplet implements MouseInputListener{
-
+	
 	int width = 500, height = 500;
 	int mx, my, x, y;
 	int numLines = 25;
@@ -250,4 +252,5 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 			g2.fillRect(p.x-5,p.y-5,10,10);
 		g.drawImage(buffer, 0, 0, null);
 	}
+	
 }
