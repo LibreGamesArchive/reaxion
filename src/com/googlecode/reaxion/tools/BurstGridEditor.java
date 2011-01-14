@@ -1,17 +1,23 @@
 package com.googlecode.reaxion.tools;
 
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -28,18 +34,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 
 import com.googlecode.reaxion.tools.components.AttributePanel;
 import com.googlecode.reaxion.tools.components.BurstGridPanel;
+import com.googlecode.reaxion.tools.components.NodeIDField;
 import com.googlecode.reaxion.tools.components.ToolButton;
 import com.googlecode.reaxion.tools.components.ToolMenuItem;
 import com.googlecode.reaxion.tools.events.NodeEvent;
+import com.googlecode.reaxion.tools.events.ValidationEvent;
 import com.googlecode.reaxion.tools.filters.TextFilter;
 import com.googlecode.reaxion.tools.listeners.NodeEventListener;
+import com.googlecode.reaxion.tools.listeners.ValidationEventListener;
 import com.googlecode.reaxion.tools.util.ToolUtils;
 import com.googlecode.reaxion.tools.vo.EditorNode;
 
-public class BurstGridEditor extends JFrame implements ActionListener, NodeEventListener {
+public class BurstGridEditor extends JFrame implements ActionListener, NodeEventListener, ValidationEventListener {
 
 	public static final String gridDir = "src/com/googlecode/reaxion/resources/burstgrid/";
 	public static final String nodeIconDir = "src/com/googlecode/reaxion/tools/icons/";
@@ -51,6 +61,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 
 	private JFileChooser fileChooser;
 
+	private NodeIDField idField;
 	private JComboBox character;
 	private BurstGridPanel bgp;
 	private JPanel nodeAttributes;
@@ -109,7 +120,8 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		for (int i = 0; i < temp.length; i++)
 			temp[i] = Character.toUpperCase(nodeTypes[i].charAt(0)) + nodeTypes[i].substring(1);
 		
-		JLabel id = new JLabel("Node ID: " + nodeID);
+		idField = new NodeIDField("1");
+		idField.addValidationEventListener(this);
 		JLabel typeDesc = new JLabel("Node Type:");
 		types = new JComboBox(temp);
 		types.addActionListener(this);
@@ -118,10 +130,11 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		initAttributesPanel();
 		
 		createNode = new ToolButton("Create Node", this);
+		createNode.setEnabled(false);
 		
 		addComponentToToolbar(character, toolbar, true);
 		addComponentToToolbar(new JSeparator(), toolbar, true);
-		addComponentToToolbar(id, toolbar, true);
+		addComponentToToolbar(idField, toolbar, true);
 		addComponentToToolbar(typeDesc, toolbar, true);
 		addComponentToToolbar(types, toolbar, true);
 		addComponentToToolbar(nodeAttributes, toolbar, true);
@@ -134,8 +147,8 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	private void initAttributesPanel() {
 		nodeAttributes = new JPanel(new CardLayout());
 		
-		for (String s : attributes)
-			nodeAttributes.add(new AttributePanel(s), s);
+		for (int i = 0; i < attributes.length; i++)
+			nodeAttributes.add(new AttributePanel(attributes[i], i >= 2 ? true : false, this), attributes[i]);
 		
 		CardLayout c = (CardLayout) nodeAttributes.getLayout();
 		c.show(nodeAttributes, attributes[0]);
@@ -167,6 +180,12 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	}
 	
 	private void initFrame() {
+		try {
+			setIconImage(ImageIO.read(new File(nodeIconDir + "ability.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(200,100);
 		pack();
@@ -211,7 +230,6 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 			AttributePanel temp = (AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()];
 			EditorNode node = new EditorNode(nodeID, (String)types.getSelectedItem(), temp.getData());
 			bgp.createSelectedNode(types.getSelectedIndex(), node);
-			nodeID++;
 		} else if (command.equals("Save Grid")) {
 			int returnValue = fileChooser.showSaveDialog(this);
 			
@@ -227,11 +245,24 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 
 	public void nodeAdded(NodeEvent e) {
 		createNode.setEnabled(true);
+		nodeID++;
+		idField.updateNodes(bgp.getNodes());
+		
+		for (Component c : nodeAttributes.getComponents())
+			((AttributePanel) c).resetFields();
 	}
 
 	public void nodeRemoved(NodeEvent e) {
-		// TODO Auto-generated method stub
-		
+		idField.updateNodes(bgp.getNodes());		
+	}
+
+	public void fieldFoundInvalid(ValidationEvent e) {
+		createNode.setEnabled(false);		
+	}
+
+	public void fieldFoundValid(ValidationEvent e) {
+		createNode.setEnabled(idField.isValid() && 
+				((AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()]).hasValidInfo());		
 	}
 
 }

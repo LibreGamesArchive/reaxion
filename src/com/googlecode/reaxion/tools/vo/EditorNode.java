@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class EditorNode {
+public class EditorNode implements Comparable<EditorNode> {
 
 	private int id;
 	private Point position;
@@ -97,6 +97,10 @@ public class EditorNode {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public int compareTo(EditorNode e) {
+		return id - e.getId();
 	}
 	
 }
