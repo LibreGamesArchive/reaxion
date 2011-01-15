@@ -24,7 +24,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 	
 	private static final int lineCount = 24;
 	private static final Color[] nodeColors = {Color.gray, Color.blue, Color.pink,
-		Color.magenta.darker(), Color.green, Color.yellow.darker(), Color.red};
+		Color.magenta.darker(), Color.green.darker(), Color.yellow.darker(), Color.red};
 	
 	private ArrayList<EditorNode> nodes;
 	
@@ -62,6 +62,23 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		return nodes;
 	}
 	
+	private void createConnections() {
+		currentNode.setSelected(false);
+		
+		for (EditorNode n : nodes) {
+			if (n.isSelectedForConnection()) {
+				currentNode.addConnection(n);
+				n.setSelectedForConnection(false);
+			}
+		}
+	}
+	
+	private boolean isWithinNode(Point n, Point p) {
+		boolean check = n.x - 20 <= p.x && n.x + 20 >= p.x && n.y + 20 <= p.y && n.y - 20 >= p.y;
+		System.out.println(n + " || " + p + " || " + check);
+		return check;
+	}
+	
 	public void paintComponent(Graphics g) {
 		update(g);
 	}
@@ -96,6 +113,19 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		g2.translate(getWidth()/2,getHeight()/2);
 		
 		for(EditorNode e: nodes){
+			if (e.getNodes().size() != 0)
+				for (EditorNode n : nodes)
+					if (e.getNodes().contains(n.getId())) 
+						g2.drawLine(e.getPosition().x, e.getPosition().y, n.getPosition().x, n.getPosition().y);
+			
+			if (e.isSelected()) {
+				g2.setColor(Color.green);
+				g2.fillRect(e.getPosition().x - 8, e.getPosition().y - 8, 16, 16);
+			} else if (e.isSelectedForConnection()) {
+				g2.setColor(Color.blue.darker());
+				g2.fillRect(e.getPosition().x - 8, e.getPosition().y - 8, 16, 16);
+			}
+			
 			g2.setColor(e.getColor());
 			g2.fillRect(e.getPosition().x-5,e.getPosition().y-5,10,10);
 		}
@@ -105,17 +135,19 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) {
 		boolean contains = false;
+		int mouseX = e.getX() - getWidth()/2;
+		int mouseY = (e.getY() - getHeight()/2)*-1;
+		
+		int a = getWidth()/lineCount;
+		int b = getHeight()/lineCount;
+		
+		int x = a*((mouseX+5)/a); //+a/2*(int)Math.copySign(1, mouseX);
+		int y =  -1*(b*((mouseY+5)/b)); //-b/2*(int)Math.copySign(1, mouseY);		
+		
+		Point p = new Point(x, y);
+
 		if(clickable){
-			int mouseX = e.getX() - getWidth()/2;
-			int mouseY = (e.getY() - getHeight()/2)*-1;
 
-			int a = getWidth()/lineCount;
-			int b = getHeight()/lineCount;
-			
-			int x = a*((mouseX+5)/a); //+a/2*(int)Math.copySign(1, mouseX);
-			int y =  -1*(b*((mouseY+5)/b)); //-b/2*(int)Math.copySign(1, mouseY);		
-
-			Point p = new Point(x, y);
 			if(nodes.isEmpty()){
 				currentNode.setPosition(p);
 				nodes.add(currentNode);
@@ -136,6 +168,27 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 					fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
 					currentNode = null;
 				}
+			}
+		} else {
+			EditorNode n = null;
+			
+			for(EditorNode en: nodes) {
+				if(isWithinNode(en.getPosition(), p)){
+					n = en;
+					contains = true;
+					break;
+				}
+			}
+			
+			if (contains) {
+				if (currentNode == null || !currentNode.isSelected()) {
+					currentNode = n;
+					currentNode.setSelected(true);
+				} else {
+					n.setSelectedForConnection(!n.isSelectedForConnection());
+				}
+			} else if (currentNode != null){
+				createConnections();
 			}
 		}
 		repaint();
