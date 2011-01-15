@@ -3,6 +3,8 @@ package com.googlecode.reaxion.game.util;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.stage.Stage;
@@ -17,7 +19,7 @@ import com.jme.util.resource.SimpleResourceLocator;
 
 public class LoadingQueue {
 
-	private static ArrayList<Model> queue = new ArrayList<Model>();
+	private static Queue<Model> queue = new LinkedList<Model>();
 	private static StageGameState state;
 	private static CharacterSelectionState Cstate;
 	private static StageSelectionState Sstate;
@@ -27,7 +29,7 @@ public class LoadingQueue {
 	 * Clears the queue
 	 */
 	public static void resetQueue() {
-		queue = new ArrayList<Model>();
+		queue = new LinkedList<Model>();
 	}
 
 	/**
@@ -67,25 +69,30 @@ public class LoadingQueue {
 	public static void execute(StageGameState b) {
 
 		// TODO (nwk) make it send stuff to the server.
-	//	if(b != null) 
-			state = b;
+		// if(b != null)
+		state = b;
 		System.out.println("Loading queue executed.");
 		if (locator == null)
 			locateTextures();
 		while (!queue.isEmpty()) {
-			Model m = queue.get(0);
+			Model m = queue.remove();
 			ModelLoader.load(m, m.filename);
-			if (NetworkingObjects.isServer) {
+			if (NetworkingObjects.isServer && m != null) {
 				// khoa was biscuiting about efficiency here. w/e.
-				if(m != null) {
 				try {
-					NetworkingObjects.serverSyncManager
-							.register(m, new SynchronizeCreateModelMessage(m,
-									state == null),
-									NetworkingObjects.updateRate);
+					if (state == null) { // for preloading
+						NetworkingObjects.server
+								.sendToAll(new SynchronizeCreateModelMessage(m,
+										true /* state == null */));
+					} else { // for regular loading
+						NetworkingObjects.serverSyncManager
+								.register(m, new SynchronizeCreateModelMessage(
+										m, false /* state == null */),
+										NetworkingObjects.updateRate);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
-				}} else System.out.println("object is null");
+				}
 			}
 		}
 		resetQueue();
@@ -99,9 +106,7 @@ public class LoadingQueue {
 	 *            Model
 	 */
 	public static void pop(Model m) {
-		int i = queue.indexOf(m);
-		if (i != -1) {
-			queue.remove(i);
+			queue.remove(m);
 			if (state != null) {
 				if (m instanceof Stage)
 					state.setStage((Stage) m);
@@ -110,7 +115,6 @@ public class LoadingQueue {
 			} else
 				System.out.println("state is null");
 			System.out.println("Processed: " + m);
-		}
 	}
 
 	/**
