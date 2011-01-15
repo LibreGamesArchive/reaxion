@@ -14,6 +14,9 @@ public class EditorNode implements Comparable<EditorNode> {
 	private String data, type;
 	private Color color;
 	
+	private boolean selected = false;
+	private boolean selectedForConnection = false;
+	
 	public EditorNode(int id, String type, String data) {
 		this.id = id;
 		this.type = type;
@@ -21,6 +24,10 @@ public class EditorNode implements Comparable<EditorNode> {
 		
 		nodes = new ArrayList<Integer>();
 		costs = new ArrayList<Integer>();
+	}
+	
+	public void addConnection(EditorNode n) {
+		nodes.add(n.getId());
 	}
 
 	public String toString() {
@@ -97,6 +104,22 @@ public class EditorNode implements Comparable<EditorNode> {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public boolean isSelectedForConnection() {
+		return selectedForConnection;
+	}
+
+	public void setSelectedForConnection(boolean selectedForConnection) {
+		this.selectedForConnection = selectedForConnection;
 	}
 
 	public int compareTo(EditorNode e) {
