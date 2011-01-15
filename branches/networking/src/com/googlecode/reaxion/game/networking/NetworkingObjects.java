@@ -251,28 +251,45 @@ public abstract class NetworkingObjects {
 		});
 		clientSyncManager = new SynchronizationManager(client, controller);
 		clientSyncManager.addSyncObjectManager(new SyncObjectManager() {
+			// TODO: Consider replacing these Callables with a check in stateUpdate for any new models to preload/load/remove.
+			private Queue<Model> forRemove = new LinkedList<Model>();
+			private Queue<String> forPreload = new LinkedList<String>(), forLoad = new LinkedList<String>();
 			public Object create(SynchronizeCreateMessage scm) {
 				if (scm instanceof SynchronizeCreateModelMessage) {
 					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) scm;
-					if (scmm.isForPreload())
-						return LoadingQueue.push(new Model(scmm.getFilename()));
-					return LoadingQueue.quickLoad(
-							new Model(scmm.getFilename()), cbgs);
+					
+					System.err.println("Queued create for " + scm.getSyncObjectId()+", "+ (scmm.isForPreload() ? "Preloading" : "normal loading"));
+					
+					if(scmm.isForPreload()) {
+						LoadingQueue.push(new Model(scmm.getFilename()));
+						return null;
+					} else
+						return LoadingQueue.quickLoad(new Model(scmm.getFilename()), cbgs);
+					/*
+						GameTaskQueueManager.getManager().update(new Callable() {
+							public Object call() throws Exception {
+								//System.out.println("Excecuting create for "+scm.getSyncObjectId());
+								while (!forPreload.isEmpty())
+									LoadingQueue.push(new Model(forPreload.remove()));
+								while(!forLoad.isEmpty())
+									LoadingQueue.quickLoad(new Model(forLoad.remove()), cbgs);
+								return null;
+							}
+						});*/
+						//FIXME: how the fuck does this work with returning the object you make? what about preloading...? O___O
 				}
 				return null; //TODO: should I put this in the GL thread too?
 			}
 
-			private Queue<Model> modelsToRemove = new LinkedList<Model>();
-
 			public boolean remove(SynchronizeRemoveMessage srm, Object object) {
 				if (object instanceof Model) {
-					modelsToRemove.add((Model) object);
+					forRemove.add((Model) object);
 
 					GameTaskQueueManager.getManager().update(new Callable() {
 						public Object call() throws Exception {
 
-							while (!modelsToRemove.isEmpty()) {
-								cbgs.removeModel(modelsToRemove.remove());
+							while (!forRemove.isEmpty()) {
+								cbgs.removeModel(forRemove.remove());
 							}
 
 							return null;
