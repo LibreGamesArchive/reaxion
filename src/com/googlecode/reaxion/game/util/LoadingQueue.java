@@ -67,7 +67,7 @@ public class LoadingQueue {
 	public static void execute(StageGameState b) {
 
 		// TODO (nwk) make it send stuff to the server.
-		if(b != null) 
+	//	if(b != null) 
 			state = b;
 		System.out.println("Loading queue executed.");
 		if (locator == null)
