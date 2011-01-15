@@ -144,7 +144,8 @@ public class Reaxion {
 		// FontUtils.loadFonts();
 		// MissionManager.createMissions();
 		PlayerInfoManager.init();
-
+		MouseInput.get().setCursorVisible(true);
+		
 		JGN.register(SynchronizeModelMessage.class);
 		JGN.register(SynchronizeCreateModelMessage.class);
 		JGN.register(CharacterAndStageSelectionsMessage.class);
@@ -197,6 +198,7 @@ public class Reaxion {
 			break;
 		case BACKGROUND_SERVER:
 			NetworkingObjects.setUpServer();
+			MouseInput.get().setCursorVisible(true);
 			// this.n
 			// charState = new CharacterSelectionState();
 			// NetworkingObjects.serverSyncManager.register(charState, new
