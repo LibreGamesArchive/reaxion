@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.Callable;
 
 import javax.swing.JOptionPane;
@@ -68,10 +70,10 @@ public abstract class NetworkingObjects {
 		System.out.println("RELIABLE SERVER:" + serverReliable);
 
 		controller = new JMEGraphicalController();
-		
+
 		// do weird things w/ same computer
 		serverReliable = new InetSocketAddress(InetAddress.getLocalHost(), 9001);
-	//	serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
+		// serverFast = new InetSocketAddress(InetAddress.getLocalHost(), 9002);
 		serverFast = null;
 
 		server = new JGNServer(serverReliable, serverFast);
@@ -88,37 +90,42 @@ public abstract class NetworkingObjects {
 			}
 
 			private int doneRecieved = 0;
+
 			public void messageReceived(Message message) {
-				if(message instanceof NamedChatMessage) {
+				if (message instanceof NamedChatMessage) {
 					if (((NamedChatMessage) message).getText().equals("done")) {
 						doneRecieved++;
-						if(doneRecieved==2) {
+						if (doneRecieved == 2) {
 							System.out.println("Making a battle");
 
 							sbgs = (ServerBattleGameState) (Battle
 									.createNetworkedBattleGameState());
-							
-						// I'm not sure this is how you do it
-						 GameTaskQueueManager.getManager().update(new Callable(){
-							public Object call() throws Exception {
-								GameStateManager.getInstance().attachChild(sbgs);
-								try {
-									System.out.println("setactive pre");
-									sbgs.setActive(true);
-									System.out.println("setactive post");
-								} catch (NullPointerException e) {
-									e.printStackTrace();
-									System.out
-											.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
-								}
-								return null;
-							}
-						});
+
+							// I'm not sure this is how you do it
+							GameTaskQueueManager.getManager().update(
+									new Callable() {
+										public Object call() throws Exception {
+											GameStateManager.getInstance()
+													.attachChild(sbgs);
+											try {
+												System.out
+														.println("setactive pre");
+												sbgs.setActive(true);
+												System.out
+														.println("setactive post");
+											} catch (NullPointerException e) {
+												e.printStackTrace();
+												System.out
+														.println("Server doesn't like it when it's invisible and we setActive a gamestate.");
+											}
+											return null;
+										}
+									});
 						}
 					}
 					return;
 				}
-			//	System.out.println("Server thread: " + isServer);
+				// System.out.println("Server thread: " + isServer);
 
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
@@ -130,26 +137,29 @@ public abstract class NetworkingObjects {
 						chars[1] = cassm.getCharacters()[1];
 						stage1 = cassm.getStage();
 						creationMessagesRecieved++;
-						System.out.println("Characters: "+Arrays.toString(cassm.getCharacters())+" Stage: "+stage1);
+						System.out.println("Characters: "
+								+ Arrays.toString(cassm.getCharacters())
+								+ " Stage: " + stage1);
 					} else if (creationMessagesRecieved == 1) {
 						System.out.print("2 message recieved! ");
 						chars[2] = cassm.getCharacters()[0];
 						chars[3] = cassm.getCharacters()[1];
 						stage2 = cassm.getStage();
-						System.out.println("Characters: "+Arrays.toString(cassm.getCharacters())+" Stage: "+stage2);
+						System.out.println("Characters: "
+								+ Arrays.toString(cassm.getCharacters())
+								+ " Stage: " + stage2);
 						stageChoice = Math.random() > .5 ? stage1 : stage2;
 						System.out.println("Stage choice: " + stageChoice);
 						Battle c = Battle.getCurrentBattle();
-						
+
 						c.setPlayers(chars);
 						c.setStage(stageChoice);
-						c.setPlayerPosition(new Vector3f(0,0,0));
+						c.setPlayerPosition(new Vector3f(0, 0, 0));
 						Battle.setCurrentBattle(c);
 
 						// for the lulz, since nothing happens
-						server
-								.sendToAll(new CharacterAndStageSelectionsMessage(
-										chars, stageChoice));
+						server.sendToAll(new CharacterAndStageSelectionsMessage(
+								chars, stageChoice));
 
 						// Creation of objects when the server makes objects
 						// will make clients load the right things. it's not the
@@ -203,34 +213,35 @@ public abstract class NetworkingObjects {
 			}
 
 			public void messageReceived(Message message) {
-		//		System.out.println("I'm in client's listener, and isServer = "
-			//			+ isServer);
+				// System.out.println("I'm in client's listener, and isServer = "
+				// + isServer);
 				if (message instanceof CharacterAndStageSelectionsMessage) {
 					CharacterAndStageSelectionsMessage cassm = (CharacterAndStageSelectionsMessage) message;
-					
+
 					System.out.println("Stage recieved!");
-					
+
 					Battle c = Battle.getCurrentBattle();
 					c.setStage(cassm.getStage());
 					Battle.setCurrentBattle(c);
-					
-					 GameTaskQueueManager.getManager().update(new Callable(){
-							public Object call() throws Exception {
-								ClientBattleGameState nbgs = (ClientBattleGameState)Battle.createNetworkedBattleGameState();
-								
-								GameStateManager.getInstance().attachChild(nbgs);
-								nbgs.setActive(true);
-								// FIXME: music turned off
-								
-								cbgs = nbgs;
-								
-								NamedChatMessage qrr = new NamedChatMessage();
-								qrr.setText("done");
-								client.sendToServer(qrr);
-								
-								return null;
-							}
-						});
+
+					GameTaskQueueManager.getManager().update(new Callable() {
+						public Object call() throws Exception {
+							ClientBattleGameState nbgs = (ClientBattleGameState) Battle
+									.createNetworkedBattleGameState();
+
+							GameStateManager.getInstance().attachChild(nbgs);
+							nbgs.setActive(true);
+							// FIXME: music turned off
+
+							cbgs = nbgs;
+
+							NamedChatMessage qrr = new NamedChatMessage();
+							qrr.setText("done");
+							client.sendToServer(qrr);
+
+							return null;
+						}
+					});
 
 				}
 			}
@@ -248,17 +259,30 @@ public abstract class NetworkingObjects {
 					return LoadingQueue.quickLoad(
 							new Model(scmm.getFilename()), cbgs);
 				}
-				return null;
+				return null; //TODO: should I put this in the GL thread too?
 			}
 
+			private Queue<Model> modelsToRemove = new LinkedList<Model>();
+
 			public boolean remove(SynchronizeRemoveMessage srm, Object object) {
-				// FIXME (nwk) figure out how to reference list of models
-				// and call .removeFromParent()
 				if (object instanceof Model) {
-					cbgs.removeModel((Model) object);
+					modelsToRemove.add((Model) object);
+
+					GameTaskQueueManager.getManager().update(new Callable() {
+						public Object call() throws Exception {
+
+							while (!modelsToRemove.isEmpty()) {
+								cbgs.removeModel(modelsToRemove.remove());
+							}
+
+							return null;
+						}
+					});
+
 					return true;
-				}
-				return false;
+				} else
+					return false;
+
 			}
 		});
 		JGN.createThread(client, clientSyncManager).start();
@@ -280,11 +304,10 @@ public abstract class NetworkingObjects {
 			// System.out.println("Connection successful.");
 			break;
 		}
-		
-	
-		System.out.println(client.getServerConnection().getReliableClient().getStatus());
-	//	System.out.println(client.getServerConnection().getFastClient().getStatus());
-		
+
+		System.out.println(client.getServerConnection().getReliableClient()
+				.getStatus());
+		// System.out.println(client.getServerConnection().getFastClient().getStatus());
 
 		// Register our client object with the synchronization manager
 		// / clientSyncManager.register( new SynchronizeCreateMessage(), 50);

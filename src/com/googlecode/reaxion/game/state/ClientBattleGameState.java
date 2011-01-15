@@ -292,7 +292,7 @@ public class ClientBattleGameState extends BattleGameState {
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Thread: "+Thread.currentThread());
-		}
+		} // consider making removeMessage put in a request for removal in opengl thread. that makes the most sense really.
 	}
 
 	@Override
