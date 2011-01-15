@@ -106,7 +106,8 @@ public class ClientBattleGameState extends BattleGameState {
 
 		
 		// Make the stage act
-		if(stage!=null) stage.act(this);
+//		if(stage!=null) stage.act(this);
+		// Client can't do this otherwise bad shit will happen D:
 
 		// Update the camera
 		if (cameraMode == "lock" && player != null && models.size() > 0
@@ -290,15 +291,15 @@ public class ClientBattleGameState extends BattleGameState {
 	}
 
 	@Override
-	public void addModel(Model m) {
+	public synchronized void addModel(Model m) {
 		models.add(m);
 		containerNode.attachChild(m.model);
 	}
 
 	@Override
-	public boolean removeModel(Model m) {
+	public synchronized boolean removeModel(Model m) {
 		if (models.contains(m)) {
-			NetworkingObjects.clientSyncManager.unregister(m);
+		//	NetworkingObjects.clientSyncManager.unregister(m);
 			containerNode.detachChild(m.model);
 			return models.remove(m);
 		}
