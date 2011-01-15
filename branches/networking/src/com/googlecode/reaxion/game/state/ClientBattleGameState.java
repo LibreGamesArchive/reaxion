@@ -287,7 +287,12 @@ public class ClientBattleGameState extends BattleGameState {
 			}
 		}
 
+		try {
 		rootNode.updateRenderState();
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Thread: "+Thread.currentThread());
+		}
 	}
 
 	@Override
