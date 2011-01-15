@@ -242,7 +242,13 @@ public abstract class NetworkingObjects {
 							return null;
 						}
 					});
-
+				} else if(message instanceof SynchronizeCreateModelMessage) {
+					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) message;
+					
+					System.err.println("Creating " + scmm.getSyncObjectId()+", "+ (scmm.isForPreload() ? "Preloading" : "normal loading"));
+					//assuming always for preload because I am a bad person
+					LoadingQueue.push(new Model(scmm.getFilename()));
+					LoadingQueue.execute(null); // this is rather hackish. consider fixing the preloading system to not be so ugly.
 				}
 			}
 
@@ -258,12 +264,9 @@ public abstract class NetworkingObjects {
 				if (scm instanceof SynchronizeCreateModelMessage) {
 					SynchronizeCreateModelMessage scmm = (SynchronizeCreateModelMessage) scm;
 					
-					System.err.println("Queued create for " + scm.getSyncObjectId()+", "+ (scmm.isForPreload() ? "Preloading" : "normal loading"));
+					System.err.println("Creating " + scm.getSyncObjectId()+", "+ (scmm.isForPreload() ? "Preloading" : "normal loading"));
 					
-					if(scmm.isForPreload()) {
-						LoadingQueue.push(new Model(scmm.getFilename()));
-						return null;
-					} else
+					if(!scmm.isForPreload())
 						return LoadingQueue.quickLoad(new Model(scmm.getFilename()), cbgs);
 					/*
 						GameTaskQueueManager.getManager().update(new Callable() {
