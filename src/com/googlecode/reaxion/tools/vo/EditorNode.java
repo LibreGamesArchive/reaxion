@@ -11,7 +11,7 @@ public class EditorNode implements Comparable<EditorNode> {
 	private int depth;
 	private ArrayList<Integer> nodes;
 	private ArrayList<Integer> costs;
-	private String data, type;
+	private String data, type, costString;
 	private Color color;
 	
 	private boolean selected = false;
@@ -105,6 +105,14 @@ public class EditorNode implements Comparable<EditorNode> {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	public String getCostString(){
+		return costString;
+	}
+	
+	public void setCostString(String s){
+		costString = s;
+	}
 
 	public boolean isSelected() {
 		return selected;
@@ -125,5 +133,4 @@ public class EditorNode implements Comparable<EditorNode> {
 	public int compareTo(EditorNode e) {
 		return id - e.getId();
 	}
-	
 }

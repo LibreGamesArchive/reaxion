@@ -22,4 +22,10 @@ public interface NodeEventListener {
 	 */
 	public void nodeRemoved(NodeEvent e);
 	
+	/**
+	 * Called when an {@code EditorNode} is selected after already being placed
+	 * 
+	 */
+	
+	public void nodeSelected(NodeEvent e);
 }
