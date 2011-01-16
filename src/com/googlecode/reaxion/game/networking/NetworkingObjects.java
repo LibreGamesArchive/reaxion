@@ -188,6 +188,7 @@ public abstract class NetworkingObjects {
 				if (scm instanceof SynchronizeCreatePlayerInputMessage) {
 					SynchronizeCreatePlayerInputMessage scpim = (SynchronizeCreatePlayerInputMessage) scm;
 					System.out.println(scpim.getPlayerId());
+					// These shouldn't ever really get used besides for grabbing data from the client
 					if (scpim.getPlayerId() == p1ID) {
 						p1input = new ClientPlayerInput(sbgs);
 						return p1input;

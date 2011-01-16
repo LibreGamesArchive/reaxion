@@ -46,11 +46,13 @@ public class ClientPlayerInput extends PlayerInput {
      * @param q the array of classes of attacks
      */
     public ClientPlayerInput(StageGameState b) {
+    	if(b != null) {
     	state = b;
    // 	attacks = state.getPlayerAttacks();
     	player = state.getPlayer();
    // 	partner = state.getPartner();
     	camera = state.getCamera();
+    	}
         setKeyBindings();
     }
 
