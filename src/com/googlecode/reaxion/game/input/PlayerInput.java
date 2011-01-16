@@ -37,6 +37,9 @@ public class PlayerInput extends InputHandler {
 	
 	protected Class[] attacks;
 	
+	public PlayerInput() {
+	}
+	
     /**
      * Supply the node to control and the api that will handle input creation.
      * @param b the current BattleGameState

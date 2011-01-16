@@ -82,8 +82,8 @@ public class Battle {
 		LoadingQueue.push(stage);	
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
-		op1Attacks = new Class[6];
-		op2Attacks = new Class[6];
+	//	op1Attacks = new Class[6];
+	//	op2Attacks = new Class[6];
 		
 		try {
 			String[] b1 = p1.info.getAbilities();
@@ -118,8 +118,8 @@ public class Battle {
 				e.printStackTrace();
 			}
 			//LoadingQueue.push(stage);	
-		//	op1Attacks = new Class[6];
-		//	op2Attacks = new Class[6];
+			op1Attacks = new Class[6];
+			op2Attacks = new Class[6];
 			
 			try {
 				// yep hardcoded 2, i'm so forward thinking :3

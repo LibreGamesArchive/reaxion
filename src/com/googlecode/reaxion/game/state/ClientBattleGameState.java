@@ -38,6 +38,8 @@ public class ClientBattleGameState extends BattleGameState {
 	protected Class[] opPlayerAttacks;
 	protected MajorCharacter opPartner;
 	protected Class[] opPartnerAttacks;
+	
+//	protected ClientPlayerInput clientInput;  
 
 	public ClientBattleGameState() {
 		super();
@@ -46,9 +48,9 @@ public class ClientBattleGameState extends BattleGameState {
 	public ClientBattleGameState(Battle b) {
 		super(b);
 		
-		ClientPlayerInput pInput = new ClientPlayerInput(this);
+		playerInput = new ClientPlayerInput(this);
 		try {
-			NetworkingObjects.clientSyncManager.register(pInput, new SynchronizeCreatePlayerInputMessage(), NetworkingObjects.updateRate);
+			NetworkingObjects.clientSyncManager.register(playerInput, new SynchronizeCreatePlayerInputMessage(), NetworkingObjects.updateRate);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
