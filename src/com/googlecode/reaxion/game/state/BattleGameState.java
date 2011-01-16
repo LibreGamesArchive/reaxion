@@ -43,7 +43,7 @@ public class BattleGameState extends StageGameState {
      *
      */
     public void assignOpponents(Character[] o) {
-    	opponents = o;
+    	opponents = o; // FIXME: this'll prolyl be a problem w/ networking
     }
     
     /**

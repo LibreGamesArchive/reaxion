@@ -42,7 +42,7 @@ public class Battle {
 	private String p1s, p2s;
 	private MajorCharacter p1, p2;
 	private ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>(2);
-	private Class[] p1Attacks, p2Attacks;
+	private Class[] p1Attacks, p2Attacks, op1Attacks, op2Attacks;
 	private Ability[] p1Abilities, p2Abilities;
 	private Vector3f playerPosition = new Vector3f(0,0,0);
 	private ArrayList<Vector3f> opPositions = new ArrayList<Vector3f>();
@@ -82,6 +82,8 @@ public class Battle {
 		LoadingQueue.push(stage);	
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
+		op1Attacks = new Class[6];
+		op2Attacks = new Class[6];
 		
 		try {
 			String[] b1 = p1.info.getAbilities();
@@ -120,15 +122,24 @@ public class Battle {
 		//	op2Attacks = new Class[6];
 			
 			try {
-				for(int i = 0; i < op.size(); i++) {
+				// yep hardcoded 2, i'm so forward thinking :3
+				for(int i = 0; i < 2; i++) {
 					String[] b1 = op.get(i).info.getAbilities();
 					opAbilities.add( new Ability[b1.length]);
 					for (int j=0; j<b1.length; j++)
 						opAbilities.get(i)[j] = (Ability) Class.forName(abilityBaseLocation + b1[j]).getConstructors()[0].newInstance();
-			//		String[] t1 = p1.info.getAttacks();
-			//		for (int i=0; i<t1.length; i++)
-			//			p1Attacks[i] = Class.forName(attackBaseLocation + t1[i]);
 				}
+				
+				String[] t1 = op.get(0).info.getAttacks();
+				for (int j=0; j<t1.length; j++) {
+					//System.out.println(attackBaseLocation + t1[j]);
+					op1Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
+				}
+				
+				t1 = op.get(1).info.getAttacks();
+				for (int j=0; j<t1.length; j++)
+					op2Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -258,6 +269,14 @@ public class Battle {
 	public Character[] getOps() {
 		return op.toArray(new Character[0]);
 	}
+	
+	public MajorCharacter getOp1() {
+		return op.get(0);
+	}
+
+	public MajorCharacter getOp2() {
+		return op.get(1);
+	}
 
 	public void setOps(Character[] o) {
 		op = new ArrayList<MajorCharacter>();
@@ -335,6 +354,22 @@ public class Battle {
 
 	public void setExpYield(int expYield) {
 		this.expYield = expYield;
+	}
+
+	public Class[] getOp1Attacks() {
+		return op1Attacks;
+	}
+
+	public void setOp1Attacks(Class[] op1Attacks) {
+		this.op1Attacks = op1Attacks;
+	}
+
+	public Class[] getOp2Attacks() {
+		return op2Attacks;
+	}
+
+	public void setOp2Attacks(Class[] op2Attacks) {
+		this.op2Attacks = op2Attacks;
 	}
 
 }
