@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.attack.AttackData;
 import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
@@ -9,7 +10,6 @@ import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.networking.NetworkingObjects.PlayerNum;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.input.KeyBindingManager;
-import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 /**
@@ -53,7 +53,6 @@ public class ServerBattleGameState extends BattleGameState {
 
 	@Override
 	public void setActive(boolean arg0) {
-		// TODO Auto-generated method stub
 		super.setActive(arg0);
 	}
 
@@ -62,7 +61,6 @@ public class ServerBattleGameState extends BattleGameState {
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -165,7 +163,6 @@ public class ServerBattleGameState extends BattleGameState {
 
 	protected void checkKeys(ClientPlayerInput pinput, PlayerNum pn) {
 		KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
-		// MajorCharacter player =
 
 		MajorCharacter play;
 		switch (pn) {
@@ -177,7 +174,25 @@ public class ServerBattleGameState extends BattleGameState {
 			play = opPlayer;
 		}
 
-		
+		if (pinput.getAttack1()) {
+    		if (pinput.getAttackHold())
+    			executeAttack(3, pn);
+    		else
+    			executeAttack(0, pn);
+    	}
+    	if (pinput.getAttack2()) {
+    		if (pinput.getAttackHold())
+    			executeAttack(4, pn);
+    		else
+    			executeAttack(1, pn);
+    	}
+    	if (pinput.getAttack3()) {
+    		if (pinput.getAttackHold())
+    			executeAttack(5, pn);
+    		else
+    			executeAttack(2, pn);
+    	}
+			
 		Vector3f quqt = new Vector3f(pinput.getFacingX(), 0, 
 				pinput.getFacingZ()).mult(
 						play.speed);
@@ -194,6 +209,35 @@ public class ServerBattleGameState extends BattleGameState {
 		// assign vector to player
 		play.setVelocity(quqt);
 	}
+
+	private void executeAttack(int ind, PlayerNum pn) {
+		MajorCharacter play, part; Class[] attacks;
+		switch (pn) {
+		case P1:
+			play = player;
+			attacks = playerAttacks;
+			part = partner;
+			break;
+		case P2:
+		default:
+			play = opPlayer;
+			attacks = opPlayerAttacks;
+			part = opPartner;
+		}
+		
+    	if (!play.flinching && play.currentAttack == null) {
+			try {
+				if (attacks[ind] != null) {
+					Character[] friends = new Character[1];
+					friends[0] = part;
+					attacks[ind].getConstructors()[1].newInstance(new AttackData(play, friends, getTarget()));
+				}
+			} catch (Exception e) {
+				System.out.println("Fatal error: Attack array parameter was not an Attack.");
+				e.printStackTrace();
+			}
+		}
+    }
 
 	public MajorCharacter getOpPlayer() {
 		return opPlayer;

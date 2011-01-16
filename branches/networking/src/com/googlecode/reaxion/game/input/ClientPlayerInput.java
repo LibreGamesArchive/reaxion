@@ -31,10 +31,14 @@ public class ClientPlayerInput extends PlayerInput {
 	private MajorCharacter partner;
 	private Camera camera;
 	
-	private Boolean forthOn = false;
-	private Boolean leftOn = false;
-	private Boolean jumpOn = false;
-	private Boolean tagOut = false;
+	private boolean forthOn = false;
+	private boolean leftOn = false;
+	private boolean jumpOn = false;
+	private boolean tagOut = false;
+	private boolean attackHold = false;
+	private boolean attack1 = false;
+	private boolean attack2 = false;
+	private boolean attack3 = false;
 	
 	private float facingX, facingZ;
 	
@@ -149,31 +153,19 @@ public class ClientPlayerInput extends PlayerInput {
     	} else {
     		jumpOn = false;
     	}
-    	/*
-    	// check attacks
-    	if(KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
-    		state.toggleZPressed(true);
-    	else
-    		state.toggleZPressed(false);
     	
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack1", false)) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
-    			executeAttack(3);
-    		else
-    			executeAttack(0);
+    	// check attacks
+    	if(KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true)) {
+    		state.toggleZPressed(true);
+    		attackHold = true;
+    	} else {
+    		state.toggleZPressed(false);
+    		attackHold = false;
     	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack2", false)) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
-    			executeAttack(4);
-    		else
-    			executeAttack(1);
-    	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("attack3", false)) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
-    			executeAttack(5);
-    		else
-    			executeAttack(2);
-    	}*/
+    	
+    	attack1 = KeyBindingManager.getKeyBindingManager().isValidCommand("attack1", false);
+    	attack2 = KeyBindingManager.getKeyBindingManager().isValidCommand("attack2", false);
+    	attack3 = KeyBindingManager.getKeyBindingManager().isValidCommand("attack3", false);
     	
     	// normalize vector
     	if (Math.abs(unitX) + Math.abs(unitY) + Math.abs(unitZ) > 1) {
@@ -273,5 +265,55 @@ public class ClientPlayerInput extends PlayerInput {
 
 	public void setFacingZ(float facingZ) {
 		this.facingZ = facingZ;
+	}
+
+	public boolean getAttackHold() {
+		return attackHold;
+	}
+
+	public void setAttackHold(boolean attackHold) {
+		this.attackHold = attackHold;
+	}
+
+	/**
+	 * @return the attack1
+	 */
+	public boolean getAttack1() {
+		return attack1;
+	}
+
+	/**
+	 * @param attack1 the attack1 to set
+	 */
+	public void setAttack1(boolean attack1) {
+		this.attack1 = attack1;
+	}
+
+	/**
+	 * @return the attack2
+	 */
+	public boolean getAttack2() {
+		return attack2;
+	}
+
+	/**
+	 * @param attack2 the attack2 to set
+	 */
+	public void setAttack2(boolean attack2) {
+		this.attack2 = attack2;
+	}
+
+	/**
+	 * @return the attack3
+	 */
+	public boolean getAttack3() {
+		return attack3;
+	}
+
+	/**
+	 * @param attack3 the attack3 to set
+	 */
+	public void setAttack3(boolean attack3) {
+		this.attack3 = attack3;
 	}
 }

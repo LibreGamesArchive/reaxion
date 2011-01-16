@@ -79,6 +79,10 @@ public class JMEGraphicalController implements GraphicalController {
 			cpi.setLeftOn(m.getLeftOn());
 			cpi.setFacingX(m.getFacingX());
 			cpi.setFacingZ(m.getFacingZ());
+			cpi.setAttack1(m.getAttack1());
+			cpi.setAttack2(m.getAttack2());
+			cpi.setAttack3(m.getAttack3());
+			cpi.setAttackHold(m.getAttackHold());
 		}
 	}
 
@@ -107,6 +111,10 @@ public class JMEGraphicalController implements GraphicalController {
 			message.setLeftOn(cpi.getLeftOn());
 			message.setFacingX(cpi.getFacingX());
 			message.setFacingZ(cpi.getFacingZ());
+			message.setAttack1(cpi.getAttack1());
+			message.setAttack2(cpi.getAttack2());
+			message.setAttack3(cpi.getAttack3());
+			message.setAttackHold(cpi.getAttackHold());
 			return message;
 		}
 		return null;
