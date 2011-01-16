@@ -107,6 +107,7 @@ public class JMEGraphicalController implements GraphicalController {
 			message.setLeftOn(cpi.getLeftOn());
 			message.setFacingX(cpi.getFacingX());
 			message.setFacingZ(cpi.getFacingZ());
+			return message;
 		}
 		return null;
 	}
