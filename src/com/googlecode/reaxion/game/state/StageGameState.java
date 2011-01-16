@@ -264,6 +264,7 @@ public class StageGameState extends CameraGameState {
 					playerAttacks[i].getMethod("load").invoke(null);
 				if (partnerAttacks[i] != null)
 					partnerAttacks[i].getMethod("load").invoke(null);
+				//FIXME: load opponent's attacks too
 			}
 
 			// try to preload common resources
@@ -438,6 +439,7 @@ public class StageGameState extends CameraGameState {
 	 * 
 	 */
 	public Model getTarget() {
+		// TODO: change to work for networked games; that is, each player needs a target
 		if (currentTarget == null)
 			nextTarget(0);
 		return currentTarget;

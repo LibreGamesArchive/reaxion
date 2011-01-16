@@ -180,7 +180,6 @@ public abstract class NetworkingObjects {
 
 		serverSyncManager.addSyncObjectManager(new SyncObjectManager() {
 			public boolean remove(SynchronizeRemoveMessage srm, Object obj) {
-				// TODO Auto-generated method stub
 				return false;
 			}
 
