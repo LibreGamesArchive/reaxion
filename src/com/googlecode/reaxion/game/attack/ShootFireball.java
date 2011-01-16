@@ -64,7 +64,7 @@ public class ShootFireball extends Attack {
 		} else if (phase == 1 && (fireball.model.getLocalScale().x == 1 || fireball.model.getParent() == null)) {
 			// set the fireball's velocity
 			Vector3f rotation = character.rotationVector;
-			Vector3f targetLine = b.getTarget().model.getWorldTranslation().subtract(b.getPlayer().model.getWorldTranslation()).normalize();
+			Vector3f targetLine = target.model.getWorldTranslation().subtract(character.model.getWorldTranslation()).normalize();
 			
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			
