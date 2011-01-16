@@ -36,6 +36,11 @@ public class Attack {
 	 */
 	protected Character[] friends;
 	
+	/**
+	 * The target of the attack
+	 */
+	protected Model target;
+	
 	// creating an Attack with these constructors is useless, as they only
 	// exist to facilitate backend stuff
 	public Attack() {}
@@ -44,6 +49,7 @@ public class Attack {
 	public Attack(AttackData ad, int gc) {
 		character = ad.character;
 		friends = ad.friends;
+		target = ad.target;
 		character.currentAttack = this;
 		gaugeCost = gc;
 		checkGauge();
