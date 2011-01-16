@@ -33,12 +33,14 @@
  */
 package com.googlecode.reaxion.game.networking;
 
-import com.captiveimagination.jgn.synchronization.*;
-import com.captiveimagination.jgn.synchronization.message.*;
+import com.captiveimagination.jgn.synchronization.GraphicalController;
+import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
+import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
+import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
+import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
-import com.googlecode.reaxion.game.overlay.Overlay;
-import com.radakan.jme.mxml.anim.MeshAnimationController;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizePlayerInputMessage;
 
 /**
  * This is a basic implementation of the GraphicalControler for the jME project.
@@ -68,6 +70,15 @@ public class JMEGraphicalController implements GraphicalController {
 			model.model.getLocalScale().z = m.getScaleZ();
 			// ((MeshAnimationController)
 			// model.model.getController(0)).setAnimation(m.getAnimation());
+		} else if (obj instanceof ClientPlayerInput) {
+			//TODO: sync booleans? is that it for now
+			ClientPlayerInput cpi = (ClientPlayerInput) obj;
+			SynchronizePlayerInputMessage m = (SynchronizePlayerInputMessage) message;
+			cpi.setForthOn(m.getForthOn());
+			cpi.setJumpOn(m.getJumpOn());
+			cpi.setLeftOn(m.getLeftOn());
+			cpi.setFacingX(m.getFacingX());
+			cpi.setFacingZ(m.getFacingZ());
 		}
 	}
 
@@ -88,6 +99,14 @@ public class JMEGraphicalController implements GraphicalController {
 			// message.setAnimation(((MeshAnimationController)
 			// model.model.getController(0)).getActiveAnimation());
 			return message;
+		} else if (obj instanceof ClientPlayerInput) {
+			ClientPlayerInput cpi = (ClientPlayerInput) obj;
+			SynchronizePlayerInputMessage message = new SynchronizePlayerInputMessage();
+			message.setForthOn(cpi.getForthOn());
+			message.setJumpOn(cpi.getJumpOn());
+			message.setLeftOn(cpi.getLeftOn());
+			message.setFacingX(cpi.getFacingX());
+			message.setFacingZ(cpi.getFacingZ());
 		}
 		return null;
 	}

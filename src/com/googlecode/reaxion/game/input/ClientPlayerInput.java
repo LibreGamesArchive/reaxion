@@ -34,6 +34,9 @@ public class ClientPlayerInput extends InputHandler {
 	private Boolean forthOn = false;
 	private Boolean leftOn = false;
 	private Boolean jumpOn = false;
+	private Boolean tagOut = false;
+	
+	private float facingX, facingZ;
 	
 	protected Class[] attacks;
 	
@@ -42,12 +45,12 @@ public class ClientPlayerInput extends InputHandler {
      * @param b the current BattleGameState
      * @param q the array of classes of attacks
      */
-    public ClientPlayerInput(StageGameState b) {
-    	state = b;
-    	attacks = state.getPlayerAttacks();
-    	player = state.getPlayer();
-    	partner = state.getPartner();
-    	camera = state.getCamera();
+    public ClientPlayerInput() {
+   // 	state = b;
+   // 	attacks = state.getPlayerAttacks();
+   // 	player = state.getPlayer();
+   // 	partner = state.getPartner();
+   // 	camera = state.getCamera();
         setKeyBindings();
     }
 
@@ -78,23 +81,26 @@ public class ClientPlayerInput extends InputHandler {
      * @author Khoa
      */
     public void checkKeys() {
-    	// switch players
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("switch", false))
-    		state.tagSwitch();
+    	KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
     	
-    	// reassign player
+    	// switch players
+    	tagOut = false;
+    	if (keyboard.isValidCommand("switch", false))
+    		tagOut = true;
+    	
+    /*	// reassign player
     	player = state.getPlayer();
     	partner = state.getPartner();
-    	attacks = state.getPlayerAttacks();
+    	attacks = state.getPlayerAttacks();*/
     	
     	// check priority key order
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", false))
+    	if (keyboard.isValidCommand("forth", false))
     		forthOn = true;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", false))
+    	if (keyboard.isValidCommand("back", false))
     		forthOn = false;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", false))
+    	if (keyboard.isValidCommand("right", false))
     		leftOn = false;
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", false))
+    	if (keyboard.isValidCommand("left", false))
     		leftOn = true;
     	
     	// create unit vector and check for priority releases
@@ -102,46 +108,46 @@ public class ClientPlayerInput extends InputHandler {
     	float unitY = 0f;
     	float unitZ = 0f;
     	if (!player.moveLock && !player.flinching) {
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("forth", true)) {
+    		if (keyboard.isValidCommand("forth", true)) {
     			if (forthOn)
     				unitX = -1f;
     		} else {
     			forthOn = false;
     		}
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("back", true)) {
+    		if (keyboard.isValidCommand("back", true)) {
     			if (!forthOn)
     				unitX = 1f;
     		} else {
     			forthOn = true;
     		}
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("right", true)) {
+    		if (keyboard.isValidCommand("right", true)) {
     			if (!leftOn)
     				unitZ = 1f;
     		} else {
     			leftOn = true;
     		}
-    		if (KeyBindingManager.getKeyBindingManager().isValidCommand("left", true)) {
+    		if (keyboard.isValidCommand("left", true)) {
     			if (leftOn)
     				unitZ = -1f;
     		} else {
     			leftOn = false;
     		}
     	}
-    	if (KeyBindingManager.getKeyBindingManager().isValidCommand("jump", true)) {
+    	if (keyboard.isValidCommand("jump", true)) {
     		if (!player.jumpLock && !player.flinching && player.model.getWorldTranslation().y <= 0) {
     			if (!jumpOn) {
     				jumpOn = true;
-    				jumpCount = jumpLevels[1] - jumpLevels[0];
-    				player.gravVel = player.jump * jumpLevels[0]/jumpLevels[1];
+    //				jumpCount = jumpLevels[1] - jumpLevels[0];
+    //				player.gravVel = player.jump * jumpLevels[0]/jumpLevels[1];
     			}
-    		} else if (jumpCount > 0) {
-    			player.gravVel += player.jump/jumpLevels[1];
-    			jumpCount--;
-    		}
+    		}// else if (jumpCount > 0) {
+    //			player.gravVel += player.jump/jumpLevels[1];
+    //			jumpCount--;
+    //		}
     	} else {
     		jumpOn = false;
     	}
-    	
+    	/*
     	// check attacks
     	if(KeyBindingManager.getKeyBindingManager().isValidCommand("attackHold", true))
     		state.toggleZPressed(true);
@@ -165,7 +171,7 @@ public class ClientPlayerInput extends InputHandler {
     			executeAttack(5);
     		else
     			executeAttack(2);
-    	}
+    	}*/
     	
     	// normalize vector
     	if (Math.abs(unitX) + Math.abs(unitY) + Math.abs(unitZ) > 1) {
@@ -187,20 +193,20 @@ public class ClientPlayerInput extends InputHandler {
     	}
     	float angle = FastMath.atan2(p1.x-p2.x, p1.z-p2.z);
     	
-    	
     	// rotate XZ components
-    	float nUnitX = unitX*FastMath.sin(angle) + unitZ*FastMath.cos(angle);
-    	float nUnitZ = unitX*FastMath.cos(angle) - unitZ*FastMath.sin(angle);
+    	facingX = unitX*FastMath.sin(angle) + unitZ*FastMath.cos(angle);
+    	facingZ = unitX*FastMath.cos(angle) - unitZ*FastMath.sin(angle);
+    	
+    	
     	
     	// assign vector to player
-    	player.setVelocity(new Vector3f(nUnitX, unitY, nUnitZ).mult(player.speed));
-    	
+  //  	player.setVelocity(new Vector3f(nUnitX, unitY, nUnitZ).mult(player.speed));
     }
     
     /**
      * Execute attack index in parameter
      */
-    private void executeAttack(int ind) {
+  /*  private void executeAttack(int ind) {
     	if (!player.flinching && player.currentAttack == null) {
 			try {
 				if (attacks[ind] != null) {
@@ -214,4 +220,56 @@ public class ClientPlayerInput extends InputHandler {
 			}
 		}
     }
+*/
+	public Boolean getForthOn() {
+		return forthOn;
+	}
+
+	public void setForthOn(Boolean forthOn) {
+		this.forthOn = forthOn;
+	}
+
+	public Boolean getLeftOn() {
+		return leftOn;
+	}
+
+	public void setLeftOn(Boolean leftOn) {
+		this.leftOn = leftOn;
+	}
+
+	public Boolean getJumpOn() {
+		return jumpOn;
+	}
+
+	public void setJumpOn(Boolean jumpOn) {
+		this.jumpOn = jumpOn;
+	}
+
+	public Boolean getTagOut() {
+		return tagOut;
+	}
+
+	public void setTagOut(Boolean tagOut) {
+		this.tagOut = tagOut;
+	}
+
+	public void setState(StageGameState state) {
+		this.state = state;
+	}
+
+	public float getFacingX() {
+		return facingX;
+	}
+
+	public void setFacingX(float facingX) {
+		this.facingX = facingX;
+	}
+
+	public float getFacingZ() {
+		return facingZ;
+	}
+
+	public void setFacingZ(float facingZ) {
+		this.facingZ = facingZ;
+	}
 }
