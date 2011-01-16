@@ -205,7 +205,6 @@ public abstract class NetworkingObjects {
 
 	public static void setUpClient(boolean local) throws IOException, InterruptedException {
 		isServer = false;
-		JGN.register(SynchronizeModelMessage.class);
 
 		// Instantiate an instance of a JMEGraphicalController
 		controller = new JMEGraphicalController();

@@ -177,6 +177,11 @@ public class ServerBattleGameState extends BattleGameState {
 			play = opPlayer;
 		}
 
+		
+		Vector3f quqt = new Vector3f(pinput.getFacingX(), 0, 
+				pinput.getFacingZ()).mult(
+						play.speed);
+		System.out.println(play + " -- " +pinput.getForthOn()+pinput.getJumpOn()+pinput.getLeftOn());
 		/*
 		 * if (!player.jumpLock && !player.flinching &&
 		 * player.model.getWorldTranslation().y <= 0) { if (!pinput.getJumpOn())
@@ -187,10 +192,7 @@ public class ServerBattleGameState extends BattleGameState {
 		 */
 
 		// assign vector to player
-		play.setVelocity(
-				new Vector3f(pinput.getFacingX(), 0, 
-						pinput.getFacingZ()).mult(
-								play.speed));
+		play.setVelocity(quqt);
 	}
 
 	public MajorCharacter getOpPlayer() {
