@@ -175,69 +175,83 @@ public class ServerBattleGameState extends BattleGameState {
 		}
 
 		if (pinput.getAttack1()) {
-    		if (pinput.getAttackHold())
-    			executeAttack(3, pn);
-    		else
-    			executeAttack(0, pn);
-    	}
-    	if (pinput.getAttack2()) {
-    		if (pinput.getAttackHold())
-    			executeAttack(4, pn);
-    		else
-    			executeAttack(1, pn);
-    	}
-    	if (pinput.getAttack3()) {
-    		if (pinput.getAttackHold())
-    			executeAttack(5, pn);
-    		else
-    			executeAttack(2, pn);
-    	}
-			
-		Vector3f quqt = new Vector3f(pinput.getFacingX(), 0, 
-				pinput.getFacingZ()).mult(
-						play.speed);
-		System.out.println(play + " -- " +pinput.getForthOn()+pinput.getJumpOn()+pinput.getLeftOn());
-		/*
-		 * if (!player.jumpLock && !player.flinching &&
-		 * player.model.getWorldTranslation().y <= 0) { if (!pinput.getJumpOn())
-		 * { jumpCount = jumpLevels[1] - jumpLevels[0]; player.gravVel =
-		 * player.jump * jumpLevels[0]/jumpLevels[1]; } }// else if (jumpCount >
-		 * 0) { // player.gravVel += player.jump/jumpLevels[1]; // jumpCount--;
-		 * // } } else { jumpOn = false; }
-		 */
+			if (pinput.getAttackHold())
+				executeAttack(3, pn);
+			else
+				executeAttack(0, pn);
+		}
+		if (pinput.getAttack2()) {
+			if (pinput.getAttackHold())
+				executeAttack(4, pn);
+			else
+				executeAttack(1, pn);
+		}
+		if (pinput.getAttack3()) {
+			if (pinput.getAttackHold())
+				executeAttack(5, pn);
+			else
+				executeAttack(2, pn);
+		}
 
 		// assign vector to player
-		play.setVelocity(quqt);
+		if (!play.moveLock)
+			play.setVelocity(new Vector3f(pinput.getFacingX(), 0, pinput.getFacingZ())
+					.mult(play.speed));
+		// System.out.println(play + " -- "
+		// +pinput.getForthOn()+pinput.getJumpOn()+pinput.getLeftOn());
+
+		final int[] jumpLevels = { 2, 4 };
+		int jumpCount = 0;
+
+		// TODO: Check if key inputs are being reused (if sync and opengl threads are not working right, and why should they be?)
+    	if (pinput.getJumpOn()) {
+    		if (!play.jumpLock && !play.flinching && play.model.getWorldTranslation().y <= 0) {
+    			if (!pinput.isJumping()) {
+    				pinput.setJumping(true);
+    				jumpCount = jumpLevels[1] - jumpLevels[0];
+    				play.gravVel = play.jump * jumpLevels[0]/jumpLevels[1];
+    			}
+    		} else if (jumpCount > 0) {
+    			play.gravVel += play.jump/jumpLevels[1];
+    			jumpCount--;
+    		}
+    	} else {
+    		pinput.setJumping(false);
+    	}
 	}
 
 	private void executeAttack(int ind, PlayerNum pn) {
-		MajorCharacter play, part; Class[] attacks;
+		MajorCharacter play, part, opp;
+		Class[] attacks;
 		switch (pn) {
 		case P1:
 			play = player;
 			attacks = playerAttacks;
 			part = partner;
+			opp = opPlayer;
 			break;
 		case P2:
 		default:
 			play = opPlayer;
 			attacks = opPlayerAttacks;
 			part = opPartner;
+			opp = player;
 		}
-		
-    	if (!play.flinching && play.currentAttack == null) {
+
+		if (!play.flinching && play.currentAttack == null) {
 			try {
 				if (attacks[ind] != null) {
 					Character[] friends = new Character[1];
 					friends[0] = part;
-					attacks[ind].getConstructors()[1].newInstance(new AttackData(play, friends, getTarget()));
+					attacks[ind].getConstructors()[1]
+							.newInstance(new AttackData(play, friends, opp));
 				}
 			} catch (Exception e) {
 				System.out.println("Fatal error: Attack array parameter was not an Attack.");
 				e.printStackTrace();
 			}
 		}
-    }
+	}
 
 	public MajorCharacter getOpPlayer() {
 		return opPlayer;

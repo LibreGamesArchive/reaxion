@@ -33,7 +33,7 @@ public class ClientPlayerInput extends PlayerInput {
 	
 	private boolean forthOn = false;
 	private boolean leftOn = false;
-	private boolean jumpOn = false;
+	private boolean jumpOn = false, jumping = false; // jumping is for server only
 	private boolean tagOut = false;
 	private boolean attackHold = false;
 	private boolean attack1 = false;
@@ -315,5 +315,19 @@ public class ClientPlayerInput extends PlayerInput {
 	 */
 	public void setAttack3(boolean attack3) {
 		this.attack3 = attack3;
+	}
+
+	/**
+	 * @return the jumping
+	 */
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	/**
+	 * @param jumping the jumping to set
+	 */
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
 	}
 }
