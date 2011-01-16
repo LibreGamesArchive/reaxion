@@ -555,7 +555,7 @@ public class StageGameState extends CameraGameState {
 		// Update the PlayerInput
 		if (NetworkingObjects.isServer) {
 			// consider having if both at the same time so that it's not unfair?
-			System.out.println("p1input="+NetworkingObjects.p1input+"\t\tp2input="+NetworkingObjects.p2input);
+	//		System.out.println("p1input="+NetworkingObjects.p1input+"\t\tp2input="+NetworkingObjects.p2input);
 			if (NetworkingObjects.p1input != null)
 				synchronized (NetworkingObjects.p1input) {
 					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p1input,
