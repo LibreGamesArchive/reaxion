@@ -48,9 +48,9 @@ public class ClientPlayerInput extends PlayerInput {
     public ClientPlayerInput(StageGameState b) {
     	state = b;
    // 	attacks = state.getPlayerAttacks();
-   // 	player = state.getPlayer();
+    	player = state.getPlayer();
    // 	partner = state.getPartner();
-   // 	camera = state.getCamera();
+    	camera = state.getCamera();
         setKeyBindings();
     }
 
