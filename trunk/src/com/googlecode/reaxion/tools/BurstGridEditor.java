@@ -56,7 +56,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	public static final String[] nodeTypes = {"ability", "attack", "gauge1", "gauge2", "hp", "rate", "strength"};
 	public static final String[] attributes = {"Ability Name", "Attack Name", "Min Gauge Plus", "Max Gauge Plus", 
 		"HP Plus", "Rate Plus", "Strength Plus"};
-	
+
 	private static int nodeID = 1;
 
 	private JFileChooser fileChooser;
@@ -67,24 +67,26 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	private JPanel nodeAttributes;
 	private JComboBox types;
 	private ToolButton createNode;
-	
+	private JLabel costsLabel;
+	private JTextField costs;
+
 	public static void main(String[] args) {
 		BurstGridEditor bge = new BurstGridEditor();
 	}
-	
+
 	public BurstGridEditor() {
 		super("Burst Grid Editor - Brian Clanton");
-		
+
 		init();
 	}
-	
+
 	private void init() {
 		ToolUtils.initialize();
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		
+
 		fileChooser = new JFileChooser(new File(gridDir));
 		fileChooser.setFileFilter(new TextFilter());
-		
+
 		initMenu();
 		initToolbar();
 
@@ -93,74 +95,80 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		bgp = new BurstGridPanel(temp);
 		bgp.addNodeEventListener(this);
 		add(bgp);		
-		
+
 		initFrame();
 	}
-	
+
 	private void initMenu() {
 		JMenu file = new JMenu("File");
 		file.add(new ToolMenuItem("Save Grid", this));
-		
+
 		JMenuBar bar = new JMenuBar();
 		bar.add(file);
-		
+
 		setJMenuBar(bar);
 	}
-	
+
 	private void initToolbar() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		panel.setPreferredSize(new Dimension(250, 480));
 		JPanel toolbar = new JPanel();
 		toolbar.setLayout(new BoxLayout(toolbar, BoxLayout.Y_AXIS));
-		
+
 		character = new JComboBox(ToolUtils.getCharacterNames().toArray());
-		
+
 		String[] temp = new String[nodeTypes.length];
-		
+
 		for (int i = 0; i < temp.length; i++)
 			temp[i] = Character.toUpperCase(nodeTypes[i].charAt(0)) + nodeTypes[i].substring(1);
-		
+
 		idField = new NodeIDField("1");
 		idField.addValidationEventListener(this);
 		JLabel typeDesc = new JLabel("Node Type:");
 		types = new JComboBox(temp);
 		types.addActionListener(this);
 		types.setActionCommand("node_types");
-		
+
 		initAttributesPanel();
-		
+
 		createNode = new ToolButton("Create Node", this);
 		createNode.setEnabled(false);
 		
+		costsLabel = new JLabel("Costs: ");
+		costs = new JTextField();
+		costs.setEnabled(false);
+
 		addComponentToToolbar(character, toolbar, true);
 		addComponentToToolbar(new JSeparator(), toolbar, true);
 		addComponentToToolbar(idField, toolbar, true);
 		addComponentToToolbar(typeDesc, toolbar, true);
 		addComponentToToolbar(types, toolbar, true);
 		addComponentToToolbar(nodeAttributes, toolbar, true);
+		addComponentToToolbar(costsLabel, toolbar, true);
+		addComponentToToolbar(costs, toolbar, true);
 		addComponentToToolbar(createNode, toolbar, false);
-		
+
 		panel.add(toolbar);
 		add(panel);
 	}
-	
+
 	private void initAttributesPanel() {
 		nodeAttributes = new JPanel(new CardLayout());
-		
+
 		for (int i = 0; i < attributes.length; i++)
 			nodeAttributes.add(new AttributePanel(attributes[i], i >= 2 ? true : false, this), attributes[i]);
-		
+
 		CardLayout c = (CardLayout) nodeAttributes.getLayout();
 		c.show(nodeAttributes, attributes[0]);
 	}
-	
+
 	private void addComponentToToolbar(JComponent c, JPanel toolbar, boolean hasSpacing) {
 		toolbar.add(c);
 		c.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		if (hasSpacing)
 			toolbar.add(Box.createRigidArea(new Dimension(230, 10)));
 	}
-	
+
 	private ImageIcon getIcon(String filename) {
 		try {
 			BufferedImage original = ImageIO.read(new File(filename));
@@ -175,10 +183,10 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	private void initFrame() {
 		try {
 			setIconImage(ImageIO.read(new File(nodeIconDir + "ability.png")));
@@ -197,32 +205,32 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		try {
 			if (!f.getName().contains(".txt"))
 				f = new File(f.getPath() + ".txt");
-			
+
 			PrintWriter p = new PrintWriter(new FileWriter(f));
 			Scanner reader = new Scanner(new File(gridDir + "info.txt"));
-			
+
 			while (reader.hasNextLine())
 				p.println(reader.nextLine());
-			
+
 			reader.close();
-			
+
 			p.println((String) character.getSelectedItem() + "\n");
-			
+
 			for (EditorNode n : bgp.getNodes())
 				p.println(n);
-			
+
 			p.close();
-			
+
 			JOptionPane.showMessageDialog(null, "File \"" + f.getName() + "\" saved.", "Saving Complete", JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		
+
 		if (e.getSource() instanceof JComboBox) {
 			CardLayout c = (CardLayout) nodeAttributes.getLayout();
 			c.show(nodeAttributes, attributes[((JComboBox) e.getSource()).getSelectedIndex()]);
@@ -232,13 +240,13 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 			bgp.createSelectedNode(types.getSelectedIndex(), node);
 		} else if (command.equals("Save Grid")) {
 			int returnValue = fileChooser.showSaveDialog(this);
-			
+
 			if (returnValue == JFileChooser.APPROVE_OPTION)
 				saveGrid(fileChooser.getSelectedFile());
-				
+
 		}
 	}
-	
+
 	public void nodeCreated(NodeEvent e) {
 		createNode.setEnabled(false);
 	}
@@ -247,7 +255,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		createNode.setEnabled(true);
 		nodeID++;
 		idField.updateNodes(bgp.getNodes());
-		
+
 		for (Component c : nodeAttributes.getComponents())
 			((AttributePanel) c).resetFields();
 	}
@@ -263,6 +271,24 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	public void fieldFoundValid(ValidationEvent e) {
 		createNode.setEnabled(idField.isValid() && 
 				((AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()]).hasValidInfo());		
+	}
+
+	/**
+	 * TODO Make this method change the action performed by the CreateNode button so that when clicked,
+	 * the currently selected node's information is edited to match the information in the boxes on the left
+	 */
+	public void nodeSelected(NodeEvent e) {
+		// TODO Auto-generated method stub
+		final EditorNode temp = e.getNode();
+		idField.setText("" + temp.getId());
+		createNode.setText("Edit Node");
+		createNode.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				temp.setId(Integer.parseInt(idField.getText()));
+				temp.setCostString(costs.getText());
+				temp.setData(((AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()]).getData());
+			}
+		});
 	}
 
 }

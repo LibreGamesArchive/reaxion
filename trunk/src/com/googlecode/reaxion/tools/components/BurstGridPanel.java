@@ -68,13 +68,18 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		for (EditorNode n : nodes) {
 			if (n.isSelectedForConnection()) {
 				currentNode.addConnection(n);
+				currentNode.setCostString(currentNode.getCostString() + " " + n.getId() + ", 1");
 				n.setSelectedForConnection(false);
 			}
 		}
 	}
 	
+	private void setCosts(){
+		
+	}
+	
 	private boolean isWithinNode(Point n, Point p) {
-		boolean check = n.x - 20 <= p.x && n.x + 20 >= p.x && n.y + 20 <= p.y && n.y - 20 >= p.y;
+		boolean check = n.x - 10 <= p.x && n.x + 10 >= p.x && n.y + 10 >= p.y && n.y - 10 <= p.y;
 		System.out.println(n + " || " + p + " || " + check);
 		return check;
 	}
@@ -89,15 +94,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		
 		g2.setColor(Color.white);
 		g2.fillRect(0, 0, backbuffer.getWidth(), backbuffer.getHeight());
-		
-//		g2.translate(size.width/2, size.height/2);
-//		//		g2.setColor(Color.blue);
-//		//		g2.fillRect(x, y, 10, 10);
-//		//		g.drawImage(buffer, 0, 0, null);
-//		//		g2.setColor(Color.white);
-//		//		g2.fillRect(x, y, 10, 10);
-//
-//		g2.translate(-size.width/2,-size.height/2);
+	
 		g2.setColor(Color.black);
 		
 		g2.setStroke(new BasicStroke(3));
@@ -113,6 +110,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		g2.translate(getWidth()/2,getHeight()/2);
 		
 		for(EditorNode e: nodes){
+			drawConnections(g2);
 			if (e.getNodes().size() != 0)
 				for (EditorNode n : nodes)
 					if (e.getNodes().contains(n.getId())) 
@@ -122,7 +120,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 				g2.setColor(Color.green);
 				g2.fillRect(e.getPosition().x - 8, e.getPosition().y - 8, 16, 16);
 			} else if (e.isSelectedForConnection()) {
-				g2.setColor(Color.blue.darker());
+				g2.setColor(Color.blue.darker().darker());
 				g2.fillRect(e.getPosition().x - 8, e.getPosition().y - 8, 16, 16);
 			}
 			
@@ -131,6 +129,15 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		}
 		
 		g.drawImage(backbuffer, 0, 0, null);
+	}
+	
+	private void drawConnections(Graphics2D g2){
+		g2.setColor(Color.red);
+		for(EditorNode n: nodes){
+			for(int id : n.getNodes()){
+				g2.drawLine(n.getPosition().x, n.getPosition().y, nodes.get(id-1).getPosition().x, nodes.get(id-1).getPosition().y);
+			}
+		}
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -141,18 +148,17 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		int a = getWidth()/lineCount;
 		int b = getHeight()/lineCount;
 		
-		int x = a*((mouseX+5)/a); //+a/2*(int)Math.copySign(1, mouseX);
-		int y =  -1*(b*((mouseY+5)/b)); //-b/2*(int)Math.copySign(1, mouseY);		
+		int x = a*((mouseX+a/2*(int)Math.copySign(1, mouseX))/a);
+		int y =  -1*(b*((mouseY+b/2*(int)Math.copySign(1, mouseY))/b));		
 		
 		Point p = new Point(x, y);
 
 		if(clickable){
-
 			if(nodes.isEmpty()){
 				currentNode.setPosition(p);
 				nodes.add(currentNode);
-				clickable = false;
 				fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
+				clickable = false;
 				currentNode = null;
 			}
 			else{
@@ -164,8 +170,8 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 				if(!contains){
 					currentNode.setPosition(p);
 					nodes.add(currentNode);
-					clickable = false;
 					fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
+					clickable = false;
 					currentNode = null;
 				}
 			}
@@ -184,11 +190,13 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 				if (currentNode == null || !currentNode.isSelected()) {
 					currentNode = n;
 					currentNode.setSelected(true);
+					fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.SELECTED));
 				} else {
 					n.setSelectedForConnection(!n.isSelectedForConnection());
 				}
 			} else if (currentNode != null){
 				createConnections();
+				setCosts();
 			}
 		}
 		repaint();
@@ -231,6 +239,8 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 			else if (event.getType().equals(NodeEvent.REMOVED))
 				listener.nodeRemoved(event);
 			else if (event.getType().equals(NodeEvent.CREATED))
+				listener.nodeCreated(event);
+			else if (event.getType().equals(NodeEvent.SELECTED))
 				listener.nodeCreated(event);
 		}
 	}	

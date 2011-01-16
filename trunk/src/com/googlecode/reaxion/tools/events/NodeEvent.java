@@ -6,7 +6,7 @@ import com.googlecode.reaxion.tools.vo.EditorNode;
 
 public class NodeEvent extends EventObject {
 
-	public static final String ADDED = "added", REMOVED = "removed", CREATED = "created";
+	public static final String ADDED = "added", REMOVED = "removed", CREATED = "created", SELECTED = "selected";
 	
 	private EditorNode node;
 	private String type;

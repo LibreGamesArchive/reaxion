@@ -1,9 +1,11 @@
 package com.googlecode.reaxion.game.burstgrid;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,9 +30,9 @@ import com.googlecode.reaxion.tools.listeners.NodeEventListener;
 
 public class BurstGridEditor extends JApplet implements MouseInputListener{
 	
-	int width = 500, height = 500;
+	int width = 480, height = 480;
 	int mx, my, x, y;
-	int numLines = 25;
+	int numLines = 24;
 	ArrayList<Point> nodes, drawNodes;
 	ArrayList<BurstNode> grid = new ArrayList<BurstNode>();
 	ArrayList<String> conns;
@@ -87,6 +89,7 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 							idBox.setText("" + (Integer.parseInt(idBox.getText())+1));
 							grid.add(b);
 							System.out.println(grid);
+							System.out.println(nodes);
 						}
 					} catch (IllegalArgumentException e) {
 					} catch (SecurityException e) {
@@ -131,9 +134,12 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 		if(clickable){
 			mx = e.getX() - width/2;
 			my = (e.getY() - height/2)*-1;
-
-			x = 20*((mx+5)/20)+10*(int)Math.copySign(1, mx);
-			y =  -1*(20*((my+5)/20))-10*(int)Math.copySign(1, my);		
+			
+			int a = width/numLines;
+			int b = height/numLines;
+			
+			x = a*((mx+(numLines/2))/a)+ 0*(int)Math.copySign(1, mx);
+			y =  -1*(b*((my+(numLines/2)*(int)Math.copySign(1, my))/b));		
 
 			Point p = new Point(x, y);
 			drawNodes.add(p);
@@ -145,6 +151,10 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 			else{
 				for(Point pnt: nodes)
 					if(pnt.equals(p)){
+						int i = nodes.indexOf(pnt);
+						BurstNode temp = grid.get(i);
+						idBox.setText("" + temp.id);
+						info.setText(temp.toString());
 						contains = true;
 						break;
 					}
@@ -161,57 +171,14 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 	}
 
 	public void mousePressed( MouseEvent e ) {
-		//		boolean contains = false;
-		//
-		//		mx = e.getX() - width/2;
-		//		my = (e.getY() - height/2)*-1;
-		//		
-		//		x = 20*((mx+5)/20)+10*(int)Math.copySign(1, mx);
-		//		y =  -1*(20*((my+5)/20))-10*(int)Math.copySign(1, my);		
-		//
-		//		Point p = new Point(x, y);
-		//		drawNodes.add(p);
-		//		if(nodes.isEmpty()){
-		//			nodes.add(p);
-		//		}
-		//		else{
-		//			for(Point pnt: nodes)
-		//				if(pnt.equals(p)){
-		//					contains = true;
-		//					break;
-		//				}
-		//			if(!contains)
-		//				nodes.add(p);
-		//		}
-		//		repaint();
-		//		e.consume();
+
 	}
-	public void mouseReleased( MouseEvent e ) {  // called after a button is released
-		//		boolean contains = false;
-		//
-		//		mx = e.getX() - width/2;
-		//		my = (e.getY() - height/2)*-1;
-		//
-		//		x = 20*((mx+5)/20)+10*(int)Math.copySign(1, mx);
-		//		y =  -1*(20*((my+5)/20))-10*(int)Math.copySign(1, my);		
-		//		
-		//		Point p = new Point(x,y);
-		//		drawNodes.add(p);
-		//		if(nodes.isEmpty()){
-		//			nodes.add(p);
-		//		}
-		//		else{
-		//			for(Point pnt: nodes)
-		//				if(pnt.equals(p)){
-		//					contains = true;
-		//					break;
-		//				}
-		//			if(!contains)
-		//				nodes.add(p);
-		//		}
-		//		repaint();
+	
+	public void mouseReleased( MouseEvent e ) {
+	
 	}
-	public void mouseMoved( MouseEvent e ) {  // called during motion when no buttons are down
+	
+	public void mouseMoved( MouseEvent e ) {
 		mx = e.getX() - width/2;
 		my = (e.getY() - height/2)*-1;
 
@@ -219,7 +186,7 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 		repaint();
 		e.consume();
 	}
-	public void mouseDragged( MouseEvent e ) {  // called during motion with buttons down
+	public void mouseDragged( MouseEvent e ) { 
 		mx = e.getX() - width/2;
 		my = (e.getY() - height/2)*-1;
 
@@ -230,6 +197,7 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 
 	public void paint( Graphics g ) {
 		Graphics g2 = buffer.getGraphics();
+		Graphics2D g2d = (Graphics2D)g2;
 
 		g2.translate(width/2, height/2);
 		//		g2.setColor(Color.blue);
@@ -241,10 +209,13 @@ public class BurstGridEditor extends JApplet implements MouseInputListener{
 		g2.translate(-width/2,-height/2);
 		g2.setColor(Color.black);
 		for(int i = 0; i < numLines; i++){
-			g2.drawLine(i*width/25, 0, i*width/25, height);
-			g2.drawLine(0, i*height/25, width, i*height/25);
+			g2.drawLine(i*width/numLines, 0, i*width/numLines, height);
+			g2.drawLine(0, i*height/numLines, width, i*height/numLines);
 		}
-
+		g2d.setStroke(new BasicStroke(3));
+		g2d.drawLine(0, height/2, width, height/2);
+		g2d.drawLine(width/2, 0, width/2, height);
+		
 		g2.translate(width/2,height/2);
 
 		g2.setColor(Color.blue);
