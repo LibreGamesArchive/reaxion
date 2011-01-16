@@ -17,7 +17,7 @@ import com.jme.renderer.Camera;
  * @author Khoa
  *
  */
-public class ClientPlayerInput extends InputHandler {
+public class ClientPlayerInput extends PlayerInput {
 	
 	/**
 	 * Min and max levels of jump strength, as fractions of player's jump,

@@ -366,7 +366,7 @@ public class StageGameState extends CameraGameState {
 		player = p;
 		playerAttacks = q;
 		// Create input system
-		playerInput = new PlayerInput(this);
+	//	playerInput = new PlayerInput(this);
 		// Pass attack reference to HUD
 		hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 	}
