@@ -1,8 +1,11 @@
 package com.googlecode.reaxion.game.state;
 
+import java.io.IOException;
+
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
+import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
@@ -42,6 +45,13 @@ public class ClientBattleGameState extends BattleGameState {
 
 	public ClientBattleGameState(Battle b) {
 		super(b);
+		
+		ClientPlayerInput pInput = new ClientPlayerInput();
+		try {
+			NetworkingObjects.clientSyncManager.register(pInput, new SynchronizeCreatePlayerInputMessage(), NetworkingObjects.updateRate);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

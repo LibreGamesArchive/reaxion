@@ -9,11 +9,13 @@ import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
+import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
+import com.googlecode.reaxion.game.networking.NetworkingObjects.PlayerNum;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
 import com.googlecode.reaxion.game.overlay.PauseOverlay;
 import com.googlecode.reaxion.game.util.Battle;
@@ -50,8 +52,7 @@ public class StageGameState extends CameraGameState {
 
 	public static final String NAME = "stageGameState";
 
-	protected static final Logger logger = Logger
-			.getLogger(StageGameState.class.getName());
+	protected static final Logger logger = Logger.getLogger(StageGameState.class.getName());
 
 	public float tpf;
 	protected double totalTime = 0;
@@ -127,9 +128,10 @@ public class StageGameState extends CameraGameState {
 
 		if (!NetworkingObjects.isServer) {
 			BgmPlayer.prepare();
-			if(getStage() != null)
+			if (getStage() != null)
 				AudioPlayer.queueBGM(getStage().getBgm(-1));
-			// fixed, problem was getStage() returned null since it starts w/o a stage
+			// fixed, problem was getStage() returned null since it starts w/o a
+			// stage
 		}
 
 		b.assignPositions();
@@ -163,7 +165,7 @@ public class StageGameState extends CameraGameState {
 		if (!NetworkingObjects.isServer) {
 			hudNode = new HudOverlay();
 			rootNode.attachChild(hudNode);
-	
+
 			// Prepare pause node
 			pauseNode = new PauseOverlay();
 			rootNode.attachChild(pauseNode);
@@ -180,14 +182,12 @@ public class StageGameState extends CameraGameState {
 			// Create a wirestate to toggle on and off. Starts disabled with
 			// default
 			// width of 1 pixel.
-			wireState = DisplaySystem.getDisplaySystem().getRenderer()
-					.createWireframeState();
+			wireState = DisplaySystem.getDisplaySystem().getRenderer().createWireframeState();
 			wireState.setEnabled(false);
 			rootNode.setRenderState(wireState);
 
 			// Create ZBuffer for depth
-			ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer()
-					.createZBufferState();
+			ZBufferState zbs = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState();
 			zbs.setEnabled(true);
 			zbs.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
 			rootNode.setRenderState(zbs);
@@ -198,8 +198,7 @@ public class StageGameState extends CameraGameState {
 			Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
 			Vector3f dir = new Vector3f(0.0f, 0f, -1.0f);
 			cam.setFrame(loc, left, up, dir);
-			cam.setFrustumPerspective(45f, (float) DisplaySystem
-					.getDisplaySystem().getWidth()
+			cam.setFrustumPerspective(45f, (float) DisplaySystem.getDisplaySystem().getWidth()
 					/ DisplaySystem.getDisplaySystem().getHeight(), .01f, 1500);
 			cam.update();
 
@@ -337,16 +336,15 @@ public class StageGameState extends CameraGameState {
 	 * @author Khoa
 	 * 
 	 */
-	public void assignTeam(MajorCharacter p1, Class[] q1, MajorCharacter p2,
-			Class[] q2) {
+	public void assignTeam(MajorCharacter p1, Class[] q1, MajorCharacter p2, Class[] q2) {
 		player = p1;
 		playerAttacks = q1;
 		partner = p2;
 		partnerAttacks = q2;
 		// Create input system
-		playerInput = new PlayerInput(this);
+		// playerInput = new PlayerInput(this);
 		// Pass attack reference to HUD
-		if(!NetworkingObjects.isServer)
+		if (!NetworkingObjects.isServer)
 			hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 		// Remove the inactive character
 		removeModel(partner);
@@ -390,10 +388,8 @@ public class StageGameState extends CameraGameState {
 			// Attach the active character
 			addModel(player);
 			// Synchronize position
-			player.model.setLocalTranslation(partner.model
-					.getLocalTranslation().clone());
-			player.model.setLocalRotation(partner.model.getLocalRotation()
-					.clone());
+			player.model.setLocalTranslation(partner.model.getLocalTranslation().clone());
+			player.model.setLocalRotation(partner.model.getLocalRotation().clone());
 			player.rotationVector = partner.rotationVector;
 			player.gravVel = partner.gravVel;
 			// Remove the inactive character
@@ -465,7 +461,8 @@ public class StageGameState extends CameraGameState {
 	@Override
 	protected void onActivate() {
 		if (!NetworkingObjects.isServer) {
-	//		System.out.println("Lolwut, why is this activating: " + NetworkingObjects.isServer);
+			// System.out.println("Lolwut, why is this activating: " +
+			// NetworkingObjects.isServer);
 			super.onActivate();
 		}
 	}
@@ -478,54 +475,36 @@ public class StageGameState extends CameraGameState {
 	// Most of this can be commented out during finalization
 	protected void initKeyBindings() {
 		/** Assign key TAB to action "camera_mode". */
-		KeyBindingManager.getKeyBindingManager().set("camera_mode",
-				KeyInput.KEY_TAB);
+		KeyBindingManager.getKeyBindingManager().set("camera_mode", KeyInput.KEY_TAB);
 		/** Assign key 1 to action "target_near". */
-		KeyBindingManager.getKeyBindingManager().set("target_near",
-				KeyInput.KEY_1);
+		KeyBindingManager.getKeyBindingManager().set("target_near", KeyInput.KEY_1);
 		/** Assign key 2 to action "target_far". */
-		KeyBindingManager.getKeyBindingManager().set("target_far",
-				KeyInput.KEY_2);
+		KeyBindingManager.getKeyBindingManager().set("target_far", KeyInput.KEY_2);
 		/** Assign WASD keys to free camera controls. */
-		KeyBindingManager.getKeyBindingManager()
-				.set("cam_left", KeyInput.KEY_A);
-		KeyBindingManager.getKeyBindingManager().set("cam_right",
-				KeyInput.KEY_D);
+		KeyBindingManager.getKeyBindingManager().set("cam_left", KeyInput.KEY_A);
+		KeyBindingManager.getKeyBindingManager().set("cam_right", KeyInput.KEY_D);
 		KeyBindingManager.getKeyBindingManager().set("cam_up", KeyInput.KEY_W);
-		KeyBindingManager.getKeyBindingManager()
-				.set("cam_down", KeyInput.KEY_S);
+		KeyBindingManager.getKeyBindingManager().set("cam_down", KeyInput.KEY_S);
 		/** Assign key P to action "toggle_pause". */
-		KeyBindingManager.getKeyBindingManager().set("toggle_pause",
-				KeyInput.KEY_P);
+		KeyBindingManager.getKeyBindingManager().set("toggle_pause", KeyInput.KEY_P);
 		// These actions are holdovers from DebugGameState and are not fully
 		// "supported"
 		/** Assign key T to action "toggle_wire". */
-		KeyBindingManager.getKeyBindingManager().set("toggle_wire",
-				KeyInput.KEY_T);
+		KeyBindingManager.getKeyBindingManager().set("toggle_wire", KeyInput.KEY_T);
 		/** Assign key L to action "toggle_lights". */
-		KeyBindingManager.getKeyBindingManager().set("toggle_lights",
-				KeyInput.KEY_L);
+		KeyBindingManager.getKeyBindingManager().set("toggle_lights", KeyInput.KEY_L);
 		/** Assign key B to action "toggle_bounds". */
-		KeyBindingManager.getKeyBindingManager().set("toggle_bounds",
-				KeyInput.KEY_B);
+		KeyBindingManager.getKeyBindingManager().set("toggle_bounds", KeyInput.KEY_B);
 		/** Assign key N to action "toggle_normals". */
-		KeyBindingManager.getKeyBindingManager().set("toggle_normals",
-				KeyInput.KEY_N);
+		KeyBindingManager.getKeyBindingManager().set("toggle_normals", KeyInput.KEY_N);
 		/** Assign key O to action "camera_out". */
-		KeyBindingManager.getKeyBindingManager().set("camera_out",
-				KeyInput.KEY_O);
-		KeyBindingManager.getKeyBindingManager().set("screen_shot",
-				KeyInput.KEY_F1);
-		KeyBindingManager.getKeyBindingManager().set("exit",
-				KeyInput.KEY_ESCAPE);
-		KeyBindingManager.getKeyBindingManager().set("toggle_depth",
-				KeyInput.KEY_F3);
-		KeyBindingManager.getKeyBindingManager().set("toggle_stats",
-				KeyInput.KEY_F4);
-		KeyBindingManager.getKeyBindingManager().set("mem_report",
-				KeyInput.KEY_R);
-		KeyBindingManager.getKeyBindingManager().set("toggle_mouse",
-				KeyInput.KEY_M);
+		KeyBindingManager.getKeyBindingManager().set("camera_out", KeyInput.KEY_O);
+		KeyBindingManager.getKeyBindingManager().set("screen_shot", KeyInput.KEY_F1);
+		KeyBindingManager.getKeyBindingManager().set("exit", KeyInput.KEY_ESCAPE);
+		KeyBindingManager.getKeyBindingManager().set("toggle_depth", KeyInput.KEY_F3);
+		KeyBindingManager.getKeyBindingManager().set("toggle_stats", KeyInput.KEY_F4);
+		KeyBindingManager.getKeyBindingManager().set("mem_report", KeyInput.KEY_R);
+		KeyBindingManager.getKeyBindingManager().set("toggle_mouse", KeyInput.KEY_M);
 	}
 
 	@Override
@@ -536,8 +515,7 @@ public class StageGameState extends CameraGameState {
 			input.update(tpf);
 
 			/** If exit is a valid command (via key Esc), exit game */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
-					false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit", false)) {
 				if (game != null) {
 					game.finish();
 				} else {
@@ -550,8 +528,7 @@ public class StageGameState extends CameraGameState {
 				/**
 				 * If toggle_pause is a valid command (via key P), change pause.
 				 */
-				if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-						"toggle_pause", false)
+				if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_pause", false)
 						&& timing) {
 					pause = !pause;
 					// toggle the overlay
@@ -574,8 +551,13 @@ public class StageGameState extends CameraGameState {
 		}
 
 		// Update the PlayerInput
-		if (playerInput != null && !NetworkingObjects.isServer) {
-			playerInput.checkKeys();
+		if (NetworkingObjects.isServer) {
+			if(NetworkingObjects.p1input != null)
+				((ServerBattleGameState)this).checkKeys(NetworkingObjects.p1input, NetworkingObjects.PlayerNum.P1);
+		} else {
+			if (playerInput != null) {
+				playerInput.checkKeys();
+			}
 		}
 
 		// Update time
@@ -604,9 +586,9 @@ public class StageGameState extends CameraGameState {
 					// camOffset = camOffset.normalize().mult(cameraDistance);
 					// System.out.println((p.x-camOffset.x)+", "+(p.y-camOffset.y)+", "+(p.z-camOffset.z));
 					cam.setLocation(new Vector3f(p.x + cameraDistance
-							* FastMath.cos(angle - camRotXZ), p.y
-							+ cameraDistance * FastMath.sin(camRotY), p.z
-							+ cameraDistance * FastMath.sin(angle - camRotXZ)));
+							* FastMath.cos(angle - camRotXZ), p.y + cameraDistance
+							* FastMath.sin(camRotY), p.z + cameraDistance
+							* FastMath.sin(angle - camRotXZ)));
 					cam.lookAt(t, new Vector3f(0, 1, 0));
 				}
 			} else if (cameraMode == "free" && player != null) {
@@ -625,9 +607,9 @@ public class StageGameState extends CameraGameState {
 			SfxPlayer.update(this);
 		}
 
-		if(!NetworkingObjects.isServer) {
-		// Update the HUD
-		hudNode.update(this);
+		if (!NetworkingObjects.isServer) {
+			// Update the HUD
+			hudNode.update(this);
 		}
 
 		// Update the geometric state of the rootNode
@@ -641,43 +623,37 @@ public class StageGameState extends CameraGameState {
 			 * If camera_mode is a valid command (via key TAB), switch camera
 			 * modes.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"camera_mode", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("camera_mode", false)) {
 				swapCameraMode();
 			}
 			/**
 			 * If camera controls are valid commands (via WASD keys), change
 			 * camera angle.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"cam_left", true)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("cam_left", true)) {
 				camRotXZ -= camRotXZSpd;
 				if (cameraMode != "free")
 					camRotXZ = Math.max(camRotXZ, camRotXZLimit[0]);
 			}
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"cam_right", true)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("cam_right", true)) {
 				camRotXZ += camRotXZSpd;
 				if (cameraMode != "free")
 					camRotXZ = Math.min(camRotXZ, camRotXZLimit[1]);
 			}
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"cam_up", true)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("cam_up", true)) {
 				if (cameraMode == "free")
 					camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[1]);
 				else
 					camRotY = Math.min(camRotY + camRotYSpd, camRotYLimit[2]);
 			}
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"cam_down", true)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("cam_down", true)) {
 				camRotY = Math.max(camRotY - camRotYSpd, camRotYLimit[0]);
 			}
 			/**
 			 * If target_near is a valid command (via key 1), switch to next
 			 * closest target.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"target_near", false)
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("target_near", false)
 					&& cameraMode == "lock") {
 				nextTarget(-1);
 				rootNode.updateRenderState();
@@ -686,8 +662,7 @@ public class StageGameState extends CameraGameState {
 			 * If target_far is a valid command (via key 2), switch to next
 			 * furthest target.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"target_far", false)
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("target_far", false)
 					&& cameraMode == "lock") {
 				nextTarget(1);
 				rootNode.updateRenderState();
@@ -695,8 +670,7 @@ public class StageGameState extends CameraGameState {
 			/**
 			 * If toggle_wire is a valid command (via key T), change wirestates.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_wire", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_wire", false)) {
 				wireState.setEnabled(!wireState.isEnabled());
 				rootNode.updateRenderState();
 			}
@@ -704,57 +678,46 @@ public class StageGameState extends CameraGameState {
 			 * If toggle_lights is a valid command (via key L), change
 			 * lightstate.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_lights", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_lights", false)) {
 				lightState.setEnabled(!lightState.isEnabled());
 				rootNode.updateRenderState();
 			}
 			/** If toggle_bounds is a valid command (via key B), change bounds. */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_bounds", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_bounds", false)) {
 				showBounds = !showBounds;
 			}
 			/** If toggle_depth is a valid command (via key F3), change depth. */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_depth", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_depth", false)) {
 				showDepth = !showDepth;
 			}
 			/** If toggle_stats is a valid command (via key F4), change depth. */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_stats", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_stats", false)) {
 				if (statisticsCreated == false) {
 					// create a statistics game state
 					GameStateManager.getInstance().attachChild(
-							new StatisticsGameState("stats", 1f, 0.25f, 0.75f,
-									true));
+							new StatisticsGameState("stats", 1f, 0.25f, 0.75f, true));
 					statisticsCreated = true;
 				}
-				GameStateManager.getInstance().getChild("stats").setActive(
-						!GameStateManager.getInstance().getChild("stats")
-								.isActive());
+				GameStateManager.getInstance().getChild("stats")
+						.setActive(!GameStateManager.getInstance().getChild("stats").isActive());
 			}
 
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_normals", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_normals", false)) {
 				showNormals = !showNormals;
 			}
 			/**
 			 * If camera_out is a valid command (via key O), show camera
 			 * location.
 			 */
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"camera_out", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("camera_out", false)) {
 				logger.info("Camera at: "
-						+ DisplaySystem.getDisplaySystem().getRenderer()
-								.getCamera().getLocation());
+						+ DisplaySystem.getDisplaySystem().getRenderer().getCamera().getLocation());
 			}
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"screen_shot", false)) {
-				DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(
-						"SimpleGameScreenShot");
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("screen_shot", false)) {
+				DisplaySystem.getDisplaySystem().getRenderer()
+						.takeScreenShot("SimpleGameScreenShot");
 			}
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"mem_report", false)) {
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("mem_report", false)) {
 				long totMem = Runtime.getRuntime().totalMemory();
 				long freeMem = Runtime.getRuntime().freeMemory();
 				long maxMem = Runtime.getRuntime().maxMemory();
@@ -764,12 +727,9 @@ public class StageGameState extends CameraGameState {
 				logger.info("Free memory: " + (freeMem >> 10) + " kb");
 				logger.info("Max memory: " + (maxMem >> 10) + " kb");
 			}
-			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-					"toggle_mouse", false)) {
-				MouseInput.get().setCursorVisible(
-						!MouseInput.get().isCursorVisible());
-				logger.info("Cursor Visibility set to "
-						+ MouseInput.get().isCursorVisible());
+			if (KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_mouse", false)) {
+				MouseInput.get().setCursorVisible(!MouseInput.get().isCursorVisible());
+				logger.info("Cursor Visibility set to " + MouseInput.get().isCursorVisible());
 			}
 		}
 
@@ -888,8 +848,7 @@ public class StageGameState extends CameraGameState {
 			currentTarget = (Model) (((Object[]) t[0])[1]);
 			break;
 		case -1:
-			currentTarget = (Model) (((Object[]) t[(t.length + ind - 1)
-					% t.length])[1]);
+			currentTarget = (Model) (((Object[]) t[(t.length + ind - 1) % t.length])[1]);
 			break;
 		case 1:
 			currentTarget = (Model) (((Object[]) t[(ind + 1) % t.length])[1]);
@@ -935,25 +894,21 @@ public class StageGameState extends CameraGameState {
 			DisplaySystem.getDisplaySystem().getRenderer().draw(rootNode);
 
 			if (showBounds) {
-				Debugger.drawBounds(rootNode, DisplaySystem.getDisplaySystem()
-						.getRenderer(), true);
+				Debugger.drawBounds(rootNode, DisplaySystem.getDisplaySystem().getRenderer(), true);
 			}
 
 			if (showNormals) {
-				Debugger.drawNormals(rootNode, DisplaySystem.getDisplaySystem()
-						.getRenderer());
+				Debugger.drawNormals(rootNode, DisplaySystem.getDisplaySystem().getRenderer());
 			}
 
 			if (showDepth) {
 				DisplaySystem.getDisplaySystem().getRenderer().renderQueue();
-				Debugger.drawBuffer(Texture.RenderToTextureType.Depth,
-						Debugger.NORTHEAST, DisplaySystem.getDisplaySystem()
-								.getRenderer());
+				Debugger.drawBuffer(Texture.RenderToTextureType.Depth, Debugger.NORTHEAST,
+						DisplaySystem.getDisplaySystem().getRenderer());
 			}
 
 			// Have the PassManager render
-			pManager.renderPasses(DisplaySystem.getDisplaySystem()
-					.getRenderer());
+			pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
 		}
 	}
 
