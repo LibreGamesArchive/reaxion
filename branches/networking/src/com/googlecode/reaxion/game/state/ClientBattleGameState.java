@@ -46,7 +46,7 @@ public class ClientBattleGameState extends BattleGameState {
 	public ClientBattleGameState(Battle b) {
 		super(b);
 		
-		ClientPlayerInput pInput = new ClientPlayerInput();
+		ClientPlayerInput pInput = new ClientPlayerInput(this);
 		try {
 			NetworkingObjects.clientSyncManager.register(pInput, new SynchronizeCreatePlayerInputMessage(), NetworkingObjects.updateRate);
 		} catch (IOException e) {

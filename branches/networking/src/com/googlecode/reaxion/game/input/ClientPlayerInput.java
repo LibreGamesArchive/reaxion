@@ -45,8 +45,8 @@ public class ClientPlayerInput extends InputHandler {
      * @param b the current BattleGameState
      * @param q the array of classes of attacks
      */
-    public ClientPlayerInput() {
-   // 	state = b;
+    public ClientPlayerInput(StageGameState b) {
+    	state = b;
    // 	attacks = state.getPlayerAttacks();
    // 	player = state.getPlayer();
    // 	partner = state.getPartner();

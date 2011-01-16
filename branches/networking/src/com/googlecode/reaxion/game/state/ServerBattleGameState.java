@@ -112,7 +112,7 @@ public class ServerBattleGameState extends BattleGameState {
 		opPlayerAttacks = oq1;
 		opPartner = op2;
 		opPartnerAttacks = oq2;
-		removeModel(partner);
+		removeModel(opPartner);
 	}
 
 	/**
@@ -187,6 +187,41 @@ public class ServerBattleGameState extends BattleGameState {
 		 */
 
 		// assign vector to player
-		play.setVelocity(new Vector3f(pinput.getFacingX(), 0, pinput.getFacingZ()).mult(play.speed));
+		play.setVelocity(
+				new Vector3f(pinput.getFacingX(), 0, 
+						pinput.getFacingZ()).mult(
+								play.speed));
+	}
+
+	public MajorCharacter getOpPlayer() {
+		return opPlayer;
+	}
+
+	public void setOpPlayer(MajorCharacter opPlayer) {
+		this.opPlayer = opPlayer;
+	}
+
+	public Class[] getOpPlayerAttacks() {
+		return opPlayerAttacks;
+	}
+
+	public void setOpPlayerAttacks(Class[] opPlayerAttacks) {
+		this.opPlayerAttacks = opPlayerAttacks;
+	}
+
+	public MajorCharacter getOpPartner() {
+		return opPartner;
+	}
+
+	public void setOpPartner(MajorCharacter opPartner) {
+		this.opPartner = opPartner;
+	}
+
+	public Class[] getOpPartnerAttacks() {
+		return opPartnerAttacks;
+	}
+
+	public void setOpPartnerAttacks(Class[] opPartnerAttacks) {
+		this.opPartnerAttacks = opPartnerAttacks;
 	}
 }

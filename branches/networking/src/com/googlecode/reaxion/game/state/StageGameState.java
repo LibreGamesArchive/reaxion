@@ -136,6 +136,8 @@ public class StageGameState extends CameraGameState {
 
 		b.assignPositions();
 		assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
+		if(NetworkingObjects.isServer)
+			((ServerBattleGameState)this).assignOpTeam(b.getOp1(), b.getOp1Attacks(), b.getOp2(), b.getOp2Attacks());
 		nextTarget(0);
 
 		load();
@@ -552,8 +554,18 @@ public class StageGameState extends CameraGameState {
 
 		// Update the PlayerInput
 		if (NetworkingObjects.isServer) {
-			if(NetworkingObjects.p1input != null)
-				((ServerBattleGameState)this).checkKeys(NetworkingObjects.p1input, NetworkingObjects.PlayerNum.P1);
+			// consider having if both at the same time so that it's not unfair?
+			System.out.println("p1input="+NetworkingObjects.p1input+"\t\tp2input="+NetworkingObjects.p2input);
+			if (NetworkingObjects.p1input != null)
+				synchronized (NetworkingObjects.p1input) {
+					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p1input,
+							NetworkingObjects.PlayerNum.P1);
+				}
+			if (NetworkingObjects.p2input != null)
+				synchronized (NetworkingObjects.p2input) {
+					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p2input,
+							NetworkingObjects.PlayerNum.P2);
+				}
 		} else {
 			if (playerInput != null) {
 				playerInput.checkKeys();

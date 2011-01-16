@@ -142,6 +142,7 @@ public abstract class NetworkingObjects {
 								+ " Stage: " + stage1);
 					} else if (creationMessagesRecieved == 1) {
 						p2ID = cassm.getPlayerId();
+						System.out.println(cassm.getPlayerId());
 						System.out.print("2 message recieved! ");
 						chars[2] = cassm.getCharacters()[0];
 						chars[3] = cassm.getCharacters()[1];
@@ -186,11 +187,12 @@ public abstract class NetworkingObjects {
 			public Object create(SynchronizeCreateMessage scm) {
 				if (scm instanceof SynchronizeCreatePlayerInputMessage) {
 					SynchronizeCreatePlayerInputMessage scpim = (SynchronizeCreatePlayerInputMessage) scm;
+					System.out.println(scpim.getPlayerId());
 					if (scpim.getPlayerId() == p1ID) {
-						p1input = new ClientPlayerInput();
+						p1input = new ClientPlayerInput(sbgs);
 						return p1input;
 					} else if (scpim.getPlayerId() == p2ID) {
-						p2input = new ClientPlayerInput();
+						p2input = new ClientPlayerInput(sbgs);
 						return p2input;
 					}
 				}
@@ -293,7 +295,7 @@ public abstract class NetworkingObjects {
 					if (!scmm.isForPreload())
 						return LoadingQueue.quickLoad(new Model(scmm.getFilename()), cbgs);
 				} else if (scm instanceof SynchronizeCreatePlayerInputMessage) {
-					return new ClientPlayerInput();
+					return new ClientPlayerInput(cbgs);
 				}
 				return null;
 			}
