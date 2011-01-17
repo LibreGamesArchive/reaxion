@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * Contains convenient constructors that assign action listeners to the button and set the action command
+ * to the button name.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public class ToolButton extends JButton {
-	
-	public ToolButton(String name) {
-		super(name);
-		setActionCommand(name);
-	}
 	
 	public ToolButton(String name, ActionListener a) {
 		super(name);

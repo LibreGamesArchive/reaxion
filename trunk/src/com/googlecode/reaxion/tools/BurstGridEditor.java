@@ -77,6 +77,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	private JComboBox types;
 	
 	private ToolButton createNode;
+	private ToolButton removeNode;
 	
 	private NodeIDField idField;
 
@@ -160,6 +161,9 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		createNode = new ToolButton("Create Node", this);
 		createNode.setEnabled(false);
 		
+		removeNode = new ToolButton("Remove Node", this);
+		removeNode.setVisible(false);
+		
 		costsLabel = new JLabel("Costs: ");
 		costs = new JTextField();
 		costs.setEnabled(false);
@@ -172,7 +176,8 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		addComponentToToolbar(nodeAttributes, true);
 		addComponentToToolbar(costsLabel, true);
 		addComponentToToolbar(costs, true);
-		addComponentToToolbar(createNode, false);
+		addComponentToToolbar(createNode, true);
+		addComponentToToolbar(removeNode, false);
 
 		panel.add(toolbar);
 		add(panel);
@@ -275,6 +280,10 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 			
 			bgp.applyChanges(types.getSelectedIndex(), selectedNode);
 			selectedNode = null;
+		} else if (command.equals("Remove Node")) {
+			// Removes the current selected node from the grid
+			bgp.removeSelectedNode();
+			selectedNode = null;
 		} else if (command.equals("Save Grid")) {
 			// Saves grid
 			int returnValue = fileChooser.showSaveDialog(this);
@@ -300,7 +309,15 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	}
 
 	public void nodeRemoved(NodeEvent e) {
-		idField.updateNodes(bgp.getNodes());		
+		idField.updateNodes(bgp.getNodes());
+		idField.setText("" + Math.max((e.getNode().getId() - 1), 1));
+
+		for (Component c : nodeAttributes.getComponents())
+			((AttributePanel) c).resetFields();
+		
+		createNode.setText("Create Node");
+		createNode.setEnabled(false);
+		removeNode.setVisible(false);
 	}
 
 	public void nodeSelected(NodeEvent e) {
@@ -309,6 +326,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		idField.updateNodes(bgp.getNodes());
 		idField.setText("" + selectedNode.getId());
 		createNode.setText("Edit Node");
+		removeNode.setVisible(true);
 
 		int index = 0;
 		
@@ -332,6 +350,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		
 		createNode.setText("Create Node");
 		createNode.setEnabled(false);
+		removeNode.setVisible(false);
 	}
 	
 	public void nodeEdited(NodeEvent e) {
