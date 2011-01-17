@@ -111,11 +111,32 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 	 * @param selectedNode {@code EditorNode} to be edited.
 	 */
 	public void applyChanges(int index, EditorNode selectedNode) {
-		nodes.remove(currentNode);
+		nodes.remove(currentNode.getId());
 		selectedNode.setColor(nodeColors[index]);
 		currentNode = selectedNode;
 		nodes.put(currentNode.getId(), currentNode);
 		fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.EDITED));
+	}
+	
+	/**
+	 * Removes the from the grid the {@code EditorNode} with the specified id.
+	 * 
+	 * @param id Id of the {@code EditorNode} to be removed.
+	 */
+	public void removeSelectedNode() {
+		nodes.remove(currentNode.getId());
+		
+		Iterator<Integer> itr = nodes.keySet().iterator();
+		
+		while (itr.hasNext()) {
+			EditorNode n = nodes.get(itr.next());
+			
+			if (n.getNodes().contains(currentNode.getId()))
+				n.getNodes().remove((Object) currentNode.getId());
+		}
+		
+		fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.REMOVED));
+		currentNode = null;
 	}
 	
 	private void setCosts(){
