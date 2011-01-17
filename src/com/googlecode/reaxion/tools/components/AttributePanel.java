@@ -50,6 +50,12 @@ public class AttributePanel extends JPanel {
 		depth.reset();
 	}
 	
+	public void setFields(String data, int z) {
+		System.out.println(data + " || " + z);
+		field.setText(data);
+		depth.setText("" + z);
+	}
+	
 	public boolean hasValidInfo() {
 		return field.isValid() && depth.isValid();
 	}

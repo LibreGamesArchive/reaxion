@@ -20,7 +20,7 @@ import com.googlecode.reaxion.tools.vo.EditorNode;
 
 public class BurstGridPanel extends JPanel implements MouseListener {
 
-	private NodeEventListener listener;
+	private ArrayList<NodeEventListener> listeners = new ArrayList<NodeEventListener>();
 	
 	private static final int lineCount = 24;
 	private static final Color[] nodeColors = {Color.gray, Color.blue, Color.pink,
@@ -72,6 +72,14 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 				n.setSelectedForConnection(false);
 			}
 		}
+	}
+	
+	public void applyChanges(EditorNode selectedNode) {
+		nodes.remove(currentNode);
+		selectedNode.setSelected(false);
+		nodes.add(selectedNode);
+		currentNode = null;
+		fireNodeEvent(new NodeEvent(this, selectedNode, NodeEvent.ADDED));
 	}
 	
 	private void setCosts(){
@@ -225,23 +233,25 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 	}
 	
 	public synchronized void addNodeEventListener(NodeEventListener n) {
-		listener = n;
+		listeners.add(n);
 	}
 	
 	public synchronized void removeNodeEventListener(NodeEventListener n) {
-		listener = null;
+		listeners.remove(n);
 	}
 	
 	private synchronized void fireNodeEvent(NodeEvent event) {
-		if (listener != null) {
-			if (event.getType().equals(NodeEvent.ADDED))
-				listener.nodeAdded(event);
-			else if (event.getType().equals(NodeEvent.REMOVED))
-				listener.nodeRemoved(event);
-			else if (event.getType().equals(NodeEvent.CREATED))
-				listener.nodeCreated(event);
-			else if (event.getType().equals(NodeEvent.SELECTED))
-				listener.nodeCreated(event);
+		if (listeners.size() != 0) {
+			for (NodeEventListener n : listeners) {
+				if (event.getType().equals(NodeEvent.ADDED))
+					n.nodeAdded(event);
+				else if (event.getType().equals(NodeEvent.REMOVED))
+					n.nodeRemoved(event);
+				else if (event.getType().equals(NodeEvent.CREATED))
+					n.nodeCreated(event);
+				else if (event.getType().equals(NodeEvent.SELECTED))
+					n.nodeSelected(event);
+			}
 		}
 	}	
 	

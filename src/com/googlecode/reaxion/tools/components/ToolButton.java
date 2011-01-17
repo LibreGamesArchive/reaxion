@@ -23,5 +23,11 @@ public class ToolButton extends JButton {
 		setActionCommand(icon.getDescription());
 		addActionListener(a);
 	}
+
+	@Override
+	public void setText(String text) {
+		super.setText(text);
+		setActionCommand(text);
+	}
 	
 }

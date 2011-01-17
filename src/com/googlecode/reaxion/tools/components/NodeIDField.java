@@ -22,6 +22,10 @@ public class NodeIDField extends ToolField {
 		this.nodes = nodes;
 	}
 	
+	public int getId() {
+		return Integer.parseInt(getText());
+	}
+	
 	@Override
 	protected void validateField() {
 		if (nodes != null) {
@@ -38,10 +42,10 @@ public class NodeIDField extends ToolField {
 					}
 
 					for (EditorNode n : nodes) {
-						if (Integer.parseInt(getText()) > n.getId()) {
+						if (Integer.parseInt(getText()) >= n.getId()) {
 							fireValidationMade(ValidationEvent.VALID);
 							break;
-						} else if (Integer.parseInt(getText()) == n.getId()) {
+						} else if (Integer.parseInt(getText()) == n.getId() && !n.isSelected()) {
 							fireValidationMade(ValidationEvent.INVALID);
 							break;
 						}
