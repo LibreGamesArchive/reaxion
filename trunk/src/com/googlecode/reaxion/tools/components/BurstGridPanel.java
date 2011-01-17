@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -18,6 +20,12 @@ import com.googlecode.reaxion.tools.events.NodeEvent;
 import com.googlecode.reaxion.tools.listeners.NodeEventListener;
 import com.googlecode.reaxion.tools.vo.EditorNode;
 
+/**
+ * Contains a grid for node addition, removal, and editing. 
+ * 
+ * @author Brian Clanton, Cy Neita
+ *
+ */
 public class BurstGridPanel extends JPanel implements MouseListener {
 
 	private ArrayList<NodeEventListener> listeners = new ArrayList<NodeEventListener>();
@@ -26,9 +34,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 	private static final Color[] nodeColors = {Color.gray, Color.blue, Color.pink,
 		Color.magenta.darker(), Color.green.darker(), Color.yellow.darker(), Color.red};
 	
-	private ArrayList<EditorNode> nodes;
-	
-	private Color nodeColor;
+	private HashMap<Integer, EditorNode> nodes;
 	
 	private EditorNode currentNode;
 	
@@ -41,7 +47,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		
 		System.out.println(size.toString());
 		
-		nodes = new ArrayList<EditorNode>();
+		nodes = new HashMap<Integer, EditorNode>();
 		
 		setPreferredSize(new Dimension(size.width, size.height));
 
@@ -50,22 +56,46 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		addMouseListener(this);
 	}
 	
+	/**
+	 * Creates a node and uses {@code index} for color assignment.
+	 * 
+	 * @param index Index of the node type in {@code BurstGridEditor} {@code JComboBox}. Used for color assignment.
+	 * @param node {@code EditorNode} to be added to the grid.
+	 */
 	public void createSelectedNode(int index, EditorNode node) {
-		nodeColor = nodeColors[index];
 		currentNode = node;
-		currentNode.setColor(nodeColor);
+		currentNode.setColor(nodeColors[index]);
 		clickable = true;
 		fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.CREATED));
 	}
 	
-	public ArrayList<EditorNode> getNodes()	{
-		return nodes;
+	/**
+	 * Returns an {@code ArrayList<EdtitorNode>} of all the nodes currently on the grid. Used for validation for 
+	 * {@code NodeIDField}.
+	 * 
+	 * @return {@code ArrayList<EdtitorNode>} of all the nodes currently on the grid.
+	 */
+	public ArrayList<EditorNode> getNodes() {
+		ArrayList<EditorNode> temp = new ArrayList<EditorNode>();
+
+		Iterator<Integer> itr = nodes.keySet().iterator();
+		
+		while (itr.hasNext())
+			temp.add(nodes.get(itr.next()));
+		
+		return temp;
 	}
 	
+	/**
+	 * Creates connections between the currently selected node and nodes selected for connection.
+	 */
 	private void createConnections() {
 		currentNode.setSelected(false);
 		
-		for (EditorNode n : nodes) {
+		Iterator<Integer> itr = nodes.keySet().iterator();
+		
+		while (itr.hasNext()) {
+			EditorNode n = nodes.get(itr.next());
 			if (n.isSelectedForConnection()) {
 				currentNode.addConnection(n);
 				currentNode.setCostString(currentNode.getCostString() + " " + n.getId() + ", 1");
@@ -74,18 +104,31 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		}
 	}
 	
-	public void applyChanges(EditorNode selectedNode) {
+	/**
+	 * Applies attribute change to an already created node.
+	 * 
+	 * @param index Index of the node type in {@code BurstGridEditor} {@code JComboBox}. Used for color assignment.
+	 * @param selectedNode {@code EditorNode} to be edited.
+	 */
+	public void applyChanges(int index, EditorNode selectedNode) {
 		nodes.remove(currentNode);
-		selectedNode.setSelected(false);
-		nodes.add(selectedNode);
-		currentNode = null;
-		fireNodeEvent(new NodeEvent(this, selectedNode, NodeEvent.ADDED));
+		selectedNode.setColor(nodeColors[index]);
+		currentNode = selectedNode;
+		nodes.put(currentNode.getId(), currentNode);
+		fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.EDITED));
 	}
 	
 	private void setCosts(){
 		
 	}
 	
+	/**
+	 * Checks to see if a location is inside the bounds of the graphical representation of a node. Used for mouse clicks.
+	 * 
+	 * @param n Node location.
+	 * @param p Mouse location.
+	 * @return {@code true} if within the node, {@code false} if not within the node.
+	 */
 	private boolean isWithinNode(Point n, Point p) {
 		boolean check = n.x - 10 <= p.x && n.x + 10 >= p.x && n.y + 10 >= p.y && n.y - 10 <= p.y;
 		System.out.println(n + " || " + p + " || " + check);
@@ -96,6 +139,9 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		update(g);
 	}
 	
+	/**
+	 * Draws grid, nodes on the grid, and connections between nodes.
+	 */
 	public void update(Graphics g) {
 		Graphics2D g2 = backbuffer.createGraphics();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -117,12 +163,12 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		
 		g2.translate(getWidth()/2,getHeight()/2);
 		
-		for(EditorNode e: nodes){
-			drawConnections(g2);
-			if (e.getNodes().size() != 0)
-				for (EditorNode n : nodes)
-					if (e.getNodes().contains(n.getId())) 
-						g2.drawLine(e.getPosition().x, e.getPosition().y, n.getPosition().x, n.getPosition().y);
+		drawConnections(g2);
+
+		Iterator<Integer> itr = nodes.keySet().iterator();
+		
+		while (itr.hasNext()) {
+			EditorNode e = nodes.get(itr.next());
 			
 			if (e.isSelected()) {
 				g2.setColor(Color.green);
@@ -139,13 +185,24 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		g.drawImage(backbuffer, 0, 0, null);
 	}
 	
+	/**
+	 * Draws connections between nodes.
+	 * @param g2 {@code Graphics2D} object from panel.
+	 */
 	private void drawConnections(Graphics2D g2){
 		g2.setColor(Color.red);
-		for(EditorNode n: nodes){
+		g2.setStroke(new BasicStroke(2));
+		
+		Iterator<Integer> itr = nodes.keySet().iterator();
+		
+		while (itr.hasNext()) {
+			EditorNode n = nodes.get(itr.next());
 			for(int id : n.getNodes()){
-				g2.drawLine(n.getPosition().x, n.getPosition().y, nodes.get(id-1).getPosition().x, nodes.get(id-1).getPosition().y);
+				g2.drawLine(n.getPosition().x, n.getPosition().y, nodes.get(id).getPosition().x, nodes.get(id).getPosition().y);
 			}
 		}
+		
+		g2.setStroke(new BasicStroke());
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -164,20 +221,24 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		if(clickable){
 			if(nodes.isEmpty()){
 				currentNode.setPosition(p);
-				nodes.add(currentNode);
+				nodes.put(currentNode.getId(), currentNode);
 				fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
 				clickable = false;
 				currentNode = null;
 			}
 			else{
-				for(EditorNode en: nodes)
+				Iterator<Integer> itr = nodes.keySet().iterator();
+				
+				while (itr.hasNext()) {
+					EditorNode en = nodes.get(itr.next());
 					if(en.getPosition().equals(p)){
 						contains = true;
 						break;
 					}
+				}
 				if(!contains){
 					currentNode.setPosition(p);
-					nodes.add(currentNode);
+					nodes.put(currentNode.getId(), currentNode);
 					fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.ADDED));
 					clickable = false;
 					currentNode = null;
@@ -186,7 +247,10 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		} else {
 			EditorNode n = null;
 			
-			for(EditorNode en: nodes) {
+			Iterator<Integer> itr = nodes.keySet().iterator();
+			
+			while (itr.hasNext()) {
+				EditorNode en = nodes.get(itr.next());
 				if(isWithinNode(en.getPosition(), p)){
 					n = en;
 					contains = true;
@@ -203,6 +267,8 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 					n.setSelectedForConnection(!n.isSelectedForConnection());
 				}
 			} else if (currentNode != null){
+				fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.DESELECTED));
+
 				createConnections();
 				setCosts();
 			}
@@ -251,7 +317,13 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 					n.nodeCreated(event);
 				else if (event.getType().equals(NodeEvent.SELECTED))
 					n.nodeSelected(event);
+				else if (event.getType().equals(NodeEvent.DESELECTED))
+					n.nodeDeselected(event);
+				else if (event.getType().equals(NodeEvent.EDITED))
+					n.nodeEdited(event);
 			}
+			
+			repaint();
 		}
 	}	
 	

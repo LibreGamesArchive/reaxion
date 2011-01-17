@@ -8,6 +8,12 @@ import javax.swing.JTextField;
 
 import com.googlecode.reaxion.tools.listeners.ValidationEventListener;
 
+/**
+ * Contains fields for {@code EditorNode} data.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public class AttributePanel extends JPanel {
 	
 	private JLabel descriptor, depthLabel, costsLabel;
@@ -51,11 +57,14 @@ public class AttributePanel extends JPanel {
 	}
 	
 	public void setFields(String data, int z) {
-		System.out.println(data + " || " + z);
 		field.setText(data);
 		depth.setText("" + z);
 	}
 	
+	/**
+	 * Checks that both fields are valid.
+	 * @return {@code true} if both fields are valid, {@code false} if one or both fields are invalid.
+	 */
 	public boolean hasValidInfo() {
 		return field.isValid() && depth.isValid();
 	}
