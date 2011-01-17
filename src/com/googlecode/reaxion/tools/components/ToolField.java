@@ -10,6 +10,12 @@ import javax.swing.JTextField;
 import com.googlecode.reaxion.tools.events.ValidationEvent;
 import com.googlecode.reaxion.tools.listeners.ValidationEventListener;
 
+/**
+ * Extends {@code JTextField} functionality to allow for live data validation.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public class ToolField extends JTextField implements KeyListener {
 
 	public static final String NUMBERS_ONLY = "numbers_only", TEXT_ONLY = "text_only";
@@ -64,6 +70,9 @@ public class ToolField extends JTextField implements KeyListener {
 		setText("");
 	}
 	
+	/**
+	 * Validates and dispatches events corresponding to the field text's validity.
+	 */
 	protected void validateField() {		
 		if (getText().equals("")) {
 			fireValidationMade(ValidationEvent.INVALID);

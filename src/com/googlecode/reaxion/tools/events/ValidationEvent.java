@@ -2,6 +2,13 @@ package com.googlecode.reaxion.tools.events;
 
 import java.util.EventObject;
 
+/**
+ * Dispatched by {@code ToolField} objects whenever the field is validated.
+ * 
+ * @author Brian Clanton
+ *
+ */
+
 public class ValidationEvent extends EventObject {
 
 	public static final String VALID = "valid", INVALID = "invalid";
@@ -16,4 +23,5 @@ public class ValidationEvent extends EventObject {
 	public String getType() {
 		return type;
 	}
+	
 }

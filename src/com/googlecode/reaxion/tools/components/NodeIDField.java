@@ -6,6 +6,14 @@ import java.util.Collections;
 import com.googlecode.reaxion.tools.events.ValidationEvent;
 import com.googlecode.reaxion.tools.vo.EditorNode;
 
+/**
+ * Extends {@code ToolField} functionality to allow for validation of the field text to be checked against the ids of 
+ * an {@code ArrayList<EditorNode>} to prevent users from creating two nodes with the same id.
+ * 
+ * @author Brian Clanton
+ *
+ */
+
 public class NodeIDField extends ToolField {
 
 	private static final String NODE_ID = "node_id";

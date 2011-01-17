@@ -4,6 +4,12 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
+/**
+ * Stores data for nodes and has methods for manipulating connections.
+ * 
+ * @author Brian Clanton
+ *
+ */
 public class EditorNode implements Comparable<EditorNode> {
 
 	private int id;

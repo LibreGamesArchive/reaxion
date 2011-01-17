@@ -49,6 +49,13 @@ import com.googlecode.reaxion.tools.listeners.ValidationEventListener;
 import com.googlecode.reaxion.tools.util.ToolUtils;
 import com.googlecode.reaxion.tools.vo.EditorNode;
 
+/**
+ * This application is used for the creation of burst grids for use in Reaxion. It allows users to place nodes on a grid, 
+ * edit their attributes, create connections between nodes, and export the grid to a text file.
+ * 
+ * @author Brian Clanton, Cy Neita
+ *
+ */
 public class BurstGridEditor extends JFrame implements ActionListener, NodeEventListener, ValidationEventListener {
 
 	public static final String gridDir = "src/com/googlecode/reaxion/resources/burstgrid/";
@@ -61,12 +68,18 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 
 	private JFileChooser fileChooser;
 
-	private NodeIDField idField;
-	private JComboBox character;
 	private BurstGridPanel bgp;
+
+	private JPanel toolbar;
 	private JPanel nodeAttributes;
+
+	private JComboBox character;
 	private JComboBox types;
+	
 	private ToolButton createNode;
+	
+	private NodeIDField idField;
+
 	private JLabel costsLabel;
 	private JTextField costs;
 	
@@ -82,6 +95,9 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		init();
 	}
 
+	/**
+	 * Initializes entire application.
+	 */
 	private void init() {
 		ToolUtils.initialize();
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -101,6 +117,9 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		initFrame();
 	}
 
+	/**
+	 * Initializes menu.
+	 */
 	private void initMenu() {
 		JMenu file = new JMenu("File");
 		file.add(new ToolMenuItem("Save Grid", this));
@@ -113,10 +132,13 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		setJMenuBar(bar);
 	}
 
+	/**
+	 * Initializes toolbar.
+	 */
 	private void initToolbar() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		panel.setPreferredSize(new Dimension(250, 480));
-		JPanel toolbar = new JPanel();
+		toolbar = new JPanel();
 		toolbar.setLayout(new BoxLayout(toolbar, BoxLayout.Y_AXIS));
 
 		character = new JComboBox(ToolUtils.getCharacterNames().toArray());
@@ -142,20 +164,23 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		costs = new JTextField();
 		costs.setEnabled(false);
 
-		addComponentToToolbar(character, toolbar, true);
-		addComponentToToolbar(new JSeparator(), toolbar, true);
-		addComponentToToolbar(idField, toolbar, true);
-		addComponentToToolbar(typeDesc, toolbar, true);
-		addComponentToToolbar(types, toolbar, true);
-		addComponentToToolbar(nodeAttributes, toolbar, true);
-		addComponentToToolbar(costsLabel, toolbar, true);
-		addComponentToToolbar(costs, toolbar, true);
-		addComponentToToolbar(createNode, toolbar, false);
+		addComponentToToolbar(character, true);
+		addComponentToToolbar(new JSeparator(), true);
+		addComponentToToolbar(idField, true);
+		addComponentToToolbar(typeDesc, true);
+		addComponentToToolbar(types, true);
+		addComponentToToolbar(nodeAttributes, true);
+		addComponentToToolbar(costsLabel, true);
+		addComponentToToolbar(costs, true);
+		addComponentToToolbar(createNode, false);
 
 		panel.add(toolbar);
 		add(panel);
 	}
 
+	/**
+	 * Initializes all {@code AttributePanel} objects and adds them to a {@code JPanel} with a {@code CardLayout}.
+	 */
 	private void initAttributesPanel() {
 		nodeAttributes = new JPanel(new CardLayout());
 
@@ -166,31 +191,22 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		c.show(nodeAttributes, attributes[0]);
 	}
 
-	private void addComponentToToolbar(JComponent c, JPanel toolbar, boolean hasSpacing) {
+	/**
+	 * Adds a {@code JComponent} to a toolbar.
+	 * 
+	 * @param c {@code JComponent} to be added
+	 * @param hasSpacing Indicates whether a rigid spacing area should be added under the {@code JComponent}.
+	 */
+	private void addComponentToToolbar(JComponent c, boolean hasSpacing) {
 		toolbar.add(c);
 		c.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		if (hasSpacing)
 			toolbar.add(Box.createRigidArea(new Dimension(230, 10)));
 	}
 
-	private ImageIcon getIcon(String filename) {
-		try {
-			BufferedImage original = ImageIO.read(new File(filename));
-			int scaledWidth = (int) original.getWidth() / 2;
-			int scaledHeight = (int) original.getHeight() / 2;
-			BufferedImage scaled = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
-			Graphics2D g = scaled.createGraphics();
-			AffineTransform scale = AffineTransform.getScaleInstance(.5, .5);
-			g.drawRenderedImage(original, scale);
-			return new ImageIcon(scaled);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
+	/**
+	 * Initializes the {@code JFrame}.
+	 */
 	private void initFrame() {
 		try {
 			setIconImage(ImageIO.read(new File(nodeIconDir + "ability.png")));
@@ -205,6 +221,10 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		requestFocus();
 	}
 
+	/**
+	 * Saves grid to file.
+	 * @param f Specified file to save to.
+	 */
 	private void saveGrid(File f) {
 		try {
 			if (!f.getName().contains(".txt"))
@@ -236,17 +256,27 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		String command = e.getActionCommand();
 
 		if (e.getSource() instanceof JComboBox) {
+			// Switch currently displayed AttributePanel
 			CardLayout c = (CardLayout) nodeAttributes.getLayout();
 			c.show(nodeAttributes, attributes[((JComboBox) e.getSource()).getSelectedIndex()]);
 		} else if (command.equals("Create Node")) {
+			// Creates a node to be added to the BurstGridPanel
 			AttributePanel temp = (AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()];
 			EditorNode node = new EditorNode(idField.getId(), (String)types.getSelectedItem(), temp.getData(), temp.getDepth());
 			bgp.createSelectedNode(types.getSelectedIndex(), node);
 		} else if (command.equals("Edit Node")) {
-			createNode.setText("Create Node");
-			bgp.applyChanges(selectedNode);
+			// Incorporates changed fields in toolbar to the selectedNode and sends it to the BurstGridPanel to be added to the grid
+			AttributePanel temp = (AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()];
+			
+			selectedNode.setId(idField.getId());
+			selectedNode.setType((String) types.getSelectedItem());
+			selectedNode.setData(temp.getData());
+			selectedNode.setDepth(temp.getDepth());
+			
+			bgp.applyChanges(types.getSelectedIndex(), selectedNode);
 			selectedNode = null;
 		} else if (command.equals("Save Grid")) {
+			// Saves grid
 			int returnValue = fileChooser.showSaveDialog(this);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION)
@@ -262,10 +292,8 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	}
 
 	public void nodeAdded(NodeEvent e) {
-		createNode.setEnabled(true);
-		nodeID++;
 		idField.updateNodes(bgp.getNodes());
-		idField.reset();
+		idField.setText("" + (e.getNode().getId() + 1));
 
 		for (Component c : nodeAttributes.getComponents())
 			((AttributePanel) c).resetFields();
@@ -275,28 +303,39 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		idField.updateNodes(bgp.getNodes());		
 	}
 
-	/**
-	 * TODO Make this method change the action performed by the CreateNode button so that when clicked,
-	 * the currently selected node's information is edited to match the information in the boxes on the left
-	 */
 	public void nodeSelected(NodeEvent e) {
-		// TODO Auto-generated method stub
 		selectedNode = e.getNode();
-		System.out.println(selectedNode);
+		
 		idField.updateNodes(bgp.getNodes());
 		idField.setText("" + selectedNode.getId());
 		createNode.setText("Edit Node");
 
 		int index = 0;
 		
-		for (int i = 0; i < nodeTypes.length; i++) {
-			if (selectedNode.getType().equals(nodeTypes[i])) {
+		for (int i = 0; i < types.getItemCount(); i++) {
+			if (selectedNode.getType().equals(types.getItemAt(i))) {
 				index = i;
 				break;
 			}
 		}
 		
+		types.setSelectedIndex(index);
+		
 		((AttributePanel) nodeAttributes.getComponents()[index]).setFields(selectedNode.getData(), selectedNode.getDepth());
+	}
+	
+	public void nodeDeselected(NodeEvent e) {
+		idField.setText("" + (e.getNode().getId() + 1));
+		
+		for (Component c : nodeAttributes.getComponents())
+			((AttributePanel) c).resetFields();
+		
+		createNode.setText("Create Node");
+		createNode.setEnabled(false);
+	}
+	
+	public void nodeEdited(NodeEvent e) {
+		idField.updateNodes(bgp.getNodes());
 	}
 
 	public void fieldFoundInvalid(ValidationEvent e) {
