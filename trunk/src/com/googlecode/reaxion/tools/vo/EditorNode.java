@@ -17,10 +17,11 @@ public class EditorNode implements Comparable<EditorNode> {
 	private boolean selected = false;
 	private boolean selectedForConnection = false;
 	
-	public EditorNode(int id, String type, String data) {
+	public EditorNode(int id, String type, String data, int depth) {
 		this.id = id;
 		this.type = type;
 		this.data = data;
+		this.depth = depth;
 		
 		nodes = new ArrayList<Integer>();
 		costs = new ArrayList<Integer>();

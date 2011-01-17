@@ -3,10 +3,9 @@ package com.googlecode.reaxion.tools.components;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.googlecode.reaxion.tools.events.ValidationEvent;
 import com.googlecode.reaxion.tools.listeners.ValidationEventListener;
@@ -15,7 +14,7 @@ public class ToolField extends JTextField implements KeyListener {
 
 	public static final String NUMBERS_ONLY = "numbers_only", TEXT_ONLY = "text_only";
 	
-	protected ValidationEventListener listener;
+	protected ArrayList<ValidationEventListener> listeners = new ArrayList<ValidationEventListener>();
 	
 	protected String type;
 	protected boolean valid = true;
@@ -63,7 +62,6 @@ public class ToolField extends JTextField implements KeyListener {
 
 	public void reset() {
 		setText("");
-		valid = true;
 	}
 	
 	protected void validateField() {		
@@ -86,22 +84,30 @@ public class ToolField extends JTextField implements KeyListener {
 		}
 	}
 	
+	@Override
+	public void setText(String t) {
+		super.setText(t);
+		validateField();
+	}
+
 	public synchronized void addValidationEventListener(ValidationEventListener v) {
-		listener = v;
+		listeners.add(v);
 	}
 	
-	public synchronized void removeValidationEventListener() {
-		listener = null;
+	public synchronized void removeValidationEventListener(ValidationEventListener v) {
+		listeners.remove(v);
 	}
 	
 	protected synchronized void fireValidationMade(String type) {
-		if (listener != null) {
-			if (type.equals(ValidationEvent.VALID)) {
-				setValid(true);
-				listener.fieldFoundValid(new ValidationEvent(this, type));
-			} else if (type.equals(ValidationEvent.INVALID)) {
-				setValid(false);
-				listener.fieldFoundInvalid(new ValidationEvent(this, type));
+		if (listeners.size() != 0) {
+			for (ValidationEventListener v : listeners) {
+				if (type.equals(ValidationEvent.VALID)) {
+					setValid(true);
+					v.fieldFoundValid(new ValidationEvent(this, type));
+				} else if (type.equals(ValidationEvent.INVALID)) {
+					setValid(false);
+					v.fieldFoundInvalid(new ValidationEvent(this, type));
+				}
 			}
 		}
 	}

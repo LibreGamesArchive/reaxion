@@ -69,6 +69,8 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	private ToolButton createNode;
 	private JLabel costsLabel;
 	private JTextField costs;
+	
+	private EditorNode selectedNode;
 
 	public static void main(String[] args) {
 		BurstGridEditor bge = new BurstGridEditor();
@@ -102,6 +104,8 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	private void initMenu() {
 		JMenu file = new JMenu("File");
 		file.add(new ToolMenuItem("Save Grid", this));
+		file.add(new JSeparator());
+		file.add(new ToolMenuItem("Exit", this));
 
 		JMenuBar bar = new JMenuBar();
 		bar.add(file);
@@ -236,14 +240,20 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 			c.show(nodeAttributes, attributes[((JComboBox) e.getSource()).getSelectedIndex()]);
 		} else if (command.equals("Create Node")) {
 			AttributePanel temp = (AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()];
-			EditorNode node = new EditorNode(nodeID, (String)types.getSelectedItem(), temp.getData());
+			EditorNode node = new EditorNode(idField.getId(), (String)types.getSelectedItem(), temp.getData(), temp.getDepth());
 			bgp.createSelectedNode(types.getSelectedIndex(), node);
+		} else if (command.equals("Edit Node")) {
+			createNode.setText("Create Node");
+			bgp.applyChanges(selectedNode);
+			selectedNode = null;
 		} else if (command.equals("Save Grid")) {
 			int returnValue = fileChooser.showSaveDialog(this);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION)
 				saveGrid(fileChooser.getSelectedFile());
 
+		} else if (command.equals("Exit")) {
+			System.exit(0);
 		}
 	}
 
@@ -255,6 +265,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		createNode.setEnabled(true);
 		nodeID++;
 		idField.updateNodes(bgp.getNodes());
+		idField.reset();
 
 		for (Component c : nodeAttributes.getComponents())
 			((AttributePanel) c).resetFields();
@@ -264,31 +275,37 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 		idField.updateNodes(bgp.getNodes());		
 	}
 
-	public void fieldFoundInvalid(ValidationEvent e) {
-		createNode.setEnabled(false);		
-	}
-
-	public void fieldFoundValid(ValidationEvent e) {
-		createNode.setEnabled(idField.isValid() && 
-				((AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()]).hasValidInfo());		
-	}
-
 	/**
 	 * TODO Make this method change the action performed by the CreateNode button so that when clicked,
 	 * the currently selected node's information is edited to match the information in the boxes on the left
 	 */
 	public void nodeSelected(NodeEvent e) {
 		// TODO Auto-generated method stub
-		final EditorNode temp = e.getNode();
-		idField.setText("" + temp.getId());
+		selectedNode = e.getNode();
+		System.out.println(selectedNode);
+		idField.updateNodes(bgp.getNodes());
+		idField.setText("" + selectedNode.getId());
 		createNode.setText("Edit Node");
-		createNode.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				temp.setId(Integer.parseInt(idField.getText()));
-				temp.setCostString(costs.getText());
-				temp.setData(((AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()]).getData());
+
+		int index = 0;
+		
+		for (int i = 0; i < nodeTypes.length; i++) {
+			if (selectedNode.getType().equals(nodeTypes[i])) {
+				index = i;
+				break;
 			}
-		});
+		}
+		
+		((AttributePanel) nodeAttributes.getComponents()[index]).setFields(selectedNode.getData(), selectedNode.getDepth());
 	}
 
+	public void fieldFoundInvalid(ValidationEvent e) {
+		createNode.setEnabled(false);		
+	}
+	
+	public void fieldFoundValid(ValidationEvent e) {
+		createNode.setEnabled(idField.isValid() && 
+				((AttributePanel) nodeAttributes.getComponents()[types.getSelectedIndex()]).hasValidInfo());		
+	}
+	
 }
