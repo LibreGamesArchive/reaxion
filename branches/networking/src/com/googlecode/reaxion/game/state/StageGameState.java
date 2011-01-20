@@ -461,7 +461,11 @@ public class StageGameState extends CameraGameState {
 			updateTarget = false;
 			findTrackableModels();
 		}
-		return currentTargets[0];
+		
+		if(currentTargets.length > 0)
+			return currentTargets[0];
+		else
+			return null;
 	}
 
 	private void findTrackableModels() {
