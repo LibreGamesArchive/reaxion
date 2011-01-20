@@ -186,7 +186,7 @@ public class PlayerInput extends InputHandler {
     		p2 = player.getTrackPoint();
     	} else {
     		p1 = player.getTrackPoint();
-    		p2 = state.getTarget().getTrackPoint();
+    		p2 = state.getCurrentTarget().getTrackPoint();
     	}
     	float angle = FastMath.atan2(p1.x-p2.x, p1.z-p2.z);
     	
@@ -209,7 +209,7 @@ public class PlayerInput extends InputHandler {
 				if (attacks[ind] != null) {
 					Character[] friends = new Character[1];
 					friends[0] = partner;
-					attacks[ind].getConstructors()[1].newInstance(new AttackData(player, friends, state.getTarget()));
+					attacks[ind].getConstructors()[1].newInstance(new AttackData(player, friends, state.getCurrentTarget()));
 				}
 			} catch (Exception e) {
 				System.out.println("Fatal error: Attack array parameter was not an Attack.");

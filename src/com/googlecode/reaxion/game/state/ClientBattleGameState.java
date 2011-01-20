@@ -123,10 +123,10 @@ public class ClientBattleGameState extends BattleGameState {
 
 		// Update the camera
 		if (cameraMode == "lock" && player != null && models.size() > 0
-				&& models.indexOf(currentTarget) != -1) {
+				&& models.indexOf(currentTargets) != -1) {
 			Vector3f p = player.getTrackPoint();
-			// System.out.println(models+" "+currentTarget);
-			Vector3f t = currentTarget.getTrackPoint();
+			// System.out.println(models+" "+currentTargets);
+			Vector3f t = getCurrentTarget().getTrackPoint();
 			if (!p.equals(t)) {
 				// Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y, t.z-p.z);
 				float angle = FastMath.atan2(p.z - t.z, p.x - t.x);
@@ -205,7 +205,7 @@ public class ClientBattleGameState extends BattleGameState {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					"target_near", false)
 					&& cameraMode == "lock") {
-				nextTarget(-1);
+//				nextTargets(-1);
 				rootNode.updateRenderState();
 			}
 			/**
@@ -215,7 +215,7 @@ public class ClientBattleGameState extends BattleGameState {
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand(
 					"target_far", false)
 					&& cameraMode == "lock") {
-				nextTarget(1);
+	//			nextTargets(1);
 				rootNode.updateRenderState();
 			}
 			/**

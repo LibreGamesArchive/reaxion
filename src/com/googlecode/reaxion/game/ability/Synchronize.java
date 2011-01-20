@@ -23,33 +23,33 @@ public class Synchronize extends Ability {
 	
 	@Override
 	public boolean act(Character c, StageGameState b) {
-		if (b.getTarget() instanceof MajorCharacter &&
-				((MajorCharacter)(b.getTarget())).abilities[0] != null)
-			return ((MajorCharacter)(b.getTarget())).abilities[0].act(c, b);
+		if (b.getCurrentTarget() instanceof MajorCharacter &&
+				((MajorCharacter)(b.getCurrentTarget())).abilities[0] != null)
+			return ((MajorCharacter)(b.getCurrentTarget())).abilities[0].act(c, b);
 		return false;
 	}
 	
 	@Override
 	public boolean hit(Character c, StageGameState b, Model other) {
-		if (b.getTarget() instanceof MajorCharacter &&
-				((MajorCharacter)(b.getTarget())).abilities[0] != null)
-			return ((MajorCharacter)(b.getTarget())).abilities[0].hit(c, b, other);
+		if (b.getCurrentTarget() instanceof MajorCharacter &&
+				((MajorCharacter)(b.getCurrentTarget())).abilities[0] != null)
+			return ((MajorCharacter)(b.getCurrentTarget())).abilities[0].hit(c, b, other);
 		return false;
 	}
 	
 	@Override
 	public boolean reactHit(Character c, StageGameState b, Model other) {
-		if (b.getTarget() instanceof MajorCharacter &&
-				((MajorCharacter)(b.getTarget())).abilities[0] != null)
-			return ((MajorCharacter)(b.getTarget())).abilities[0].reactHit(c, b, other);
+		if (b.getCurrentTarget() instanceof MajorCharacter &&
+				((MajorCharacter)(b.getCurrentTarget())).abilities[0] != null)
+			return ((MajorCharacter)(b.getCurrentTarget())).abilities[0].reactHit(c, b, other);
 		return false;
 	}
 	
 	@Override
 	public boolean heal(Character c, StageGameState b, double hpf) {
-		if (b.getTarget() instanceof MajorCharacter &&
-				((MajorCharacter)(b.getTarget())).abilities[0] != null)
-			return ((MajorCharacter)(b.getTarget())).abilities[0].heal(c, b, hpf);
+		if (b.getCurrentTarget() instanceof MajorCharacter &&
+				((MajorCharacter)(b.getCurrentTarget())).abilities[0] != null)
+			return ((MajorCharacter)(b.getCurrentTarget())).abilities[0].heal(c, b, hpf);
 		return false;
 	}
 	

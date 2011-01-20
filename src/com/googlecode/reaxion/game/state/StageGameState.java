@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
@@ -89,7 +92,7 @@ public class StageGameState extends CameraGameState {
 	protected AbsoluteMouse mouse;
 	public String cameraMode = "free"; // options are "lock" and "free"
 	public static int cameraDistance = 15;
-	protected Model currentTarget;
+	protected Model[] currentTargets;
 	protected float camRotXZ;
 	protected final static float camRotXZSpd = (float) Math.PI / 12;
 	protected float camRotY;
@@ -115,6 +118,8 @@ public class StageGameState extends CameraGameState {
 	protected MajorCharacter partner;
 	protected Class[] partnerAttacks;
 
+	private boolean updateTarget;
+
 	public StageGameState() {
 		super(NAME);
 		init();
@@ -136,9 +141,10 @@ public class StageGameState extends CameraGameState {
 
 		b.assignPositions();
 		assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
-		if(NetworkingObjects.isServer)
-			((ServerBattleGameState)this).assignOpTeam(b.getOp1(), b.getOp1Attacks(), b.getOp2(), b.getOp2Attacks());
-		nextTarget(0);
+		if (NetworkingObjects.isServer)
+			((ServerBattleGameState) this).assignOpTeam(b.getOp1(), b.getOp1Attacks(), b.getOp2(),
+					b.getOp2Attacks());
+		updateTarget = true;
 
 		load();
 
@@ -264,7 +270,7 @@ public class StageGameState extends CameraGameState {
 					playerAttacks[i].getMethod("load").invoke(null);
 				if (partnerAttacks[i] != null)
 					partnerAttacks[i].getMethod("load").invoke(null);
-				//FIXME: load opponent's attacks too
+				// FIXME: load opponent's attacks too
 			}
 
 			// try to preload common resources
@@ -367,7 +373,7 @@ public class StageGameState extends CameraGameState {
 		player = p;
 		playerAttacks = q;
 		// Create input system
-	//	playerInput = new PlayerInput(this);
+		// playerInput = new PlayerInput(this);
 		// Pass attack reference to HUD
 		hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 	}
@@ -432,17 +438,40 @@ public class StageGameState extends CameraGameState {
 		return partner;
 	}
 
+	public Model[] getTargets() {
+		if (updateTarget) {
+			updateTarget = false;
+			findTrackableModels();
+		}
+		return currentTargets;
+	}
+
 	/**
 	 * Returns pointer to current target.
 	 * 
 	 * @author Khoa
 	 * 
 	 */
-	public Model getTarget() {
-		// TODO: change to work for networked games; that is, each player needs a target
-		if (currentTarget == null)
-			nextTarget(0);
-		return currentTarget;
+	public Model getCurrentTarget() {
+		// TODO: change to work for networked games; that is, each player needs
+		// a target
+		if (updateTarget) {
+			// nextTargets(0);
+			updateTarget = false;
+			findTrackableModels();
+		}
+		return currentTargets[0];
+	}
+
+	private void findTrackableModels() {
+		ArrayList<Model> temp = new ArrayList<Model>();
+
+		for (Model m : models) {
+			if (m.trackable)
+				temp.add(m);
+		}
+
+		temp.toArray(currentTargets);
 	}
 
 	/**
@@ -557,7 +586,7 @@ public class StageGameState extends CameraGameState {
 		// Update the PlayerInput
 		if (NetworkingObjects.isServer) {
 			// consider having if both at the same time so that it's not unfair?
-	//		System.out.println("p1input="+NetworkingObjects.p1input+"\t\tp2input="+NetworkingObjects.p2input);
+			// System.out.println("p1input="+NetworkingObjects.p1input+"\t\tp2input="+NetworkingObjects.p2input);
 			if (NetworkingObjects.p1input != null)
 				synchronized (NetworkingObjects.p1input) {
 					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p1input,
@@ -589,10 +618,10 @@ public class StageGameState extends CameraGameState {
 		if (!NetworkingObjects.isServer) {
 			// Update the camera
 			if (cameraMode == "lock" && player != null && models.size() > 0
-					&& models.indexOf(currentTarget) != -1) {
+					&& models.indexOf(currentTargets) != -1) {
 				Vector3f p = player.getTrackPoint();
-				// System.out.println(models+" "+currentTarget);
-				Vector3f t = currentTarget.getTrackPoint();
+				// System.out.println(models+" "+currentTargets);
+				Vector3f t = getCurrentTarget().getTrackPoint();
 				if (!p.equals(t)) {
 					// Vector3f camOffset = new Vector3f(t.x-p.x, t.y-p.y,
 					// t.z-p.z);
@@ -669,7 +698,7 @@ public class StageGameState extends CameraGameState {
 			 */
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand("target_near", false)
 					&& cameraMode == "lock") {
-				nextTarget(-1);
+				nextTargets(-1);
 				rootNode.updateRenderState();
 			}
 			/**
@@ -678,7 +707,7 @@ public class StageGameState extends CameraGameState {
 			 */
 			if (KeyBindingManager.getKeyBindingManager().isValidCommand("target_far", false)
 					&& cameraMode == "lock") {
-				nextTarget(1);
+				nextTargets(1);
 				rootNode.updateRenderState();
 			}
 			/**
@@ -780,7 +809,7 @@ public class StageGameState extends CameraGameState {
 			if (!noTargets) {
 				cameraMode = "lock";
 				camRotXZ = 0;
-				nextTarget(0);
+				updateTarget = true;
 			}
 		}
 		System.out.println("Camera switch to " + cameraMode);
@@ -790,23 +819,23 @@ public class StageGameState extends CameraGameState {
 	 * Sets the target to the specified model and returns whether it was in the
 	 * model list
 	 */
-	public Boolean setTarget(Model m) {
+/*	public Boolean setTarget(Model m) {
 		int i = models.indexOf(m);
 		if (i != -1)
-			currentTarget = m;
+			currentTargets = m;
 		cam.update();
 		return (i != -1);
-	}
+	}*/
 
 	/**
-	 * Sets the currentTarget to another model, according to the value of
+	 * Sets the currentTargets to another model, according to the value of
 	 * {@code k}
 	 * 
 	 * @param k
 	 *            -1 for next closest from current target, 1 for next further,
 	 *            and 0 for closest to player
 	 */
-	public void nextTarget(int k) {
+	public void nextTargets(int k) {
 		// do nothing if there are no models
 		if (models.size() == 0)
 			return;
@@ -841,16 +870,12 @@ public class StageGameState extends CameraGameState {
 				return (int) ((Float) (first[0]) - (Float) (secnd[0]));
 			}
 		});
-		/*
-		 * System.out.print("[ "); for (Object f : t)
-		 * {System.out.print(Arrays.toString((Object[])f));}
-		 * System.out.println(" ]");
-		 */
 
-		// Locate the currentTarget's index
+
+		// Locate the currentTargets's index
 		int ind = -1;
 		for (int i = 0; i < t.length; i++) {
-			if (((Object[]) t[i])[1] == currentTarget) {
+			if (((Object[]) t[i])[1] == currentTargets) {
 				ind = i;
 				break;
 			}
@@ -859,20 +884,20 @@ public class StageGameState extends CameraGameState {
 		// Set the new target
 		switch (k) {
 		case 0:
-			currentTarget = (Model) (((Object[]) t[0])[1]);
+			currentTargets[0] = (Model) (((Object[]) t[0])[1]);
 			break;
 		case -1:
-			currentTarget = (Model) (((Object[]) t[(t.length + ind - 1) % t.length])[1]);
+			currentTargets[0] = (Model) (((Object[]) t[(t.length + ind - 1) % t.length])[1]);
 			break;
 		case 1:
-			currentTarget = (Model) (((Object[]) t[(ind + 1) % t.length])[1]);
+			currentTargets[0] = (Model) (((Object[]) t[(ind + 1) % t.length])[1]);
 		}
 
-		/*
-		 * // move test cylinders to lock point Vector3f tp =
-		 * currentTarget.getTrackPoint(); for (int i=0; i<cyl.length; i++) {
-		 * cyl[i].setLocalTranslation(tp.x, tp.y, tp.z); }
-		 */
+		
+		 // move test cylinders to lock point Vector3f tp =
+		 // currentTargets.getTrackPoint(); for (int i=0; i<cyl.length; i++) {
+		//  cyl[i].setLocalTranslation(tp.x, tp.y, tp.z); }
+		 
 
 		// Update camera
 		cam.update();
@@ -884,11 +909,13 @@ public class StageGameState extends CameraGameState {
 	 * @param m
 	 */
 	public void addModel(Model m) {
+		updateTarget = true;
 		models.add(m);
 		containerNode.attachChild(m.model);
 	}
 
 	public boolean removeModel(Model m) {
+		updateTarget = true;
 		containerNode.detachChild(m.model);
 		return models.remove(m);
 	}

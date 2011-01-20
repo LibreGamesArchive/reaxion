@@ -62,7 +62,7 @@ public class LivingShadow extends AttackObject {
 			changeDamage();
 			play("run");
 			// chase target
-			velocity = b.getTarget().model.getWorldTranslation().subtract(model.getWorldTranslation()).normalize().mult(speed);
+			velocity = b.getCurrentTarget().model.getWorldTranslation().subtract(model.getWorldTranslation()).normalize().mult(speed);
 			velocity.y = 0;
 			rotate(velocity);
 		}
