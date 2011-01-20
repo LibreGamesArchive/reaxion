@@ -12,6 +12,7 @@ import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.overlay.MissionOverlay;
 import com.googlecode.reaxion.game.overlay.Overlay;
 import com.googlecode.reaxion.game.overlay.StageSelectionOverlay;
+import com.googlecode.reaxion.game.overlay.StatsOverlay;
 import com.googlecode.reaxion.game.overlay.TerminalOverlay;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -43,6 +44,7 @@ public class HubGameState extends StageGameState {
 	private StageSelectionOverlay stageOverlay;
 	private MissionOverlay missionOverlay;
 	private MenuOverlay currentMenu;
+	private StatsOverlay statsOverlay;
 	
 	private final float activationDistance = 10f;
 	
@@ -57,7 +59,7 @@ public class HubGameState extends StageGameState {
     
     public HubGameState(Battle b) {
     	super(b);
-    	
+    	statsOverlay = new StatsOverlay(player.info, partner.info);
     	createTerminal(b.getStage().getTerminalPosition());
     }
     
@@ -139,13 +141,16 @@ public class HubGameState extends StageGameState {
 					changeCurrentMenu(missionOverlay);
 					break;
 				case 3:
-					switchToBurstGrid();
+					changeCurrentMenu(statsOverlay);
 					break;
 				case 4:
+					switchToBurstGrid();
+					break;
+				case 5:
 					SaveManager.saveGame(this);
 			    	info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
 			    	break;
-				case 5:
+				case 6:
 					//SaveManager.loadGame("SaveState");
 				}
 				
