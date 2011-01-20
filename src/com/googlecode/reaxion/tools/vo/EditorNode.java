@@ -3,6 +3,8 @@ package com.googlecode.reaxion.tools.vo;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Stores data for nodes and has methods for manipulating connections.
@@ -15,9 +17,9 @@ public class EditorNode implements Comparable<EditorNode> {
 	private int id;
 	private Point position;
 	private int depth;
-	private ArrayList<Integer> nodes;
-	private ArrayList<Integer> costs;
-	private String data, type, costString;
+	private HashMap<Integer, Integer> connections;
+	private int cost;
+	private String data, type;
 	private Color color;
 	
 	private boolean selected = false;
@@ -29,24 +31,61 @@ public class EditorNode implements Comparable<EditorNode> {
 		this.data = data;
 		this.depth = depth;
 		
-		nodes = new ArrayList<Integer>();
-		costs = new ArrayList<Integer>();
+		connections = new HashMap<Integer, Integer>();
 	}
 	
-	public void addConnection(EditorNode n) {
-		nodes.add(n.getId());
+	public void addConnection(int id, int cost) {
+		connections.put(id, cost);
+	}
+	
+	public void editConnection(int id, int cost) {
+		if (connections.containsKey(id)) {
+			connections.remove(id);
+			connections.put(id, cost);
+		}
+	}
+	
+	public void removeConnection(int id) {
+		if (connections.containsKey(id))
+			connections.remove(id);
+	}
+	
+	public ArrayList<Integer> getConnectionIds() {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		ids.addAll(connections.keySet());
+		
+		return ids;
+	}
+	
+	public boolean hasConnectionId(int id) {
+		return connections.containsKey(id);
+	}
+	
+	public int getConnectionCost(int id) {
+		if (connections.containsKey(id))
+			return connections.get(id);
+		else
+			return -1;
 	}
 
 	public String toString() {
 		String s = "" + id + " " + type + " " + data + "-";
 		
-		for (int i = 0; i < nodes.size(); i++)
-			s += nodes.get(i) + "," + costs.get(i) + ", ";
+		Iterator<Integer> itr = connections.keySet().iterator();
+		
+		while (itr.hasNext()) {
+			int i = itr.next();
+			s += i + "," + connections.get(i) + ", ";
+		}
 		
 		s.trim();
 		s += "-" + position.x + "," + position.y + "," + depth;
 		
 		return s;
+	}
+	
+	public int compareTo(EditorNode e) {
+		return id - e.getId();
 	}
 	
 	public int getId() {
@@ -72,21 +111,13 @@ public class EditorNode implements Comparable<EditorNode> {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
-
-	public ArrayList<Integer> getNodes() {
-		return nodes;
+	
+	public int getCost() {
+		return cost;
 	}
 
-	public void setNodes(ArrayList<Integer> nodes) {
-		this.nodes = nodes;
-	}
-
-	public ArrayList<Integer> getCosts() {
-		return costs;
-	}
-
-	public void setCosts(ArrayList<Integer> costs) {
-		this.costs = costs;
+	protected void setCost(int cost) {
+		this.cost = cost;
 	}
 
 	public String getData() {
@@ -112,14 +143,6 @@ public class EditorNode implements Comparable<EditorNode> {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
-	public String getCostString(){
-		return costString;
-	}
-	
-	public void setCostString(String s){
-		costString = s;
-	}
 
 	public boolean isSelected() {
 		return selected;
@@ -137,7 +160,4 @@ public class EditorNode implements Comparable<EditorNode> {
 		this.selectedForConnection = selectedForConnection;
 	}
 
-	public int compareTo(EditorNode e) {
-		return id - e.getId();
-	}
 }

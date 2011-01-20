@@ -49,15 +49,19 @@ public class NodeIDField extends ToolField {
 						fireValidationMade(ValidationEvent.VALID);
 					}
 
+					boolean checked = false;
+					
 					for (EditorNode n : nodes) {
-						if (Integer.parseInt(getText()) >= n.getId()) {
-							fireValidationMade(ValidationEvent.VALID);
-							break;
-						} else if (Integer.parseInt(getText()) == n.getId() && !n.isSelected()) {
+						if (Integer.parseInt(getText()) == n.getId() && !n.isSelected()) {
 							fireValidationMade(ValidationEvent.INVALID);
+							checked = true;
 							break;
 						}
 					}
+					
+					if (!checked)
+						fireValidationMade(ValidationEvent.VALID);
+					
 				} catch (NumberFormatException ex) {
 					fireValidationMade(ValidationEvent.INVALID);
 				}
