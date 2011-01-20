@@ -164,15 +164,7 @@ public class ServerBattleGameState extends BattleGameState {
 	protected void checkKeys(ClientPlayerInput pinput, PlayerNum pn) {
 		KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
 
-		MajorCharacter play;
-		switch (pn) {
-		case P1:
-			play = player;
-			break;
-		case P2:
-		default:
-			play = opPlayer;
-		}
+		MajorCharacter play = getPlayer(pn);
 
 		if (pinput.getAttack1()) {
 			if (pinput.getAttackHold())
@@ -203,26 +195,32 @@ public class ServerBattleGameState extends BattleGameState {
 		final int[] jumpLevels = { 2, 4 };
 		int jumpCount = 0;
 
-		// TODO: Check if key inputs are being reused (if sync and opengl threads are not working right, and why should they be?)
-    	if (pinput.getJumpOn()) {
-    		if (!play.jumpLock && !play.flinching && play.model.getWorldTranslation().y <= 0) {
-    			if (!pinput.isJumping()) {
-    				pinput.setJumping(true);
-    				jumpCount = jumpLevels[1] - jumpLevels[0];
-    				play.gravVel = play.jump * jumpLevels[0]/jumpLevels[1];
-    			}
-    		} else if (jumpCount > 0) {
-    			play.gravVel += play.jump/jumpLevels[1];
-    			jumpCount--;
-    		}
-    	} else {
-    		pinput.setJumping(false);
-    	}
+		// TODO: Check if key inputs are being reused (if sync and opengl
+		// threads are not working right, and why should they be?)
+		if (pinput.getJumpOn()) {
+			if (!play.jumpLock && !play.flinching && play.model.getWorldTranslation().y <= 0) {
+				if (!pinput.isJumping()) {
+					pinput.setJumping(true);
+					jumpCount = jumpLevels[1] - jumpLevels[0];
+					play.gravVel = play.jump * jumpLevels[0] / jumpLevels[1];
+				}
+			} else if (jumpCount > 0) {
+				play.gravVel += play.jump / jumpLevels[1];
+				jumpCount--;
+			}
+		} else {
+			pinput.setJumping(false);
+		}
 	}
 
 	private void executeAttack(int ind, PlayerNum pn) {
 		MajorCharacter play, part, opp;
 		Class[] attacks;
+		
+		play = getPlayer(pn);
+		part = getPartner(pn);
+		opp = getOpPlayer(pn);
+		attacks = getPlayerAttacks(pn);
 		switch (pn) {
 		case P1:
 			play = player;
@@ -253,24 +251,89 @@ public class ServerBattleGameState extends BattleGameState {
 		}
 	}
 
-	public MajorCharacter getOpPlayer() {
-		return opPlayer;
+	public MajorCharacter getPlayer(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return player;
+		case P2:
+		default:
+			return opPlayer;
+		}
+	}
+	
+	public Class[] getPlayerAttacks(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return playerAttacks;
+		case P2:
+		default:
+			return opPlayerAttacks;
+		}
 	}
 
+	public MajorCharacter getPartner(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return partner;
+		case P2:
+		default:
+			return opPartner;
+		}
+	}
+
+	public MajorCharacter getOpPlayer(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return opPlayer;
+		case P2:
+		default:
+			return player;
+		}
+	}
+	
+	private MajorCharacter getOpPartner(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return opPartner;
+		case P2:
+		default:
+			return partner;
+		}
+	}
+
+	/**
+	 * Assumes P1
+	 * @return
+	 */
+	public MajorCharacter getOpPlayer() {
+		return getOpPlayer(NetworkingObjects.PlayerNum.P1);
+	}
+
+	/**
+	 * assumes p1
+	 * @param opPlayer
+	 */
 	public void setOpPlayer(MajorCharacter opPlayer) {
 		this.opPlayer = opPlayer;
 	}
 
-	public Class[] getOpPlayerAttacks() {
-		return opPlayerAttacks;
+	public Class[] getOpPlayerAttacks(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return opPlayerAttacks;
+		case P2:
+		default:
+			return playerAttacks;
+		}
 	}
 
 	public void setOpPlayerAttacks(Class[] opPlayerAttacks) {
 		this.opPlayerAttacks = opPlayerAttacks;
 	}
 
+	
 	public MajorCharacter getOpPartner() {
-		return opPartner;
+		return getOpPartner(NetworkingObjects.PlayerNum.P1);
 	}
 
 	public void setOpPartner(MajorCharacter opPartner) {

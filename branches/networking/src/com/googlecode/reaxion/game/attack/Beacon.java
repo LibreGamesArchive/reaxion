@@ -47,9 +47,9 @@ public class Beacon extends Attack {
 			// create orbs
 			for (int i=0; i<orb.length; i++) {
 				orb[i] = (BeaconOrb)LoadingQueue.quickLoad(new BeaconOrb(getUsers()), b);
-				orb[i].model.setLocalTranslation(new Vector3f(0, target.model.getLocalTranslation().y + 3f, 0));
+				orb[i].model.setLocalTranslation(new Vector3f(0, b.getCurrentTarget().model.getLocalTranslation().y + 3f, 0));
 				orb[i].theta = i*FastMath.PI*2/orb.length;
-				orb[i].target = target;
+				orb[i].target = b.getCurrentTarget();
 			}
 			
 			b.getRootNode().updateRenderState();

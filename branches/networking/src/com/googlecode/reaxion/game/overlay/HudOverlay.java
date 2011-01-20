@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.overlay;
 
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.model.character.Character;
+import com.googlecode.reaxion.game.networking.NetworkingObjects.PlayerNum;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.ColorUtils;
 import com.googlecode.reaxion.game.util.FontUtils;
@@ -200,9 +201,10 @@ public class HudOverlay extends Overlay {
 	 * Function to be called during each update by the GameState.
 	 */
 	public void update(StageGameState b) {
+		Character play = b.getPlayer();
 		// update attacks
 		for (int i=0; i<attacks.length; i++) {
-			if (attacks[i] != null && b.getPlayer().currentAttack != null && attacks[i].isInstance(b.getPlayer().currentAttack)) {
+			if (attacks[i] != null && play.currentAttack != null && attacks[i].isInstance(play.currentAttack)) {
 				attackFill[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
 				attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? attackUsed[1] : attackUsed[0]);
 				attackBar[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
@@ -210,7 +212,7 @@ public class HudOverlay extends Overlay {
 				gaugeCostText[i].setLocalTranslation(new Vector3f(22 + attackFill[i].getWidth() - 10, 100 - 20 * i + 18, 0));
 			} else {
 				attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20*i + 10, 0));
-				if(gaugeCosts[i] != -1 && b.getPlayer().gauge >= gaugeCosts[i]) {
+				if(gaugeCosts[i] != -1 && play.gauge >= gaugeCosts[i]) {
 					ColorRGBA[] temp1 = zPressed ? zPressedColors : gaugeColors;
 					ColorRGBA[] temp2 = zPressed ? gaugeColors : zPressedColors;
 					if(i <= 2)
@@ -228,19 +230,19 @@ public class HudOverlay extends Overlay {
 		
 		// update opHealth
 		float percentOpHp = 0;
-		if (b.getTarget() instanceof Character)
-			percentOpHp = (float) Math.max(((Character)(b.getTarget())).hp/((Character)(b.getTarget())).maxHp, 0);
+		if (b.getCurrentTarget() instanceof Character)
+			percentOpHp = (float) Math.max(((Character)(b.getCurrentTarget())).hp/((Character)(b.getCurrentTarget())).maxHp, 0);
 		opHealthFill.setLocalScale(new Vector3f(percentOpHp, 1, 1));
 		opHealthFill.setLocalTranslation(new Vector3f(6 + 9 + 283 - (1-percentOpHp)*283, 576 + 5, 0));
 		opHealthFill.setSolidColor(new ColorRGBA((percentOpHp<.5)?1:0, (percentOpHp>=.25)?1:0, 0, 1));
 		
 		// update opName
-		opName.setText((b.getTarget() != null) ? (b.getTarget().name) : "");
+		opName.setText((b.getCurrentTarget() != null) ? (b.getCurrentTarget().name) : "");
 		opName.update();
 		
 		// update opHealthText
-		if (b.getTarget() instanceof Character)
-			opHealthText.setText((int)Math.max(((Character)(b.getTarget())).hp, 0) +"/"+ ((Character)(b.getTarget())).maxHp);
+		if (b.getCurrentTarget() instanceof Character)
+			opHealthText.setText((int)Math.max(((Character)(b.getCurrentTarget())).hp, 0) +"/"+ ((Character)(b.getCurrentTarget())).maxHp);
 		else
 			opHealthText.setText("-- / --");
 		opHealthText.update();
@@ -260,29 +262,29 @@ public class HudOverlay extends Overlay {
 		ptName.update();
 		
 		// update health
-		float percentHp = (float) Math.max((b.getPlayer().hp/b.getPlayer().maxHp), 0);
+		float percentHp = (float) Math.max((play.hp/play.maxHp), 0);
 		healthFill.setLocalScale(new Vector3f(percentHp, 1, 1));
 		healthFill.setLocalTranslation(new Vector3f(431 + 9 + 171 + (1-percentHp)*171, 50 + 5, 0));
 		healthFill.setSolidColor(new ColorRGBA((percentHp<.5)?1:0, (percentHp>=.25)?1:0, 0, 1));
 		
 		// update healthText
-		healthText.setText((int)Math.max(b.getPlayer().hp, 0) +"/"+ (b.getPlayer().maxHp));
+		healthText.setText((int)Math.max(play.hp, 0) +"/"+ (play.maxHp));
 		healthText.update();
 		
 		// update name
-		name.setText(b.getPlayer().name);
+		name.setText(play.name);
 		name.update();
 		
 		//update gauge
-		float lowerFraction = (float) b.getPlayer().minGauge/b.getPlayer().maxGauge;
-		float percentGauge = (float) b.getPlayer().gauge/b.getPlayer().maxGauge;
+		float lowerFraction = (float) play.minGauge/play.maxGauge;
+		float percentGauge = (float) play.gauge/play.maxGauge;
 		gaugeHighFill.setLocalScale(new Vector3f(percentGauge, 1, 1));
 		gaugeHighFill.setLocalTranslation(new Vector3f(208 + 9 + 283 - (1-percentGauge)*283, 34 + 5, 0));
 		gaugeLowFill.setLocalScale(new Vector3f(Math.min(percentGauge, lowerFraction), 1, 1));
 		gaugeLowFill.setLocalTranslation(new Vector3f(208 + 9 + 283 - (1-Math.min(percentGauge, lowerFraction))*283, 34 + 5, 0));
 		
 		// update gaugeCount
-		gaugeCount.setText(""+(int)b.getPlayer().gauge);
+		gaugeCount.setText(""+(int)play.gauge);
 		gaugeCount.update();
 		gaugeCount.setLocalTranslation(new Vector3f(210 + 576*percentGauge, 34, 0));
 	}

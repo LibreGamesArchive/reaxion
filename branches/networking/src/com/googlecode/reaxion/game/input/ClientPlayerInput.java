@@ -183,7 +183,7 @@ public class ClientPlayerInput extends PlayerInput {
     		p2 = player.getTrackPoint();
     	} else {
     		p1 = player.getTrackPoint();
-    		p2 = state.getTarget().getTrackPoint();
+    		p2 = state.getCurrentTarget().getTrackPoint();
     	}
     	float angle = FastMath.atan2(p1.x-p2.x, p1.z-p2.z);
     	
