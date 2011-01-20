@@ -115,6 +115,7 @@ public class JMEGraphicalController implements GraphicalController {
 			message.setAttack1(cpi.getAttack1());
 			message.setAttack2(cpi.getAttack2());
 			message.setAttack3(cpi.getAttack3());
+			message.setAttackHold(cpi.getAttackHold());
 			message.setTagOut(cpi.getTagOut());
 			return message;
 		}
