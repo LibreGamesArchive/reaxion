@@ -131,6 +131,18 @@ public class ServerBattleGameState extends BattleGameState {
 		opponents = new Character[] { opPlayer };
 	}
 
+	private void tagSwitch(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			tagSwitch();
+			return;
+		case P2:
+		default:
+			tagOpSwitch();
+			return;
+		}
+	}
+
 	/**
 	 * Switches opPlayer with opPartner
 	 * 
@@ -146,7 +158,8 @@ public class ServerBattleGameState extends BattleGameState {
 			opPlayerAttacks = opPartnerAttacks;
 			opPartnerAttacks = a;
 			// Pass attack reference to HUD
-			hudNode.passCharacterInfo(opPlayerAttacks, opPlayer.minGauge);
+			// opponent hudNode.passCharacterInfo(opPlayerAttacks,
+			// opPlayer.minGauge);
 			// Attach the active character
 			addModel(opPlayer);
 			// Synchronize position
@@ -162,7 +175,10 @@ public class ServerBattleGameState extends BattleGameState {
 	}
 
 	protected void checkKeys(ClientPlayerInput pinput, PlayerNum pn) {
-		KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
+//		KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
+
+		if (pinput.getTagOut())
+			tagSwitch(pn);
 
 		MajorCharacter play = getPlayer(pn);
 
@@ -216,7 +232,7 @@ public class ServerBattleGameState extends BattleGameState {
 	private void executeAttack(int ind, PlayerNum pn) {
 		MajorCharacter play, part, opp;
 		Class[] attacks;
-		
+
 		play = getPlayer(pn);
 		part = getPartner(pn);
 		opp = getOpPlayer(pn);
@@ -260,7 +276,7 @@ public class ServerBattleGameState extends BattleGameState {
 			return opPlayer;
 		}
 	}
-	
+
 	public Class[] getPlayerAttacks(PlayerNum pn) {
 		switch (pn) {
 		case P1:
@@ -290,7 +306,7 @@ public class ServerBattleGameState extends BattleGameState {
 			return player;
 		}
 	}
-	
+
 	private MajorCharacter getOpPartner(PlayerNum pn) {
 		switch (pn) {
 		case P1:
@@ -303,6 +319,7 @@ public class ServerBattleGameState extends BattleGameState {
 
 	/**
 	 * Assumes P1
+	 * 
 	 * @return
 	 */
 	public MajorCharacter getOpPlayer() {
@@ -311,6 +328,7 @@ public class ServerBattleGameState extends BattleGameState {
 
 	/**
 	 * assumes p1
+	 * 
 	 * @param opPlayer
 	 */
 	public void setOpPlayer(MajorCharacter opPlayer) {
@@ -331,7 +349,6 @@ public class ServerBattleGameState extends BattleGameState {
 		this.opPlayerAttacks = opPlayerAttacks;
 	}
 
-	
 	public MajorCharacter getOpPartner() {
 		return getOpPartner(NetworkingObjects.PlayerNum.P1);
 	}

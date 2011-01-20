@@ -5,7 +5,7 @@ import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
 
 public class SynchronizePlayerInputMessage extends SynchronizeMessage implements PlayerMessage {
 
-	private Boolean forthOn, leftOn, jumpOn, attackHold, attack1, attack2, attack3;
+	private Boolean forthOn, leftOn, jumpOn, attackHold, attack1, attack2, attack3, tagOut;
 	private float facingX, facingZ;
 	
 	public SynchronizePlayerInputMessage() {
@@ -82,6 +82,20 @@ public class SynchronizePlayerInputMessage extends SynchronizeMessage implements
 
 	public void setAttack3(Boolean attack3) {
 		this.attack3 = attack3;
+	}
+
+	/**
+	 * @return the tagOut
+	 */
+	public Boolean getTagOut() {
+		return tagOut;
+	}
+
+	/**
+	 * @param tagOut the tagOut to set
+	 */
+	public void setTagOut(Boolean tagOut) {
+		this.tagOut = tagOut;
 	}
 
 }
