@@ -168,6 +168,7 @@ public class StageGameState extends CameraGameState {
 	protected void init() {
 		rootNode = new Node("RootNode");
 		models = new ArrayList<Model>();
+		currentTargets = new Model[0];
 
 		// Prepare HUD node
 		if (!NetworkingObjects.isServer) {
