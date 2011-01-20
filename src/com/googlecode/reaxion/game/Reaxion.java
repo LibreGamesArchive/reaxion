@@ -147,11 +147,11 @@ public class Reaxion {
 			KeyBindingUtils.initKeyBindings();
 			MissionManager.createMissions();
 			
-			KeyPreferencesState keyState = new KeyPreferencesState();
-			GameStateManager.getInstance().attachChild(keyState);
-			keyState.setActive(true);
+			//KeyPreferencesState keyState = new KeyPreferencesState();
+			//GameStateManager.getInstance().attachChild(keyState);
+			//keyState.setActive(true);
 			
-//			PlayerInfoManager.init();
+			PlayerInfoManager.init();
 			
 //			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
 //			GameStateManager.getInstance().attachChild(gridState);
