@@ -18,6 +18,7 @@ import com.jmex.angelfont.BitmapText;
 public class StatsOverlay extends MenuOverlay {
 
 	public static final String NAME = "statsOverlay";
+	private static final String baseURL = "com/googlecode/reaxion/resources/icons/characterselect/";
 	
 	private PlayerInfo player;
 	private PlayerInfo partner;
@@ -40,6 +41,7 @@ public class StatsOverlay extends MenuOverlay {
 	private BitmapText[] atHeader;
 	private ColorRGBA white;
 	private Quad asd;
+	private Quad[] pics;
 	
 	
 	
@@ -52,6 +54,7 @@ public class StatsOverlay extends MenuOverlay {
 		init();
 	}
 	
+	//initializes and displays all components of stats screen
 	private void init() {
 		abilities = new String[2][Math.max(player.getAbilities().length, partner.getAbilities().length)];
 		attacks = new String[2][Math.max(player.getAttacks().length, partner.getAttacks().length)];
@@ -67,6 +70,10 @@ public class StatsOverlay extends MenuOverlay {
 		atT = new BitmapText[2][Math.max(player.getAttacks().length, partner.getAttacks().length)];
 		abHeader = new BitmapText[2];
 		atHeader = new BitmapText[2];
+		pics = new Quad[2];
+		
+		pics[0] = getImage(baseURL + player.name.toLowerCase() + "96.png");
+		pics[1] = getImage(baseURL + partner.name.toLowerCase() + "96.png");
 		
 		for(int i = 0; i<player.getAbilities().length; i++)
 			abilities[0][i] = player.getAbilities()[i];
@@ -130,6 +137,8 @@ public class StatsOverlay extends MenuOverlay {
 			abHeader[i].setLocalTranslation(new Vector3f(5+i*width/2, height-130, 0));
 			atHeader[i].setLocalTranslation(new Vector3f(5+i*width/2, height-280, 0));
 			names[i].setLocalTranslation(new Vector3f(5+i*width/2, height-5, 0));
+			pics[i].setLocalTranslation(new Vector3f(width/4-20+i*width/2+50, height-100+20, 0));
+			//pics[i].updateRenderState();
 			hpT[i].setSize(16);
 			stT[i].setSize(16);
 			gaT[i].setSize(16);
@@ -145,6 +154,7 @@ public class StatsOverlay extends MenuOverlay {
 			names[i].setSize(18);
 			names[i].update();
 			
+			attachChild(pics[i]);
 			attachChild(abHeader[i]);
 			attachChild(atHeader[i]);
 			attachChild(names[i]);
