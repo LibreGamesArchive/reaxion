@@ -343,6 +343,7 @@ public class BurstGridEditor extends JFrame implements ActionListener, NodeEvent
 	}
 	
 	public void nodeDeselected(NodeEvent e) {
+		idField.updateNodes(bgp.getNodes());
 		idField.setText("" + (e.getNode().getId() + 1));
 		
 		for (Component c : nodeAttributes.getComponents())

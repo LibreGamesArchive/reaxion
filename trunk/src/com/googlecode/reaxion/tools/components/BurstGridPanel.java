@@ -3,6 +3,7 @@ package com.googlecode.reaxion.tools.components;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -97,8 +98,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		while (itr.hasNext()) {
 			EditorNode n = nodes.get(itr.next());
 			if (n.isSelectedForConnection()) {
-				currentNode.addConnection(n);
-				currentNode.setCostString(currentNode.getCostString() + " " + n.getId() + ", 1");
+				currentNode.addConnection(n.getId(), 2);
 				n.setSelectedForConnection(false);
 			}
 		}
@@ -131,8 +131,8 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		while (itr.hasNext()) {
 			EditorNode n = nodes.get(itr.next());
 			
-			if (n.getNodes().contains(currentNode.getId()))
-				n.getNodes().remove((Object) currentNode.getId());
+			if (n.hasConnectionId(currentNode.getId()))
+				n.removeConnection(currentNode.getId());
 		}
 		
 		fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.REMOVED));
@@ -211,15 +211,25 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 	 * @param g2 {@code Graphics2D} object from panel.
 	 */
 	private void drawConnections(Graphics2D g2){
-		g2.setColor(Color.red);
-		g2.setStroke(new BasicStroke(2));
-		
+		g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 		Iterator<Integer> itr = nodes.keySet().iterator();
 		
 		while (itr.hasNext()) {
 			EditorNode n = nodes.get(itr.next());
-			for(int id : n.getNodes()){
-				g2.drawLine(n.getPosition().x, n.getPosition().y, nodes.get(id).getPosition().x, nodes.get(id).getPosition().y);
+			for(int id : n.getConnectionIds()){
+				Point parent = n.getPosition();
+				Point child = nodes.get(id).getPosition();
+				Point midpoint = new Point((child.x + parent.x) / 2, (child.y + parent.y) / 2);
+				
+				g2.setColor(Color.red);
+				g2.setStroke(new BasicStroke(2));
+				g2.drawLine(parent.x, parent.y, child.x, child.y);
+				
+				g2.setColor(Color.black);
+				g2.fillOval(midpoint.x - 8, midpoint.y - 8, 16, 16);
+				g2.setColor(Color.white);
+				g2.setStroke(new BasicStroke(5));
+				g2.drawString("" + n.getConnectionCost(id), midpoint.x - 3, midpoint.y + 5);				
 			}
 		}
 		
@@ -235,7 +245,7 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 		int b = getHeight()/lineCount;
 		
 		int x = a*((mouseX+a/2*(int)Math.copySign(1, mouseX))/a);
-		int y =  -1*(b*((mouseY+b/2*(int)Math.copySign(1, mouseY))/b));		
+		int y = -1*(b*((mouseY+b/2*(int)Math.copySign(1, mouseY))/b));		
 		
 		Point p = new Point(x, y);
 
@@ -284,8 +294,9 @@ public class BurstGridPanel extends JPanel implements MouseListener {
 					currentNode = n;
 					currentNode.setSelected(true);
 					fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.SELECTED));
-				} else {
+				} else if (n != currentNode && !currentNode.hasConnectionId(n.getId())){
 					n.setSelectedForConnection(!n.isSelectedForConnection());
+					System.out.println(n.getId() + ": " + n.isSelectedForConnection());
 				}
 			} else if (currentNode != null){
 				fireNodeEvent(new NodeEvent(this, currentNode, NodeEvent.DESELECTED));
