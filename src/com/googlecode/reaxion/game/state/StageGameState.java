@@ -394,7 +394,7 @@ public class StageGameState extends CameraGameState {
 			playerAttacks = partnerAttacks;
 			partnerAttacks = a;
 			// Pass attack reference to HUD
-			hudNode.passCharacterInfo(playerAttacks, player.minGauge);
+//			hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 			// Attach the active character
 			addModel(player);
 			// Synchronize position
