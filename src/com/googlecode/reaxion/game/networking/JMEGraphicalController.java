@@ -83,6 +83,7 @@ public class JMEGraphicalController implements GraphicalController {
 			cpi.setAttack2(m.getAttack2());
 			cpi.setAttack3(m.getAttack3());
 			cpi.setAttackHold(m.getAttackHold());
+			cpi.setTagOut(m.getTagOut());
 		}
 	}
 
@@ -114,7 +115,7 @@ public class JMEGraphicalController implements GraphicalController {
 			message.setAttack1(cpi.getAttack1());
 			message.setAttack2(cpi.getAttack2());
 			message.setAttack3(cpi.getAttack3());
-			message.setAttackHold(cpi.getAttackHold());
+			message.setTagOut(cpi.getTagOut());
 			return message;
 		}
 		return null;
