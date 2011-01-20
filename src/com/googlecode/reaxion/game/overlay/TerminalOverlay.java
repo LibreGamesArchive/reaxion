@@ -13,6 +13,13 @@ import com.jme.scene.shape.Quad;
 import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
+/**
+ * Displays the main menu with choices to Character Selection, Stage Selection, Mission Selection, 
+ * Stats Viewer, and Burst Grid.
+ * @author Brian Clanton, Khoa Ha, Austin Hou
+ *
+ */
+
 public class TerminalOverlay extends MenuOverlay {
 	
 	public static final String NAME = "terminalOverlay";
@@ -34,6 +41,8 @@ public class TerminalOverlay extends MenuOverlay {
 	
 	private ColorRGBA selectedColor;
 	private ColorRGBA unselectedColor;
+	
+	
 	
 	public TerminalOverlay() {
 		super(NAME, 800, 600, false);
