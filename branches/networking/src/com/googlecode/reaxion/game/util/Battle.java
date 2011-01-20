@@ -14,6 +14,7 @@ import com.jme.math.Vector3f;
 
 /**
  * Contains all parameters needed to initiate a battle.
+ * 
  * @author Brian, Khoa
  */
 
@@ -27,10 +28,11 @@ public class Battle {
 	private static Battle currentBattle;
 	private static String nextP1s, nextP2s;
 	private static Stage nextStage;
-	
+
 	// TODO: For networking, ugly solution, plz fix
 	private boolean networkedOps;
 	private String o1s, o2s;
+
 	public void setPlayers(String[] plays) {
 		this.p1s = plays[0];
 		this.p2s = plays[1];
@@ -44,18 +46,18 @@ public class Battle {
 	private ArrayList<MajorCharacter> op = new ArrayList<MajorCharacter>(2);
 	private Class[] p1Attacks, p2Attacks, op1Attacks, op2Attacks;
 	private Ability[] p1Abilities, p2Abilities;
-	private Vector3f playerPosition = new Vector3f(0,0,0);
+	private Vector3f playerPosition = new Vector3f(0, 0, 0);
 	private ArrayList<Vector3f> opPositions = new ArrayList<Vector3f>();
 	private ArrayList<Ability[]> opAbilities = new ArrayList<Ability[]>();
 	private Stage stage;
 	private int targetTime, expYield;
 
 	public boolean music = true;
-	
+
 	public Battle() {
-		
+
 	}
-	
+
 	/**
 	 * Sets players and stage to Battle's globals.
 	 */
@@ -72,96 +74,105 @@ public class Battle {
 	 * Load all attacks, abilities, and stage from data.
 	 */
 	private void init() {
-		// Load basics
-		try {
-			p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + p1s).getConstructors()[1].newInstance(false)));
-			p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + p2s).getConstructors()[1].newInstance(false)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		LoadingQueue.push(stage);	
-		p1Attacks = new Class[6];
-		p2Attacks = new Class[6];
-	//	op1Attacks = new Class[6];
-	//	op2Attacks = new Class[6];
-		
-		try {
-			String[] b1 = p1.info.getAbilities();
-			p1Abilities = new Ability[b1.length];
-			for (int i=0; i<b1.length; i++)
-				p1Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b1[i]).getConstructors()[0].newInstance();
-			String[] t1 = p1.info.getAttacks();
-			for (int i=0; i<t1.length; i++)
-				p1Attacks[i] = Class.forName(attackBaseLocation + t1[i]);
-			
-			String[] b2 = p2.info.getAbilities();
-			p2Abilities = new Ability[b2.length];
-			for (int i=0; i<b2.length; i++)
-				p2Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b2[i]).getConstructors()[0].newInstance();
-			String[] t2 = p2.info.getAttacks();
-			for (int i=0; i<t2.length; i++) {
-				System.out.println(attackBaseLocation + t2[i]);
-				p2Attacks[i] = Class.forName(attackBaseLocation + t2[i]);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		if(networkedOps) {
+		if (p1s != null && p2s != null) {
+			// Load basics
 			try {
-				if(op == null)
-					op = new ArrayList<MajorCharacter>(2);
-				op.add((MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + o1s).getConstructors()[1].newInstance(false))));
-				op.add((MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(baseURL + o2s).getConstructors()[1].newInstance(false))));
+				p1 = (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(
+						baseURL + p1s).getConstructors()[1].newInstance(false)));
+				p2 = (MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(
+						baseURL + p2s).getConstructors()[1].newInstance(false)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//LoadingQueue.push(stage);	
-			op1Attacks = new Class[6];
-			op2Attacks = new Class[6];
-			
+			LoadingQueue.push(stage);
+			p1Attacks = new Class[6];
+			p2Attacks = new Class[6];
+			// op1Attacks = new Class[6];
+			// op2Attacks = new Class[6];
+
 			try {
-				// yep hardcoded 2, i'm so forward thinking :3
-				for(int i = 0; i < 2; i++) {
-					String[] b1 = op.get(i).info.getAbilities();
-					opAbilities.add( new Ability[b1.length]);
-					for (int j=0; j<b1.length; j++)
-						opAbilities.get(i)[j] = (Ability) Class.forName(abilityBaseLocation + b1[j]).getConstructors()[0].newInstance();
+				String[] b1 = p1.info.getAbilities();
+				p1Abilities = new Ability[b1.length];
+				for (int i = 0; i < b1.length; i++)
+					p1Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b1[i])
+							.getConstructors()[0].newInstance();
+				String[] t1 = p1.info.getAttacks();
+				for (int i = 0; i < t1.length; i++)
+					p1Attacks[i] = Class.forName(attackBaseLocation + t1[i]);
+
+				String[] b2 = p2.info.getAbilities();
+				p2Abilities = new Ability[b2.length];
+				for (int i = 0; i < b2.length; i++)
+					p2Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b2[i])
+							.getConstructors()[0].newInstance();
+				String[] t2 = p2.info.getAttacks();
+				for (int i = 0; i < t2.length; i++) {
+					System.out.println(attackBaseLocation + t2[i]);
+					p2Attacks[i] = Class.forName(attackBaseLocation + t2[i]);
 				}
-				
-				String[] t1 = op.get(0).info.getAttacks();
-				for (int j=0; j<t1.length; j++) {
-					//System.out.println(attackBaseLocation + t1[j]);
-					op1Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
-				}
-				
-				t1 = op.get(1).info.getAttacks();
-				for (int j=0; j<t1.length; j++)
-					op2Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		
-		// set abilities
-		p1.setAbilities(p1Abilities);
-		p2.setAbilities(p2Abilities);
-		for (int i=0; i<op.size(); i++) {
-			if (opAbilities.size() > i)
-				op.get(i).setAbilities(opAbilities.get(i));
+
+			if (networkedOps) {
+				try {
+					if (op == null)
+						op = new ArrayList<MajorCharacter>(2);
+					op.add((MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(
+							baseURL + o1s).getConstructors()[1].newInstance(false))));
+					op.add((MajorCharacter) LoadingQueue.push((MajorCharacter) (Class.forName(
+							baseURL + o2s).getConstructors()[1].newInstance(false))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// LoadingQueue.push(stage);
+				op1Attacks = new Class[6];
+				op2Attacks = new Class[6];
+
+				try {
+					// yep hardcoded 2, i'm so forward thinking :3
+					for (int i = 0; i < 2; i++) {
+						String[] b1 = op.get(i).info.getAbilities();
+						opAbilities.add(new Ability[b1.length]);
+						for (int j = 0; j < b1.length; j++)
+							opAbilities.get(i)[j] = (Ability) Class.forName(
+									abilityBaseLocation + b1[j]).getConstructors()[0].newInstance();
+					}
+
+					String[] t1 = op.get(0).info.getAttacks();
+					for (int j = 0; j < t1.length; j++) {
+						// System.out.println(attackBaseLocation + t1[j]);
+						op1Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
+					}
+
+					t1 = op.get(1).info.getAttacks();
+					for (int j = 0; j < t1.length; j++)
+						op2Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			// set abilities
+			p1.setAbilities(p1Abilities);
+			p2.setAbilities(p2Abilities);
+			for (int i = 0; i < op.size(); i++) {
+				if (opAbilities.size() > i)
+					op.get(i).setAbilities(opAbilities.get(i));
+			}
 		}
 	}
 
 	public void addOponentPosition(Vector3f position) {
 		opPositions.add(position);
 	}
-	
+
 	public void assignPositions() {
 		p1.model.setLocalTranslation(playerPosition);
 		p2.model.setLocalTranslation(playerPosition);
-		
+
 		for (int i = 0; i < op.size(); i++) {
 			Vector3f pos = new Vector3f();
 			if (opPositions.size() > i && opPositions.get(i) != null)
@@ -169,16 +180,16 @@ public class Battle {
 			op.get(i).model.setLocalTranslation(pos);
 		}
 	}
-	
+
 	/**
 	 * Sets the default players for all {@code Battle} objects.
 	 */
 	public static void setDefaultPlayers(String dp1, String dp2) {
 		// set players
-			nextP1s = dp1;
-			nextP2s = dp2;
+		nextP1s = dp1;
+		nextP2s = dp2;
 	}
-	
+
 	/**
 	 * Sets the default stage for all {@code Battle} objects.
 	 */
@@ -204,7 +215,7 @@ public class Battle {
 	}
 
 	public static Battle getCurrentBattle() {
-		if(currentBattle == null)
+		if (currentBattle == null)
 			currentBattle = new Battle();
 		return currentBattle;
 	}
@@ -220,7 +231,7 @@ public class Battle {
 		currentBattle = new Battle();
 		return new BattleGameState(b);
 	}
-	
+
 	public static HubGameState createHubGameState() {
 		Battle b = getCurrentBattle();
 		b.loadDefaults();
@@ -228,7 +239,7 @@ public class Battle {
 		currentBattle = new Battle();
 		return new HubGameState(b);
 	}
-	
+
 	public static BattleGameState createNetworkedBattleGameState() {
 		Battle b = getCurrentBattle();
 		b.loadDefaults();
@@ -237,26 +248,24 @@ public class Battle {
 
 		if (NetworkingObjects.isServer) {
 			ServerBattleGameState sbgs = new ServerBattleGameState(b);
-			
-	//		MajorCharacter temp = (MajorCharacter) LoadingQueue.quickLoad(new Khoa(), sbgs);
-			
+
+			// MajorCharacter temp = (MajorCharacter) LoadingQueue.quickLoad(new
+			// Khoa(), sbgs);
+
 			return sbgs;
-			
-		}
-		else {
-			//FIXME all of this need to be rewritten to actually work
-			//FIXME FIX ME. Currently goes to a black screen.
+
+		} else {
+			// FIXME all of this need to be rewritten to actually work
+			// FIXME FIX ME. Currently goes to a black screen.
 			System.out.println("Stage:\t" + b.getStage());
-			
+
 			ClientBattleGameState QQQ = new ClientBattleGameState(b);
-			
-			NetworkingObjects.cbgs = QQQ;		
-			
+
+			NetworkingObjects.cbgs = QQQ;
+
 			return QQQ;
 		}
 	}
-
-	
 
 	public MajorCharacter getP1() {
 		return p1;
@@ -265,11 +274,11 @@ public class Battle {
 	public MajorCharacter getP2() {
 		return p2;
 	}
-	
+
 	public Character[] getOps() {
 		return op.toArray(new Character[0]);
 	}
-	
+
 	public MajorCharacter getOp1() {
 		return op.get(0);
 	}
@@ -280,8 +289,8 @@ public class Battle {
 
 	public void setOps(Character[] o) {
 		op = new ArrayList<MajorCharacter>();
-		for (int i=0; i<o.length; i++)
-			op.add((MajorCharacter)o[i]);
+		for (int i = 0; i < o.length; i++)
+			op.add((MajorCharacter) o[i]);
 	}
 
 	public Class[] getP1Attacks() {
@@ -324,7 +333,7 @@ public class Battle {
 
 	public void setOpAbilities(ArrayList<Ability[]> oA) {
 		this.opAbilities = oA;
-		for (int i=0; i<opAbilities.size(); i++)
+		for (int i = 0; i < opAbilities.size(); i++)
 			op.get(i).setAbilities(oA.get(i));
 	}
 
@@ -339,7 +348,7 @@ public class Battle {
 	public Stage getStage() {
 		return stage;
 	}
-	
+
 	public int getTargetTime() {
 		return targetTime;
 	}

@@ -239,6 +239,9 @@ public abstract class NetworkingObjects {
 
 					Battle c = Battle.getCurrentBattle();
 					c.setStage(cassm.getStage());
+					// so it doesn't load anything, resulting in models just floating around
+					c.setPlayers(new String[]{null,null,null,null});
+					Battle.setDefaultPlayers(null, null);
 					Battle.setCurrentBattle(c);
 
 					GameTaskQueueManager.getManager().update(new Callable() {
