@@ -110,7 +110,7 @@ public class TerminalOverlay extends MenuOverlay {
 		menuItems[currentIndex].setDefaultColor(selectedColor);
 		menuItems[currentIndex].update();
 		
-		selector.setLocalTranslation(-94 + 71, Math.round(86 - 15 - (float)(currentIndex*178f/menuItems.length)), 0);
+		selector.setLocalTranslation(-94 + 71, Math.round(86 + 8 - (float)(currentIndex*218f/menuItems.length)), 0);
 		
 		updateRenderState();
 	}

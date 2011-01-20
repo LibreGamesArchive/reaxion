@@ -1,6 +1,11 @@
 package com.googlecode.reaxion.game.overlay;
 
 import java.awt.Color;
+/**
+ * Displays the names, attacks, abilities, and other stats of the current player and partner.
+ * @author Austin Hou
+ *
+ */
 
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.input.bindings.KeyBindings;
