@@ -12,7 +12,7 @@ public class SynchronizeClientDataMessage extends SynchronizeMessage implements 
 	private HudInfoContainer target, player, partner;
 	private double minGauge, gauge, maxGauge;
 	private Class[] playerAttacks;
-	private Attack currentAttack;
+	private String currentAttackName;
 	
 	public SynchronizeClientDataMessage() {
 		super();
@@ -152,12 +152,12 @@ public class SynchronizeClientDataMessage extends SynchronizeMessage implements 
 		this.playerAttacks = playerAttacks;
 	}
 
-	public Attack getCurrentAttack() {
-		return currentAttack;
+	public String getCurrentAttackName() {
+		return currentAttackName;
 	}
 
-	public void setCurrentAttack(Attack currentAttack) {
-		this.currentAttack = currentAttack;
+	public void setCurrentAttackName(String currentAttackName) {
+		this.currentAttackName = currentAttackName;
 	}
 
 	public double getMinGauge() {

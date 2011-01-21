@@ -17,7 +17,7 @@ public class ClientData {
 	private HudInfoContainer target, player, partner;
 	private double minGauge, gauge, maxGauge;
 	private Class[] playerAttacks;
-	private Attack currentAttack;
+	private String currentAttackName;
 	
 	public ClientData() {
 		target = new HudInfoContainer();
@@ -134,19 +134,19 @@ public class ClientData {
 		this.playerAttacks = classes;
 	}
 
-	public Attack getCurrentAttack() {
-		return currentAttack;
-	}
-
-	public void setCurrentAttack(Attack currentAttack) {
-		this.currentAttack = currentAttack;
-	}
-
 	public double getMinGauge() {
 		return minGauge;
 	}
 
 	public void setMinGauge(double minGauge) {
 		this.minGauge = minGauge;
+	}
+
+	public String getCurrentAttackName() {
+		return currentAttackName;
+	}
+
+	public void setCurrentAttackName(String currentAttackName) {
+		this.currentAttackName = currentAttackName;
 	}
 }
