@@ -2,6 +2,7 @@ package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.util.Battle;
+import com.googlecode.reaxion.game.util.ClientBattle;
 import com.jmex.game.state.GameStateManager;
 
 /**
