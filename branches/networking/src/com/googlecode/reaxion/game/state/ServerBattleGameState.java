@@ -368,35 +368,37 @@ public class ServerBattleGameState extends BattleGameState {
 	}
 
 	protected void sendHUDInfo(PlayerNum pn) {
-		MajorCharacter p1 = getPlayer(pn);
-		MajorCharacter p2 = getPartner(pn);
-		Model target = getCurrentTarget();
 		ClientData cd = getClientData(pn);
-		
-		HudInfoContainer play = cd.getPartner();
-		HudInfoContainer part = cd.getPartner();
-		HudInfoContainer targ = cd.getPartner();
-		
-		play.hp = p1.hp;
-		play.maxHp = p1.maxHp;
-		play.name = p1.name;
-		
-		part.hp = p2.hp;
-		part.maxHp = p2.maxHp;
-		part.name = p2.name;
-		
-		if(target instanceof Character) {
-			Character t = (Character)target;
-			targ.hp = t.hp;
-			targ.maxHp = t.maxHp;
-			targ.name = t.name;
+		if (cd != null) {
+			MajorCharacter p1 = getPlayer(pn);
+			MajorCharacter p2 = getPartner(pn);
+			Model target = getCurrentTarget();
+
+			HudInfoContainer play = cd.getPlayer();
+			HudInfoContainer part = cd.getPartner();
+			HudInfoContainer targ = cd.getTarget();
+
+			play.hp = p1.hp;
+			play.maxHp = p1.maxHp;
+			play.name = p1.name;
+
+			part.hp = p2.hp;
+			part.maxHp = p2.maxHp;
+			part.name = p2.name;
+
+			if (target instanceof Character) {
+				Character t = (Character) target;
+				targ.hp = t.hp;
+				targ.maxHp = t.maxHp;
+				targ.name = t.name;
+			}
+
+			cd.setMinGauge(p1.minGauge);
+			cd.setGauge(p1.gauge);
+			cd.setGaugecap(p1.maxGauge);
+			cd.setPlayerAttacks(Attack.toAttackDisplayInfoArray(getPlayerAttacks(pn)));
+			cd.setCurrentAttackName(p1.currentAttack.info.name);
 		}
-		
-		cd.setMinGauge(p1.minGauge);
-		cd.setGauge(p1.gauge);
-		cd.setGaugecap(p1.maxGauge);
-		cd.setPlayerAttacks(Attack.toAttackDisplayInfoArray(getPlayerAttacks(pn)));
-		cd.setCurrentAttackName(p1.currentAttack.info.name);
 	}
 
 	protected ClientData getClientData(PlayerNum pn) {
