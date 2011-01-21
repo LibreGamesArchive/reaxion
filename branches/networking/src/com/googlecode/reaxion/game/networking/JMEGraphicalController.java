@@ -37,10 +37,9 @@ import com.captiveimagination.jgn.synchronization.GraphicalController;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeCreateMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeRemoveMessage;
-import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeClientDataMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
-import com.googlecode.reaxion.game.networking.sync.message.SynchronizePlayerInputMessage;
 
 /**
  * This is a basic implementation of the GraphicalControler for the jME project.
@@ -70,20 +69,28 @@ public class JMEGraphicalController implements GraphicalController {
 			model.model.getLocalScale().z = m.getScaleZ();
 			// ((MeshAnimationController)
 			// model.model.getController(0)).setAnimation(m.getAnimation());
-		} else if (obj instanceof ClientPlayerInput) {
+		} else if (obj instanceof ClientData) {
 			//TODO: sync booleans? is that it for now
-			ClientPlayerInput cpi = (ClientPlayerInput) obj;
-			SynchronizePlayerInputMessage m = (SynchronizePlayerInputMessage) message;
-			cpi.setForthOn(m.getForthOn());
-			cpi.setJumpOn(m.getJumpOn());
-			cpi.setLeftOn(m.getLeftOn());
-			cpi.setFacingX(m.getFacingX());
-			cpi.setFacingZ(m.getFacingZ());
-			cpi.setAttack1(m.getAttack1());
-			cpi.setAttack2(m.getAttack2());
-			cpi.setAttack3(m.getAttack3());
-			cpi.setAttackHold(m.getAttackHold());
-			cpi.setTagOut(m.getTagOut());
+			ClientData cd = (ClientData) obj;
+			SynchronizeClientDataMessage m = (SynchronizeClientDataMessage) message;
+			cd.setForthOn(m.getForthOn());
+			cd.setJumpOn(m.getJumpOn());
+			cd.setLeftOn(m.getLeftOn());
+			cd.setFacingX(m.getFacingX());
+			cd.setFacingZ(m.getFacingZ());
+			cd.setAttack1(m.getAttack1());
+			cd.setAttack2(m.getAttack2());
+			cd.setAttack3(m.getAttack3());
+			cd.setAttackHold(m.getAttackHold());
+			cd.setTagOut(m.getTagOut());
+			cd.setPlayer(m.getPlayer());
+			cd.setPartner(m.getPartner());
+			cd.setTarget(m.getTarget());
+			cd.setMinGauge(m.getMinGauge());
+			cd.setGauge(m.getGauge());
+			cd.setGaugecap(m.getGaugecap());
+			cd.setPlayerAttacks(m.getPlayerAttacks());
+			cd.setCurrentAttack(m.getCurrentAttack());
 		}
 	}
 
@@ -104,19 +111,27 @@ public class JMEGraphicalController implements GraphicalController {
 			// message.setAnimation(((MeshAnimationController)
 			// model.model.getController(0)).getActiveAnimation());
 			return message;
-		} else if (obj instanceof ClientPlayerInput) {
-			ClientPlayerInput cpi = (ClientPlayerInput) obj;
-			SynchronizePlayerInputMessage message = new SynchronizePlayerInputMessage();
-			message.setForthOn(cpi.getForthOn());
-			message.setJumpOn(cpi.getJumpOn());
-			message.setLeftOn(cpi.getLeftOn());
-			message.setFacingX(cpi.getFacingX());
-			message.setFacingZ(cpi.getFacingZ());
-			message.setAttack1(cpi.getAttack1());
-			message.setAttack2(cpi.getAttack2());
-			message.setAttack3(cpi.getAttack3());
-			message.setAttackHold(cpi.getAttackHold());
-			message.setTagOut(cpi.getTagOut());
+		} else if (obj instanceof ClientData) {
+			ClientData cd = (ClientData) obj;
+			SynchronizeClientDataMessage message = new SynchronizeClientDataMessage();
+			message.setForthOn(cd.getForthOn());
+			message.setJumpOn(cd.getJumpOn());
+			message.setLeftOn(cd.getLeftOn());
+			message.setFacingX(cd.getFacingX());
+			message.setFacingZ(cd.getFacingZ());
+			message.setAttack1(cd.getAttack1());
+			message.setAttack2(cd.getAttack2());
+			message.setAttack3(cd.getAttack3());
+			message.setAttackHold(cd.getAttackHold());
+			message.setTagOut(cd.getTagOut());
+			message.setPlayer(cd.getPlayer());
+			message.setPartner(cd.getPartner());
+			message.setTarget(cd.getTarget());
+			message.setMinGauge(cd.getMinGauge());
+			message.setGauge(cd.getGauge());
+			message.setGaugecap(cd.getGaugecap());
+			message.setPlayerAttacks(cd.getPlayerAttacks());
+			message.setCurrentAttack(cd.getCurrentAttack());
 			return message;
 		}
 		return null;

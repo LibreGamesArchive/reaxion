@@ -1,10 +1,9 @@
 package com.googlecode.reaxion.game.input;
 
-import com.googlecode.reaxion.game.attack.AttackData;
-import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.networking.ClientData;
+import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.jme.input.InputHandler;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.math.FastMath;
@@ -185,6 +184,21 @@ public class ClientPlayerInput extends PlayerInput {
 		// assign vector to player
 		// player.setVelocity(new Vector3f(nUnitX, unitY,
 		// nUnitZ).mult(player.speed));
+		copyToClientData();
+	}
+	
+	private void copyToClientData() {
+		ClientData cd = NetworkingObjects.cd;
+		cd.setForthOn(forthOn);
+		cd.setJumpOn(jumpOn);
+		cd.setLeftOn(leftOn);
+		cd.setFacingX(facingX);
+		cd.setFacingZ(facingZ);
+		cd.setAttack1(attack1);
+		cd.setAttack2(attack2);
+		cd.setAttack3(attack3);
+		cd.setAttackHold(attackHold);
+		cd.setTagOut(tagOut);
 	}
 
 	/**

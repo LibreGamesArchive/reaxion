@@ -471,7 +471,7 @@ public class StageGameState extends CameraGameState {
 			return null;
 	}
 
-	private void findTrackableModels() {
+	protected void findTrackableModels() {
 		ArrayList<Model> temp = new ArrayList<Model>();
 
 		for (Model m : models) {
@@ -593,18 +593,23 @@ public class StageGameState extends CameraGameState {
 
 		// Update the PlayerInput
 		if (NetworkingObjects.isServer) {
-			// consider having if both at the same time so that it's not unfair?
-			// System.out.println("p1input="+NetworkingObjects.p1input+"\t\tp2input="+NetworkingObjects.p2input);
-			if (NetworkingObjects.p1input != null)
-				synchronized (NetworkingObjects.p1input) {
-					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p1input,
+			// TODO: consider having if both at the same time so that it's not unfair?
+			// System.out.println("p1data="+NetworkingObjects.p1data+"\t\tp2input="+NetworkingObjects.p2data);
+			if (NetworkingObjects.p1data != null)
+				synchronized (NetworkingObjects.p1data) {
+					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p1data,
 							NetworkingObjects.PlayerNum.P1);
 				}
-			if (NetworkingObjects.p2input != null)
-				synchronized (NetworkingObjects.p2input) {
-					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p2input,
+			if (NetworkingObjects.p2data != null)
+				synchronized (NetworkingObjects.p2data) {
+					((ServerBattleGameState) this).checkKeys(NetworkingObjects.p2data,
 							NetworkingObjects.PlayerNum.P2);
 				}
+			
+			// TODO: does this needs to be called every update()? optimize
+			((ServerBattleGameState)this).sendHUDInfo(NetworkingObjects.PlayerNum.P1);
+			((ServerBattleGameState)this).sendHUDInfo(NetworkingObjects.PlayerNum.P2);
+			// to avoid this extract all of this into methods and override them in SBGS, DUH
 		} else {
 			if (playerInput != null) {
 				playerInput.checkKeys();

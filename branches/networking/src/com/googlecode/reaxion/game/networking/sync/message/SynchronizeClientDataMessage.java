@@ -2,13 +2,19 @@ package com.googlecode.reaxion.game.networking.sync.message;
 
 import com.captiveimagination.jgn.message.type.PlayerMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
+import com.googlecode.reaxion.game.attack.Attack;
+import com.googlecode.reaxion.game.networking.HudInfoContainer;
 
-public class SynchronizePlayerInputMessage extends SynchronizeMessage implements PlayerMessage {
+public class SynchronizeClientDataMessage extends SynchronizeMessage implements PlayerMessage {
 
 	private Boolean forthOn, leftOn, jumpOn, attackHold, attack1, attack2, attack3, tagOut;
 	private float facingX, facingZ;
+	private HudInfoContainer target, player, partner;
+	private double minGauge, gauge, maxGauge;
+	private Class[] playerAttacks;
+	private Attack currentAttack;
 	
-	public SynchronizePlayerInputMessage() {
+	public SynchronizeClientDataMessage() {
 		super();
 	}
 
@@ -98,4 +104,67 @@ public class SynchronizePlayerInputMessage extends SynchronizeMessage implements
 		this.tagOut = tagOut;
 	}
 
+	public HudInfoContainer getTarget() {
+		return target;
+	}
+
+	public HudInfoContainer getPlayer() {
+		return player;
+	}
+
+	public HudInfoContainer getPartner() {
+		return partner;
+	}
+
+	public void setTarget(HudInfoContainer target) {
+		this.target = target;
+	}
+
+	public void setPlayer(HudInfoContainer player) {
+		this.player = player;
+	}
+
+	public void setPartner(HudInfoContainer partner) {
+		this.partner = partner;
+	}
+
+	public double getGauge() {
+		return gauge;
+	}
+
+	public double getGaugecap() {
+		return maxGauge;
+	}
+
+	public Class[] getPlayerAttacks() {
+		return playerAttacks;
+	}
+
+	public void setGauge(double gauge) {
+		this.gauge = gauge;
+	}
+
+	public void setGaugecap(double gaugecap) {
+		this.maxGauge = gaugecap;
+	}
+
+	public void setPlayerAttacks(Class[] playerAttacks) {
+		this.playerAttacks = playerAttacks;
+	}
+
+	public Attack getCurrentAttack() {
+		return currentAttack;
+	}
+
+	public void setCurrentAttack(Attack currentAttack) {
+		this.currentAttack = currentAttack;
+	}
+
+	public double getMinGauge() {
+		return minGauge;
+	}
+
+	public void setMinGauge(double minGauge) {
+		this.minGauge = minGauge;
+	}
 }

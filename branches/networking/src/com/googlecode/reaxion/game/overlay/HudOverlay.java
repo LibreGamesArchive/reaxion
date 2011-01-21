@@ -21,40 +21,40 @@ import com.jmex.angelfont.BitmapText;
  */
 public class HudOverlay extends Overlay {
 	
-	private static final String baseURL = "../../resources/gui/";
+	protected static final String baseURL = "../../resources/gui/";
     
-	private Class[] attacks;
-	private int gaugeCap;
+	protected Class[] attacks;
+	protected int gaugeCap;
 	
-	private Node container;
+	protected Node container;
 	
-	private Quad[] attackFill;
-	private Quad[] attackBar;
-	private BitmapText[] attackText;
-	private BitmapText[] gaugeCostText;
-	private int[] gaugeCosts;
-	private Quad opHealthFill;
-	private Quad opHealth;
-	private BitmapText opName;
-	private BitmapText opHealthText;
-	private Quad healthFill;
-	private Quad health;
-	private BitmapText healthText;
-	private BitmapText name;
-	private Quad ptHealthFill;
-	private Quad ptHealth;
-	private BitmapText ptHealthText;
-	private BitmapText ptName;
-	private Quad gaugeLowFill;
-	private Quad gaugeHighFill;
-	private Quad gauge;
-	private BitmapText gaugeCount;
+	protected Quad[] attackFill;
+	protected Quad[] attackBar;
+	protected BitmapText[] attackText;
+	protected BitmapText[] gaugeCostText;
+	protected int[] gaugeCosts;
+	protected Quad opHealthFill;
+	protected Quad opHealth;
+	protected BitmapText opName;
+	protected BitmapText opHealthText;
+	protected Quad healthFill;
+	protected Quad health;
+	protected BitmapText healthText;
+	protected BitmapText name;
+	protected Quad ptHealthFill;
+	protected Quad ptHealth;
+	protected BitmapText ptHealthText;
+	protected BitmapText ptName;
+	protected Quad gaugeLowFill;
+	protected Quad gaugeHighFill;
+	protected Quad gauge;
+	protected BitmapText gaugeCount;
 	
-	private ColorRGBA textColor;
-	private ColorRGBA[] gaugeColors = {new ColorRGBA(0, .67f, .67f, 1), new ColorRGBA(1, .5f, 0, 1)};
-	private ColorRGBA[] attackUsed;
-	private ColorRGBA[] zPressedColors;
-	private ColorRGBA attackUnavailable;
+	protected ColorRGBA textColor;
+	protected ColorRGBA[] gaugeColors = {new ColorRGBA(0, .67f, .67f, 1), new ColorRGBA(1, .5f, 0, 1)};
+	protected ColorRGBA[] attackUsed;
+	protected ColorRGBA[] zPressedColors;
+	protected ColorRGBA attackUnavailable;
 	
 	public boolean zPressed;
 	
