@@ -180,19 +180,19 @@ public class ScrollMenu extends Overlay {
 		
 		// update scrollbar
 		if (scrollBarOn) {
-			int height = numEntries*entryHeight/entries.length;
-			int scrollPos = ((numEntries+1)*entryHeight - height*3)*(currentIndex-1)/entries.length + height*3/2 - entryHeight;
+			float height = (float) numEntries*entryHeight/Math.max(entries.length, 1);
+			float scrollPos = height*(currentIndex + .5f) - entryHeight;
 			scrollContainer.detachAllChildren();
 			// top region
 			if (currentIndex != 0) {
-				int h = entryHeight + scrollPos-height/2;
+				float h = entryHeight + scrollPos-height/2;
 				Quad d1 = drawRect(scrollWidth, h, scrollBackgroundColor);
 				d1.setLocalTranslation(0, -entryHeight + h/2, 0);
 				scrollContainer.attachChild(d1);
 			}
 			// lower region
 			if (currentIndex != entries.length - 1) {
-				int h = -entryHeight + numEntries*entryHeight - (scrollPos+height/2);
+				float h = -entryHeight + numEntries*entryHeight - (scrollPos+height/2);
 				Quad d2 = drawRect(scrollWidth, h, scrollBackgroundColor);
 				d2.setLocalTranslation(0, -entryHeight + numEntries*entryHeight - h/2, 0);
 				scrollContainer.attachChild(d2);
@@ -268,7 +268,7 @@ public class ScrollMenu extends Overlay {
 	 */
 	public void reset() {
 		// set default positions
-		currentIndex = entries.length - 1;
+		currentIndex = Math.max(entries.length, 1) - 1;
 		offset = currentIndex - numEntries + 1;
 	}
 	

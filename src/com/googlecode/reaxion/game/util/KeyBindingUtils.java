@@ -59,6 +59,12 @@ public class KeyBindingUtils {
 		manager.set(MenuBindings.SELECT_ITEM.toString(), KeyInput.KEY_SPACE);
 		manager.set(MenuBindings.SELECT_FINAL.toString(), KeyInput.KEY_RETURN);
 		manager.set(MenuBindings.BACK.toString(), KeyInput.KEY_BACK);
+		manager.set(MenuBindings.CHOOSE_1.toString(), KeyInput.KEY_1);
+		manager.set(MenuBindings.CHOOSE_2.toString(), KeyInput.KEY_2);
+		manager.set(MenuBindings.CHOOSE_3.toString(), KeyInput.KEY_3);
+		manager.set(MenuBindings.CHOOSE_4.toString(), KeyInput.KEY_4);
+		manager.set(MenuBindings.CHOOSE_5.toString(), KeyInput.KEY_5);
+		manager.set(MenuBindings.CHOOSE_6.toString(), KeyInput.KEY_6);
 	}
 	
 	private static void initStageBindings() {

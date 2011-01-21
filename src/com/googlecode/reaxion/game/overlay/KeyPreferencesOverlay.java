@@ -36,6 +36,12 @@ public class KeyPreferencesOverlay extends Overlay {
 			"Menu - Select Item",
 			"Menu - Finalize",
 			"Menu - Cancel",
+			"Menu - Choose 1",
+			"Menu - Choose 2",
+			"Menu - Choose 3",
+			"Menu - Choose 4",
+			"Menu - Choose 5",
+			"Menu - Choose 6",
 			"Game - Forward",
 			"Game - Back",
 			"Game - Right",
@@ -75,7 +81,13 @@ public class KeyPreferencesOverlay extends Overlay {
 			MenuBindings.RIGHT,
 			MenuBindings.SELECT_ITEM,
 			MenuBindings.SELECT_FINAL,
-			MenuBindings.BACK
+			MenuBindings.BACK,
+			MenuBindings.CHOOSE_1,
+			MenuBindings.CHOOSE_2,
+			MenuBindings.CHOOSE_3,
+			MenuBindings.CHOOSE_4,
+			MenuBindings.CHOOSE_5,
+			MenuBindings.CHOOSE_6
 	};
 	private KeyBindings[] gameBindings = {
 			PlayerBindings.FORWARD,
