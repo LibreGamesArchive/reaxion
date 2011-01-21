@@ -18,11 +18,11 @@ import com.googlecode.reaxion.game.networking.sync.message.CharacterAndStageSele
 import com.googlecode.reaxion.game.networking.sync.message.StartBattleMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateModelMessage;
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
-import com.googlecode.reaxion.game.networking.sync.message.SynchronizePlayerInputMessage;
+import com.googlecode.reaxion.game.networking.sync.message.SynchronizeClientDataMessage;
 import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
-import com.googlecode.reaxion.game.state.SynchronizeCreatePlayerInputMessage;
+import com.googlecode.reaxion.game.state.SynchronizeCreateClientDataMessage;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.input.MouseInput;
@@ -152,8 +152,8 @@ public class Reaxion {
 		JGN.register(SynchronizeCreateModelMessage.class);
 		JGN.register(CharacterAndStageSelectionsMessage.class);
 		JGN.register(StartBattleMessage.class);
-		JGN.register(SynchronizeCreatePlayerInputMessage.class);
-		JGN.register(SynchronizePlayerInputMessage.class);
+		JGN.register(SynchronizeCreateClientDataMessage.class);
+		JGN.register(SynchronizeClientDataMessage.class);
 
 		switch (purposeInLife) {
 		case INITIAL_INITIALIZATION:

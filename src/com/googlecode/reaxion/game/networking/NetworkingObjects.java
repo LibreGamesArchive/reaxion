@@ -27,7 +27,7 @@ import com.googlecode.reaxion.game.networking.sync.message.SynchronizeCreateMode
 import com.googlecode.reaxion.game.networking.sync.message.SynchronizeModelMessage;
 import com.googlecode.reaxion.game.state.ClientBattleGameState;
 import com.googlecode.reaxion.game.state.ServerBattleGameState;
-import com.googlecode.reaxion.game.state.SynchronizeCreatePlayerInputMessage;
+import com.googlecode.reaxion.game.state.SynchronizeCreateClientDataMessage;
 import com.googlecode.reaxion.game.util.Battle;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.Vector3f;
@@ -40,6 +40,16 @@ public abstract class NetworkingObjects {
 	
 	public static JGNServer server;
 	public static JGNClient client;
+	
+	/**
+	 * The client copy of the ClientData transfer utility class.
+	 */
+	public static ClientData cd;
+	
+	/**
+	 * The server's copy of the ClientData transfer utility class.
+	 */
+	public static ClientData p1data, p2data;
 
 	/**
 	 * Probably don't need to have separate ones for both, since it'll never be
@@ -58,8 +68,6 @@ public abstract class NetworkingObjects {
 
 	private static int creationMessagesRecieved = 0;
 	private static short p1ID = -2, p2ID = -2;
-
-	public static ClientPlayerInput p1input, p2input;
 
 	// TODO (nwk) Make a StageCreateMessage that tells the client which
 	// stage was picked (pass an Enum or something) and then have client do
@@ -184,16 +192,16 @@ public abstract class NetworkingObjects {
 			}
 
 			public Object create(SynchronizeCreateMessage scm) {
-				if (scm instanceof SynchronizeCreatePlayerInputMessage) {
-					SynchronizeCreatePlayerInputMessage scpim = (SynchronizeCreatePlayerInputMessage) scm;
+				if (scm instanceof SynchronizeCreateClientDataMessage) {
+					SynchronizeCreateClientDataMessage scpim = (SynchronizeCreateClientDataMessage) scm;
 					System.out.println(scpim.getPlayerId());
 					// These shouldn't ever really get used besides for grabbing data from the client
 					if (scpim.getPlayerId() == p1ID) {
-						p1input = new ClientPlayerInput(sbgs);
-						return p1input;
+						p1data = new ClientData();
+						return p1data;
 					} else if (scpim.getPlayerId() == p2ID) {
-						p2input = new ClientPlayerInput(sbgs);
-						return p2input;
+						p2data = new ClientData();
+						return p2data;
 					}
 				}
 				return null;
@@ -294,7 +302,7 @@ public abstract class NetworkingObjects {
 
 					if (!scmm.isForPreload())
 						return LoadingQueue.quickLoad(new Model(scmm.getFilename()), cbgs);
-				} else if (scm instanceof SynchronizeCreatePlayerInputMessage) {
+				} else if (scm instanceof SynchronizeCreateClientDataMessage) {
 					return new ClientPlayerInput(cbgs);
 				}
 				return null;

@@ -1,15 +1,15 @@
 package com.googlecode.reaxion.game.state;
 
 import com.googlecode.reaxion.game.attack.AttackData;
-import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.networking.ClientData;
+import com.googlecode.reaxion.game.networking.HudInfoContainer;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.networking.NetworkingObjects.PlayerNum;
 import com.googlecode.reaxion.game.util.Battle;
-import com.jme.input.KeyBindingManager;
 import com.jme.math.Vector3f;
 
 /**
@@ -174,8 +174,9 @@ public class ServerBattleGameState extends BattleGameState {
 		}
 	}
 
-	protected void checkKeys(ClientPlayerInput pinput, PlayerNum pn) {
-//		KeyBindingManager keyboard = KeyBindingManager.getKeyBindingManager();
+	protected void checkKeys(ClientData pinput, PlayerNum pn) {
+		// KeyBindingManager keyboard =
+		// KeyBindingManager.getKeyBindingManager();
 
 		if (pinput.getTagOut())
 			tagSwitch(pn);
@@ -215,7 +216,7 @@ public class ServerBattleGameState extends BattleGameState {
 		// threads are not working right, and why should they be?)
 		if (pinput.getJumpOn()) {
 			if (!play.jumpLock && !play.flinching && play.model.getWorldTranslation().y <= 0) {
-				if (!pinput.isJumping()) {
+				if (!pinput.getJumping()) {
 					pinput.setJumping(true);
 					jumpCount = jumpLevels[1] - jumpLevels[0];
 					play.gravVel = play.jump * jumpLevels[0] / jumpLevels[1];
@@ -363,5 +364,47 @@ public class ServerBattleGameState extends BattleGameState {
 
 	public void setOpPartnerAttacks(Class[] opPartnerAttacks) {
 		this.opPartnerAttacks = opPartnerAttacks;
+	}
+
+	protected void sendHUDInfo(PlayerNum pn) {
+		MajorCharacter p1 = getPlayer(pn);
+		MajorCharacter p2 = getPartner(pn);
+		Model target = getCurrentTarget();
+		ClientData cd = getClientData(pn);
+		
+		HudInfoContainer play = cd.getPartner();
+		HudInfoContainer part = cd.getPartner();
+		HudInfoContainer targ = cd.getPartner();
+		
+		play.hp = p1.hp;
+		play.maxHp = p1.maxHp;
+		play.name = p1.name;
+		
+		part.hp = p2.hp;
+		part.maxHp = p2.maxHp;
+		part.name = p2.name;
+		
+		if(target instanceof Character) {
+			Character t = (Character)target;
+			targ.hp = t.hp;
+			targ.maxHp = t.maxHp;
+			targ.name = t.name;
+		}
+		
+		cd.setMinGauge(p1.minGauge);
+		cd.setGauge(p1.gauge);
+		cd.setGaugecap(p1.maxGauge);
+		cd.setPlayerAttacks(getPlayerAttacks(pn));
+		cd.setCurrentAttack(p1.currentAttack);
+	}
+
+	protected ClientData getClientData(PlayerNum pn) {
+		switch (pn) {
+		case P1:
+			return NetworkingObjects.p1data;
+		case P2:
+		default:
+			return NetworkingObjects.p2data;
+		}
 	}
 }

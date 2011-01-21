@@ -9,6 +9,7 @@ import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
+import com.googlecode.reaxion.game.networking.ClientData;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
 import com.googlecode.reaxion.game.util.Battle;
 import com.jme.input.KeyBindingManager;
@@ -48,9 +49,10 @@ public class ClientBattleGameState extends BattleGameState {
 	public ClientBattleGameState(Battle b) {
 		super(b);
 		
+		NetworkingObjects.cd = new ClientData();
 		playerInput = new ClientPlayerInput(this);
 		try {
-			NetworkingObjects.clientSyncManager.register(playerInput, new SynchronizeCreatePlayerInputMessage(), NetworkingObjects.updateRate);
+			NetworkingObjects.clientSyncManager.register(NetworkingObjects.cd, new SynchronizeCreateClientDataMessage(), NetworkingObjects.updateRate);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
