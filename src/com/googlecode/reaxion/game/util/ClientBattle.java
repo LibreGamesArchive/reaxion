@@ -6,10 +6,7 @@ import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
-import com.googlecode.reaxion.game.model.stage.Stage;
 import com.jme.math.Vector3f;
-
-import quicktime.std.movies.LoadSettings;
 
 public class ClientBattle extends Battle {
 
