@@ -155,6 +155,13 @@ public abstract class PlayerInfo{
 	}
 	
 	/**
+	 * Returns all unlocked abilities.
+	 */
+	public ArrayList<Ability> getAbilityPoll() {
+		return abilityPool;
+	}
+	
+	/**
 	 * Sets attacks according to {@code atk}.
 	 */
 	public void setAttacks(String[] atk) {
@@ -171,6 +178,13 @@ public abstract class PlayerInfo{
 				a.add(attacks[i]);   
 		}  
 		return a.toArray(new String[0]);  
+	}
+	
+	/**
+	 * Returns all unlocked attacks.
+	 */
+	public ArrayList<Attack> getAttackPoll() {
+		return attackPool;
 	}
 	
 	protected void createBurstGrid(String location){

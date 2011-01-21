@@ -13,7 +13,7 @@ import com.jme.math.Vector3f;
  */
 public class PyroclastGeode extends Enemy {
 	
-	private final int reviveTime = 1080;
+	private final int reviveTime = 1800;
 	private final float floatHeight = 12;
 	// limit shooting range to pi/4 on the opposite side
 	private final float maxDist = new Vector3f(-32, 0, 0).distance(new Vector3f(138*FastMath.sin(FastMath.PI/4), 0, 138*FastMath.sin(FastMath.PI/4)));
