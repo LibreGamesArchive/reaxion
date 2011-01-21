@@ -20,6 +20,7 @@ public class ClientHudOverlay extends HudOverlay {
 		passCharacterInfo(cd.getPlayerAttacks(), (int)(cd.getGaugecap()));
 		HudInfoContainer play = cd.getPlayer(), part = cd.getPartner(), targ = cd.getTarget();
 		
+		try {
 		// update attacks
 		for (int i=0; i<attacks.length; i++) {
 			if (attacks[i] != null && cd.getCurrentAttack() != null && attacks[i].isInstance(cd.getCurrentAttack())) {
@@ -102,5 +103,8 @@ public class ClientHudOverlay extends HudOverlay {
 		gaugeCount.setText(""+(int)cd.getGauge());
 		gaugeCount.update();
 		gaugeCount.setLocalTranslation(new Vector3f(210 + 576*percentGauge, 34, 0));
+		} catch(NullPointerException e) {
+			System.out.println("HUD data undefined for now");
+						}
 	}
 }
