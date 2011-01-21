@@ -282,8 +282,6 @@ public class ServerBattleGameState extends BattleGameState {
 	}
 
 	public Class[] getPlayerAttacks(PlayerNum pn) {
-		System.out.println(Arrays.toString(playerAttacks));
-		System.out.println(Arrays.toString(opPlayerAttacks));
 		switch (pn) {
 		case P1:
 			return playerAttacks;
@@ -401,9 +399,13 @@ public class ServerBattleGameState extends BattleGameState {
 			cd.setGauge(p1.gauge);
 			cd.setGaugecap(p1.maxGauge);
 			cd.setPlayerAttacks(Attack.toAttackDisplayInfoArray(getPlayerAttacks(pn)));
-			if(p1.currentAttack != null)
-				p1.currentAttack = new Attack();
-			cd.setCurrentAttackName(p1.currentAttack.info.name);
+			if(p1.currentAttack != null) {
+				if(p1.currentAttack.info != null)
+					if(p1.currentAttack.info.name != null)
+						cd.setCurrentAttackName(""+p1.currentAttack.info.name);
+			} else
+				cd.setCurrentAttackName("null");
+			
 		}
 	}
 
