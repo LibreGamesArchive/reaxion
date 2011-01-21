@@ -188,6 +188,7 @@ public class Attack {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("ADI: "+Arrays.toString(adi));
 		return adi;
 	}
 }
