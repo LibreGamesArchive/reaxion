@@ -75,6 +75,12 @@ public class LoadingQueue {
 		if (locator == null)
 			locateTextures();
 		while (!queue.isEmpty()) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			Model m = queue.remove();
 			ModelLoader.load(m, m.filename);
 			if (NetworkingObjects.isServer && m != null) {
