@@ -154,7 +154,7 @@ public abstract class NetworkingObjects {
 						Battle c = Battle.getCurrentBattle();
 
 						c.setPlayers(chars);
-						c.setStage(stageChoice);
+						c.setNextStageString(stageChoice);
 						c.setPlayerPosition(new Vector3f(0, 0, 0));
 						Battle.setCurrentBattle(c);
 
@@ -238,10 +238,8 @@ public abstract class NetworkingObjects {
 					System.out.println("Stage recieved!");
 
 					Battle c = Battle.getCurrentBattle();
-					c.setStage(cassm.getStage());
-					// so it doesn't load anything, resulting in models just floating around
-					c.setPlayers(new String[]{null,null,null,null});
-					Battle.setDefaultPlayers(null, null);
+					c.setNextStageString(cassm.getStage()); // It must have a stage to add things to
+					c.setPlayers(cassm.getCharacters());
 					Battle.setCurrentBattle(c);
 
 					GameTaskQueueManager.getManager().update(new Callable() {

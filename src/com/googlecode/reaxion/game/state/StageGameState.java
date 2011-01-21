@@ -139,14 +139,17 @@ public class StageGameState extends CameraGameState {
 			// stage
 		}
 
-		b.assignPositions();
-		assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
-		if (NetworkingObjects.isServer)
-			((ServerBattleGameState) this).assignOpTeam(b.getOp1(), b.getOp1Attacks(), b.getOp2(),
-					b.getOp2Attacks());
-		updateTarget = true;
+		if (!b.isClient()) {
+			b.assignPositions();
+			assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
 
-		load();
+			if (NetworkingObjects.isServer)
+				((ServerBattleGameState) this).assignOpTeam(b.getOp1(), b.getOp1Attacks(),
+						b.getOp2(), b.getOp2Attacks());
+			updateTarget = true;
+
+			load();
+		}
 
 		LoadingQueue.execute(this);
 
@@ -394,7 +397,7 @@ public class StageGameState extends CameraGameState {
 			playerAttacks = partnerAttacks;
 			partnerAttacks = a;
 			// Pass attack reference to HUD
-//			hudNode.passCharacterInfo(playerAttacks, player.minGauge);
+			// hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 			// Attach the active character
 			addModel(player);
 			// Synchronize position
@@ -461,8 +464,8 @@ public class StageGameState extends CameraGameState {
 			updateTarget = false;
 			findTrackableModels();
 		}
-		
-		if(currentTargets.length > 0)
+
+		if (currentTargets.length > 0)
 			return currentTargets[0];
 		else
 			return null;
@@ -824,13 +827,10 @@ public class StageGameState extends CameraGameState {
 	 * Sets the target to the specified model and returns whether it was in the
 	 * model list
 	 */
-/*	public Boolean setTarget(Model m) {
-		int i = models.indexOf(m);
-		if (i != -1)
-			currentTargets = m;
-		cam.update();
-		return (i != -1);
-	}*/
+	/*
+	 * public Boolean setTarget(Model m) { int i = models.indexOf(m); if (i !=
+	 * -1) currentTargets = m; cam.update(); return (i != -1); }
+	 */
 
 	/**
 	 * Sets the currentTargets to another model, according to the value of
@@ -876,7 +876,6 @@ public class StageGameState extends CameraGameState {
 			}
 		});
 
-
 		// Locate the currentTargets's index
 		int ind = -1;
 		for (int i = 0; i < t.length; i++) {
@@ -898,11 +897,9 @@ public class StageGameState extends CameraGameState {
 			currentTargets[0] = (Model) (((Object[]) t[(ind + 1) % t.length])[1]);
 		}
 
-		
-		 // move test cylinders to lock point Vector3f tp =
-		 // currentTargets.getTrackPoint(); for (int i=0; i<cyl.length; i++) {
-		//  cyl[i].setLocalTranslation(tp.x, tp.y, tp.z); }
-		 
+		// move test cylinders to lock point Vector3f tp =
+		// currentTargets.getTrackPoint(); for (int i=0; i<cyl.length; i++) {
+		// cyl[i].setLocalTranslation(tp.x, tp.y, tp.z); }
 
 		// Update camera
 		cam.update();
