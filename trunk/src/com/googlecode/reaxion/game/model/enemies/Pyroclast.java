@@ -104,7 +104,7 @@ public class Pyroclast extends Enemy {
 			contactGround();
 			
 			// push characters around
-			moveCollide(b);
+//			moveCollide(b);
 			
 			// check the ground once more
 			contactGround();
@@ -137,6 +137,8 @@ public class Pyroclast extends Enemy {
 			// watch for falling
 			if (falling)
 				checkFall();
+			velocity.x = 0;
+			velocity.z = 0;
 			
 			// float if no boulders left
 			if (sections.size() == 0) {
