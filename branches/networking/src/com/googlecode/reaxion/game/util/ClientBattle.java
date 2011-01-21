@@ -37,6 +37,8 @@ public class ClientBattle extends Battle {
 			op1Attacks = new Class[6];
 			op2Attacks = new Class[6];
 
+			Thread.sleep(1);
+			
 			try {
 
 				String[] t1 = p1.info.getAttacks();
@@ -52,6 +54,9 @@ public class ClientBattle extends Battle {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			Thread.sleep(1);
+			
 			try {
 				if (op == null)
 					op = new ArrayList<MajorCharacter>(2);
@@ -63,6 +68,8 @@ public class ClientBattle extends Battle {
 				e.printStackTrace();
 			}
 
+			Thread.sleep(1);
+			
 			try {
 
 				String[] t1 = op.get(0).info.getAttacks();
@@ -77,16 +84,21 @@ public class ClientBattle extends Battle {
 				e.printStackTrace();
 			}
 
+			Thread.sleep(1);
+			
 			// try to preload player characters' attacks
 			for (int i = 0; i < p1Attacks.length; i++)
 				if (p1Attacks[i] != null)
 					p1Attacks[i].getMethod("load").invoke(null);
+			Thread.sleep(1);
 			for (int i = 0; i < p2Attacks.length; i++)
 				if (p2Attacks[i] != null)
 					p2Attacks[i].getMethod("load").invoke(null);
+			Thread.sleep(1);
 			for (int i = 0; i < op1Attacks.length; i++)
 				if (op1Attacks[i] != null)
 					op1Attacks[i].getMethod("load").invoke(null);
+			Thread.sleep(1);
 			for (int i = 0; i < op2Attacks.length; i++)
 				if (op2Attacks[i] != null)
 					op2Attacks[i].getMethod("load").invoke(null);

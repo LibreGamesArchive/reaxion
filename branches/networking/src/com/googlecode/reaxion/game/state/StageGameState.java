@@ -135,9 +135,11 @@ public class StageGameState extends CameraGameState {
 			// stage
 		}
 
+		assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
+		updateTarget = true;
+		
 		if (!b.isClient()) {
 			b.assignPositions();
-			assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());
 
 			if (NetworkingObjects.isServer)
 				((ServerBattleGameState) this).assignOpTeam(b.getOp1(), b.getOp1Attacks(),
