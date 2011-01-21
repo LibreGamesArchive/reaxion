@@ -115,6 +115,7 @@ public class StageGameState extends CameraGameState {
 	protected Class[] partnerAttacks;
 
 	private boolean updateTarget;
+	private Battle b;
 
 	public StageGameState() {
 		super(NAME);
@@ -123,6 +124,7 @@ public class StageGameState extends CameraGameState {
 
 	public StageGameState(Battle b) {
 		super(NAME);
+		this.b = b;
 		init();
 
 		LoadingQueue.execute(this);
@@ -358,7 +360,7 @@ public class StageGameState extends CameraGameState {
 		// Create input system
 		// playerInput = new PlayerInput(this);
 		// Pass attack reference to HUD
-		if (!NetworkingObjects.isServer)
+		if (!NetworkingObjects.isServer && !b.isClient())
 			hudNode.passCharacterInfo(playerAttacks, player.minGauge);
 		// Remove the inactive character
 		removeModel(partner);
