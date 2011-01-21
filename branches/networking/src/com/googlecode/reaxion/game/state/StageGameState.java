@@ -5,20 +5,16 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import com.googlecode.reaxion.game.Reaxion;
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.BgmPlayer;
 import com.googlecode.reaxion.game.audio.SfxPlayer;
-import com.googlecode.reaxion.game.input.ClientPlayerInput;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;
 import com.googlecode.reaxion.game.model.stage.Stage;
 import com.googlecode.reaxion.game.networking.NetworkingObjects;
-import com.googlecode.reaxion.game.networking.NetworkingObjects.PlayerNum;
+import com.googlecode.reaxion.game.overlay.ClientHudOverlay;
 import com.googlecode.reaxion.game.overlay.HudOverlay;
 import com.googlecode.reaxion.game.overlay.PauseOverlay;
 import com.googlecode.reaxion.game.util.Battle;
@@ -175,7 +171,10 @@ public class StageGameState extends CameraGameState {
 
 		// Prepare HUD node
 		if (!NetworkingObjects.isServer) {
-			hudNode = new HudOverlay();
+			if(this instanceof ClientBattleGameState)
+				hudNode = new ClientHudOverlay();
+			else
+				hudNode = new HudOverlay();
 			rootNode.attachChild(hudNode);
 
 			// Prepare pause node
