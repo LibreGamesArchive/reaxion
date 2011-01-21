@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.overlay;
 
+import java.util.Arrays;
+
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.networking.ClientData;
 import com.googlecode.reaxion.game.networking.HudInfoContainer;
@@ -18,14 +20,16 @@ public class ClientHudOverlay extends HudOverlay {
 	public void update(StageGameState q) {
 		ClientData cd = NetworkingObjects.cd;
 
+		System.out.println(Arrays.toString(cd.getPlayerAttacks()));
+		
 		if(cd.getPlayerAttacks() != null) {
 			passCharacterInfo(cd.getPlayerAttacks(), (int) (cd.getGaugecap()));
 			HudInfoContainer play = cd.getPlayer(), part = cd.getPartner(), targ = cd.getTarget();
 
 			// update attacks
 			for (int i = 0; i < attacks.length; i++) {
-		/*	if (attacks[i] != null && cd.getCurrentAttackName() != null
-						&& ((Attack) attacks[i]).name.equals(cd.getCurrentAttackName())) {
+		if (attacks[i] != null && cd.getCurrentAttackName() != null
+						&& (attacks[i]).name.equals(cd.getCurrentAttackName())) {
 					attackFill[i].setLocalTranslation(new Vector3f(98, 100 - 20 * i + 10, 0));
 					attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? attackUsed[1]
 							: attackUsed[0]);
@@ -33,7 +37,7 @@ public class ClientHudOverlay extends HudOverlay {
 					attackText[i].setLocalTranslation(new Vector3f(22 + 4, 100 - 20 * i + 18, 0));
 					gaugeCostText[i].setLocalTranslation(new Vector3f(
 							22 + attackFill[i].getWidth() - 10, 100 - 20 * i + 18, 0));
-				} else */{
+				} else {
 					attackFill[i].setLocalTranslation(new Vector3f(-22 + 98, 100 - 20 * i + 10, 0));
 					if (gaugeCosts[i] != -1 && cd.getGauge() >= gaugeCosts[i]) {
 						ColorRGBA[] temp1 = zPressed ? zPressedColors : gaugeColors;

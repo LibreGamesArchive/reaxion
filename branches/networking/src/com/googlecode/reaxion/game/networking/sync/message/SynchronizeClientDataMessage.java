@@ -1,5 +1,7 @@
 package com.googlecode.reaxion.game.networking.sync.message;
 
+import java.util.Arrays;
+
 import com.captiveimagination.jgn.message.type.PlayerMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
 import com.googlecode.reaxion.game.attack.AttackDisplayInfo;
@@ -149,7 +151,7 @@ public class SynchronizeClientDataMessage extends SynchronizeMessage implements 
 	}
 
 	public void setPlayerAttacks(AttackDisplayInfo[] playerAttacks) {
-		this.playerAttacks = playerAttacks;
+		this.playerAttacks = Arrays.copyOf(playerAttacks, playerAttacks.length);
 	}
 
 	public String getCurrentAttackName() {

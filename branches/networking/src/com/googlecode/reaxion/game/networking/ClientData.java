@@ -1,10 +1,13 @@
 package com.googlecode.reaxion.game.networking;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.attack.AttackDisplayInfo;
 
+
+// FIXME: The problem is that you can't have this be authoritative both ways. 
 public class ClientData {
 	private boolean forthOn = false;
 	private boolean leftOn = false;
@@ -135,7 +138,8 @@ public class ClientData {
 	}
 
 	public void setPlayerAttacks(AttackDisplayInfo[] adi) {
-		this.playerAttacks = adi;
+		this.playerAttacks = Arrays.copyOf(adi, adi.length);
+		System.out.println("PlayerAttacks: "+Arrays.toString(playerAttacks));
 	}
 
 	public double getMinGauge() {
