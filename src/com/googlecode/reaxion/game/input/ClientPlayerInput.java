@@ -171,7 +171,7 @@ public class ClientPlayerInput extends PlayerInput {
 		Vector3f p2;
 		if (state.cameraMode == "free") {
 			p1 = camera.getLocation();
-			p2 = player.getTrackPoint();
+			p2 = new Vector3f(0,0,0);
 		} else {
 			p1 = player.getTrackPoint();
 			p2 = state.getCurrentTarget().getTrackPoint();
