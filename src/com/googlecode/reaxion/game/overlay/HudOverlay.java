@@ -300,7 +300,7 @@ public class HudOverlay extends Overlay {
 		gaugeCap = cap;
 		
 		// read in attacks
-		for (int i=0; i<attackText.length; i++) {
+		for (int i=0; i<attacks.length; i++) {
 			try {
 				if (attacks[i] != null) {
 					attackText[i].setText(attacks[i].name);
