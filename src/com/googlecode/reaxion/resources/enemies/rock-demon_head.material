@@ -1,0 +1,20 @@
+
+material rock
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture enemies/rock-demon_head-UV.png
+			}
+		}
+
+	}
+
+}
+
+

@@ -31,6 +31,7 @@ public enum BackgroundMusic {
 	SUNLETH_WATERSCAPE("the_sunleth_waterscape.ogg", "The Sunleth Waterscape", "Final Fantasy XIII"), 
 	TUMBLING("unversed_boss.ogg", "The Tumbling", "Kingdom Hearts: BbS"), 
 	VIA_PURIFICO("via_purifico.ogg", "Via Purifico", "Final Fantasy X Piano"), 
+	VIOLATOR("violator.ogg", "Violator", "Final Fantasy VII Advent Children"),
 	ZERO_TAIL("zero_tail.ogg", "Zero Tail", "Naruto Shippuuden Movie");
 	
 	private String filename;

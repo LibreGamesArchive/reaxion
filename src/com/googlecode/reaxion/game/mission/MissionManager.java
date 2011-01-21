@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.googlecode.reaxion.game.mission.missions.Mission00;
 import com.googlecode.reaxion.game.mission.missions.VsDoriruzu;
 import com.googlecode.reaxion.game.mission.missions.VsMonica1;
+import com.googlecode.reaxion.game.mission.missions.VsPyroclast;
 import com.googlecode.reaxion.game.mission.missions.VsRemnant;
 import com.googlecode.reaxion.game.mission.missions.VsSkytank;
 import com.googlecode.reaxion.game.mission.missions.VsToybox;
@@ -42,6 +43,7 @@ public class MissionManager implements Serializable {
 		missions.put(MissionID.VS_MONICA_1, new VsMonica1());
 		missions.put(MissionID.VS_REMNANT, new VsRemnant());
 		missions.put(MissionID.VS_SKYTANK, new VsSkytank());
+		missions.put(MissionID.VS_PYROCLAST, new VsPyroclast());
 		
 		MissionSerializer.readMissions();
 	}
