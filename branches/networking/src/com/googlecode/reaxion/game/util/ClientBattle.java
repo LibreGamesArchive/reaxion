@@ -14,10 +14,11 @@ public class ClientBattle extends Battle {
 	}
 
 	public ClientBattle(Battle b) {
-		loadStage(b.nextStageString);
 		setPlayers(b.getPlayerString());
 
 		clientPreload();
+		
+		loadStage(b.nextStageString);
 	}
 
 	private void clientPreload() {

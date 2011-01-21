@@ -88,8 +88,8 @@ public class Battle {
 			LoadingQueue.push(stage);
 		else
 			loadStage(nextStageString);
-		p1Attacks = new Class[6];
-		p2Attacks = new Class[6];
+		
+		
 		// op1Attacks = new Class[6];
 		// op2Attacks = new Class[6];
 
@@ -100,6 +100,7 @@ public class Battle {
 				p1Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b1[i])
 						.getConstructors()[0].newInstance();
 			String[] t1 = p1.info.getAttacks();
+			p1Attacks = new Class[t1.length];
 			for (int i = 0; i < t1.length; i++)
 				p1Attacks[i] = Class.forName(attackBaseLocation + t1[i]);
 
@@ -109,6 +110,7 @@ public class Battle {
 				p2Abilities[i] = (Ability) Class.forName(abilityBaseLocation + b2[i])
 						.getConstructors()[0].newInstance();
 			String[] t2 = p2.info.getAttacks();
+			p2Attacks = new Class[t2.length];
 			for (int i = 0; i < t2.length; i++) {
 				System.out.println(attackBaseLocation + t2[i]);
 				p2Attacks[i] = Class.forName(attackBaseLocation + t2[i]);
@@ -130,8 +132,8 @@ public class Battle {
 				e.printStackTrace();
 			}
 			// LoadingQueue.push(stage);
-			op1Attacks = new Class[6];
-			op2Attacks = new Class[6];
+			
+			
 
 			try {
 				// yep hardcoded 2, i'm so forward thinking :3
@@ -145,12 +147,14 @@ public class Battle {
 				}
 
 				String[] t1 = op.get(0).info.getAttacks();
+				op1Attacks = new Class[t1.length];
 				for (int j = 0; j < t1.length; j++) {
 					// System.out.println(attackBaseLocation + t1[j]);
 					op1Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
 				}
 
 				t1 = op.get(1).info.getAttacks();
+				op2Attacks = new Class[t1.length];
 				for (int j = 0; j < t1.length; j++)
 					op2Attacks[j] = Class.forName(attackBaseLocation + t1[j]);
 
@@ -262,7 +266,7 @@ public class Battle {
 
 			return sbgs;
 		} else {
-			System.out.println("Stage:\t" + b.getStage());
+			System.out.println("Stage:\t" + b.nextStageString);
 
 			ClientBattle cb = new ClientBattle(b);
 			
