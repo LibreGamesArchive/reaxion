@@ -17,10 +17,10 @@ public class ClientHudOverlay extends HudOverlay {
 	@Override
 	public void update(StageGameState q) {
 		ClientData cd = NetworkingObjects.cd;
+		try {
 		passCharacterInfo(cd.getPlayerAttacks(), (int)(cd.getGaugecap()));
 		HudInfoContainer play = cd.getPlayer(), part = cd.getPartner(), targ = cd.getTarget();
 		
-		try {
 		// update attacks
 		for (int i=0; i<attacks.length; i++) {
 			if (attacks[i] != null && cd.getCurrentAttack() != null && attacks[i].isInstance(cd.getCurrentAttack())) {
