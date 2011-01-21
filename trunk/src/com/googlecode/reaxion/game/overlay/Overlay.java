@@ -112,7 +112,7 @@ public class Overlay extends Node {
 	 * @param color Color of rectangle
 	 * @return {@code Quad} containing image
 	 */
-    protected Quad drawRect(int rectWidth, int rectHeight, ColorRGBA color) {
+    protected Quad drawRect(float rectWidth, float rectHeight, ColorRGBA color) {
 
         Quad hudQuad = new Quad("hud", rectWidth, rectHeight);
         

@@ -182,6 +182,13 @@ public class HubGameState extends StageGameState {
 				toggleMenu(false);
 				holderNode.detachChild((Overlay) currentMenu);
 			}
+			
+			// refresh attacks and abilities
+			if (currentMenu instanceof StatsOverlay) {
+				Battle b = Battle.getCurrentBattle();
+				b.loadAttributes();
+				assignTeam(b.getP1(), b.getP1Attacks(), b.getP2(), b.getP2Attacks());  
+			}
 		}
 		
 		if (manager.isValidCommand(MenuBindings.UP.toString(), false)) {
@@ -214,14 +221,25 @@ public class HubGameState extends StageGameState {
 			currentMenu.updateDisplay(CharacterSelectionOverlayBindings.UNDO_CHOICE);
 		}
 		
-		if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_1.toString(),
-				false)) {
-			currentMenu.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_1);
-		}
+		if (menuShowing && currentMenu instanceof CharacterSelectionOverlay) {
+			if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_1.toString(), false))
+				currentMenu.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_1);
+			if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_2.toString(), false))
+				currentMenu.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_2);
 		
-		if (manager.isValidCommand(CharacterSelectionOverlayBindings.CHOOSE_2.toString(),
-				false)) {
-			currentMenu.updateDisplay(CharacterSelectionOverlayBindings.CHOOSE_2);
+		} else if (menuShowing  & currentMenu instanceof StatsOverlay) {
+		if (manager.isValidCommand(MenuBindings.CHOOSE_1.toString(), false))
+			currentMenu.updateDisplay(MenuBindings.CHOOSE_1);
+		if (manager.isValidCommand(MenuBindings.CHOOSE_2.toString(), false))
+			currentMenu.updateDisplay(MenuBindings.CHOOSE_2);
+		if (manager.isValidCommand(MenuBindings.CHOOSE_3.toString(), false))
+			currentMenu.updateDisplay(MenuBindings.CHOOSE_3);
+		if (manager.isValidCommand(MenuBindings.CHOOSE_4.toString(), false))
+			currentMenu.updateDisplay(MenuBindings.CHOOSE_4);
+		if (manager.isValidCommand(MenuBindings.CHOOSE_5.toString(), false))
+			currentMenu.updateDisplay(MenuBindings.CHOOSE_5);
+		if (manager.isValidCommand(MenuBindings.CHOOSE_6.toString(), false))
+			currentMenu.updateDisplay(MenuBindings.CHOOSE_6);
 		}
 		
 	}

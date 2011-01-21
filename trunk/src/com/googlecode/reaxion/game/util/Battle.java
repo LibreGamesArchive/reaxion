@@ -66,6 +66,14 @@ public class Battle {
 			e.printStackTrace();
 		}
 		LoadingQueue.push(stage);	
+		
+		loadAttributes();
+	}
+	
+	/**
+	 * Reads in attack and ability data.
+	 */
+	public void loadAttributes() {
 		p1Attacks = new Class[6];
 		p2Attacks = new Class[6];
 		
@@ -157,12 +165,16 @@ public class Battle {
 	public static void setCurrentBattle(Battle currentBattle) {
 		Battle.currentBattle = currentBattle;
 	}
+	
+	public static void createNewBattle() {
+		currentBattle = new Battle();
+	}
 
 	public static BattleGameState createBattleGameState() {
 		Battle b = currentBattle;
 		b.loadDefaults();
 		b.init();
-		currentBattle = new Battle();
+//		currentBattle = new Battle();
 		return new BattleGameState(b);
 	}
 	
@@ -170,7 +182,7 @@ public class Battle {
 		Battle b = getCurrentBattle();
 		b.loadDefaults();
 		b.init();
-		currentBattle = new Battle();
+//		currentBattle = new Battle();
 		return new HubGameState(b);
 	}
 

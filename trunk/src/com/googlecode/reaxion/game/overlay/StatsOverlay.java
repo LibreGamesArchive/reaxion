@@ -1,11 +1,13 @@
 package com.googlecode.reaxion.game.overlay;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.googlecode.reaxion.game.ability.Ability;
 import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.burstgrid.info.PlayerInfo;
 import com.googlecode.reaxion.game.input.bindings.KeyBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
@@ -15,15 +17,29 @@ import com.jme.system.DisplaySystem;
 import com.jmex.angelfont.BitmapText;
 import com.jmex.angelfont.BitmapFont.Align;
 
+/**
+ * {@code StatsOverlay} displays information for both player characters,
+ * and allows the player to assign their abilities and attacks from the
+ * set of those unlocked via the BurstGrid.
+ * 
+ * @author Khoa Ha
+ */
+
 public class StatsOverlay extends MenuOverlay {
 
 	public static final String NAME = "statsOverlay";
 	private static final String baseURL = "com/googlecode/reaxion/resources/icons/characterselect/";
+	private static final String guiURL = "com/googlecode/reaxion/resources/gui/";
+	private static final String attackBaseLocation = "com.googlecode.reaxion.game.attack.";
+	private static final String abilityBaseLocation = "com.googlecode.reaxion.game.ability.";
 	
 	private PlayerInfo player;
 	private PlayerInfo partner;
 	
+	private int controlIndex = 0;
+	
 	private Quad bg;
+	private Quad pointer;
 	private BitmapText[] abilityText = new BitmapText[2];
 	private BitmapText[] attackText = new BitmapText[2];
 	private Node[] column = new Node[2];
@@ -59,6 +75,11 @@ public class StatsOverlay extends MenuOverlay {
 			column[i].setLocalTranslation(400*i, 0, 0);
 			container.attachChild(column[i]);
 		}
+		
+		// create pointer
+        pointer = getImage(guiURL+"arrow.png");
+        container.attachChild(pointer);
+        updatePointer();
 		
 		loadPools();
 		
@@ -113,6 +134,7 @@ public class StatsOverlay extends MenuOverlay {
 					new ColorRGBA(.5f,.5f,.5f,.75f), new ColorRGBA(.75f,.75f,.75f,1), new ColorRGBA(1,1,1,1), FontUtils.eurostile, 16, Align.Left,
 					abilities[i]);
 			abilitiesMenu[i].enableScrollBar();
+			abilitiesMenu[i].update();
 			abilitiesMenu[i].setLocalTranslation(new Vector3f(24 + 60, 600 - 168 - 20*6 + 20, 0));
 			column[i].attachChild(abilitiesMenu[i]);
 			
@@ -135,6 +157,7 @@ public class StatsOverlay extends MenuOverlay {
 					new ColorRGBA(.5f,.5f,.5f,.75f), new ColorRGBA(.75f,.75f,.75f,1), new ColorRGBA(1,1,1,1), FontUtils.eurostile, 16, Align.Left,
 					attacks[i]);
 			attacksMenu[i].enableScrollBar();
+			attacksMenu[i].update();
 			attacksMenu[i].setLocalTranslation(new Vector3f(24 + 60, 600 - 366 - 20*8 + 20, 0));
 			column[i].attachChild(attacksMenu[i]);
 			
@@ -145,7 +168,7 @@ public class StatsOverlay extends MenuOverlay {
 			column[i].attachChild(attackText[i]);
 		}
 		
-		updateRenderState();		
+		updateRenderState();
 	}
 	
 	/**
@@ -182,7 +205,11 @@ public class StatsOverlay extends MenuOverlay {
 			String abl = "";
 			String[] a = c.getAbilities();
 			for (int q=0; q<a.length; q++)
-				abl += q+" - "+a[q]+"\n";
+				try {
+					abl += (q+1)+" - "+((Ability) Class.forName(abilityBaseLocation + a[q]).newInstance()).name+"\n";
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			abilityText[i].setText(abl);
 			abilityText[i].update();
 			
@@ -190,15 +217,94 @@ public class StatsOverlay extends MenuOverlay {
 			String atk = "";
 			String[] t = c.getAttacks();
 			for (int q=0; q<t.length; q++)
-				atk += q+" - "+t[q]+"\n";
+				try {
+					atk += (q+1)+" - "+((Attack) Class.forName(attackBaseLocation + t[q]).newInstance()).name+"\n";
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			attackText[i].setText(atk);
 			attackText[i].update();
 		}
 	}
 	
+	private void updatePointer() {
+		pointer.setLocalTranslation((int)(controlIndex/2)*400 + 12, 600 - 168 - (controlIndex%2)*198 - 10, 0);
+	}
+	
+	private ScrollMenu getCurrentMenu() {
+		if (controlIndex % 2 == 0)
+			return abilitiesMenu[(int)controlIndex/2];
+		return attacksMenu[(int)controlIndex/2];
+	}
+	
+	/**
+	 * Moves the element in the {@code ScrollMenu} denoted by
+	 * {@code controlIndex} at index {@code item} into the usable
+	 * slots for the character in question.
+	 * @param item Index in the current {@code ScrollMenu}
+	 * @param ind Index of the list to insert item at
+	 */
+	private void assignItem(int item, int ind) {
+		PlayerInfo c = (controlIndex <= 1) ? player : partner;
+		
+		if (controlIndex % 2 == 0) {
+			// assign ability
+			ind = Math.min(ind, 1);
+			String abl = c.getAbilityPoll().get(item).getClass().getName();
+			abl = abl.substring(abl.lastIndexOf('.')+1);
+			ArrayList<String> currentList = new ArrayList<String>(Arrays.asList(c.getAbilities()));
+			if (!currentList.contains(abl)) {
+				if (ind > currentList.size())
+					if (currentList.size() < 2)
+						currentList.add(abl);
+				currentList.set(ind, abl);
+				c.setAbilities(currentList.toArray(new String[0]));
+			}
+			
+		} else {
+			// assign attack
+			String atk = c.getAttackPoll().get(item).getClass().getName();
+			atk = atk.substring(atk.lastIndexOf('.')+1);
+			ArrayList<String> currentList = new ArrayList<String>(Arrays.asList(c.getAttacks()));
+			if (!currentList.contains(atk)) {
+				if (ind > currentList.size())
+					if (currentList.size() < 6)
+						currentList.add(atk);
+				currentList.set(ind, atk);
+				c.setAttacks(currentList.toArray(new String[0]));
+			}
+		}
+	}
+	
 	@Override
 	public void updateDisplay(KeyBindings k) {
-		
+		if (k == MenuBindings.SELECT_ITEM) {
+			// switch scroll menus
+			controlIndex = (controlIndex + 1) % 4;
+			updatePointer();
+			
+		} else if (k.toString().contains("MenuBindings_CHOOSE_")) {
+			// assign new item
+			int val = k.toString().charAt(k.toString().length()-1) - 48;
+			int ind = getCurrentMenu().getCurrentIndex();
+			if (ind >= 0) {
+				assignItem(ind, val-1);
+				updateFields();
+			}
+			
+		} else {
+			// scroll menu
+			if (k == MenuBindings.UP) {
+				getCurrentMenu().changeIndex(-1, true);
+				getCurrentMenu().remainVisible();
+				getCurrentMenu().update();
+			}
+			if (k == MenuBindings.DOWN) {
+				getCurrentMenu().changeIndex(1, true);
+				getCurrentMenu().remainVisible();
+				getCurrentMenu().update();
+			}
+		}
 	}
 
 }
