@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.attack;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import com.googlecode.reaxion.game.audio.AudioPlayer;
 import com.googlecode.reaxion.game.audio.SoundEffectType;
@@ -178,9 +179,13 @@ public class Attack {
 
 	public static AttackDisplayInfo[] toAttackDisplayInfoArray(Class[] attacks) {
 		AttackDisplayInfo[] adi = new AttackDisplayInfo[attacks.length];
+		System.out.println(Arrays.toString(attacks));
 		try {
 			for (int i = 0; i < adi.length; i++)
-				adi[i] = ((Attack) attacks[i].getConstructors()[0].newInstance()).info;
+				adi[i] = ((Attack) attacks[i].
+						getConstructors()[0].
+						newInstance()).
+						info;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

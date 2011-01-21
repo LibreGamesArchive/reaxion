@@ -23,6 +23,7 @@ public class ClientData {
 	private String currentAttackName;
 	
 	public ClientData() {
+		playerAttacks = new AttackDisplayInfo[0];
 		target = new HudInfoContainer();
 		player = new HudInfoContainer();
 		partner = new HudInfoContainer();

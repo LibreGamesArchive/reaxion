@@ -8,6 +8,8 @@ public class AttackDisplayInfo implements Serializable {
 	public int gaugeCost;
 	
 	public AttackDisplayInfo() {
+		name = "";
+		gaugeCost = 0;
 	}
 
 }
