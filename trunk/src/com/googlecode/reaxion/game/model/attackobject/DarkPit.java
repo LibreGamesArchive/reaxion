@@ -3,16 +3,13 @@ package com.googlecode.reaxion.game.model.attackobject;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
-import com.googlecode.reaxion.game.util.LoadingQueue;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
 
 public class DarkPit extends AttackObject {
 	
 	public static final String filename = "dark-pit";
 	protected static final int span = 640;
 	protected static final float dpf = 0;
-	protected static final float maxdpf = .3f;
+	protected static final float maxdpf = .25f;
 	
 	private final int upTime = 40;
 	private final int downTime = 600;
@@ -34,11 +31,17 @@ public class DarkPit extends AttackObject {
 	@Override
 	public void hit(StageGameState b, Character other) {
 		// give hp to user
-		((Character)user).heal(b, damagePerFrame);
+		((Character)user).heal(b, damagePerFrame/2.5);
     }
 	
 	@ Override
     public void act(StageGameState b) {
+		// can't touch other black holes
+		Model[] collisions = getModelCollisions(b);
+        for (Model c : collisions)
+        	if (c instanceof DarkPit)
+        		finish(b);
+		
 		if (lifeCount < upTime)
 			model.setLocalScale(4*(float)(lifeCount+1)/upTime);
 		else if (lifeCount > downTime) {

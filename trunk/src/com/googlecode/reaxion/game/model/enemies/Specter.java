@@ -41,8 +41,10 @@ public class Specter extends Character {
 	@ Override
     public void act(StageGameState b) {
 		// move towards opponent, if able
-		velocity = b.getTarget().model.getWorldTranslation().subtract(model.getWorldTranslation()).normalize().mult(speed);
-		velocity.y = 0;
+		if (!moveLock) {
+			velocity = b.getTarget().model.getWorldTranslation().subtract(model.getWorldTranslation()).normalize().mult(speed);
+			velocity.y = 0;
+		}
 		
     	super.act(b);
     	

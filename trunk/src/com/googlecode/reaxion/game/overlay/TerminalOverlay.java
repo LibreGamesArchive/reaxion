@@ -57,7 +57,7 @@ public class TerminalOverlay extends MenuOverlay {
         
         // create selector
         selector = getImage(baseURL+"selector.png");
-        selector.setLocalTranslation(-94 + 71, 86 - 15, 0);
+        selector.setLocalTranslation(-94 + 71, 103 - 15, 0);
 		
 		currentIndex = 0;
 		
@@ -119,7 +119,7 @@ public class TerminalOverlay extends MenuOverlay {
 		menuItems[currentIndex].setDefaultColor(selectedColor);
 		menuItems[currentIndex].update();
 		
-		selector.setLocalTranslation(-94 + 71, Math.round(86 + 8 - (float)(currentIndex*218f/menuItems.length)), 0);
+		selector.setLocalTranslation(-94 + 71, Math.round(103 - 15 - (float)(currentIndex*210f/menuItems.length)), 0);
 		
 		updateRenderState();
 	}
