@@ -16,13 +16,13 @@ public class ShootBullet extends Attack {
 	private Bullet bullet;
 	
 	public ShootBullet() {
-		name = "Shoot";
-		gaugeCost = 2;
+		info.name = "Shoot";
+		info.gaugeCost = 2;
 	}
 	
 	public ShootBullet(AttackData ad) {
 		super(ad, 2);
-		name = "Shoot";
+		info.name = "Shoot";
 	}
 	
 	public static float getBulletSpeed() {

@@ -19,13 +19,13 @@ public class ShieldReflega extends Attack {
 	private Reflector reflector;
 	
 	public ShieldReflega() {
-		name = "Reflega";
-		gaugeCost = 12;
+		info.name = "Reflega";
+		info.gaugeCost = 12;
 	}
 	
 	public ShieldReflega(AttackData ad) {
 		super(ad, 12);
-		name = "Reflega";
+		info.name = "Reflega";
 		validateGround();
 	}
 	

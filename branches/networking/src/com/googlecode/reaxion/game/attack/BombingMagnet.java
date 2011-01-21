@@ -19,13 +19,13 @@ public class BombingMagnet extends Attack {
 	private MagnetBomb bomb;
 	
 	public BombingMagnet() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public BombingMagnet(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 	}
 	
 	public static void load() {

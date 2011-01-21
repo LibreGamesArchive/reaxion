@@ -1,5 +1,6 @@
 package com.googlecode.reaxion.game.state;
 
+import com.googlecode.reaxion.game.attack.Attack;
 import com.googlecode.reaxion.game.attack.AttackData;
 import com.googlecode.reaxion.game.input.PlayerInput;
 import com.googlecode.reaxion.game.model.Model;
@@ -394,8 +395,8 @@ public class ServerBattleGameState extends BattleGameState {
 		cd.setMinGauge(p1.minGauge);
 		cd.setGauge(p1.gauge);
 		cd.setGaugecap(p1.maxGauge);
-		cd.setPlayerAttacks(getPlayerAttacks(pn));
-		cd.setCurrentAttackName(p1.currentAttack.name);
+		cd.setPlayerAttacks(Attack.toAttackDisplayInfoArray(getPlayerAttacks(pn)));
+		cd.setCurrentAttackName(p1.currentAttack.info.name);
 	}
 
 	protected ClientData getClientData(PlayerNum pn) {

@@ -20,13 +20,13 @@ public class BubbleBath extends Attack {
 	private Bubble[] bubble = new Bubble[16];
 	
 	public BubbleBath() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public BubbleBath(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		validateGround();
 	}
 	

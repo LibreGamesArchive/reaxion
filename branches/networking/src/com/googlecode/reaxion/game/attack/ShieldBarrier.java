@@ -16,13 +16,13 @@ public class ShieldBarrier extends Attack {
 	private Barrier barrier;
 	
 	public ShieldBarrier() {
-		name = "Barrier";
-		gaugeCost = 2;
+		info.name = "Barrier";
+		info.gaugeCost = 2;
 	}
 	
 	public ShieldBarrier(AttackData ad) {
 		super(ad, 2);
-		name = "Barrier";
+		info.name = "Barrier";
 		validateGround();
 	}
 	

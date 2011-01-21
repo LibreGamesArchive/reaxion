@@ -17,13 +17,13 @@ public class BlackHole extends Attack {
 	private Model target;
 	
 	public BlackHole() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public BlackHole(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		validateGround();
 		target = ad.target;
 	}

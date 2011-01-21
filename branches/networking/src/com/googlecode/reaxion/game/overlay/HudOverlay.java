@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.overlay;
 
 import com.googlecode.reaxion.game.attack.Attack;
+import com.googlecode.reaxion.game.attack.AttackDisplayInfo;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.networking.NetworkingObjects.PlayerNum;
 import com.googlecode.reaxion.game.state.StageGameState;
@@ -23,7 +24,7 @@ public class HudOverlay extends Overlay {
 	
 	protected static final String baseURL = "../../resources/gui/";
     
-	protected Class[] attacks;
+	protected AttackDisplayInfo[] attacks;
 	protected int gaugeCap;
 	
 	protected Node container;
@@ -204,7 +205,7 @@ public class HudOverlay extends Overlay {
 		Character play = b.getPlayer();
 		// update attacks
 		for (int i=0; i<attacks.length; i++) {
-			if (attacks[i] != null && play.currentAttack != null && attacks[i].isInstance(play.currentAttack)) {
+			if (attacks[i] != null && play.currentAttack != null && attacks[i].name.equals(play.currentAttack.info.name)) {
 				attackFill[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
 				attackFill[i].setSolidColor(gaugeCosts[i] >= gaugeCap ? attackUsed[1] : attackUsed[0]);
 				attackBar[i].setLocalTranslation(new Vector3f(98, 100 - 20*i + 10, 0));
@@ -290,6 +291,11 @@ public class HudOverlay extends Overlay {
 	}
 	
 	public void passCharacterInfo(Class[] c, int cap) {
+		attacks = Attack.toAttackDisplayInfoArray(c);
+		passCharacterInfo(attacks, cap);
+	}
+	
+	public void passCharacterInfo(AttackDisplayInfo[] c, int cap) {
 		attacks = c;
 		gaugeCap = cap;
 		
@@ -297,10 +303,9 @@ public class HudOverlay extends Overlay {
 		for (int i=0; i<attackText.length; i++) {
 			try {
 				if (attacks[i] != null) {
-					Attack temp = (Attack) attacks[i].getConstructors()[0].newInstance();
-					attackText[i].setText(Attack.name);
-					gaugeCostText[i].setText("" + Attack.gaugeCost);
-					gaugeCosts[i] = Attack.gaugeCost;
+					attackText[i].setText(attacks[i].name);
+					gaugeCostText[i].setText("" + attacks[i].gaugeCost);
+					gaugeCosts[i] = attacks[i].gaugeCost;
 				} else {
 					attackText[i].setText("---");
 					gaugeCostText[i].setText("--");

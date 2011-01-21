@@ -19,13 +19,13 @@ public class ShieldHoly extends Attack {
 	private Holy holy;
 	
 	public ShieldHoly() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public ShieldHoly(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		validateGround();
 	}
 	

@@ -19,13 +19,13 @@ public class LanceArc extends Attack {
 	private ArcingLance[] lance = new ArcingLance[numLances];
 	
 	public LanceArc() {
-		name = "Lance Arc";
-		gaugeCost = 13;
+		info.name = "Lance Arc";
+		info.gaugeCost = 13;
 	}
 	
 	public LanceArc(AttackData ad) {
 		super(ad, 13);
-		name = "Lance Arc";
+		info.name = "Lance Arc";
 	}
 	
 	public static void load() {
