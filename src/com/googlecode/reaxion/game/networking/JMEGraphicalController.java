@@ -90,7 +90,7 @@ public class JMEGraphicalController implements GraphicalController {
 			cd.setGauge(m.getGauge());
 			cd.setGaugecap(m.getGaugecap());
 			cd.setPlayerAttacks(m.getPlayerAttacks());
-			cd.setCurrentAttack(m.getCurrentAttack());
+			cd.setCurrentAttackName(m.getCurrentAttackName());
 		}
 	}
 
@@ -131,7 +131,7 @@ public class JMEGraphicalController implements GraphicalController {
 			message.setGauge(cd.getGauge());
 			message.setGaugecap(cd.getGaugecap());
 			message.setPlayerAttacks(cd.getPlayerAttacks());
-			message.setCurrentAttack(cd.getCurrentAttack());
+			message.setCurrentAttackName(cd.getCurrentAttackName());
 			return message;
 		}
 		return null;

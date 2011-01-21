@@ -395,7 +395,7 @@ public class ServerBattleGameState extends BattleGameState {
 		cd.setGauge(p1.gauge);
 		cd.setGaugecap(p1.maxGauge);
 		cd.setPlayerAttacks(getPlayerAttacks(pn));
-		cd.setCurrentAttack(p1.currentAttack);
+		cd.setCurrentAttackName(p1.currentAttack.name);
 	}
 
 	protected ClientData getClientData(PlayerNum pn) {
