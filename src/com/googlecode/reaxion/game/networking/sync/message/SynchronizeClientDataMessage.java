@@ -2,7 +2,7 @@ package com.googlecode.reaxion.game.networking.sync.message;
 
 import com.captiveimagination.jgn.message.type.PlayerMessage;
 import com.captiveimagination.jgn.synchronization.message.SynchronizeMessage;
-import com.googlecode.reaxion.game.attack.Attack;
+import com.googlecode.reaxion.game.attack.AttackDisplayInfo;
 import com.googlecode.reaxion.game.networking.HudInfoContainer;
 
 public class SynchronizeClientDataMessage extends SynchronizeMessage implements PlayerMessage {
@@ -11,7 +11,7 @@ public class SynchronizeClientDataMessage extends SynchronizeMessage implements 
 	private float facingX, facingZ;
 	private HudInfoContainer target, player, partner;
 	private double minGauge, gauge, maxGauge;
-	private Class[] playerAttacks;
+	private AttackDisplayInfo[] playerAttacks;
 	private String currentAttackName;
 	
 	public SynchronizeClientDataMessage() {
@@ -136,7 +136,7 @@ public class SynchronizeClientDataMessage extends SynchronizeMessage implements 
 		return maxGauge;
 	}
 
-	public Class[] getPlayerAttacks() {
+	public AttackDisplayInfo[] getPlayerAttacks() {
 		return playerAttacks;
 	}
 
@@ -148,7 +148,7 @@ public class SynchronizeClientDataMessage extends SynchronizeMessage implements 
 		this.maxGauge = gaugecap;
 	}
 
-	public void setPlayerAttacks(Class[] playerAttacks) {
+	public void setPlayerAttacks(AttackDisplayInfo[] playerAttacks) {
 		this.playerAttacks = playerAttacks;
 	}
 

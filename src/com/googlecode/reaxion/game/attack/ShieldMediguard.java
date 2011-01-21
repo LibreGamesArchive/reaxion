@@ -17,13 +17,13 @@ public class ShieldMediguard extends Attack {
 	private MediShield medishield;
 	
 	public ShieldMediguard() {
-		name = "Mediguard";
-		gaugeCost = 8;
+		info.name = "Mediguard";
+		info.gaugeCost = 8;
 	}
 	
 	public ShieldMediguard(AttackData ad) {
 		super(ad, 8);
-		name = "Mediguard";
+		info.name = "Mediguard";
 		validateGround();
 	}
 	

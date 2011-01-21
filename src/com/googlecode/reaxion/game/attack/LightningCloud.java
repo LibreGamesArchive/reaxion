@@ -20,13 +20,13 @@ public class LightningCloud extends Attack {
 	private SeekingCloud cloud;
 	
 	public LightningCloud() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public LightningCloud(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		target = ad.target;
 	}
 	

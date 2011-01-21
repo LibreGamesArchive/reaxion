@@ -20,13 +20,13 @@ public class SlideIce extends Attack {
 	private IceCube ice;
 	
 	public SlideIce() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public SlideIce(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 	}
 	
 	public static void load() {

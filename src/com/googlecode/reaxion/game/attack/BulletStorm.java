@@ -18,13 +18,13 @@ public class BulletStorm extends Attack {
 	private boolean oldGravity;
 	
 	public BulletStorm() {
-		name = "Bullet Storm";
-		gaugeCost = 18;	
+		info.name = "Bullet Storm";
+		info.gaugeCost = 18;	
 	}
 	
 	public BulletStorm(AttackData ad) {
 		super(ad, 2);
-		name = "Bullet Storm";
+		info.name = "Bullet Storm";
 	}
 
 	public static void load() {

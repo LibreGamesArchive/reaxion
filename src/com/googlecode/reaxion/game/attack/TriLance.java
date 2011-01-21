@@ -19,13 +19,13 @@ public class TriLance extends Attack {
 	private Model target;
 	
 	public TriLance() {
-		name = "Lance Cross";
-		gaugeCost = 13;
+		info.name = "Lance Cross";
+		info.gaugeCost = 13;
 	}
 	
 	public TriLance(AttackData ad) {
 		super(ad, 13);
-		name = "Lance Cross";
+		info.name = "Lance Cross";
 		target = ad.target;
 	}
 	

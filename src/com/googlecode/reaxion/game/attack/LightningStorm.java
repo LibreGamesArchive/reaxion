@@ -18,13 +18,13 @@ public class LightningStorm extends Attack {
 	private RoamingCloud[] cloud = new RoamingCloud[10];
 	
 	public LightningStorm() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public LightningStorm(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 	}
 	
 	public static void load() {

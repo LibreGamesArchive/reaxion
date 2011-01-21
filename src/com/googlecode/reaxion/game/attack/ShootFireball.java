@@ -19,13 +19,13 @@ public class ShootFireball extends Attack {
 	private Fireball fireball;
 	
 	public ShootFireball() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public ShootFireball(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		validateGround();
 	}
 	

@@ -21,13 +21,13 @@ public class SpikeLine extends Attack {
 	private Vector3f position;
 	
 	public SpikeLine() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public SpikeLine(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		validateGround();
 	}
 	

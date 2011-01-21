@@ -18,13 +18,13 @@ public class Beacon extends Attack {
 	private BeaconOrb[] orb = new BeaconOrb[4];
 	
 	public Beacon() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public Beacon(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		target = ad.target;
 	}
 	

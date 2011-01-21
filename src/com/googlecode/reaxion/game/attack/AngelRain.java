@@ -23,13 +23,14 @@ public class AngelRain extends Attack {
 	private boolean oldGravity;
 	
 	public AngelRain() {
-		name = "Angel Rain";
-		gaugeCost = 22;
+		super();
+		info.name = "Angel Rain";
+		info.gaugeCost = 22;
 	}
 	
 	public AngelRain(AttackData ad) {
-		super(ad, 22);
-		name = "Angel Rain";
+		super(ad, 22, "Angel Rain");
+		info.name = "Angel Rain";
 	}
 	
 	public static void load() {

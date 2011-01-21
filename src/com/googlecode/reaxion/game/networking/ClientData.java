@@ -1,6 +1,9 @@
 package com.googlecode.reaxion.game.networking;
 
+import java.io.Serializable;
+
 import com.googlecode.reaxion.game.attack.Attack;
+import com.googlecode.reaxion.game.attack.AttackDisplayInfo;
 
 public class ClientData {
 	private boolean forthOn = false;
@@ -16,7 +19,7 @@ public class ClientData {
 	
 	private HudInfoContainer target, player, partner;
 	private double minGauge, gauge, maxGauge;
-	private Class[] playerAttacks;
+	private AttackDisplayInfo[] playerAttacks;
 	private String currentAttackName;
 	
 	public ClientData() {
@@ -118,7 +121,7 @@ public class ClientData {
 		return maxGauge;
 	}
 
-	public Class[] getPlayerAttacks() {
+	public AttackDisplayInfo[] getPlayerAttacks() {
 		return playerAttacks;
 	}
 
@@ -130,8 +133,8 @@ public class ClientData {
 		this.maxGauge = gaugecap;
 	}
 
-	public void setPlayerAttacks(Class[] classes) {
-		this.playerAttacks = classes;
+	public void setPlayerAttacks(AttackDisplayInfo[] adi) {
+		this.playerAttacks = adi;
 	}
 
 	public double getMinGauge() {

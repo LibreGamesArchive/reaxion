@@ -18,9 +18,7 @@ import com.jme.math.Vector3f;
  */
 public class Attack {
 	
-	public static String name;
-	
-	public static int gaugeCost;
+	public AttackDisplayInfo info;
 	
 	// Some useful variables
 	protected int frameCount = 0;
@@ -43,16 +41,23 @@ public class Attack {
 	
 	// creating an Attack with these constructors is useless, as they only
 	// exist to facilitate backend stuff
-	public Attack() {}
-	public Attack(AttackData ad) {}
+	public Attack() { info = new AttackDisplayInfo(); }
+	public Attack(AttackData ad) { info = new AttackDisplayInfo(); }
 	
 	public Attack(AttackData ad, int gc) {
 		character = ad.character;
 		friends = ad.friends;
 		target = ad.target;
 		character.currentAttack = this;
-		gaugeCost = gc;
+		
+		info = new AttackDisplayInfo();
+		info.gaugeCost = gc;
 		checkGauge();
+	}
+	
+	public Attack(AttackData ad, int gc, String name) {
+		this(ad, gc);
+		info.name = name;
 	}
 	
 	/**
@@ -112,8 +117,8 @@ public class Attack {
 	 * whether deduction was successful or not.
 	 */
 	protected boolean checkGauge() {
-		if (character.gauge >= gaugeCost) {
-			character.gauge = Math.max(Math.min(character.minGauge, character.gauge) - gaugeCost, 0);
+		if (character.gauge >= info.gaugeCost) {
+			character.gauge = Math.max(Math.min(character.minGauge, character.gauge) - info.gaugeCost, 0);
 			return true;
 		} else {
 			finish();
@@ -139,7 +144,7 @@ public class Attack {
 	 */
 	protected void validateGround() {
 		if (character.model.getWorldTranslation().y > 0) {
-			character.gauge += gaugeCost;
+			character.gauge += info.gaugeCost;
 			finish();
 		}
 	}
@@ -160,4 +165,11 @@ public class Attack {
 		}
 	}
 	
+	public static AttackDisplayInfo[] toAttackDisplayInfoArray(Class[] attacks) {
+		AttackDisplayInfo[] adi = new AttackDisplayInfo[attacks.length];
+		for(int i = 0; i < adi.length; i ++) {
+			adi[i] = Attack.class.cast(attacks[i]).info;
+		}
+		return adi;
+	}
 }

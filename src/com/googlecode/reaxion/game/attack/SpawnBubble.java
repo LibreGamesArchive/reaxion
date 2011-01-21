@@ -19,13 +19,13 @@ public class SpawnBubble extends Attack {
 	private Bubble bubble;
 	
 	public SpawnBubble() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public SpawnBubble(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 		validateGround();
 	}
 	

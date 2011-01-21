@@ -17,13 +17,13 @@ public class SpinLance extends Attack {
 	private SpinningLance lance;
 	
 	public SpinLance() {
-		name = "Lance Blitz";
-		gaugeCost = 5;
+		info.name = "Lance Blitz";
+		info.gaugeCost = 5;
 	}
 	
 	public SpinLance(AttackData ad) {
 		super(ad, 5);
-		name = "Lance Blitz";
+		info.name = "Lance Blitz";
 		target = ad.target;
 	}
 	

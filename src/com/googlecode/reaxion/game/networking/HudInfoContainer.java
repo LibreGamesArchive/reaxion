@@ -1,6 +1,8 @@
 package com.googlecode.reaxion.game.networking;
 
-public class HudInfoContainer {
+import java.io.Serializable;
+
+public class HudInfoContainer implements Serializable {
 	public String name;
 	public double hp, maxHp;
 	

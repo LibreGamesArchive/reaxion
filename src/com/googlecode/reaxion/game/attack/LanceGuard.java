@@ -24,13 +24,13 @@ public class LanceGuard extends Attack {
 	private float angleInc = FastMath.PI/16;
 	
 	public LanceGuard() {
-		name = n;
-		gaugeCost = gc;
+		info.name = n;
+		info.gaugeCost = gc;
 	}
 	
 	public LanceGuard(AttackData ad) {
 		super(ad, gc);
-		name = n;
+		info.name = n;
 	}
 	
 	public static void load() {

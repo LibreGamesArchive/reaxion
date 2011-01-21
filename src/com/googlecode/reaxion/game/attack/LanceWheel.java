@@ -18,13 +18,13 @@ public class LanceWheel extends Attack {
 	private WheelLance lanceRgt;
 	
 	public LanceWheel() {
-		name = "Lance Wheel";
-		gaugeCost = 9;
+		info.name = "Lance Wheel";
+		info.gaugeCost = 9;
 	}
 	
 	public LanceWheel(AttackData ad) {
 		super(ad, 9);
-		name = "Lance Wheel";
+		info.name = "Lance Wheel";
 	}
 	
 	public static void load() {
