@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -22,6 +23,7 @@ public class PelletPulled extends AttackObject {
 	public PelletPulled(Model m, Vector3f pos, Vector3f endPoint) {
     	super(filename, dpf, m);
     	flinch = true;
+    	billboarding = Billboard.Free;
     	lifespan = (int)Math.floor(pos.distance(endPoint)/speed);
     	dir = endPoint.subtract(pos).normalize();
     }
@@ -29,6 +31,7 @@ public class PelletPulled extends AttackObject {
 	public PelletPulled(Model[] m, Vector3f pos, Vector3f endPoint) {
     	super(filename, dpf, m);
     	flinch = true;
+    	billboarding = Billboard.Free;
     	lifespan = (int)Math.floor(pos.distance(endPoint)/speed);
     	dir = endPoint.subtract(pos).normalize();
     }
@@ -49,9 +52,6 @@ public class PelletPulled extends AttackObject {
 		// set up glow if not already done
 		if (bullet == null)
 			setUpBullet(b);
-		
-		// billboard
-		bullet.billboard(b.getCamera(), true);
 		
 		velocity = dir.mult(speed);
 		

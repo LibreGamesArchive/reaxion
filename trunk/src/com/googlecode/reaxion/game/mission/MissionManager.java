@@ -157,6 +157,7 @@ public class MissionManager implements Serializable {
 	 * Initializes and activates the {@code HubGameState} object of {@code MissionManager}.
 	 */
 	public static void startHubGameState() {
+		Battle.createNewBattle();
 		Battle temp = Battle.getCurrentBattle();
 		temp.setPlayerPosition(new Vector3f(0, 0, 10));
 		Battle.setCurrentBattle(temp);

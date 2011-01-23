@@ -15,11 +15,13 @@ public class AngelSword extends AttackObject {
 	public AngelSword(Model m) {
     	super(filename, dpf, m);
     	flinch = true;
+    	billboarding = Billboard.YLocked;
     }
 	
 	public AngelSword(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
+    	billboarding = Billboard.YLocked;
     }
 	
 	@Override
@@ -29,9 +31,6 @@ public class AngelSword extends AttackObject {
 	
 	@ Override
     public void act(StageGameState b) {
-        // billboarding
-		billboard(b.getCamera(), false);
-    	
     	if (lifeCount <= growFrames) {
     		model.setLocalScale(new Vector3f(1, (float)lifeCount/(float)growFrames, 1));
     	} else if (lifeCount >= growFrames) {

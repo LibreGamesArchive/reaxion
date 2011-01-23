@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.audio.BackgroundMusic;
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.light.DirectionalLight;
@@ -97,9 +98,9 @@ public class HeavensAscent extends Stage {
 		// load mist
 		mist = new Model[mistPos.length];
 		for (int i=0; i<mist.length; i++) {
-			mist[i] = LoadingQueue.quickLoad(new Model("stages/heavens-ascent_mist"), null);
-			model.attachChild(mist[i].model);
+			mist[i] = LoadingQueue.quickLoad(new Model("stages/heavens-ascent_mist"), b);
 			mist[i].model.setLocalTranslation(mistPos[i].mult(1.5f));
+			mist[i].billboarding = Billboard.Free;
 		}
 	}
 
@@ -114,11 +115,6 @@ public class HeavensAscent extends Stage {
 		// rotate the ring
 		gear.pitch = (gear.pitch + (FastMath.PI*2 - angleInc)) % (FastMath.PI*2);
 		gear.rotate();
-		
-		// update mist
-		for (int i=0; i<mist.length; i++) {
-			mist[i].billboard(b.getCamera(), true);
-		}
 	}
 
 	@Override

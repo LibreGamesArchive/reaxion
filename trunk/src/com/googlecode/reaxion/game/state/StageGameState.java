@@ -478,33 +478,15 @@ public class StageGameState extends BaseGameState {
 	        	} else {
 	        		Reaxion.terminate();
 	        	}
-	        }
-	        
-    		// Update the InputHandler
-        	if (input != null) {
-        		/** If toggle_pause is a valid command (via key P), change pause. */
-    	        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-    	                GameBindings.TOGGLE_PAUSE.toString(), false) && timing) {
-    	        	togglePaused();
-    	        	// toggle the overlay
-    	        	if (pause) {
-    	        		AudioPlayer.gamePaused();
-    	        		pauseNode.pause();
-//    	        		BgmPlayer.gamePaused();
-    	        	}
-    	        	else {
-    	        		AudioPlayer.gameUnpaused();
-    	        		pauseNode.unpause();
-//    	        		BgmPlayer.gameUnpaused();
-    	        	}
-    	        	System.out.println("Paused: "+pause);
-    	        }
-    	    	
-    	        if (frozen)
-    	            return;
+        		
+	        	// check pausing
+    	    	checkPause();
     	        
         	}
     	}
+    	
+    	if (frozen)
+            return;
     	
     	// Update the PlayerInput
     	if (playerInput != null) {
@@ -520,8 +502,10 @@ public class StageGameState extends BaseGameState {
     	stage.act(this);
     	
     	// Traverse list of models and call act() method
-    	for (int i=0; i<models.size(); i++)
-    		models.get(i).act(this);
+    	updateModels();
+    	
+    	// Billboard the models
+    	billboardModels();
     	
     	// Check targets
     	if (models.indexOf(currentTarget) == -1 || currentTarget.model.getParent() == null)
@@ -671,6 +655,49 @@ public class StageGameState extends BaseGameState {
         }
         
         act();
+    }
+    
+    /**
+     * If toggle_pause is a valid command (via key P), change pause.
+     */
+    protected void checkPause() {
+        if (KeyBindingManager.getKeyBindingManager().isValidCommand(
+                GameBindings.TOGGLE_PAUSE.toString(), false) && timing) {
+        	togglePaused();
+        	// toggle the overlay
+        	if (pause) {
+        		AudioPlayer.gamePaused();
+        		pauseNode.pause();
+        	}
+        	else {
+        		AudioPlayer.gameUnpaused();
+        		pauseNode.unpause();
+        	}
+        	System.out.println("Paused: "+pause);
+        }
+    }
+    
+    /**
+     * Calls the {@code act()} method for all objects in the models list.
+     */
+    protected void updateModels() {
+    	for (int i=0; i<models.size(); i++)
+    		models.get(i).act(this);
+    }
+    
+    /**
+     * Rotates models to face the camera based on their billboarding properties.
+     */
+    protected void billboardModels() {
+    	for (int i=0; i<models.size(); i++) {
+    		Model m = models.get(i);
+    		if (m.billboarding != Model.Billboard.None) {
+    			Vector3f face = cam.getDirection().negate();
+    			if (m.billboarding == Model.Billboard.YLocked)
+    				face.y = 0;
+    			m.rotate(face);
+    		}
+    	}
     }
     
 	/**

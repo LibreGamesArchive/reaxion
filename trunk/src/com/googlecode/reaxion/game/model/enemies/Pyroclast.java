@@ -74,6 +74,7 @@ public class Pyroclast extends Enemy {
 		
 		// create core
 		core = LoadingQueue.quickLoad(new Model("enemies/rock-demon_core"), b);
+		core.billboarding = Billboard.Free;
 		
 		// reposition self
 		model.setLocalTranslation(model.getLocalTranslation().add(0, 7.25f*numSegments, 0));
@@ -124,7 +125,6 @@ public class Pyroclast extends Enemy {
 		
 		// billboard core
 		core.model.setLocalTranslation(model.getLocalTranslation().add(0, 11.25f, 0));
-		core.billboard(b.getCamera(), true);
 		
 		// check death flag
 		if (hp <= 0) {

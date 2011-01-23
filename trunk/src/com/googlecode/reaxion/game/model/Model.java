@@ -18,6 +18,21 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
  */
 public class Model {
 	
+	public enum Billboard {
+		/**
+		 * Model will not be billboarded.
+		 */
+		None,
+		/**
+		 * Model will only rotate in the XZ plane.
+		 */
+		YLocked,
+		/**
+		 * Model will rotate about all axes.
+		 */
+		Free;
+	}
+	
 	public String name;
     
 	/**
@@ -59,6 +74,11 @@ public class Model {
 	 * Rotation along the z-axis
 	 */
     public float pitch = 0;
+    
+    /**
+     * Type of billboarding model exhibits.
+     */
+    public Billboard billboarding = Billboard.None;
     
     /**
 	 * Whether animation is being locked
@@ -315,12 +335,12 @@ public class Model {
      * @param c Camera to face
      * @param yFree Whether to face the camera completely or only rotate about Y
      */
-    public void billboard(Camera c, boolean yFree) {
-    	Vector3f face = c.getDirection().negate();
-    	if (!yFree)
-    		face.y = 0;
-    	rotate(face);
-    }
+//    public void billboard(Camera c, boolean yFree) {
+//    	Vector3f face = c.getDirection().negate();
+//    	if (!yFree)
+//    		face.y = 0;
+//    	rotate(face);
+//    }
     
     public float getDamage() {
     	return (float)damageMult*damagePerFrame;

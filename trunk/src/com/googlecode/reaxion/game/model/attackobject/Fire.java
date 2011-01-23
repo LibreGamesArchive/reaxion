@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -18,12 +19,14 @@ public class Fire extends AttackObject {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
+    	billboarding = Billboard.Free;
     }
 	
 	public Fire(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
+    	billboarding = Billboard.Free;
     }
 	
 	private void setUpFire(StageGameState b) {
@@ -45,9 +48,6 @@ public class Fire extends AttackObject {
 		// set up glow if not already done
 		if (fire == null)
 			setUpFire(b);
-		
-		// billboard
-		fire.billboard(b.getCamera(), true);
 		
     	super.act(b);
     }

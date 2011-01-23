@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -24,12 +25,14 @@ public class DarkOrb extends AttackObject {
     	super(filename, dpf, m);
     	flinch = true;
     	gravity = -.06f;
+    	billboarding = Billboard.Free;
     }
 	
 	public DarkOrb(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
     	gravity = -.06f;
+    	billboarding = Billboard.Free;
     }
 	
 	public void setUp(StageGameState b) {
@@ -53,9 +56,6 @@ public class DarkOrb extends AttackObject {
 		// set up conditions
 		if (glow == null)
 			setUp(b);
-		
-		// billboard glow
-		glow.billboard(b.getCamera(), true);
 		
 		if (velocity.y > terminalSpeed)
 			velocity.y = (float) Math.max(velocity.y+gravity, terminalSpeed);

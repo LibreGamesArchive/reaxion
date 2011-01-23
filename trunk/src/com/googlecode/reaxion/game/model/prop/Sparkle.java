@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.prop;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.Vector3f;
 
@@ -16,6 +17,7 @@ public class Sparkle extends Model {
     	// Load model
     	super(filename);
     	trackable = false;
+    	billboarding = Billboard.Free;
     	lifespan = l;
     	shrinkTime = s;
     }
@@ -27,8 +29,6 @@ public class Sparkle extends Model {
     	
     	if (lifeCount > lifespan - shrinkTime)
     	model.setLocalScale((float) (lifespan - lifeCount + 1)/(lifespan - shrinkTime + 1));
-    	
-    	billboard(b.getCamera(), true);
     	
     	if (lifeCount >= lifespan)
     		b.removeModel(this);
