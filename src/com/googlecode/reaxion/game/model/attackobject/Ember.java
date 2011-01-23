@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -29,12 +30,14 @@ public class Ember extends AttackObject {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
+    	billboarding = Billboard.Free;
     }
 	
 	public Ember(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
+    	billboarding = Billboard.Free;
     }
 	
 	public void setUpGlow(StageGameState b) {
@@ -53,9 +56,6 @@ public class Ember extends AttackObject {
 		// set up glow if not already done
 		if (glow == null)
 			setUpGlow(b);
-		
-		// billboard glow
-		glow.billboard(b.getCamera(), true);
 		
 		if (lifeCount < riseTime) {
 			// rise

@@ -19,6 +19,7 @@ public class Dust extends Model {
     	// Load model
     	super(filename);
     	trackable = false;
+    	billboarding = Billboard.Free;
     	init();
     }
     
@@ -44,8 +45,6 @@ public class Dust extends Model {
     			size -= sizeRate;
     		model.setLocalScale(size);
     	}
-    	
-    	billboard(b.getCamera(), true);
     	
 		model.setLocalTranslation(model.getLocalTranslation().addLocal(velocity).addLocal(b.getPlayer().getVelocity()));
     }

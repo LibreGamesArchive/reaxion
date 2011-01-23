@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -37,9 +38,8 @@ public class RoamingCloud extends AttackObject {
 	public void setUpClouds(StageGameState b) {
 		for (int i=0; i<clouds.length; i++) {
 			clouds[i] = LoadingQueue.quickLoad(new Model("cloud"), b);
-			b.removeModel(clouds[i]);
-			model.attachChild(clouds[i].model);
-			clouds[i].model.setLocalTranslation(new Vector3f((i==1 || i==2)?(float)(i*2-3)/2:0, 0, (i==3 || i==4)?(float)(i*2-7)/2:0));
+			clouds[i].billboarding = Billboard.Free;
+			
 		}
 		b.getRootNode().updateRenderState();
 	}
@@ -55,9 +55,9 @@ public class RoamingCloud extends AttackObject {
 		if (clouds[0] == null)
 			setUpClouds(b);
 		
-		// billboard clouds
+		// make clouds follow
 		for (int i=0; i<clouds.length; i++)
-			clouds[i].billboard(b.getCamera(), true);
+			clouds[i].model.setLocalTranslation(model.getWorldTranslation().add((i==1 || i==2)?(float)(i*2-3)/2:0, 0, (i==3 || i==4)?(float)(i*2-7)/2:0));
 		
 		// grow/shrink
 		if (lifeCount <= sizeTime)
@@ -111,5 +111,12 @@ public class RoamingCloud extends AttackObject {
 		
     	super.act(b);
     }
+	
+	@Override
+	protected void finish(StageGameState b) {
+		b.removeModel(this);
+		for (int i = 0; i < clouds.length; i++)
+			b.removeModel(clouds[i]);
+	}
 	
 }

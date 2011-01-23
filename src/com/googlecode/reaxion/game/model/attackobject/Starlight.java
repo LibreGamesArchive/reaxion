@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.attackobject;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -25,16 +26,17 @@ public class Starlight extends AttackObject {
 	public Starlight(Model m) {
     	super(filename, 0, m);
     	flinch = true;
+    	billboarding = Billboard.Free;
     }
 	
 	public Starlight(Model[] m) {
     	super(filename, 0, m);
     	flinch = true;
+    	billboarding = Billboard.Free;
     }
 	
 	public void setUpGlow(StageGameState b) {
-		glow = LoadingQueue.quickLoad(new Model("oblivion"), b);
-		b.removeModel(glow);
+		glow = LoadingQueue.quickLoad(new Model("oblivion"), null);
 		model.attachChild(glow.model);
 		b.getRootNode().updateRenderState();
 	}
@@ -54,9 +56,6 @@ public class Starlight extends AttackObject {
 		// set up glow if not already done
 		if (glow == null)
 			setUpGlow(b);
-		
-		// billboard glow
-		glow.billboard(b.getCamera(), true);
 		
 		// grow with quadratic rate
 		if (lifeCount <= chargeTime)

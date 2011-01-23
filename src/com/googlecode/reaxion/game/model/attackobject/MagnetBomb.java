@@ -5,6 +5,7 @@ import java.util.Stack;
 import java.util.Vector;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -36,12 +37,7 @@ public class MagnetBomb extends AttackObject {
 	public void setUpGlow(StageGameState b) {
 		for (int i = 0; i < glow.length; i++) {
 			glow[i] = LoadingQueue.quickLoad(new Model("magnet-bomb-glow"), b);
-			b.removeModel(glow[i]);
-			model.attachChild(glow[i].model);
-			glow[i].model.setLocalTranslation(new Vector3f(
-					(i < 2) ? (.5f - (i % 2)) : 0,
-					(i >= 2 && i < 4) ? (.5f - (i % 2)) : 0,
-					(i >= 4) ? (.5f - (i % 2)) : 0));
+			glow[i].billboarding = Billboard.Free;
 		}
 		b.getRootNode().updateRenderState();
 	}
@@ -58,9 +54,12 @@ public class MagnetBomb extends AttackObject {
 		if (glow[0] == null)
 			setUpGlow(b);
 
-		// billboard glows
+		// make glows follow
 		for (int i = 0; i < glow.length; i++)
-			glow[i].billboard(b.getCamera(), true);
+			glow[i].model.setLocalTranslation(model.getWorldTranslation().add(
+					(i < 2) ? (.5f - (i % 2)) : 0,
+					(i >= 2 && i < 4) ? (.5f - (i % 2)) : 0,
+					(i >= 4) ? (.5f - (i % 2)) : 0));
 
 		int ttd = 30*(lifespan - lifeCount)/lifespan;
 		
@@ -111,5 +110,12 @@ public class MagnetBomb extends AttackObject {
 		velocity = velocity.mult(.98f).add(netAccel);
 		
 		super.act(b);
+	}
+	
+	@Override
+	protected void finish(StageGameState b) {
+		b.removeModel(this);
+		for (int i = 0; i < glow.length; i++)
+			b.removeModel(glow[i]);
 	}
 }

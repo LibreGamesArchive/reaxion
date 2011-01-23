@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.prop;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.jme.math.FastMath;
 
@@ -14,6 +15,7 @@ public class FireTrail extends Model {
     	super(filename);
     	lifespan = s;
     	trackable = false;
+    	billboarding = Billboard.Free;
     	pitch = FastMath.PI*2*FastMath.nextRandomFloat();
     }
     
@@ -23,8 +25,6 @@ public class FireTrail extends Model {
     	super.act(b);
     	
     	model.setLocalScale((float) (lifespan - lifeCount + 1)/(lifespan + 1));
-    	
-    	billboard(b.getCamera(), true);
     	
     	if (lifeCount >= lifespan)
     		b.removeModel(this);

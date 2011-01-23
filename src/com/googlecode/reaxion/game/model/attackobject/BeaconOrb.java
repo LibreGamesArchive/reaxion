@@ -1,6 +1,7 @@
 package com.googlecode.reaxion.game.model.attackobject;
 
 import com.googlecode.reaxion.game.model.Model;
+import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.LoadingQueue;
@@ -28,17 +29,18 @@ public class BeaconOrb extends AttackObject {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
+    	billboarding = Billboard.Free;
     }
 	
 	public BeaconOrb(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
     	lifespan = span;
+    	billboarding = Billboard.Free;
     }
 	
 	public void setUpGlow(StageGameState b) {
-		glow = LoadingQueue.quickLoad(new Model("beacon"), b);
-		b.removeModel(glow);
+		glow = LoadingQueue.quickLoad(new Model("beacon"), null);
 		model.attachChild(glow.model);
 		b.getRootNode().updateRenderState();
 	}
@@ -53,9 +55,6 @@ public class BeaconOrb extends AttackObject {
 		// set up glow if not already done
 		if (glow == null)
 			setUpGlow(b);
-		
-		// billboard glow
-		glow.billboard(b.getCamera(), true);
 		
 		// revolve around target
 		if (lifeCount > strikeTime)
