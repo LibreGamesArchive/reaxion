@@ -172,7 +172,8 @@ public class Remnant extends Enemy {
 				if (laser.model.getParent() == null) {
 					play("laserBack", b.tpf);
 					step++;
-				}
+				} else
+					laser.target = b.getPlayer();
 				
 			} else if (step == 2 && play("laserBack", b.tpf)) {
 				mode = "idle";

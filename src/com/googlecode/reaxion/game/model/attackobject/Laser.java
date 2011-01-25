@@ -18,7 +18,7 @@ public class Laser extends AttackObject {
 	Vector3f lastDrop = new Vector3f();
 	
 	private Vector3f from;
-	private Model target;
+	public Model target;
 	private Vector3f hit;
 	
 	public Laser(Model m, Vector3f f, Vector3f h, Model t) {
