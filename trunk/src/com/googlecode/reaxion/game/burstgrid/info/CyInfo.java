@@ -20,7 +20,7 @@ public class CyInfo extends PlayerInfo {
 	public void init(){
 		setStats(100,1,15,20,0);
 		setAbilities(new String[] {"Chivalry", "Masochist"});
-		setAttacks(new String[] {"SpikeLine", "ShadowTag", "BlackHole", "SpinLance"});
+		setAttacks(new String[] {"CometPunch", "SpikeLine", "ShadowTag", "BlackHole", "SpinLance"});
 		setUsableSfx();
 		createBurstGrid("");
 	}
