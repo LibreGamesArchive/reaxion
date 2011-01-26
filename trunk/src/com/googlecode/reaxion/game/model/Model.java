@@ -3,10 +3,11 @@ package com.googlecode.reaxion.game.model;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.ListFilter;
+import com.googlecode.reaxion.game.util.ListFilter.Filter;
 import com.jme.math.FastMath;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
-import com.jme.renderer.Camera;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.radakan.jme.mxml.anim.MeshAnimationController;
@@ -152,17 +153,17 @@ public class Model {
     }
     
     /**
-     * Checks for collision with all models in current {@code BattleGameState} at each
-     * epsilon along the vector path, assuming that movement with vector is linear, and
-     * returning other models at the first instance of collision if collisions occur.
+     * Checks for collision with models in {@code models} at each epsilon along the
+     * vector path, assuming that movement with vector is linear, and returning other
+     * models at the first instance of collision if collisions occur.
      */
-    public Model[] getLinearModelCollisions(StageGameState b, Vector3f v, float epsilon) {
+    public Model[] getLinearModelCollisions(Vector3f v, float epsilon, ArrayList<Model> models) {
     	Model[] hit = new Model[0];
     	Vector3f step = v.normalize().mult(epsilon);
     	Vector3f start = new Vector3f(model.getLocalTranslation().x, model.getLocalTranslation().y, model.getLocalTranslation().z);
     	
     	for (int i=0; i<v.length()/epsilon+1; i++) {
-    		hit = getModelCollisions(b);
+    		hit = getModelCollisions(models);
     		if (hit.length > 0) {
     			model.setLocalTranslation(start);
     			return hit;
@@ -176,12 +177,29 @@ public class Model {
     }
     
     /**
+     * Checks for collision with models in current {@code BattleGameState} filtered
+     * according to the provided {@code Filter} and excluding the provided exceptions at
+     * each epsilon along the vector path, assuming that movement with vector is linear,
+     * and returning other models at the first instance of collision if collisions occur.
+     */
+    public Model[] getLinearModelCollisions(StageGameState b, Vector3f v, float epsilon, Filter filter, ArrayList<Model> exceptions) {
+    	return getLinearModelCollisions(v, epsilon, ListFilter.filter(b.getModels(), filter, exceptions));
+    }
+    
+    /**
      * Checks for collision with all models in current {@code BattleGameState}, returning
      * other models if collisions occur.
      */
     public Model[] getModelCollisions(StageGameState b) {
+    	return (getModelCollisions(b.getModels()));
+    }
+    
+    /**
+     * Checks for collision with all models in {@code models}, returning other models if
+     * collisions occur.
+     */
+    public Model[] getModelCollisions(ArrayList<Model> models) {
     	ArrayList<Model> hit = new ArrayList<Model>();
-    	ArrayList<Model> models = b.getModels();
     	for (int i=0; i < models.size(); i++) {
     		if (model.hasCollision(models.get(i).model, checkTriangles)) {
     			hit.add(models.get(i));
@@ -189,6 +207,21 @@ public class Model {
     	}
     	return (hit.toArray(new Model[0]));
     }
+    
+    /**
+     * Checks for collision with models in current {@code BattleGameState} considering provided
+     * {@code Filter} and excluding exceptions, returning other models if collisions occur.
+     */
+//    public Model[] getModelCollisions(StageGameState b, Filter filter, ArrayList<Model> exceptions) {
+//    	ArrayList<Model> hit = new ArrayList<Model>();
+//    	ArrayList<Model> models = ListFilter.filter(b.getModels(), filter, exceptions);
+//    	for (int i=0; i < models.size(); i++) {
+//    		if (model.hasCollision(models.get(i).model, checkTriangles)) {
+//    			hit.add(models.get(i));
+//    		}
+//    	}
+//    	return (hit.toArray(new Model[0]));
+//    }
      
     /**
      * Checks for collision with all nodes in current {@code BattleGameState}, returning

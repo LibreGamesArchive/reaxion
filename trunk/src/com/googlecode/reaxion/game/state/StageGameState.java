@@ -477,12 +477,11 @@ public class StageGameState extends BaseGameState {
 	        		game.finish();
 	        	} else {
 	        		Reaxion.terminate();
-	        	}
-        		
-	        	// check pausing
-    	    	checkPause();
-    	        
+	        	}  
         	}
+    		
+    		// check pausing
+    	    checkPause();
     	}
     	
     	if (frozen)

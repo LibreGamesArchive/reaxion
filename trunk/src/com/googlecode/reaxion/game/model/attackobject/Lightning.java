@@ -6,6 +6,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.Model.Billboard;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.ListFilter;
 import com.jme.math.Vector3f;
 
 public class Lightning extends AttackObject {
@@ -38,7 +39,7 @@ public class Lightning extends AttackObject {
 	@ Override
     public void act(StageGameState b) {
         // check if a Character is hit with linear approximation
-    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f);
+    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.Character, users);
         for (Model c : collisions) {
         	if (c instanceof Character && !users.contains(c)) {
         		// only deal damage once, if not hit before
