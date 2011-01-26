@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.ListFilter;
 import com.jme.math.Vector3f;
 
 /**
@@ -67,7 +68,7 @@ public class AttackObject extends Model {
     	super.act(b);
         
         // check if a Character is hit with linear approximation
-    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f);
+    	Model[] collisions = getLinearModelCollisions(velocity, .5f, ListFilter.filterHostile(b, this, ListFilter.Filter.Character));
         for (Model c : collisions) {
         	if (c instanceof Character && !users.contains(c))
         		((Character)c).hit(b, this);

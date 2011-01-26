@@ -4,6 +4,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.attackobject.AttackObject;
 import com.googlecode.reaxion.game.model.attackobject.MediShield;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.ListFilter;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -69,7 +70,7 @@ public class ShieldMediguard extends Attack {
 	@Override
 	public void interrupt(StageGameState b, Model other) {
 		// check if the interrupting object passed through the barrier
-        Model[] collisions = other.getLinearModelCollisions(b, other.getVelocity().normalize().mult(-1.5f), .02f);
+        Model[] collisions = other.getLinearModelCollisions(b, other.getVelocity().normalize().mult(-1.5f), .02f, ListFilter.Filter.None, null);
         for (Model c : collisions) {
         	if (c == medishield) {
         		// cancel the damage and no flinch

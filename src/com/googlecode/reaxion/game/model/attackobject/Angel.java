@@ -4,6 +4,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.prop.LightFade;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.ListFilter;
 import com.googlecode.reaxion.game.util.LoadingQueue;
 import com.jme.math.Vector3f;
 
@@ -58,7 +59,7 @@ public class Angel extends AttackObject {
 		b.getPlayer().heal(b, hpf);
 		
 		// check if a hit by another attack with linear approximation
-    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f);
+    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.AttackObject, users);
         for (Model c : collisions) {
         	if (c instanceof AttackObject) {
         		// check if users include the other attack's users

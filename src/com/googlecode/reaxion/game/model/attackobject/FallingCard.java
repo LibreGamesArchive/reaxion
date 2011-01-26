@@ -3,6 +3,7 @@ package com.googlecode.reaxion.game.model.attackobject;
 import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
+import com.googlecode.reaxion.game.util.ListFilter;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
@@ -31,7 +32,7 @@ public class FallingCard extends AttackObject {
     public void act(StageGameState b) {
         
         // check if a hit by another attack with linear approximation
-    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f);
+    	Model[] collisions = getLinearModelCollisions(velocity, .5f, ListFilter.filterUsers(b.getModels(), users, true));
         for (Model c : collisions) {
         	if (c instanceof AttackObject) {
         		// check if users include the other attack's users
