@@ -50,22 +50,8 @@ public class BugOrb extends AttackObject {
     	Model[] collisions = getLinearModelCollisions(velocity, .5f, ListFilter.filterUsers(b.getModels(), users, true));
         for (Model c : collisions) {
         	if (c instanceof AttackObject) {
-        		boolean flag = false;
-        		// check if users include the other attack's users
-        		for (Model u : users) {
-        			boolean flag2 = false;
-        			for (Model o : c.users)
-        				if (u == o) {
-        					flag2 = true;
-        					break;
-        				}
-        			if (!flag2) {
-        				flag = true;
-        				break;
-        			}
-        		}
         		// turn around
-        		if (flag && !changed) {
+        		if (!changed) {
         			((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
         			lifeCount = 0;
         			users = c.users;
@@ -75,7 +61,7 @@ public class BugOrb extends AttackObject {
         		}
         		
         	// check for character hits
-        	} else if (c instanceof Character && !users.contains(c))
+        	} else if (c instanceof Character)
         		((Character)c).hit(b, this);
         }
 		

@@ -10,7 +10,7 @@ public class ArcingLance extends AttackObject {
 	
 	public static final String filename = "lance";
 	protected static final int span = 200;
-	protected static final float dpf = 6;
+	protected static final float dpf = 15;
 	
 	public ArcingLance(Model m) {
     	super(filename, dpf, m);

@@ -61,9 +61,11 @@ public class RoamingCloud extends AttackObject {
 		
 		// grow/shrink
 		if (lifeCount <= sizeTime)
-			model.setLocalScale((float)(lifeCount+1)/(sizeTime+1));
+			for (int i = 0; i < clouds.length; i++)
+				clouds[i].model.setLocalScale((float)(lifeCount+1)/(sizeTime+1));
 		else if (lifeCount >= lifespan - sizeTime)
-			model.setLocalScale((float)(lifespan-lifeCount+1)/(sizeTime+1));
+			for (int i = 0; i < clouds.length; i++)
+				clouds[i].model.setLocalScale((float)(lifespan-lifeCount+1)/(sizeTime+1));
 		
 		if (strike) {
 			// count down
@@ -77,7 +79,7 @@ public class RoamingCloud extends AttackObject {
 			strikeDelay--;
 			
 		} else {
-	    	if (model.getLocalScale().x == 1) {
+	    	if (clouds[0].model.getLocalScale().x == 1) {
 	    		// check enemies
 	    		Vector3f pos = model.getLocalTranslation();
 	    		for (Model m : b.getModels()) {

@@ -43,7 +43,9 @@ public class Slash extends AttackObject {
 			model.setLocalScale((float)(lifespan - lifeCount)/(growTime));
 		
 		// check if a Character is hit with linear approximation
-    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.Character, users);
+		ArrayList<Model> exclusions = users;
+		exclusions.addAll(hitList);
+    	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.Character, exclusions);
         for (Model c : collisions) {
         	if (c instanceof Character && !users.contains(c)) {
         		// only deal damage once, if not hit before

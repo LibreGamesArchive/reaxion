@@ -66,17 +66,17 @@ public class ListFilter {
 		
 		for (Model c : list) {
 			// check if users include the object's users
+			boolean contains = false;
 			for (Model u : users) {
-				boolean contains = false;
 				if (c.users != null)
 					for (Model o : c.users)
 						if (u == o) {
 							contains = true;
 							break;
 						}
-				if (contains == !keepHostile)
-					result.add(c);
 			}
+			if (contains == !keepHostile)
+				result.add(c);
 		}
 		
 		return result;
