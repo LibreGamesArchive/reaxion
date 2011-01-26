@@ -55,27 +55,12 @@ public class SevenCard extends AttackObject {
     	Model[] collisions = getLinearModelCollisions(velocity, .5f, ListFilter.filterUsers(b.getModels(), users, true));
         for (Model c : collisions) {
         	if (c instanceof AttackObject) {
-        		// check if users include the other attack's users
-        		boolean flag = false;
-    			for (Model u : users) {
-    				boolean flag2 = false;
-    				for (Model o : c.users)
-    					if (u == o) {
-    						flag2 = true;
-    						break;
-    					}
-    				if (!flag2)
-    					flag = true;
-    				break;
-    			}
         		// kill this card
-        		if (flag) {
-        			((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
-        			finish(b);
-        		}
+        		((AttackObject)c).hit(b, (Character)users.get(users.size()-1));
+        		finish(b);
         		
         	// check for character hits
-        	} else if (c instanceof Character && !users.contains(c)) {
+        	} else if (c instanceof Character) {
         		((Character)c).hit(b, this);
         		b.removeModel(this);
         	}

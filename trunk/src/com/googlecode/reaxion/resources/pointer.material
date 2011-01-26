@@ -12,6 +12,7 @@ material pointer
 			texture_unit
 			{
 				texture textures/pointer.png
+				tex_address_mode clamp
 			}
 		}
 

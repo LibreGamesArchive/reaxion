@@ -10,7 +10,7 @@ public class SeekingLance extends AttackObject {
 	
 	public static final String filename = "lance";
 	protected static final int span = 300;
-	protected static final float dpf = 4;
+	protected static final float dpf = 7;
 	
 	public SeekingLance(Model m) {
     	super(filename, dpf, m);

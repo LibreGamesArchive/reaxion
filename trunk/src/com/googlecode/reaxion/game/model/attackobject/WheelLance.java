@@ -10,7 +10,7 @@ public class WheelLance extends AttackObject {
 	
 	public static final String filename = "lance";
 	protected static final int span = 200;
-	protected static final float dpf = 9;
+	protected static final float dpf = 17;
 	private static final float angleInc = .0044f; // approx. pi/720
 	
 	private float angle = 0;

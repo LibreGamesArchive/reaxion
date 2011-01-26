@@ -62,9 +62,11 @@ public class SeekingCloud extends AttackObject {
 		
 		// grow/shrink
 		if (lifeCount <= sizeTime)
-			model.setLocalScale((float)(lifeCount+1)/(sizeTime+1));
+			for (int i = 0; i < clouds.length; i++)
+				clouds[i].model.setLocalScale((float)(lifeCount+1)/(sizeTime+1));
 		else if (lifeCount >= lifespan - sizeTime)
-			model.setLocalScale((float)(lifespan-lifeCount+1)/(sizeTime+1));
+			for (int i = 0; i < clouds.length; i++)
+				clouds[i].model.setLocalScale((float)(lifespan-lifeCount+1)/(sizeTime+1));
 		
 		if (strike) {
 			// count down
@@ -79,7 +81,7 @@ public class SeekingCloud extends AttackObject {
 			
 		} else {
 			// move towards target
-	    	if (model.getLocalScale().x == 1 && target != null) {
+	    	if (clouds[0].model.getLocalScale().x == 1 && target != null) {
 	    		Vector3f v = target.model.getWorldTranslation().add(new Vector3f(0, overhead, 0)).subtract(model.getWorldTranslation());
 	    		if (v.length() <= speed) {
 	    			velocity = v;

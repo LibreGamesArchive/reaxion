@@ -8,7 +8,7 @@ public class ElecStream extends AttackObject {
 	
 	public static final String filename = "elec-stream";
 	protected static final int span = 100;
-	protected static final float dpf = 6;
+	protected static final float dpf = 12;
 	
 	public ElecStream(Model m) {
     	super(filename, dpf, m);
