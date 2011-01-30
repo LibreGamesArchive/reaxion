@@ -39,22 +39,33 @@ public class SaveManager {
 	}
 
 	public static void saveGame(HubGameState hgs) {
-		PlayerInfo p1 = hgs.getPlayer().info;
-		PlayerInfo p2 = hgs.getPartner().info;
 		ArrayList<Integer> activatedNodes = new ArrayList<Integer>();
 		HashMap<String, PlayerInfo> map = PlayerInfoManager.getMap();
+		FileOutputStream fs;
+		ObjectOutputStream os;
 		
 		try {
-			FileOutputStream fs;
-			fs = new FileOutputStream(saveDir + hgs.getSaveName() + ".sav");
-			ObjectOutputStream os = new ObjectOutputStream(fs);
+			if(hgs!=null){
+				PlayerInfo p1 = hgs.getPlayer().info;
+				PlayerInfo p2 = hgs.getPartner().info;
+				fs = new FileOutputStream(saveDir + hgs.getSaveName() + ".sav");
+				os = new ObjectOutputStream(fs);
 
-			String stage = hgs.getStage().getClass().getName();
-			stage = stage.substring(stage.lastIndexOf(".")+1);
-			os.writeObject(stage);
-			
-			os.writeObject(p1.name);
-			os.writeObject(p2.name);
+				String stage = hgs.getStage().getClass().getName();
+				stage = stage.substring(stage.lastIndexOf(".")+1);
+				os.writeObject(stage);
+
+				os.writeObject(p1.name);
+				os.writeObject(p2.name);
+			}
+			else{
+				fs = new FileOutputStream(saveDir + "New Save.sav");
+				os = new ObjectOutputStream(fs);
+
+				os.writeObject("FlowerField");
+				os.writeObject("Monica");
+				os.writeObject("Nilay");
+			}
 
 			Collection<PlayerInfo> c = map.values();
 			Iterator<PlayerInfo> itr = c.iterator();
@@ -70,8 +81,6 @@ public class SaveManager {
 				os.writeBoolean(p.unlockFlag);
 				os.writeObject(activatedNodes);
 			}
-			
-			System.out.println("Game saved!");
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -81,13 +90,71 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 
+		System.out.println("Game saved!");
+
+		//		MissionSerializer.saveMissions();
+		//		System.out.println("Saving complete");
+	}
+	
+	public static void saveGame(HubGameState hgs, String s) {
+		ArrayList<Integer> activatedNodes = new ArrayList<Integer>();
+		HashMap<String, PlayerInfo> map = PlayerInfoManager.getMap();
+		FileOutputStream fs;
+		ObjectOutputStream os;
+		
+		try {
+			fs = new FileOutputStream(saveDir + s + ".sav");
+			os = new ObjectOutputStream(fs);
+
+			if(hgs!=null){
+				PlayerInfo p1 = hgs.getPlayer().info;
+				PlayerInfo p2 = hgs.getPartner().info;
+
+				String stage = hgs.getStage().getClass().getName();
+				stage = stage.substring(stage.lastIndexOf(".")+1);
+				os.writeObject(stage);
+
+				os.writeObject(p1.name);
+				os.writeObject(p2.name);
+			}
+			else{
+				os.writeObject("FlowerField");
+				os.writeObject("Monica");
+				os.writeObject("Nilay");
+			}
+
+			Collection<PlayerInfo> c = map.values();
+			Iterator<PlayerInfo> itr = c.iterator();
+			while(itr.hasNext()){
+				PlayerInfo p = itr.next();
+				if(p.getBurstGrid() != null)
+					for(BurstNode b: p.getBurstGrid().getNodes())
+						if(b.activated)
+							activatedNodes.add(b.id);
+
+				os.writeObject(p.name);
+				os.writeInt(p.exp);
+				os.writeBoolean(p.unlockFlag);
+				os.writeObject(activatedNodes);
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("Game saved!");
+
 		//		MissionSerializer.saveMissions();
 		//		System.out.println("Saving complete");
 	}
 
 	public static void loadGame(HashMap<String, PlayerInfo> map, String saveName){
 		boolean error = false;
-		
+
 		String name;
 		String stage;
 		String activeCharacter1, activeCharacter2;
@@ -95,12 +162,12 @@ public class SaveManager {
 		try {
 			ObjectInputStream oi;
 			oi = new ObjectInputStream(new FileInputStream(saveDir + saveName + ".sav"));
-			
+
 			stage = (String)oi.readObject();
-			
+
 			activeCharacter1 = (String)oi.readObject();
 			activeCharacter2 = (String)oi.readObject();		
-			
+
 			//			String p1name = (String)oi.readObject();
 			//			int p1exp = oi.readInt();
 			//			boolean unlocked1 = oi.readBoolean();
@@ -125,7 +192,7 @@ public class SaveManager {
 			}
 
 			System.out.println(stage+", "+activeCharacter1+", "+activeCharacter2);
-			
+
 			Battle.setDefaultStage(stage);
 			Battle.setDefaultPlayers(activeCharacter1, activeCharacter2);
 			MissionManager.startHubGameState();
@@ -139,7 +206,7 @@ public class SaveManager {
 			error = true;
 			System.out.println("Error Reading Saved Data: " + saveName);
 		}
-		
+
 		if (error) {		
 			Collection<PlayerInfo> c = map.values();
 			Iterator<PlayerInfo> itr = c.iterator();
@@ -192,27 +259,27 @@ public class SaveManager {
 		}
 		return p;
 	}
-	
+
 	private static void loadDefaults() {
 		// TODO: Detect defaults based on flags
-		
+
 		Battle.setDefaultStage("FlowerField");
 		Battle.setDefaultPlayers("Monica", "Nilay");
 		MissionManager.startHubGameState();
 	}
-	
-	public static File newSave(){
+
+	public static void newSave(){
 		ArrayList<Integer> activatedNodes = new ArrayList<Integer>();
 		HashMap<String, PlayerInfo> map = PlayerInfoManager.getMap();
-		
+
 		try {
 			FileOutputStream fs;
-			fs = new FileOutputStream(saveDir + "SaveState.sav");
+			fs = new FileOutputStream(saveDir + "New Save.sav");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 
 			String stage = "FlowerField";
 			os.writeObject(stage);
-			
+
 			os.writeObject("Monica");
 			os.writeObject("Nilay");
 
@@ -230,7 +297,7 @@ public class SaveManager {
 				os.writeBoolean(p.unlockFlag);
 				os.writeObject(activatedNodes);
 			}
-			
+
 			System.out.println("Game saved!");
 
 		} catch (FileNotFoundException e) {
@@ -240,6 +307,5 @@ public class SaveManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new File(saveDir + "SaveState.sav");
 	}
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.googlecode.reaxion.game.input.bindings.KeyBindings;
+import com.googlecode.reaxion.game.input.bindings.MenuBindings;
 import com.googlecode.reaxion.game.state.HubGameState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.SaveManager;
@@ -11,6 +12,7 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Quad;
+import com.jmex.angelfont.BitmapFont;
 import com.jmex.angelfont.BitmapText;
 
 public class SaveOverlay extends MenuOverlay{
@@ -18,7 +20,7 @@ public class SaveOverlay extends MenuOverlay{
 	public static final String NAME = "SaveOverlay";
 
 	private HubGameState hgs;
-	
+
 	private ColorRGBA textColor;
 	private ColorRGBA selTextColor;
 
@@ -35,7 +37,7 @@ public class SaveOverlay extends MenuOverlay{
 
 		init();
 	}
-	
+
 	public SaveOverlay(HubGameState hgs){
 		super("SaveOverlay", 800, 600, true);
 
@@ -56,7 +58,7 @@ public class SaveOverlay extends MenuOverlay{
 		textColor = FontUtils.unselected;
 		selTextColor = FontUtils.blueSelected;
 
-		getSaveFiles();
+		updateMenu();
 
 		BitmapText saveLabel = new BitmapText(FontUtils.neuropol, false);
 		saveLabel.setText("Save Files");
@@ -64,14 +66,7 @@ public class SaveOverlay extends MenuOverlay{
 		saveLabel.update();
 		saveLabel.setLocalTranslation(new Vector3f(width*3/4 - 80, height*1/2 + 190, 0));
 		container.attachChild(saveLabel);
-		
-		String[] fileNamesString = new String[fileNames.size()];
-		for(int i = 0; i < fileNames.size(); i++)
-			fileNamesString[i] = fileNames.get(i).substring(0, fileNames.get(i).lastIndexOf('.'));
-		savesList = new ScrollMenu(160, 40, 5, fileNamesString);
-		savesList.enableScrollBar();
-		savesList.setLocalTranslation(new Vector3f(width*3/4, height*1/2, 0));
-		container.attachChild(savesList);
+
 	}
 
 	private void getSaveFiles(){
@@ -91,15 +86,53 @@ public class SaveOverlay extends MenuOverlay{
 					}
 			}
 		else{
-			File f = SaveManager.newSave();
-			saveFiles.add(f);
-			fileNames.add(f.getName());
+			SaveManager.newSave();
+			updateMenu();
+		}
+	}
+
+	private void updateMenu(){
+		getSaveFiles();
+
+		String[] fileNamesString = new String[fileNames.size()];
+		for(int i = 0; i < fileNames.size(); i++)
+			fileNamesString[i] = fileNames.get(i).substring(0, fileNames.get(i).lastIndexOf('.'));
+
+		if(savesList==null){
+			savesList = new ScrollMenu(160, 40, 5, fileNamesString);
+			savesList.enableScrollBar();
+			savesList.setLocalTranslation(new Vector3f(width*3/4, height*1/2, 0));
+			container.attachChild(savesList);
+		}
+		else{
+			savesList.setEntries(fileNamesString);
+			savesList.remainVisible();
+			savesList.update();
 		}
 	}
 
 	@Override
 	public void updateDisplay(KeyBindings k) {
-		// TODO Auto-generated method stub
+		if (k == MenuBindings.SELECT_FINAL){
+			// assign new item
+			SaveManager.saveGame(hgs, savesList.getSelectedEntry(true));
+			InfoOverlay info = new InfoOverlay();
+			info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
 
+			updateMenu();
+
+		} else {
+			// scroll menu
+			if (k == MenuBindings.UP) {
+				savesList.changeIndex(-1, true);
+				savesList.remainVisible();
+				savesList.update();
+			}
+			if (k == MenuBindings.DOWN) {
+				savesList.changeIndex(1, true);
+				savesList.remainVisible();
+				savesList.update();
+			}
+		}
 	}
 }

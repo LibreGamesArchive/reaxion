@@ -151,9 +151,6 @@ public class HubGameState extends StageGameState {
 					break;
 				case 5:
 					changeCurrentMenu(saveOverlay);
-					SaveManager.saveGame(this);
-			    	info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
-			    	break;
 				case 6:
 					//SaveManager.loadGame("SaveState");
 				}
