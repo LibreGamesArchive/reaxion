@@ -11,9 +11,9 @@ import com.googlecode.reaxion.game.state.BattleGameState;
 import com.googlecode.reaxion.game.state.CharacterSelectionState;
 import com.googlecode.reaxion.game.state.KeyPreferencesState;
 import com.googlecode.reaxion.game.state.StageSelectionState;
+import com.googlecode.reaxion.game.state.TitleScreenState;
 import com.googlecode.reaxion.game.util.FontUtils;
 import com.googlecode.reaxion.game.util.KeyBindingUtils;
-import com.googlecode.reaxion.game.util.PlayerInfoManager;
 import com.jme.input.MouseInput;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueueManager;
@@ -147,11 +147,15 @@ public class Reaxion {
 			KeyBindingUtils.initKeyBindings();
 			MissionManager.createMissions();
 			
-			//KeyPreferencesState keyState = new KeyPreferencesState();
-			//GameStateManager.getInstance().attachChild(keyState);
-			//keyState.setActive(true);
+//			KeyPreferencesState keyState = new KeyPreferencesState();
+//			GameStateManager.getInstance().attachChild(keyState);
+//			keyState.setActive(true);
 			
-			PlayerInfoManager.init();
+			TitleScreenState titleState = new TitleScreenState();
+			GameStateManager.getInstance().attachChild(titleState);
+			titleState.setActive(true);
+			
+//			PlayerInfoManager.init();
 			
 //			BurstGridGameState gridState = new BurstGridGameState(PlayerInfoManager.get("Monica"));
 //			GameStateManager.getInstance().attachChild(gridState);

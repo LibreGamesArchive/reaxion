@@ -12,6 +12,7 @@ import com.jme.input.KeyInput;
 import com.jme.input.KeyInputListener;
 import com.jme.scene.Node;
 import com.jmex.angelfont.BitmapFont;
+import com.jmex.game.state.GameStateManager;
 
 /**
  * {@code KeyPreferencesState} provides an interface to assign key functions
@@ -90,6 +91,16 @@ public class KeyPreferencesState extends BaseGameState {
 					game.finish();
 				else
 					Reaxion.terminate();
+			}
+			
+			if (manager.isValidCommand(MenuBindings.BACK.toString(), false)) {
+				// go back to title screen
+				TitleScreenState titleState = new TitleScreenState();
+				GameStateManager.getInstance().attachChild(titleState);
+				titleState.setActive(true);
+
+				this.setActive(false);
+				GameStateManager.getInstance().detachChild(this);
 			}
 		}
 
