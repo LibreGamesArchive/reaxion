@@ -98,7 +98,7 @@ public class StatsOverlay extends MenuOverlay {
 			
 			// name label
 			BitmapText headerName = new BitmapText(FontUtils.neuropol, false);
-			headerName.setText(((i == 0) ? "Player:  " : "Partner  ") + c.name);
+			headerName.setText(((i == 0) ? "Player:  " : "Partner:  ") + c.name);
 			headerName.setSize(18);
 			headerName.update();
 			headerName.setLocalTranslation(new Vector3f(8, 600 - 8, 0));
@@ -180,13 +180,13 @@ public class StatsOverlay extends MenuOverlay {
 			c = (i == 0) ? player : partner;
 			
 			// convert abilities
-			ArrayList<Ability> a = c.getAbilityPoll();
+			ArrayList<Ability> a = c.getAbilityPool();
 			abilities[i] = new String[a.size()];
 			for (int u=0; u<abilities[i].length; u++)
 				abilities[i][u] = a.get(u).name;
 			
 			// convert attacks
-			ArrayList<Attack> t = c.getAttackPoll();
+			ArrayList<Attack> t = c.getAttackPool();
 			attacks[i] = new String[t.size()];
 			for (int v=0; v<attacks[i].length; v++)
 				attacks[i][v] = t.get(v).name;
@@ -250,7 +250,7 @@ public class StatsOverlay extends MenuOverlay {
 		if (controlIndex % 2 == 0) {
 			// assign ability
 			ind = Math.min(ind, 1);
-			String abl = c.getAbilityPoll().get(item).getClass().getName();
+			String abl = c.getAbilityPool().get(item).getClass().getName();
 			abl = abl.substring(abl.lastIndexOf('.')+1);
 			ArrayList<String> currentList = new ArrayList<String>(Arrays.asList(c.getAbilities()));
 			if (!currentList.contains(abl)) {
@@ -263,7 +263,7 @@ public class StatsOverlay extends MenuOverlay {
 			
 		} else {
 			// assign attack
-			String atk = c.getAttackPoll().get(item).getClass().getName();
+			String atk = c.getAttackPool().get(item).getClass().getName();
 			atk = atk.substring(atk.lastIndexOf('.')+1);
 			ArrayList<String> currentList = new ArrayList<String>(Arrays.asList(c.getAttacks()));
 			if (!currentList.contains(atk)) {

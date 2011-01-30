@@ -200,4 +200,46 @@ public class SaveManager {
 		Battle.setDefaultPlayers("Monica", "Nilay");
 		MissionManager.startHubGameState();
 	}
+	
+	public static File newSave(){
+		ArrayList<Integer> activatedNodes = new ArrayList<Integer>();
+		HashMap<String, PlayerInfo> map = PlayerInfoManager.getMap();
+		
+		try {
+			FileOutputStream fs;
+			fs = new FileOutputStream(saveDir + "SaveState.sav");
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+
+			String stage = "FlowerField";
+			os.writeObject(stage);
+			
+			os.writeObject("Monica");
+			os.writeObject("Nilay");
+
+			Collection<PlayerInfo> c = map.values();
+			Iterator<PlayerInfo> itr = c.iterator();
+			while(itr.hasNext()){
+				PlayerInfo p = itr.next();
+				if(p.getBurstGrid() != null)
+					for(BurstNode b: p.getBurstGrid().getNodes())
+						if(b.activated)
+							activatedNodes.add(b.id);
+
+				os.writeObject(p.name);
+				os.writeInt(p.exp);
+				os.writeBoolean(p.unlockFlag);
+				os.writeObject(activatedNodes);
+			}
+			
+			System.out.println("Game saved!");
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new File(saveDir + "SaveState.sav");
+	}
 }

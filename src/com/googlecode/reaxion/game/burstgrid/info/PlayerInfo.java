@@ -157,7 +157,7 @@ public abstract class PlayerInfo{
 	/**
 	 * Returns all unlocked abilities.
 	 */
-	public ArrayList<Ability> getAbilityPoll() {
+	public ArrayList<Ability> getAbilityPool() {
 		return abilityPool;
 	}
 	
@@ -183,7 +183,7 @@ public abstract class PlayerInfo{
 	/**
 	 * Returns all unlocked attacks.
 	 */
-	public ArrayList<Attack> getAttackPoll() {
+	public ArrayList<Attack> getAttackPool() {
 		return attackPool;
 	}
 	
