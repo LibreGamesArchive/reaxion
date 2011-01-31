@@ -25,7 +25,7 @@ public class SaveOverlay extends MenuOverlay{
 	private ColorRGBA selTextColor;
 
 	private Quad bg;
-	private ScrollMenu savesList;
+	public ScrollMenu savesList;
 
 	private static final String baseURL = "saves/";
 
@@ -113,26 +113,16 @@ public class SaveOverlay extends MenuOverlay{
 
 	@Override
 	public void updateDisplay(KeyBindings k) {
-		if (k == MenuBindings.SELECT_FINAL){
-			// assign new item
-			SaveManager.saveGame(hgs, savesList.getSelectedEntry(true));
-			InfoOverlay info = new InfoOverlay();
-			info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
-
-			updateMenu();
-
-		} else {
-			// scroll menu
-			if (k == MenuBindings.UP) {
-				savesList.changeIndex(-1, true);
-				savesList.remainVisible();
-				savesList.update();
-			}
-			if (k == MenuBindings.DOWN) {
-				savesList.changeIndex(1, true);
-				savesList.remainVisible();
-				savesList.update();
-			}
+		// scroll menu
+		if (k == MenuBindings.UP) {
+			savesList.changeIndex(-1, true);
+			savesList.remainVisible();
+			savesList.update();
+		}
+		if (k == MenuBindings.DOWN) {
+			savesList.changeIndex(1, true);
+			savesList.remainVisible();
+			savesList.update();
 		}
 	}
 }

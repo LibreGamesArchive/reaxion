@@ -8,6 +8,7 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Monica;
 import com.googlecode.reaxion.game.model.prop.Pointer;
 import com.googlecode.reaxion.game.overlay.CharacterSelectionOverlay;
+import com.googlecode.reaxion.game.overlay.InfoOverlay;
 import com.googlecode.reaxion.game.overlay.MenuOverlay;
 import com.googlecode.reaxion.game.overlay.MissionOverlay;
 import com.googlecode.reaxion.game.overlay.Overlay;
@@ -173,6 +174,16 @@ public class HubGameState extends StageGameState {
 				action = "char";
 				return;
 				
+			} else if (currentMenu instanceof SaveOverlay) {
+				// assign new item
+				SaveManager.saveGame(this, ((SaveOverlay)currentMenu).savesList.getSelectedEntry(true));
+				info.alert("Game saved sucessfully!", BitmapFont.Align.Right, 60, 1);
+				
+				// close terminal
+				toggleMenu(false);
+				holderNode.detachChild((Overlay) currentMenu);
+
+				return;				
 			}
 			
 		}
