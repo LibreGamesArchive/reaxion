@@ -17,9 +17,9 @@ public class SavannahInfo extends PlayerInfo {
 	
 	@Override
 	public void init() {
-		setStats(100,3,10,15,0);
+		setStats(100,3,10,22,0);
 		setAbilities(new String[] { "HighJump", "Inheritor" });
-		setAttacks(new String[] { "Whirlwind", "AirCannon", "Teleport", "TriLance", "CrossCut" });
+		setAttacks(new String[] { "Whirlwind", "AirCannon", "Kamikaze", "Teleport", "TriLance", "CrossCut" });
 		setUsableSfx();
 		createBurstGrid("");
 	}
