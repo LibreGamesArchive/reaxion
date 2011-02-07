@@ -19,7 +19,7 @@ public class JennaInfo extends PlayerInfo {
 	public void init() {
 		setStats(125,0,12,38,1);
 		setAbilities(new String[] { "MedusaEyes" });
-		setAttacks(new String[] { "IcyWind", "SlideIce", "SlideDash", "SpawnBubble", "BlackHole", "SheerCold" });
+		setAttacks(new String[] { "IcyWind", "SlideIce", "Snowflake", "FrozenWorld", "DropMine", "SheerCold" });
 		setUsableSfx();
 		createBurstGrid("");
 	}

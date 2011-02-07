@@ -1,0 +1,22 @@
+
+material bird
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/bird.png
+			}
+		}
+
+	}
+
+}
+
+

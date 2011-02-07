@@ -17,7 +17,7 @@ public class SpikeLine extends Attack {
 	private static final String n = "Ruin";
 	private static final int gc = 13;
 	
-	private int spikeCount = 5;
+	private int spikeCount = 10;
 	
 	private Vector3f rotation;
 	private Vector3f position;
@@ -61,11 +61,11 @@ public class SpikeLine extends Attack {
 			phase++;
 			
 		} else if (phase == 1) {
-			if (frameCount % 6 == 0) {
+			if (frameCount % 3 == 0) {
 			// calculate transformations
 			float angle = FastMath.atan2(rotation.x, rotation.z);
 			
-			Vector3f translation = new Vector3f((float)8*(6-spikeCount)*FastMath.sin(angle), -4, (float)8*(6-spikeCount)*FastMath.cos(angle));
+			Vector3f translation = new Vector3f((float)8*(10-spikeCount+1)*FastMath.sin(angle), -4, (float)8*(10-spikeCount+1)*FastMath.cos(angle));
 			
 			DarkSpike ds = (DarkSpike)LoadingQueue.quickLoad(new DarkSpike(getUsers()), b);
 			ds.model.setLocalTranslation(position.add(translation));

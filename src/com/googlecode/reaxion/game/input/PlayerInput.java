@@ -3,7 +3,6 @@ package com.googlecode.reaxion.game.input;
 import com.googlecode.reaxion.game.attack.AirDash;
 import com.googlecode.reaxion.game.attack.AttackData;
 import com.googlecode.reaxion.game.attack.GroundDash;
-import com.googlecode.reaxion.game.attack.SlideDash;
 import com.googlecode.reaxion.game.input.bindings.PlayerBindings;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.model.character.MajorCharacter;

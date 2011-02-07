@@ -16,7 +16,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class SheerCold extends Attack {
 	
 	private static final String n = "Sheer Cold";
-	private static final int gc = 38;
+	private static final int gc = 34;
 	
 	private DeathWarp warp;
 	private Model target;
@@ -79,7 +79,7 @@ public class SheerCold extends Attack {
 	private void death(Model t) {
 		if (t instanceof Character) {
 			Character c = (Character)t;
-			double chance = .2 * (character.hp - c.hp/2)/character.hp;
+			double chance = 1/3 * (character.hp - c.hp/2)/character.hp;
 			if (Math.random() <= chance)
 				// execute death
 				c.hp = (c.hp > 1) ? 1 : 0;
