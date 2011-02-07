@@ -58,7 +58,7 @@ public class DarkHand extends Attack {
 			b.getRootNode().updateRenderState();
 			
 			phase++;
-		} else if (phase == 1 && frameCount >= 40) {
+		} else if (phase == 1 && frameCount >= 24) {
 			finish();
 		}
 	}

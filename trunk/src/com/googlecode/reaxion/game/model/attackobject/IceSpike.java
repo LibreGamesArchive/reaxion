@@ -6,13 +6,14 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.ListFilter;
+import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 public class IceSpike extends AttackObject {
 	
 	public static final String filename = "ice-pillar";
 	protected static final int span = 20;
-	protected static final int extraSpan = 200;
+	protected static final int extraSpan = 150;
 	protected static final int riseTime = 12;
 	protected static final float dpf = .06f;
 	
@@ -39,12 +40,12 @@ public class IceSpike extends AttackObject {
     	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.Character, users);
         for (Model c : collisions) {
         	// can't touch other ice spikes
-            if (c instanceof IceSpike)
+            if (c instanceof IceSpike && ((IceSpike) c).lifeCount > this.lifeCount)
             	finish(b);
             else if (c instanceof Character && !users.contains(c) && !captured.contains(c)) {
         		if (((Character)c).hit(b, this)) {
         			if (captured.size() == 0)
-        				lifespan += extraSpan;
+        				lifespan += (int)(FastMath.nextRandomFloat()*extraSpan);
         			captured.add((Character)c);
         			masses.add(new Integer(((Character)c).mass));
         		}

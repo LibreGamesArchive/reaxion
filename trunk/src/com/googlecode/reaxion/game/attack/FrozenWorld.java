@@ -87,7 +87,7 @@ public class FrozenWorld extends Attack {
 	@Override
 	public void interrupt(StageGameState b, Model other) {
 		// negate flinch, this attack cannot be interrupted
-        character.hp -= other.getDamage()/4;
+        character.hp -= other.getDamage()/2;
         
         // reciprocate the hit
 		if (other instanceof AttackObject)

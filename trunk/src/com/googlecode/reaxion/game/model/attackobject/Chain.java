@@ -12,10 +12,10 @@ import com.jme.math.Vector3f;
 public class Chain extends AttackObject {
 	
 	public static final String filename = "chain";
-	protected static final int span = 200;
+	protected static final int span = 320;
 	protected static final float dpf = 0;
 	
-	public final int offset = 50;
+	public final int offset = 32;
 	private float speed = 3f;
 	private float angle;
 	

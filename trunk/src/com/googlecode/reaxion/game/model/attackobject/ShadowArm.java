@@ -13,10 +13,10 @@ import com.jme.math.Vector3f;
 public class ShadowArm extends AttackObject {
 	
 	public static final String filename = "dark-hand";
-	protected static final int span = 40;
+	protected static final int span = 24;
 	protected static final float dpf = 14;
 	
-	private final int reach = 32;
+	private final int reach = 48;
 	
 	private Model arm;
 	

@@ -15,6 +15,8 @@ public class RushSpiral extends AttackObject {
 	public static final String filename = "dark-rush";
 	protected static final float dpf = 20;
 	
+	private final float pitchInc = FastMath.PI/18;
+	
 	private Model user;
 	
 	private ArrayList<Model> hitList = new ArrayList<Model>();
@@ -38,10 +40,9 @@ public class RushSpiral extends AttackObject {
         
 		// stay with character
 		Vector3f rotation = user.rotationVector;
-		float angle = FastMath.atan2(rotation.x, rotation.z);
-		Vector3f translation = new Vector3f(1f*FastMath.sin(angle), 0, 1f*FastMath.cos(angle));		
+		pitch += pitchInc;
 		rotate(rotation);
-		model.setLocalTranslation(user.model.getWorldTranslation().add(translation));
+		model.setLocalTranslation(user.model.getWorldTranslation().add(0, 3, 0));
 		
 		// check if a Character is hit with linear approximation
     	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.Character, users);
