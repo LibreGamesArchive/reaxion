@@ -12,7 +12,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 public class Stopga extends Attack {
 	
 	private static final String n = "Stopga";
-	private static final int gc = 14;
+	private static final int gc = 11;
 	
 	private Chain[] chain = new Chain[2];
 	private Model target;

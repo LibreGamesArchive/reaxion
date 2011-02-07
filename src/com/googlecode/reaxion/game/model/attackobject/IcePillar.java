@@ -6,12 +6,13 @@ import com.googlecode.reaxion.game.model.Model;
 import com.googlecode.reaxion.game.model.character.Character;
 import com.googlecode.reaxion.game.state.StageGameState;
 import com.googlecode.reaxion.game.util.ListFilter;
+import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 
 public class IcePillar extends AttackObject {
 	
 	public static final String filename = "ice-pillar";
-	protected static final int span = 380;
+	protected static final int span = 280;
 	protected static final int riseTime = 12;
 	protected static final float dpf = .06f;
 	
@@ -21,14 +22,14 @@ public class IcePillar extends AttackObject {
 	public IcePillar(Model m) {
     	super(filename, dpf, m);
     	flinch = true;
-    	lifespan = span;
+    	lifespan = (int)(FastMath.nextRandomFloat()*span);
     	checkTriangles = false;
     }
 	
 	public IcePillar(Model[] m) {
     	super(filename, dpf, m);
     	flinch = true;
-    	lifespan = span;
+    	lifespan = (int)(FastMath.nextRandomFloat()*span);
     	checkTriangles = false;
     }
 	
@@ -38,7 +39,7 @@ public class IcePillar extends AttackObject {
     	Model[] collisions = getLinearModelCollisions(b, velocity, .5f, ListFilter.Filter.Character, users);
         for (Model c : collisions) {
         	// can't touch other ice pillars
-            if (c instanceof IcePillar)
+            if (c instanceof IcePillar && ((IcePillar) c).lifeCount > this.lifeCount)
             	finish(b);
             else if (c instanceof Character && !users.contains(c) && !captured.contains(c)) {
         		if (((Character)c).hit(b, this)) {

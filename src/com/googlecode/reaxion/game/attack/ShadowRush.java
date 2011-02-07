@@ -16,6 +16,7 @@ public class ShadowRush extends Attack {
 	private static final int dashSpeed = 8;
 	
 	private Vector3f prevPos = new Vector3f();
+	private boolean massChanged = false;
 	
 	private RushSpiral force;
 	
@@ -39,7 +40,8 @@ public class ShadowRush extends Attack {
 		character.moveLock = true;
 		character.animationLock = true;
 		character.tagLock = true;
-		
+		character.mass *= 2;
+		massChanged = true;
 		character.play("gaurd", b.tpf);
 	}
 	
@@ -48,7 +50,7 @@ public class ShadowRush extends Attack {
 		if (phase == 0) {
 			// add the dash force
 			force = (RushSpiral)LoadingQueue.quickLoad(new RushSpiral(getUsers()), b);
-			force.rotate(character.rotationVector.mult(new Vector3f(1, 0, 1)));
+			force.rotationVector = character.rotationVector.mult(new Vector3f(1, 0, 1));
 			b.getRootNode().updateRenderState();
 			character.setVelocity(character.rotationVector.mult(dashSpeed));
 			prevPos = character.model.getLocalTranslation().clone();
@@ -85,6 +87,8 @@ public class ShadowRush extends Attack {
 		character.moveLock = false;
 		character.animationLock = false;
 		character.tagLock = false;
+		if (massChanged)
+			character.mass /= 2;
 	}
 	
 }
