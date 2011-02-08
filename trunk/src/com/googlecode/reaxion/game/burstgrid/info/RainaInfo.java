@@ -21,7 +21,7 @@ public class RainaInfo extends PlayerInfo {
 	public void init() {
 		setStats(125,0,12,38,1);
 		setAbilities(new String[] { "Charity", "CriticalPoint" });
-		setAttacks(new String[] { "SpawnBubble", "BubbleBath", "Psywave", "Beacon", "LightningStorm" });
+		setAttacks(new String[] { "SpawnBubble", "BubbleBath", "Psywave", "AquaRing", "NymphSong", "LightningStorm" });
 		setUsableSfx();
 		createBurstGrid("");
 	}

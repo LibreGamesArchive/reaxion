@@ -7,12 +7,12 @@ import com.googlecode.reaxion.game.state.StageGameState;
 public class DarkPit extends AttackObject {
 	
 	public static final String filename = "dark-pit";
-	protected static final int span = 640;
+	protected static final int span = 510;
 	protected static final float dpf = 0;
-	protected static final float maxdpf = .25f;
+	protected static final float maxdpf = .2f;
 	
 	private final int upTime = 40;
-	private final int downTime = 600;
+	private final int downTime = 470;
 	
 	private Model user;
 	
@@ -31,7 +31,7 @@ public class DarkPit extends AttackObject {
 	@Override
 	public void hit(StageGameState b, Character other) {
 		// give hp to user
-		((Character)user).heal(b, damagePerFrame/2.5);
+		((Character)user).heal(b, damagePerFrame/6);
     }
 	
 	@ Override
@@ -43,9 +43,9 @@ public class DarkPit extends AttackObject {
         		finish(b);
 		
 		if (lifeCount < upTime)
-			model.setLocalScale(4*(float)(lifeCount+1)/upTime);
+			model.setLocalScale(3*(float)(lifeCount+1)/upTime);
 		else if (lifeCount > downTime) {
-			model.setLocalScale(4*(float)(lifespan - lifeCount + 1)/(lifespan - downTime));
+			model.setLocalScale(3*(float)(lifespan - lifeCount + 1)/(lifespan - downTime));
 			damagePerFrame = 0;
 		} else
 			damagePerFrame = maxdpf;

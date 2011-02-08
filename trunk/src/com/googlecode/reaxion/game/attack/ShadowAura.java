@@ -11,7 +11,7 @@ import com.radakan.jme.mxml.anim.MeshAnimationController;
 
 public class ShadowAura extends Attack {
 	private static final String n = "Shadow Aura";
-	private static final int gc = 15;
+	private static final int gc = 18;
 	
 	private DarkAura aura;
 	
@@ -66,7 +66,7 @@ public class ShadowAura extends Attack {
 	@Override
 	public void interrupt(StageGameState b, Model other) {
 		// negate flinch, this attack cannot be interrupted
-        character.hp -= other.getDamage()/4;
+        character.hp -= other.getDamage()/3;
         
         // reciprocate the hit
 		if (other instanceof AttackObject)
