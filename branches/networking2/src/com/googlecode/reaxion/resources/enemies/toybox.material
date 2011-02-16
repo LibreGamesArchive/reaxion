@@ -1,0 +1,20 @@
+
+material tex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture enemies/toybox-UV.png
+			}
+		}
+
+	}
+
+}
+
+

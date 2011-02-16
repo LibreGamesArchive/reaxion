@@ -1,0 +1,20 @@
+
+material poison
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/dark-poison.png
+			}
+		}
+
+	}
+
+}
+
+

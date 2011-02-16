@@ -1,0 +1,21 @@
+
+material i_shine5mainTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture textures/i_shine-UV-5.png
+			}
+		}
+
+	}
+
+}
+
+

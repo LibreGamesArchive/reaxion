@@ -1,0 +1,40 @@
+
+material base
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/lava-valley-baseUV.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material area
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture stages/lava-valley-areaUV.png
+			}
+		}
+
+	}
+
+}
+
+

@@ -1,0 +1,21 @@
+
+material lambert8
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/dream_port-dome3.png
+			}
+		}
+
+	}
+
+}
+
+

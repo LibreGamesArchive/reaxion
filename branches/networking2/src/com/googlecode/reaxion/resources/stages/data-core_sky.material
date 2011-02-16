@@ -1,0 +1,21 @@
+
+material digi
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/data-core_floor.png
+			}
+		}
+
+	}
+
+}
+
+

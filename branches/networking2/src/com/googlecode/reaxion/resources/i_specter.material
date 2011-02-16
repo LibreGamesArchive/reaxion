@@ -1,0 +1,37 @@
+
+material i_shadow1eyeTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+		}
+
+	}
+
+}
+
+
+
+material i_shadow1skinTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/white-noise.png
+			}
+		}
+
+	}
+
+}
+
+

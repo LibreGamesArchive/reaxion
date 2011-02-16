@@ -1,0 +1,66 @@
+
+material lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/bullet-side.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material pasted__lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/bullet-side.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material lambert3
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+			lighting off
+
+			texture_unit
+			{
+				texture textures/bullet-front.png
+			}
+		}
+
+	}
+
+}
+
+

@@ -1,0 +1,47 @@
+<mesh>
+    <submeshes>
+        <submesh material="slash" usesharedvertices="false" use32bitindexes="false" operationtype="triangle_list">
+            <faces count="2">
+                <face v1="0" v2="1" v3="2" />
+                <face v1="3" v2="4" v3="5" />
+            </faces>
+            <geometry vertexcount="6">
+                <vertexbuffer positions="true" normals="true" texture_coord_dimensions_0="2" texture_coords="1">
+                    <vertex>
+                        <position x="-1.11022e-016" y="-0.5" z="-2" />
+                        <normal x="1" y="-2.22045e-016" z="4.93038e-032" />
+                        <texcoord u="1.00088" v="1.00075" />
+                    </vertex>
+                    <vertex>
+                        <position x="1.11022e-016" y="0.5" z="-2" />
+                        <normal x="1" y="-2.22045e-016" z="4.93038e-032" />
+                        <texcoord u="1.00083" v="-0.000951767" />
+                    </vertex>
+                    <vertex>
+                        <position x="-1.11022e-016" y="-0.5" z="2" />
+                        <normal x="1" y="-2.22045e-016" z="4.93038e-032" />
+                        <texcoord u="0.000877343" v="1.00095" />
+                    </vertex>
+                    <vertex>
+                        <position x="-1.11022e-016" y="-0.5" z="2" />
+                        <normal x="1" y="-2.22045e-016" z="4.93038e-032" />
+                        <texcoord u="0.000877343" v="1.00095" />
+                    </vertex>
+                    <vertex>
+                        <position x="1.11022e-016" y="0.5" z="-2" />
+                        <normal x="1" y="-2.22045e-016" z="4.93038e-032" />
+                        <texcoord u="1.00083" v="-0.000951767" />
+                    </vertex>
+                    <vertex>
+                        <position x="1.11022e-016" y="0.5" z="2" />
+                        <normal x="1" y="-2.22045e-016" z="4.93038e-032" />
+                        <texcoord u="0.000827521" v="-0.000752926" />
+                    </vertex>
+                </vertexbuffer>
+            </geometry>
+        </submesh>
+    </submeshes>
+    <submeshnames>
+        <submeshname name="submesh0" index="0" />
+    </submeshnames>
+</mesh>

@@ -1,0 +1,21 @@
+
+material lambert4
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			lighting off
+
+			texture_unit
+			{
+				texture stages/worlds_edge_UV3.png
+			}
+		}
+
+	}
+
+}
+
+

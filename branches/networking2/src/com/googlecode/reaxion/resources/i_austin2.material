@@ -1,0 +1,61 @@
+
+material skinTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/i_austin1UV-4.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material eyeTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture textures/i_monica-2UVEye.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material pasted__hairTex
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture textures/i_austin1HairUV-2.png
+			}
+		}
+
+	}
+
+}
+
+
