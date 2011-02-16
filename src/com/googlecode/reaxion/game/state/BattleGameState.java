@@ -23,8 +23,12 @@ public class BattleGameState extends StageGameState {
     // time between final kill and results display
     public int victoryTime = 72;
     public int defeatTime = 72;
-    private int resultCount = 0;
+    protected int resultCount = 0;
     
+    /**
+     * List of {@code Characters} that must have <= 0 HP in
+     * order for the state to terminate in win.
+     */
     private Character[] opponents;
     
     public BattleGameState() {
